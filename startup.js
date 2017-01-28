@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -32,9 +32,36 @@ function startShell() {
     var options = {
         shell: true
     };
-    global.shell = spawn(shellExec, options);
-    global.shell.stdout.on('data', (data) => {
-        console.log(`shell: ${data}`);
+
+    ipcMain.once('shell_output_ready', (event) => {
+        global.shell = spawn(shellExec, options);
+        global.windowIpc = event.sender;
+        global.shell.stdout.on('data', (data) => {
+            global.windowIpc.send('shell_stdout', data);
+        });
+        global.shell.stderr.on('data', (data) => {
+            global.windowIpc.send('shell_stdout', data);
+            console.log(`shell_ERROR: ${data}`);
+        });
+        ipcMain.on('shell_input', (event, data) => {
+            if (data == 'exit') {
+                app.quit()
+            } else if (data == 'restart') {
+                console.log("Restarting shell");
+                global.shell.kill();
+                global.shell = spawn(shellExec, options);
+                global.shell.stdout.on('data', (data) => {
+                    global.windowIpc.send('shell_stdout', data);
+                });
+                global.shell.stderr.on('data', (data) => {
+                    global.windowIpc.send('shell_stdout', data);
+                    console.log(`shell_ERROR: ${data}`);
+                });
+                global.windowIpc.send('shell_stdout', '----SHELL RESTART----');
+            } else {
+                global.shell.stdin.write(data+"\n");
+            }
+        });
     });
 }
 

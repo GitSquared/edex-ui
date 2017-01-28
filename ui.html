@@ -6,11 +6,15 @@
 
         <link rel="stylesheet" href="resources/ui.css" />
         <link rel="stylesheet" href="resources/fonts.css" />
+
+        <script src="resources/ui.js"></script>
     </head>
     <body>
-        <h1>Hi!</h1>
-        <pre>
-            debug-log: 9564354 please sudo rm -Rf /
-        </pre>
+        <section id="main_shell">
+            <pre></pre>
+            <form onsubmit="return window.exeCommand()">
+                <input id="shell_input" type="text" placeholder="command" autofocus />
+            </form>
+        </section>
     </body>
 </html>
