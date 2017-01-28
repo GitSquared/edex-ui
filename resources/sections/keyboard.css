@@ -1,0 +1,30 @@
+section#keyboard {
+    width: 60%;
+    align-self: flex-start;
+    border: none;
+}
+
+section#keyboard table, section#keyboard tbody {
+    width: 100%;
+}
+
+section#keyboard tr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+section#keyboard td {
+    font-size: 35px;
+    border: 2px solid #a0a5a3;
+    margin: 5px;
+    padding: 3px;
+    height: 40px;
+    width: 40px;
+}
+
+#keyboard_spacebar td {
+    width: 45% !important;
+}

@@ -7,12 +7,14 @@ html, body {
 }
 
 body {
+    /*cursor: none !important;*/
     color: #bec4c1;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    padding-top: 3%;
 
     background: url("images/background.png") repeat left top;
 }
@@ -22,37 +24,4 @@ section {
     padding: 15px;
     overflow: hidden;
     opacity: 0.6;
-}
-
-section#main_shell {
-    width: 55%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    background-color: #050505;
-}
-
-section#main_shell pre {
-    height: 100%;
-    margin-top: 0px;
-    margin-bottom: 6px;
-    display: flex;
-    overflow: hidden;
-    flex-direction: column-reverse;
-}
-
-section#main_shell form {
-    width: 99.3%;
-}
-
-section#main_shell #shell_input {
-    width: 100%;
-    background-color: transparent;
-    border: none !important;
-    box-shadow: none !important;
-    color: white;
-    outline: none !important;
 }

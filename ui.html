@@ -6,6 +6,8 @@
 
         <link rel="stylesheet" href="resources/ui.css" />
         <link rel="stylesheet" href="resources/fonts.css" />
+        <link rel="stylesheet" href="resources/sections/main_shell.css" />
+        <link rel="stylesheet" href="resources/sections/keyboard.css" />
 
         <script src="resources/ui.js"></script>
     </head>
@@ -15,6 +17,17 @@
             <form onsubmit="return window.exeCommand()">
                 <input id="shell_input" type="text" placeholder="command" autofocus />
             </form>
+        </section>
+        <section id="keyboard">
+            <table>
+                <tbody>
+                    <tr id="keyboard_numbers"></tr>
+                    <tr id="keyboard_qwerty"></tr>
+                    <tr id="keyboard_asdfgh"></tr>
+                    <tr id="keyboard_zxcvhn"></tr>
+                    <tr id="keyboard_spacebar"></tr>
+                </tbody>
+            </table>
         </section>
     </body>
 </html>
