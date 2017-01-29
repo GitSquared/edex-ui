@@ -38,6 +38,12 @@ section#keyboard td:active, section#keyboard td.active {
     transition: none;
 }
 
+section#keyboard td.long_active {
+    background-color: #bec4c1;
+    transition: none;
+    color: black;
+}
+
 section#keyboard td.function_key {
     width: auto;
     font-size: 17px;

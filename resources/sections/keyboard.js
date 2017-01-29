@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 const function_keys = ["SHIFT", "ENTER", "CAPS", "TAB", "ESC", "BACK"];
+window.keyboard_caps = false;
 
 var selected_keyboard = path.join(__dirname, '../keyboards/selected_keyboard.txt');
 fs.readFile(selected_keyboard, {encoding: 'utf-8'}, function(err, data) {
@@ -23,37 +24,37 @@ function loadKeyboard(file) {
             var keyboard = JSON.parse(data);
             keyboard.keyboard_numbers.forEach((value, index) => {
                 if (contains.call(function_keys, value)) {
-                    $( "#keyboard_numbers" ).append('<td class="function_key" onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_numbers" ).append('<td class="function_key" onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 } else {
-                    $( "#keyboard_numbers" ).append('<td onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_numbers" ).append('<td onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 }
             });
             keyboard.keyboard_qwerty.forEach((value, index) => {
                 if (contains.call(function_keys, value)) {
-                    $( "#keyboard_qwerty" ).append('<td class="function_key" onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_qwerty" ).append('<td class="function_key" onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 } else {
-                    $( "#keyboard_qwerty" ).append('<td onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_qwerty" ).append('<td onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 }
             });
             keyboard.keyboard_asdfgh.forEach((value, index) => {
                 if (contains.call(function_keys, value)) {
-                    $( "#keyboard_asdfgh" ).append('<td class="function_key" onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_asdfgh" ).append('<td class="function_key" onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 } else {
-                    $( "#keyboard_asdfgh" ).append('<td onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_asdfgh" ).append('<td onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 }
             });
             keyboard.keyboard_zxcvbn.forEach((value, index) => {
                 if (contains.call(function_keys, value)) {
-                    $( "#keyboard_zxcvbn" ).append('<td class="function_key" onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_zxcvbn" ).append('<td class="function_key" onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 } else {
-                    $( "#keyboard_zxcvbn" ).append('<td onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_zxcvbn" ).append('<td onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 }
             });
             keyboard.keyboard_spacebar.forEach((value, index) => {
                 if (contains.call(function_keys, value)) {
-                    $( "#keyboard_spacebar" ).append('<td class="function_key" onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_spacebar" ).append('<td class="function_key" onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 } else {
-                    $( "#keyboard_spacebar" ).append('<td onclick="window.pressKey(\''+value+'\', false);">'+value+'</td>');
+                    $( "#keyboard_spacebar" ).append('<td onmousedown="window.pressKey(\''+value+'\', false);">'+value+'</td>');
                 }
             });
         } else {
@@ -82,9 +83,28 @@ window.pressKey = function(key, animate) {
                     var tmp = $( "#shell_input" ).val()+"    ";
                     $( "#shell_input" ).val(tmp);
                     break;
-                // Need CAPS/SHIFT support
+                case "CAPS":
+                    if (window.keyboard_caps == true) {
+                        window.keyboard_caps = false;
+                        $( "#keyboard td.function_key:contains('CAPS')" ).removeClass('long_active');
+                    } else {
+                        window.keyboard_caps = true;
+                        $( "#keyboard td.function_key:contains('CAPS')" ).addClass('long_active');
+                    }
+                    break;
+                case "SHIFT":
+                    window.keyboard_caps = true;
+                    $( "#keyboard td.function_key:contains('SHIFT')" ).addClass('long_active');
+                    $( "#keyboard td.function_key:contains('SHIFT')" ).mouseup(() => {
+                            window.keyboard_caps = false;
+                            $( "#keyboard td.function_key:contains('SHIFT')" ).removeClass('long_active');
+                    });
+                    break;
             }
         } else {
+            if (window.keyboard_caps == false) {
+                var key = key.toLowerCase();
+            }
             var key = $( "#shell_input" ).val()+key;
             $( "#shell_input" ).val(key);
         }
