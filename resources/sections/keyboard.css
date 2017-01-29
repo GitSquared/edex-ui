@@ -1,5 +1,5 @@
 section#keyboard {
-    width: 60%;
+    width: 100%;
     align-self: flex-start;
     border: none;
 }
@@ -14,17 +14,49 @@ section#keyboard tr {
     justify-content: center;
     flex-wrap: nowrap;
     flex-direction: row;
+    position: relative;
 }
 
 section#keyboard td {
-    font-size: 35px;
-    border: 2px solid #a0a5a3;
-    margin: 5px;
-    padding: 3px;
-    height: 40px;
-    width: 40px;
+    font-size: 23px;
+    border: none;
+    border-radius: 3px;
+    margin: 6px;
+    padding: 2px;
+    margin-left: 8px;
+    margin-right: 8px;
+    height: 38px;
+    width: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section#keyboard td:active {
+    background-color: #bec4c1;
+}
+
+section#keyboard td.function_key {
+    width: auto;
+    font-size: 17px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#keyboard_numbers {
+    right: 10px;
+}
+
+#keyboard_qwerty {
+    right: 5px;
+}
+
+#keyboard_asdfgh {
+    left: 25px;
 }
 
 #keyboard_spacebar td {
-    width: 45% !important;
+    width: 20% !important;
+    height: 19px !important;
+    border: 1px solid #a0a5a3 !important;
 }
