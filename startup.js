@@ -44,7 +44,7 @@ function startShell() {
             console.log(`shell_ERROR: ${data}`);
         });
         ipcMain.on('shell_input', (event, data) => {
-            if (data == 'exit') {
+            if (data == 'exit' || data == 'EXIT') {
                 app.quit()
             } else if (data == 'restart') {
                 console.log("Restarting shell");

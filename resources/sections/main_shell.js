@@ -26,3 +26,10 @@ $(document).click(function() {
     // Get keyboard focus back on the shell after a click.
     $( "#shell_input" ).focus();
 });
+
+$(document).keydown(function (e) {
+    // Get keyboard focus back on the shell after a tab.
+    if (e.key == "Tab") {
+        $( "#shell_input" ).focus();
+    }
+});

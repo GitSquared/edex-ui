@@ -30,10 +30,12 @@ section#keyboard td {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color .3s ease-out;
 }
 
-section#keyboard td:active {
+section#keyboard td:active, section#keyboard td.active {
     background-color: #bec4c1;
+    transition: none;
 }
 
 section#keyboard td.function_key {
