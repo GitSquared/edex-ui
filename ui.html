@@ -7,16 +7,14 @@
         <link rel="stylesheet" href="resources/ui.css" />
         <link rel="stylesheet" href="resources/fonts.css" />
         <link rel="stylesheet" href="resources/sections/main_shell.css" />
+        <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
         <link rel="stylesheet" href="resources/sections/keyboard.css" />
 
         <script src="resources/ui.js"></script>
     </head>
     <body>
         <section id="main_shell">
-            <pre></pre>
-            <form onsubmit="return window.exeCommand()">
-                <input id="shell_input" type="text" placeholder="command" autofocus />
-            </form>
+            <pre id="xterm-container"></pre>
         </section>
         <section id="keyboard">
             <table>

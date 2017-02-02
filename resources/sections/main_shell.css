@@ -11,22 +11,8 @@ section#main_shell {
 
 section#main_shell pre {
     height: 100%;
+    width: 100%;
     margin-top: 0px;
     margin-bottom: 6px;
-    display: flex;
     overflow: hidden;
-    flex-direction: column-reverse;
-}
-
-section#main_shell form {
-    width: 99.3%;
-}
-
-section#main_shell #shell_input {
-    width: 100%;
-    background-color: transparent;
-    border: none !important;
-    box-shadow: none !important;
-    color: white;
-    outline: none !important;
 }

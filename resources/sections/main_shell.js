@@ -1,35 +1,71 @@
-const {ipcRenderer} = require('electron')
+const pty = require('node-pty')
 const $ = require('jquery')
+const Terminal = require('xterm')
+
+const shell = process.platform === 'win32' ? 'cmd.exe' : 'bash';
 
 function initShell() {
-    ipcRenderer.send('shell_output_ready', 'null'); // Start shell child process
-
-    ipcRenderer.on('shell_stdout', (event, data) => {
-        if (data[0] == 27 && data[1] == 91 && data[2] == 51 && data[3] == 74 && data[4] == 27 && data[5] == 91 && data[6] == 72 && data[7] == 27 && data[8] == 91 && data[9] == 50 && data[10] == 74) { // "clear"
-            $( "pre" ).html('');
-        } else if(data == '----SHELL RESTART----') {
-            $( "pre" ).append("<br><br>---- SHELL RESTART ----<br><br><br>");
-        } else {
-            $( "pre" ).append(`${data}`);
+    window.shellDisplay = new Terminal({
+        cursorBlink: true,
+        scrollback: 1500,
+        tabStopWidth: 4
+    });
+    window.shellDisplay.open(document.getElementById('xterm-container'));
+    window.shellDisplay.attachCustomKeydownHandler((e) => {
+        switch(e.key) {
+            case "Backspace":
+                var key = "BACK";
+                break;
+            case "Tab":
+                var key = "TAB";
+                break;
+            case "Shift":
+                var key = "SHIFT";
+                break;
+            case "Escape":
+                var key = "ESC";
+                break;
+            case "Enter":
+                window.exeCommand();
+                break;
+            case "CapsLock":
+                var key = "CAPS";
+                break;
+            default:
+                window.shellProcess.write(e.key);
         }
+        return false;
+    });
+
+    window.shellProcess = pty.spawn(shell, [], {
+        name: 'xterm-color',
+        cols: 80,
+        rows: 30,
+        cwd: process.env.HOME,
+        env: process.env
+    });
+
+    window.shellProcess.on('data', (data) => {
+        window.shellDisplay.write(data);
     });
 
     window.exeCommand = function() {
-        ipcRenderer.send('shell_input', $( "#shell_input" ).val());
-        $( "#shell_input" ).val('');
+        window.shellProcess.write('\r');
         return false;
     }
 }
-initShell();
+$(() => {
+    initShell();
+});
 
 $(document).click(function() {
     // Get keyboard focus back on the shell after a click.
-    $( "#shell_input" ).focus();
+    $( ".xterm-helper-textarea" ).focus();
 });
 
 $(document).keydown(function (e) {
     // Get keyboard focus back on the shell after a tab.
     if (e.key == "Tab") {
-        $( "#shell_input" ).focus();
+        $( ".xterm-helper-textarea" ).focus();
     }
 });
