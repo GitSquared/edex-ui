@@ -12,7 +12,14 @@ section#main_shell {
 section#main_shell pre {
     height: 100%;
     width: 100%;
-    margin-top: 0px;
-    margin-bottom: 6px;
+    margin: 0px;
     overflow: hidden;
+}
+
+.terminal .xterm-viewport {
+    overflow: hidden !important;
+}
+
+.terminal {
+    font-family: inherit !important;
 }

@@ -1,6 +1,7 @@
 const pty = require('node-pty')
 const $ = require('jquery')
-const Terminal = require('xterm')
+const Terminal = require('./../../node_modules/xterm/dist/xterm.js')
+const TerminalFit = require('./../../node_modules/xterm/dist/addons/fit/fit.js')
 
 const shell = process.platform === 'win32' ? 'cmd.exe' : 'bash';
 
@@ -11,6 +12,7 @@ function initShell() {
         tabStopWidth: 4
     });
     window.shellDisplay.open(document.getElementById('xterm-container'));
+
     window.shellDisplay.attachCustomKeydownHandler((e) => {
         switch(e.key) {
             case "Backspace":
@@ -44,6 +46,15 @@ function initShell() {
         cwd: process.env.HOME,
         env: process.env
     });
+
+    setTimeout(() => {
+        var tmp = TerminalFit.proposeGeometry(window.shellDisplay);
+        console.log('Proposed '+tmp.cols+' cols and '+tmp.rows+' rows,');
+        tmp.cols = tmp.cols + 2;
+        console.log('applied '+tmp.cols+' cols and '+tmp.rows+' rows.');
+        window.shellDisplay.resize(tmp.cols, tmp.rows);
+        window.shellProcess.resize(tmp.cols, tmp.rows);
+    }, 500);
 
     window.shellProcess.on('data', (data) => {
         window.shellDisplay.write(data);
