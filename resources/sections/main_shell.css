@@ -6,7 +6,6 @@ section#main_shell {
     align-items: flex-start;
     justify-content: flex-end;
     flex-wrap: nowrap;
-    background-color: #050505;
 }
 
 section#main_shell pre {
@@ -21,8 +20,8 @@ section#main_shell pre {
 }
 
 .terminal {
-    background-color: #000;
-    color: #fff;
+    background-color: transparent;
+    color: inherit;
     font-family: inherit;
     position: relative;
 }

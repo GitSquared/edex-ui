@@ -21,6 +21,7 @@ body {
 
 section {
     border: 2px solid #a0a5a3;
+    background-color: rgba(5, 5, 5, 0.5);
     padding: 15px;
     overflow: hidden;
     opacity: 0.6;
