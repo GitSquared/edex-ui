@@ -1,3 +1,9 @@
+# WARNING: THIS REPOSITORY IS A PROLONGED RELAXATION STATE (AKA FROZEN).
+
+
+
+
+
 # eDEX-UI
 
 ![H@ck3r tactile keyboard demo](https://square.codebrew.fr/edex-ui-keyboard.gif)
