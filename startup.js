@@ -6,7 +6,7 @@ console.log('Starting eDEX-UI with Node '+process.versions.node+', Chrome '+proc
 console.log('Detected platform: '+process.platform)
 
 app.on('ready', startup)
-app.on('before-quit', function() {console.log('Terminating eDEX-UI...');})
+app.on('before-quit', function() {console.log('Terminating eDEX-UI...');global.shell.kill();})
 app.on('will-quit', function() {
     console.log("Process terminated, exit code 0")
 })
@@ -31,10 +31,14 @@ function launchMainWindow() {
     })
 
     global.win.on('closed', () => {
-        global.win = null
+        global.win = null;
     })
 
     console.log('UI launched')
+}
+
+function launchShellDaemon() {
+    global.shell = require('child_process').fork('./tty.js', [], {silent: true});
 }
 
 function startup () {

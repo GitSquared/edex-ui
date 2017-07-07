@@ -18,9 +18,7 @@
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
     "electron": "^1.4.15",
-    "jquery": "^3.1.1",
-    "node-pty": "^0.6.2",
-    "xterm": "^2.2.3"
+    "jquery": "^3.1.1"
   },
   "devDependencies": {
     "devtron": "^1.4.0"
