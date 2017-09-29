@@ -1,7 +1,0 @@
-{
-    "keyboard_numbers": ["ESC", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "BACK"],
-    "keyboard_qwerty": ["TAB", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "|"],
-    "keyboard_asdfgh": ["CAPS", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "ENTER"],
-    "keyboard_zxcvbn": ["SHIFT", "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/", "SHIFT"],
-    "keyboard_spacebar": [" "]
-}

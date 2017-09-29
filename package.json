@@ -2,7 +2,7 @@
   "name": "edex-ui",
   "version": "0.0.1",
   "description": "A science fiction desktop running everywhere. Awesome.",
-  "main": "startup.js",
+  "main": "_boot.js",
   "scripts": {
     "start": "./node_modules/.bin/electron ."
   },
@@ -16,11 +16,6 @@
     "url": "https://github.com/GitSquared/edex-ui/issues"
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
-  "dependencies": {
-    "electron": "^1.4.15",
-    "jquery": "^3.1.1"
-  },
-  "devDependencies": {
-    "devtron": "^1.4.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }

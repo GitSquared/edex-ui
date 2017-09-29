@@ -1,11 +1,10 @@
 html, body {
     width: 100%;
     height: 100%;
-    padding: 0px;
     margin: 0px;
+    padding: 0px;
     overflow: hidden;
 }
-
 body {
     /*cursor: none !important;*/
     color: #bec4c1;
@@ -15,13 +14,5 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     padding-top: 3%;
-    background: url("images/background.png") repeat left top;
-}
-
-section {
-    border: 2px solid #a0a5a3;
-    background-color: rgba(5, 5, 5, 0.5);
-    padding: 15px;
-    overflow: hidden;
-    opacity: 0.6;
+    background: url("../png/bg.png") repeat top left;
 }
