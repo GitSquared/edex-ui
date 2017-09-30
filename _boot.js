@@ -4,43 +4,36 @@ console.log(`
     ===========================================================
               Starting eDEX-UI v${app.getVersion()} with Node ${process.versions.node}
                            on Electron ${process.versions.electron}
-    ===========================================================`);
+    ===========================================================
+    `);
 
 const electron = require("electron");
-const pty = require("node-pty");
-const ws = require("ws").Server;
 const path = require("path");
 const url = require("url");
+const Terminal = require("./classes/terminal.class.js").Terminal;
 
-let win, wss, tty;
+let win, tty;
 
 app.on('ready', () => {
-    tty = pty.spawn(process.platform === 'win32' ? 'cmd.exe' : 'bash', [], {
-        name: 'xterm-color',
-        cols: 80,
-        rows: 24,
-        cwd: process.env.PWD,
-        env: process.env
-    });
 
-    wss = new ws({port: 3000});
-    wss.on('connection', (ws) => {
-        console.log("connected");
-        ws.on('message', (msg) => {
-            tty.write(msg);
-        });
-        tty.on('data', (data) => {
-            try {
-                ws.send(data);
-            } catch (e) {
-                // Websocket closed
-            }
-        });
+    tty = new Terminal({
+        role: "server",
+        shell: (process.platform === "win32") ? "cmd.exe" : "bash"
     });
-    wss.on('close', () => {
-        console.log("closed");
-        tty.kill();
-    });
+    tty.onclosed = (code, signal) => {
+        console.log("=> Terminal exited - "+code+", "+signal);
+        app.quit();
+    };
+    tty.onopened = () => {
+        console.log("=> Connected to front-end");
+    };
+    tty.onresized = (cols, rows) => {
+        console.log("=> Resized terminal to "+cols+"x"+rows);
+    };
+    tty.ondisconnected = () => {
+        tty.tty.kill();
+        app.quit();
+    };
 
     let {x, y, width, height} = electron.screen.getPrimaryDisplay().bounds;
     width++; height++;
@@ -76,3 +69,7 @@ app.on('ready', () => {
 app.on('window-all-closed', () => {
     app.quit();
 });
+
+app.on('before-quit', () => {
+    console.log("=> Shutting down...");
+})
