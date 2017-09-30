@@ -43,9 +43,7 @@ class Terminal {
 
             this.resize = (cols, rows) => {
                 this.term.resize(cols, rows);
-                setTimeout(() => {
-                    this.sendSizeToServer();
-                }, 50);
+                this.sendSizeToServer();
             }
         } else if (opts.role === "server") {
 
