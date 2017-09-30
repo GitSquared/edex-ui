@@ -49,7 +49,7 @@ app.on('ready', () => {
         alwaysOnTop: true,
         fullscreen: true,
         // focusable: false,
-        skipTaskbar: true,
+        // skipTaskbar: true,
         autoHideMenuBar: true,
         frame: true
     });

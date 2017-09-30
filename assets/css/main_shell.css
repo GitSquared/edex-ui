@@ -114,6 +114,11 @@ section#main_shell pre {
 /*
  *  Determine default colors for xterm.js
  */
+.terminal a {
+    font-weight: bold;
+    color: inherit;
+}
+
 .terminal .xterm-bold {
     font-weight: bold;
 }

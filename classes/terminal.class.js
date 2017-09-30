@@ -21,7 +21,8 @@ class Terminal {
 
             this.term = new this.xTerm({
                 cols: 80,
-                rows: 24
+                rows: 24,
+                cursorBlink: false
             });
             this.term.open(document.getElementById(opts.parentId), true);
 
