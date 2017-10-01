@@ -4,7 +4,8 @@
   "description": "A science fiction desktop running everywhere. Awesome.",
   "main": "_boot.js",
   "scripts": {
-    "start": "./node_modules/electron/dist/electron ."
+    "start": "./node_modules/.bin/electron .",
+    "postinstall": "./node_modules/.bin/electron-rebuild -f -w node-pty"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "xterm": "^2.9.2"
   },
   "devDependencies": {
-    "electron": "^1.8.1"
+    "electron": "^1.8.1",
+    "electron-rebuild": "^1.6.0"
   }
 }
