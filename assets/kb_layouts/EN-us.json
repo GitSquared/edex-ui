@@ -161,7 +161,7 @@
         {
             "name": "BACK",
             "cmd": "\b",
-            "shift-name": "DEL",
+            "shift-name": "DELETE",
             "shift-cmd": "~~~CTRLSEQ1~~~[3~"
         }
     ],
@@ -171,80 +171,70 @@
             "cmd": "\t"
         },
         {
-            "name": "q",
+            "name": "Q",
             "cmd": "q",
-            "shift-name": "Q",
             "shift-cmd": "Q",
             "ctrl-cmd": "~~~CTRLSEQ6~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~q"
         },
         {
-            "name": "w",
+            "name": "W",
             "cmd": "w",
-            "shift-name": "W",
             "shift-cmd": "W",
             "ctrl-cmd": "~~~CTRLSEQ7~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~w"
         },
         {
-            "name": "e",
+            "name": "E",
             "cmd": "e",
-            "shift-name": "E",
             "shift-cmd": "E",
             "ctrl-cmd": "\r",
             "alt-cmd": "~~~CTRLSEQ1~~~e"
         },
         {
-            "name": "r",
+            "name": "R",
             "cmd": "r",
-            "shift-name": "R",
             "shift-cmd": "R",
             "ctrl-cmd": "~~~CTRLSEQ8~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~r"
         },
         {
-            "name": "t",
+            "name": "T",
             "cmd": "t",
-            "shift-name": "T",
             "shift-cmd": "T",
             "ctrl-cmd": "~~~CTRLSEQ9~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~t"
         },
         {
-            "name": "y",
+            "name": "Y",
             "cmd": "y",
-            "shift-name": "Y",
             "shift-cmd": "Y",
             "ctrl-cmd": "~~~CTRLSEQ10~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~y"
         },
         {
-            "name": "u",
+            "name": "U",
             "cmd": "u",
-            "shift-name": "U",
             "shift-cmd": "U",
             "ctrl-cmd": "~~~CTRLSEQ11~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~u"
         },
         {
-            "name": "i",
+            "name": "I",
             "cmd": "i",
-            "shift-name": "I",
             "shift-cmd": "I",
             "ctrl-cmd": "\r",
             "alt-cmd": "~~~CTRLSEQ1~~~i"
         },
         {
-            "name": "o",
+            "name": "O",
             "cmd": "o",
-            "shift-name": "O",
             "shift-cmd": "O",
             "alt-cmd": "~~~CTRLSEQ1~~~o"
         },
         {
-            "name": "p",
+            "name": "P",
             "cmd": "p",
-            "shift-name": "P",
             "shift-cmd": "P",
             "ctrl-cmd": "~~~CTRLSEQ12~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~p"
@@ -276,70 +266,61 @@
             "shift-cmd": "ESCAPED|-- CAPSLCK: OFF"
         },
         {
-            "name": "a",
+            "name": "A",
             "cmd": "a",
-            "shift-name": "A",
             "shift-cmd": "A",
             "ctrl-cmd": "~~~CTRLSEQ13~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~a"
         },
         {
-            "name": "s",
+            "name": "S",
             "cmd": "s",
-            "shift-name": "S",
             "shift-cmd": "S",
             "ctrl-cmd": "~~~CTRLSEQ14~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~s"
         },
         {
-            "name": "d",
+            "name": "D",
             "cmd": "d",
-            "shift-name": "D",
             "shift-cmd": "D",
             "ctrl-cmd": "~~~CTRLSEQ15~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~d"
         },
         {
-            "name": "f",
+            "name": "F",
             "cmd": "f",
-            "shift-name": "F",
             "shift-cmd": "F",
             "ctrl-cmd": "~~~CTRLSEQ16~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~f"
         },
         {
-            "name": "g",
+            "name": "G",
             "cmd": "g",
-            "shift-name": "G",
             "shift-cmd": "G",
             "ctrl-cmd": "\r",
             "alt-cmd": "~~~CTRLSEQ1~~~g"
         },
         {
-            "name": "h",
+            "name": "H",
             "cmd": "h",
-            "shift-name": "H",
             "shift-cmd": "H",
             "alt-cmd": "~~~CTRLSEQ1~~~h"
         },
         {
-            "name": "j",
+            "name": "J",
             "cmd": "j",
-            "shift-name": "J",
             "shift-cmd": "J",
             "alt-cmd": "~~~CTRLSEQ1~~~j"
         },
         {
-            "name": "k",
+            "name": "K",
             "cmd": "k",
-            "shift-name": "K",
             "shift-cmd": "K",
             "alt-cmd": "~~~CTRLSEQ1~~~k"
         },
         {
-            "name": "l",
+            "name": "L",
             "cmd": "l",
-            "shift-name": "L",
             "shift-cmd": "L",
             "alt-cmd": "~~~CTRLSEQ1~~~l"
         },
@@ -361,6 +342,10 @@
             "shift-name": "|",
             "shift-cmd": "|",
             "ctrl-cmd": "~~~CTRLSEQ2~~~"
+        },
+        {
+            "name": "ENTER",
+            "cmd": "\r"
         }
     ],
     "row_3": [
@@ -376,56 +361,49 @@
             "ctrl-cmd": "~~~CTRLSEQ2~~~"
         },
         {
-            "name": "z",
+            "name": "Z",
             "cmd": "z",
-            "shift-name": "Z",
             "shift-cmd": "Z",
             "ctrl-cmd": "~~~CTRLSEQ17~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~z"
         },
         {
-            "name": "x",
+            "name": "X",
             "cmd": "x",
-            "shift-name": "X",
             "shift-cmd": "X",
             "ctrl-cmd": "~~~CTRLSEQ18~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~x"
         },
         {
-            "name": "c",
+            "name": "C",
             "cmd": "c",
-            "shift-name": "C",
             "shift-cmd": "C",
             "ctrl-cmd": "~~~CTRLSEQ19~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~c"
         },
         {
-            "name": "v",
+            "name": "V",
             "cmd": "v",
-            "shift-name": "V",
             "shift-cmd": "V",
             "ctrl-cmd": "~~~CTRLSEQ20~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~v"
         },
         {
-            "name": "b",
+            "name": "B",
             "cmd": "b",
-            "shift-name": "B",
             "shift-cmd": "B",
             "ctrl-cmd": "~~~CTRLSEQ21~~~",
             "alt-cmd": "~~~CTRLSEQ1~~~b"
         },
         {
-            "name": "n",
+            "name": "N",
             "cmd": "n",
-            "shift-name": "N",
             "shift-cmd": "N",
             "alt-cmd": "~~~CTRLSEQ1~~~n"
         },
         {
-            "name": "m",
+            "name": "M",
             "cmd": "m",
-            "shift-name": "M",
             "shift-cmd": "M",
             "ctrl-cmd": "\r",
             "alt-cmd": "~~~CTRLSEQ1~~~m"

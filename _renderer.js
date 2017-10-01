@@ -8,7 +8,7 @@ setTimeout(() => {
 
 window.keyboard = new Keyboard({
     layout: require("path").join(__dirname, "assets/kb_layouts/EN-us.json"),
-    container: "toz"
+    container: "keyboard"
 });
 
 

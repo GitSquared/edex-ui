@@ -7,12 +7,12 @@ html, body {
 }
 body {
     /*cursor: none !important;*/
+    user-select: none !important;
     color: #bee6c1;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding-top: 3%;
     background: url("../png/bg.png") repeat top left;
 }
