@@ -1,478 +1,478 @@
 {
-    "row_functions": {
-        "keyObj": {
+    "row_functions": [
+        {
             "name": "ESC",
-            "cmd": ""
+            "cmd": "~~~CTRLSEQ1~~~"
         },
-        "keyObj": {
+        {
             "name": "F1",
-            "cmd": "OP",
-            "ctrl-cmd": "[1;5P"
+            "cmd": "~~~CTRLSEQ1~~~OP",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5P"
         },
-        "keyObj": {
+        {
             "name": "F2",
-            "cmd": "OQ",
-            "ctrl-cmd": "[1;5Q"
+            "cmd": "~~~CTRLSEQ1~~~OQ",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5Q"
         },
-        "keyObj": {
+        {
             "name": "F3",
-            "cmd": "OR",
-            "ctrl-cmd": "[1;5R"
+            "cmd": "~~~CTRLSEQ1~~~OR",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5R"
         },
-        "keyObj": {
+        {
             "name": "F4",
-            "cmd": "OS",
-            "ctrl-cmd": "[1;5S"
+            "cmd": "~~~CTRLSEQ1~~~OS",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5S"
         },
-        "keyObj": {
+        {
             "name": "F5",
-            "cmd": "[15~",
-            "ctrl-cmd": "[15;5~"
+            "cmd": "~~~CTRLSEQ1~~~[15~",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[15;5~"
         },
-        "keyObj": {
+        {
             "name": "F6",
-            "cmd": "[17~",
-                "ctrl-cmd": "[17;5~"
+            "cmd": "~~~CTRLSEQ1~~~[17~",
+                "ctrl-cmd": "~~~CTRLSEQ1~~~[17;5~"
         },
-        "keyObj": {
+        {
             "name": "F7",
-            "cmd": "[18~",
-            "ctrl-cmd": "[18;5~"
+            "cmd": "~~~CTRLSEQ1~~~[18~",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[18;5~"
         },
-        "keyObj": {
+        {
             "name": "F8",
-            "cmd": "[19~",
-            "ctrl-cmd": "[19;5~"
+            "cmd": "~~~CTRLSEQ1~~~[19~",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[19;5~"
         },
-        "keyObj": {
+        {
             "name": "F9",
-            "cmd": "[20~",
-            "ctrl-cmd": "[20;5~"
+            "cmd": "~~~CTRLSEQ1~~~[20~",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[20;5~"
         },
-        "keyObj": {
+        {
             "name": "F10",
-            "cmd": "[21~",
-            "ctrl-cmd": "[21;5~"
+            "cmd": "~~~CTRLSEQ1~~~[21~",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[21;5~"
         },
-        "keyObj": {
+        {
             "name": "F11",
-            "cmd": "[23~",
-            "ctrl-cmd": "[23;5~"
+            "cmd": "~~~CTRLSEQ1~~~[23~",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[23;5~"
         },
-        "keyObj": {
+        {
             "name": "F12",
-            "cmd": "[24~",
-            "ctrl-cmd": "[24;5~"
+            "cmd": "~~~CTRLSEQ1~~~[24~",
+            "ctrl-cmd": "~~~CTRLSEQ1~~~[24;5~"
         }
-    },
-    "row_numbers": {
-        "keyObj": {
+    ],
+    "row_numbers": [
+        {
             "name": "`",
             "cmd": "`",
             "shift-name": "~",
             "shift-cmd": "~"
         },
-        "keyObj": {
+        {
             "name": "1",
             "cmd": "1",
             "shift-name": "!",
             "shift-cmd": "!",
-            "alt-cmd": "1"
+            "alt-cmd": "~~~CTRLSEQ1~~~1"
         },
-        "keyObj": {
+        {
             "name": "2",
             "cmd": "2",
             "shift-name": "@",
             "shift-cmd": "@",
-            "alt-cmd": "2"
+            "alt-cmd": "~~~CTRLSEQ1~~~2"
         },
-        "keyObj": {
+        {
             "name": "3",
             "cmd": "3",
             "shift-name": "#",
             "shift-cmd": "#",
-            "ctrl-cmd": "",
-            "alt-cmd": "3"
+            "ctrl-cmd": "~~~CTRLSEQ1~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~3"
         },
-        "keyObj": {
+        {
             "name": "4",
             "cmd": "4",
             "shift-name": "$",
             "shift-cmd": "$",
-            "ctrl-cmd": "",
-            "alt-cmd": "4"
+            "ctrl-cmd": "~~~CTRLSEQ2~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~4"
         },
-        "keyObj": {
+        {
             "name": "5",
             "cmd": "5",
             "shift-name": "%",
             "shift-cmd": "%",
-            "ctrl-cmd": "",
-            "alt-cmd": "5"
+            "ctrl-cmd": "~~~CTRLSEQ3~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~5"
         },
-        "keyObj": {
+        {
             "name": "6",
             "cmd": "6",
             "shift-name": "^",
             "shift-cmd": "^",
-            "ctrl-cmd": "",
-            "alt-cmd": "6"
+            "ctrl-cmd": "~~~CTRLSEQ4~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~6"
         },
-        "keyObj": {
+        {
             "name": "7",
             "cmd": "7",
             "shift-name": "&",
             "shift-cmd": "&",
-            "ctrl-cmd": ""
+            "ctrl-cmd": "~~~CTRLSEQ5~~~"
         },
-        "keyObj": {
+        {
             "name": "8",
             "cmd": "8",
             "shift-name": "*",
             "shift-cmd": "*",
             "ctrl-cmd": "\r"
         },
-        "keyObj": {
+        {
             "name": "9",
             "cmd": "9",
             "shift-name": "(",
             "shift-cmd": "(",
-            "alt-cmd": "9"
+            "alt-cmd": "~~~CTRLSEQ1~~~9"
         },
-        "keyObj": {
+        {
             "name": "0",
             "cmd": "0",
             "shift-name": ")",
             "shift-cmd": ")",
-            "alt-cmd": "0"
+            "alt-cmd": "~~~CTRLSEQ1~~~0"
         },
-        "keyObj": {
+        {
             "name": "-",
             "cmd": "-",
             "shift-name": "_",
             "shift-cmd": "_"
         },
-        "keyObj": {
+        {
             "name": "=",
             "cmd": "=",
             "shift-name": "+",
             "shift-cmd": "+"
         },
-        "keyObj": {
+        {
             "name": "BACK",
             "cmd": "\b",
             "shift-name": "DEL",
-            "shift-cmd": "[3~"
+            "shift-cmd": "~~~CTRLSEQ1~~~[3~"
         }
-    },
-    "row_1": {
-        "keyObj": {
+    ],
+    "row_1": [
+        {
             "name": "TAB",
-            "cmd": "\t",
+            "cmd": "\t"
         },
-        "keyObj": {
+        {
             "name": "q",
             "cmd": "q",
             "shift-name": "Q",
             "shift-cmd": "Q",
-            "ctrl-cmd": "",
-            "alt-cmd": "q"
+            "ctrl-cmd": "~~~CTRLSEQ6~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~q"
         },
-        "keyObj": {
+        {
             "name": "w",
             "cmd": "w",
             "shift-name": "W",
             "shift-cmd": "W",
-            "ctrl-cmd": "",
-            "alt-cmd": "w"
+            "ctrl-cmd": "~~~CTRLSEQ7~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~w"
         },
-        "keyObj": {
+        {
             "name": "e",
             "cmd": "e",
             "shift-name": "E",
             "shift-cmd": "E",
             "ctrl-cmd": "\r",
-            "alt-cmd": "e"
+            "alt-cmd": "~~~CTRLSEQ1~~~e"
         },
-        "keyObj": {
+        {
             "name": "r",
             "cmd": "r",
             "shift-name": "R",
             "shift-cmd": "R",
-            "ctrl-cmd": "",
-            "alt-cmd": "r"
+            "ctrl-cmd": "~~~CTRLSEQ8~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~r"
         },
-        "keyObj": {
+        {
             "name": "t",
             "cmd": "t",
             "shift-name": "T",
             "shift-cmd": "T",
-            "ctrl-cmd": "",
-            "alt-cmd": "t"
+            "ctrl-cmd": "~~~CTRLSEQ9~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~t"
         },
-        "keyObj": {
+        {
             "name": "y",
             "cmd": "y",
             "shift-name": "Y",
             "shift-cmd": "Y",
-            "ctrl-cmd": "",
-            "alt-cmd": "y"
+            "ctrl-cmd": "~~~CTRLSEQ10~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~y"
         },
-        "keyObj": {
+        {
             "name": "u",
             "cmd": "u",
             "shift-name": "U",
             "shift-cmd": "U",
-            "ctrl-cmd": "",
-            "alt-cmd": "u"
+            "ctrl-cmd": "~~~CTRLSEQ11~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~u"
         },
-        "keyObj": {
+        {
             "name": "i",
             "cmd": "i",
             "shift-name": "I",
             "shift-cmd": "I",
             "ctrl-cmd": "\r",
-            "alt-cmd": "i"
+            "alt-cmd": "~~~CTRLSEQ1~~~i"
         },
-        "keyObj": {
+        {
             "name": "o",
             "cmd": "o",
             "shift-name": "O",
             "shift-cmd": "O",
-            "alt-cmd": "o"
+            "alt-cmd": "~~~CTRLSEQ1~~~o"
         },
-        "keyObj": {
+        {
             "name": "p",
             "cmd": "p",
             "shift-name": "P",
             "shift-cmd": "P",
-            "ctrl-cmd": "",
-            "alt-cmd": "p"
+            "ctrl-cmd": "~~~CTRLSEQ12~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~p"
         },
-        "keyObj": {
+        {
             "name": "[",
             "cmd": "[",
             "shift-name": "{",
             "shift-cmd": "{",
-            "ctrl-cmd": ""
+            "ctrl-cmd": "~~~CTRLSEQ1~~~"
         },
-        "keyObj": {
+        {
             "name": "]",
             "cmd": "]",
             "shift-name": "}",
             "shift-cmd": "}",
-            "ctrl-cmd": ""
+            "ctrl-cmd": "~~~CTRLSEQ3~~~"
         },
-        "keyObj": {
+        {
             "name": "ENTER",
-            "cmd": "\r",
+            "cmd": "\r"
         }
-    },
-    "row_2": {
-        "keyObj": {
+    ],
+    "row_2": [
+        {
             "name": "CAPS",
             "cmd": "ESCAPED|-- CAPSLCK: ON",
             "shift-name": "CAPS",
             "shift-cmd": "ESCAPED|-- CAPSLCK: OFF"
         },
-        "keyObj": {
+        {
             "name": "a",
             "cmd": "a",
             "shift-name": "A",
             "shift-cmd": "A",
-            "ctrl-cmd": "",
-            "alt-cmd": "a"
+            "ctrl-cmd": "~~~CTRLSEQ13~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~a"
         },
-        "keyObj": {
+        {
             "name": "s",
             "cmd": "s",
             "shift-name": "S",
             "shift-cmd": "S",
-            "ctrl-cmd": "",
-            "alt-cmd": "s"
+            "ctrl-cmd": "~~~CTRLSEQ14~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~s"
         },
-        "keyObj": {
+        {
             "name": "d",
             "cmd": "d",
             "shift-name": "D",
             "shift-cmd": "D",
-            "ctrl-cmd": "",
-            "alt-cmd": "d"
+            "ctrl-cmd": "~~~CTRLSEQ15~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~d"
         },
-        "keyObj": {
+        {
             "name": "f",
             "cmd": "f",
             "shift-name": "F",
             "shift-cmd": "F",
-            "ctrl-cmd": "",
-            "alt-cmd": "f"
+            "ctrl-cmd": "~~~CTRLSEQ16~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~f"
         },
-        "keyObj": {
+        {
             "name": "g",
             "cmd": "g",
             "shift-name": "G",
             "shift-cmd": "G",
             "ctrl-cmd": "\r",
-            "alt-cmd": "g"
+            "alt-cmd": "~~~CTRLSEQ1~~~g"
         },
-        "keyObj": {
+        {
             "name": "h",
             "cmd": "h",
             "shift-name": "H",
             "shift-cmd": "H",
-            "alt-cmd": "h"
+            "alt-cmd": "~~~CTRLSEQ1~~~h"
         },
-        "keyObj": {
+        {
             "name": "j",
             "cmd": "j",
             "shift-name": "J",
             "shift-cmd": "J",
-            "alt-cmd": "j"
+            "alt-cmd": "~~~CTRLSEQ1~~~j"
         },
-        "keyObj": {
+        {
             "name": "k",
             "cmd": "k",
             "shift-name": "K",
             "shift-cmd": "K",
-            "alt-cmd": "k"
+            "alt-cmd": "~~~CTRLSEQ1~~~k"
         },
-        "keyObj": {
+        {
             "name": "l",
             "cmd": "l",
             "shift-name": "L",
             "shift-cmd": "L",
-            "alt-cmd": "l"
+            "alt-cmd": "~~~CTRLSEQ1~~~l"
         },
-        "keyObj": {
+        {
             "name": ";",
             "cmd": ";",
             "shift-name": ":",
             "shift-cmd": ":"
         },
-        "keyObj": {
+        {
             "name": "'",
             "cmd": "'",
             "shift-name": "\"",
             "shift-cmd": "\""
         },
-        "keyObj": {
+        {
             "name": "\\",
             "cmd": "\\",
             "shift-name": "|",
             "shift-cmd": "|",
-            "ctrl-cmd": ""
+            "ctrl-cmd": "~~~CTRLSEQ2~~~"
         }
-    },
-    "row_3": {
-        "keyObj": {
+    ],
+    "row_3": [
+        {
             "name": "SHIFT",
             "cmd": "ESCAPED|-- SHIFT: LEFT"
         },
-        "keyObj": {
+        {
             "name": "<",
             "cmd": "<",
             "shift-name": ">",
             "shift-cmd": ">",
-            "ctrl-cmd": ""
+            "ctrl-cmd": "~~~CTRLSEQ2~~~"
         },
-        "keyObj": {
+        {
             "name": "z",
             "cmd": "z",
             "shift-name": "Z",
             "shift-cmd": "Z",
-            "ctrl-cmd": "",
-            "alt-cmd": "z"
+            "ctrl-cmd": "~~~CTRLSEQ17~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~z"
         },
-        "keyObj": {
+        {
             "name": "x",
             "cmd": "x",
             "shift-name": "X",
             "shift-cmd": "X",
-            "ctrl-cmd": "",
-            "alt-cmd": "x"
+            "ctrl-cmd": "~~~CTRLSEQ18~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~x"
         },
-        "keyObj": {
+        {
             "name": "c",
             "cmd": "c",
             "shift-name": "C",
             "shift-cmd": "C",
-            "ctrl-cmd": "",
-            "alt-cmd": "c"
+            "ctrl-cmd": "~~~CTRLSEQ19~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~c"
         },
-        "keyObj": {
+        {
             "name": "v",
             "cmd": "v",
             "shift-name": "V",
             "shift-cmd": "V",
-            "ctrl-cmd": "",
-            "alt-cmd": "v"
+            "ctrl-cmd": "~~~CTRLSEQ20~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~v"
         },
-        "keyObj": {
+        {
             "name": "b",
             "cmd": "b",
             "shift-name": "B",
             "shift-cmd": "B",
-            "ctrl-cmd": "",
-            "alt-cmd": "b"
+            "ctrl-cmd": "~~~CTRLSEQ21~~~",
+            "alt-cmd": "~~~CTRLSEQ1~~~b"
         },
-        "keyObj": {
+        {
             "name": "n",
             "cmd": "n",
             "shift-name": "N",
             "shift-cmd": "N",
-            "alt-cmd": "n"
+            "alt-cmd": "~~~CTRLSEQ1~~~n"
         },
-        "keyObj": {
+        {
             "name": "m",
             "cmd": "m",
             "shift-name": "M",
             "shift-cmd": "M",
             "ctrl-cmd": "\r",
-            "alt-cmd": "m"
+            "alt-cmd": "~~~CTRLSEQ1~~~m"
         },
-        "keyObj": {
+        {
             "name": ",",
             "cmd": ",",
             "shift-name": "<",
             "shift-cmd": "<"
         },
-        "keyObj": {
+        {
             "name": ".",
             "cmd": ".",
             "shift-name": ">",
             "shift-cmd": ">"
         },
-        "keyObj": {
+        {
             "name": "\/",
             "cmd": "\/",
             "shift-name": "?",
             "shift-cmd": "?"
         },
-        "keyObj": {
+        {
             "name": "SHIFT",
             "cmd": "ESCAPED|-- SHIFT: RIGHT"
         }
-    },
-    "row_space": {
-        "keyObj": {
+    ],
+    "row_space": [
+        {
             "name": "CTRL",
             "cmd": "ESCAPED|-- CTRL: LEFT"
         },
-        "keyObj": {
+        {
             "name": "ALT",
             "cmd": "ESCAPED|-- ALT: LEFT"
         },
-        "keyObj": {
+        {
             "name": "",
             "cmd": " "
         },
-        "keyObj": {
+        {
             "name": "ALT GR",
             "cmd": "ESCAPED|-- ALT: RIGHT"
         },
-        "keyObj": {
+        {
             "name": "CTRL",
             "cmd": "ESCAPED|-- CTRL: RIGHT"
         }
-    }
+    ]
 }
