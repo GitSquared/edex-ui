@@ -23,7 +23,7 @@
     "xterm": "^2.9.2"
   },
   "devDependencies": {
-    "electron": "^1.8.1",
+    "electron": "^1.7.8",
     "electron-rebuild": "^1.6.0"
   }
 }
