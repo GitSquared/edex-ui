@@ -3,6 +3,7 @@ section#main_shell {
     height: 50%;
     padding: 8px;
     border: 2px solid rgba(190, 230, 193, 0.5);
+    border-radius: 3px;
 }
 
 section#main_shell pre {
