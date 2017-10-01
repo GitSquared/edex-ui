@@ -1,0 +1,478 @@
+{
+    "row_functions": {
+        "keyObj": {
+            "name": "ESC",
+            "cmd": ""
+        },
+        "keyObj": {
+            "name": "F1",
+            "cmd": "OP",
+            "ctrl-cmd": "[1;5P"
+        },
+        "keyObj": {
+            "name": "F2",
+            "cmd": "OQ",
+            "ctrl-cmd": "[1;5Q"
+        },
+        "keyObj": {
+            "name": "F3",
+            "cmd": "OR",
+            "ctrl-cmd": "[1;5R"
+        },
+        "keyObj": {
+            "name": "F4",
+            "cmd": "OS",
+            "ctrl-cmd": "[1;5S"
+        },
+        "keyObj": {
+            "name": "F5",
+            "cmd": "[15~",
+            "ctrl-cmd": "[15;5~"
+        },
+        "keyObj": {
+            "name": "F6",
+            "cmd": "[17~",
+                "ctrl-cmd": "[17;5~"
+        },
+        "keyObj": {
+            "name": "F7",
+            "cmd": "[18~",
+            "ctrl-cmd": "[18;5~"
+        },
+        "keyObj": {
+            "name": "F8",
+            "cmd": "[19~",
+            "ctrl-cmd": "[19;5~"
+        },
+        "keyObj": {
+            "name": "F9",
+            "cmd": "[20~",
+            "ctrl-cmd": "[20;5~"
+        },
+        "keyObj": {
+            "name": "F10",
+            "cmd": "[21~",
+            "ctrl-cmd": "[21;5~"
+        },
+        "keyObj": {
+            "name": "F11",
+            "cmd": "[23~",
+            "ctrl-cmd": "[23;5~"
+        },
+        "keyObj": {
+            "name": "F12",
+            "cmd": "[24~",
+            "ctrl-cmd": "[24;5~"
+        }
+    },
+    "row_numbers": {
+        "keyObj": {
+            "name": "`",
+            "cmd": "`",
+            "shift-name": "~",
+            "shift-cmd": "~"
+        },
+        "keyObj": {
+            "name": "1",
+            "cmd": "1",
+            "shift-name": "!",
+            "shift-cmd": "!",
+            "alt-cmd": "1"
+        },
+        "keyObj": {
+            "name": "2",
+            "cmd": "2",
+            "shift-name": "@",
+            "shift-cmd": "@",
+            "alt-cmd": "2"
+        },
+        "keyObj": {
+            "name": "3",
+            "cmd": "3",
+            "shift-name": "#",
+            "shift-cmd": "#",
+            "ctrl-cmd": "",
+            "alt-cmd": "3"
+        },
+        "keyObj": {
+            "name": "4",
+            "cmd": "4",
+            "shift-name": "$",
+            "shift-cmd": "$",
+            "ctrl-cmd": "",
+            "alt-cmd": "4"
+        },
+        "keyObj": {
+            "name": "5",
+            "cmd": "5",
+            "shift-name": "%",
+            "shift-cmd": "%",
+            "ctrl-cmd": "",
+            "alt-cmd": "5"
+        },
+        "keyObj": {
+            "name": "6",
+            "cmd": "6",
+            "shift-name": "^",
+            "shift-cmd": "^",
+            "ctrl-cmd": "",
+            "alt-cmd": "6"
+        },
+        "keyObj": {
+            "name": "7",
+            "cmd": "7",
+            "shift-name": "&",
+            "shift-cmd": "&",
+            "ctrl-cmd": ""
+        },
+        "keyObj": {
+            "name": "8",
+            "cmd": "8",
+            "shift-name": "*",
+            "shift-cmd": "*",
+            "ctrl-cmd": "\r"
+        },
+        "keyObj": {
+            "name": "9",
+            "cmd": "9",
+            "shift-name": "(",
+            "shift-cmd": "(",
+            "alt-cmd": "9"
+        },
+        "keyObj": {
+            "name": "0",
+            "cmd": "0",
+            "shift-name": ")",
+            "shift-cmd": ")",
+            "alt-cmd": "0"
+        },
+        "keyObj": {
+            "name": "-",
+            "cmd": "-",
+            "shift-name": "_",
+            "shift-cmd": "_"
+        },
+        "keyObj": {
+            "name": "=",
+            "cmd": "=",
+            "shift-name": "+",
+            "shift-cmd": "+"
+        },
+        "keyObj": {
+            "name": "BACK",
+            "cmd": "\b",
+            "shift-name": "DEL",
+            "shift-cmd": "[3~"
+        }
+    },
+    "row_1": {
+        "keyObj": {
+            "name": "TAB",
+            "cmd": "\t",
+        },
+        "keyObj": {
+            "name": "q",
+            "cmd": "q",
+            "shift-name": "Q",
+            "shift-cmd": "Q",
+            "ctrl-cmd": "",
+            "alt-cmd": "q"
+        },
+        "keyObj": {
+            "name": "w",
+            "cmd": "w",
+            "shift-name": "W",
+            "shift-cmd": "W",
+            "ctrl-cmd": "",
+            "alt-cmd": "w"
+        },
+        "keyObj": {
+            "name": "e",
+            "cmd": "e",
+            "shift-name": "E",
+            "shift-cmd": "E",
+            "ctrl-cmd": "\r",
+            "alt-cmd": "e"
+        },
+        "keyObj": {
+            "name": "r",
+            "cmd": "r",
+            "shift-name": "R",
+            "shift-cmd": "R",
+            "ctrl-cmd": "",
+            "alt-cmd": "r"
+        },
+        "keyObj": {
+            "name": "t",
+            "cmd": "t",
+            "shift-name": "T",
+            "shift-cmd": "T",
+            "ctrl-cmd": "",
+            "alt-cmd": "t"
+        },
+        "keyObj": {
+            "name": "y",
+            "cmd": "y",
+            "shift-name": "Y",
+            "shift-cmd": "Y",
+            "ctrl-cmd": "",
+            "alt-cmd": "y"
+        },
+        "keyObj": {
+            "name": "u",
+            "cmd": "u",
+            "shift-name": "U",
+            "shift-cmd": "U",
+            "ctrl-cmd": "",
+            "alt-cmd": "u"
+        },
+        "keyObj": {
+            "name": "i",
+            "cmd": "i",
+            "shift-name": "I",
+            "shift-cmd": "I",
+            "ctrl-cmd": "\r",
+            "alt-cmd": "i"
+        },
+        "keyObj": {
+            "name": "o",
+            "cmd": "o",
+            "shift-name": "O",
+            "shift-cmd": "O",
+            "alt-cmd": "o"
+        },
+        "keyObj": {
+            "name": "p",
+            "cmd": "p",
+            "shift-name": "P",
+            "shift-cmd": "P",
+            "ctrl-cmd": "",
+            "alt-cmd": "p"
+        },
+        "keyObj": {
+            "name": "[",
+            "cmd": "[",
+            "shift-name": "{",
+            "shift-cmd": "{",
+            "ctrl-cmd": ""
+        },
+        "keyObj": {
+            "name": "]",
+            "cmd": "]",
+            "shift-name": "}",
+            "shift-cmd": "}",
+            "ctrl-cmd": ""
+        },
+        "keyObj": {
+            "name": "ENTER",
+            "cmd": "\r",
+        }
+    },
+    "row_2": {
+        "keyObj": {
+            "name": "CAPS",
+            "cmd": "ESCAPED|-- CAPSLCK: ON",
+            "shift-name": "CAPS",
+            "shift-cmd": "ESCAPED|-- CAPSLCK: OFF"
+        },
+        "keyObj": {
+            "name": "a",
+            "cmd": "a",
+            "shift-name": "A",
+            "shift-cmd": "A",
+            "ctrl-cmd": "",
+            "alt-cmd": "a"
+        },
+        "keyObj": {
+            "name": "s",
+            "cmd": "s",
+            "shift-name": "S",
+            "shift-cmd": "S",
+            "ctrl-cmd": "",
+            "alt-cmd": "s"
+        },
+        "keyObj": {
+            "name": "d",
+            "cmd": "d",
+            "shift-name": "D",
+            "shift-cmd": "D",
+            "ctrl-cmd": "",
+            "alt-cmd": "d"
+        },
+        "keyObj": {
+            "name": "f",
+            "cmd": "f",
+            "shift-name": "F",
+            "shift-cmd": "F",
+            "ctrl-cmd": "",
+            "alt-cmd": "f"
+        },
+        "keyObj": {
+            "name": "g",
+            "cmd": "g",
+            "shift-name": "G",
+            "shift-cmd": "G",
+            "ctrl-cmd": "\r",
+            "alt-cmd": "g"
+        },
+        "keyObj": {
+            "name": "h",
+            "cmd": "h",
+            "shift-name": "H",
+            "shift-cmd": "H",
+            "alt-cmd": "h"
+        },
+        "keyObj": {
+            "name": "j",
+            "cmd": "j",
+            "shift-name": "J",
+            "shift-cmd": "J",
+            "alt-cmd": "j"
+        },
+        "keyObj": {
+            "name": "k",
+            "cmd": "k",
+            "shift-name": "K",
+            "shift-cmd": "K",
+            "alt-cmd": "k"
+        },
+        "keyObj": {
+            "name": "l",
+            "cmd": "l",
+            "shift-name": "L",
+            "shift-cmd": "L",
+            "alt-cmd": "l"
+        },
+        "keyObj": {
+            "name": ";",
+            "cmd": ";",
+            "shift-name": ":",
+            "shift-cmd": ":"
+        },
+        "keyObj": {
+            "name": "'",
+            "cmd": "'",
+            "shift-name": "\"",
+            "shift-cmd": "\""
+        },
+        "keyObj": {
+            "name": "\\",
+            "cmd": "\\",
+            "shift-name": "|",
+            "shift-cmd": "|",
+            "ctrl-cmd": ""
+        }
+    },
+    "row_3": {
+        "keyObj": {
+            "name": "SHIFT",
+            "cmd": "ESCAPED|-- SHIFT: LEFT"
+        },
+        "keyObj": {
+            "name": "<",
+            "cmd": "<",
+            "shift-name": ">",
+            "shift-cmd": ">",
+            "ctrl-cmd": ""
+        },
+        "keyObj": {
+            "name": "z",
+            "cmd": "z",
+            "shift-name": "Z",
+            "shift-cmd": "Z",
+            "ctrl-cmd": "",
+            "alt-cmd": "z"
+        },
+        "keyObj": {
+            "name": "x",
+            "cmd": "x",
+            "shift-name": "X",
+            "shift-cmd": "X",
+            "ctrl-cmd": "",
+            "alt-cmd": "x"
+        },
+        "keyObj": {
+            "name": "c",
+            "cmd": "c",
+            "shift-name": "C",
+            "shift-cmd": "C",
+            "ctrl-cmd": "",
+            "alt-cmd": "c"
+        },
+        "keyObj": {
+            "name": "v",
+            "cmd": "v",
+            "shift-name": "V",
+            "shift-cmd": "V",
+            "ctrl-cmd": "",
+            "alt-cmd": "v"
+        },
+        "keyObj": {
+            "name": "b",
+            "cmd": "b",
+            "shift-name": "B",
+            "shift-cmd": "B",
+            "ctrl-cmd": "",
+            "alt-cmd": "b"
+        },
+        "keyObj": {
+            "name": "n",
+            "cmd": "n",
+            "shift-name": "N",
+            "shift-cmd": "N",
+            "alt-cmd": "n"
+        },
+        "keyObj": {
+            "name": "m",
+            "cmd": "m",
+            "shift-name": "M",
+            "shift-cmd": "M",
+            "ctrl-cmd": "\r",
+            "alt-cmd": "m"
+        },
+        "keyObj": {
+            "name": ",",
+            "cmd": ",",
+            "shift-name": "<",
+            "shift-cmd": "<"
+        },
+        "keyObj": {
+            "name": ".",
+            "cmd": ".",
+            "shift-name": ">",
+            "shift-cmd": ">"
+        },
+        "keyObj": {
+            "name": "\/",
+            "cmd": "\/",
+            "shift-name": "?",
+            "shift-cmd": "?"
+        },
+        "keyObj": {
+            "name": "SHIFT",
+            "cmd": "ESCAPED|-- SHIFT: RIGHT"
+        }
+    },
+    "row_space": {
+        "keyObj": {
+            "name": "CTRL",
+            "cmd": "ESCAPED|-- CTRL: LEFT"
+        },
+        "keyObj": {
+            "name": "ALT",
+            "cmd": "ESCAPED|-- ALT: LEFT"
+        },
+        "keyObj": {
+            "name": "",
+            "cmd": " "
+        },
+        "keyObj": {
+            "name": "ALT GR",
+            "cmd": "ESCAPED|-- ALT: RIGHT"
+        },
+        "keyObj": {
+            "name": "CTRL",
+            "cmd": "ESCAPED|-- CTRL: RIGHT"
+        }
+    }
+}
