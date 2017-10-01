@@ -18,7 +18,7 @@ let settingsFile = path.join(__dirname, "settings.json");
 
 if (!fs.existsSync(settingsFile)) {
     fs.writeFileSync(settingsFile, JSON.stringify({
-        shell: (process.platform === "win32") ? "cmd.exe" : "bash",
+        shell: (process.platform === "win32") ? "powershell.exe" : "bash",
         keyboard: "EN-us"
     }));
 }

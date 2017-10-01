@@ -1,3 +1,8 @@
+/*      Import Variables      */
+@import url("variables.css");
+
+/*      Import Fonts      */
+/*  Fira Mono  */
 @font-face {
 font-family: "Fira Mono";
   src: url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.eot"); /* IE9*/
@@ -7,7 +12,7 @@ font-family: "Fira Mono";
   url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.svg#Fira Mono") format("svg"); /* iOS 4.1- */
 }
-
+/*  United Sans Medium  */
 @font-face {
 font-family: "United Sans Medium";
   src: url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.eot"); /* IE9*/
@@ -18,10 +23,11 @@ font-family: "United Sans Medium";
   url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.svg#United Sans Reg Medium") format("svg"); /* iOS 4.1- */
 }
 
+/*      Apply Fonts      */
 body {
-  font-family: "United Sans Medium", sans-serif;
+  font-family: var(--font_main), sans-serif;
 }
 
 pre {
-  font-family: "Fira Mono", sans-serif;
+  font-family: var(--font_console), sans-serif;
 }

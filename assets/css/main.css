@@ -14,5 +14,6 @@ body {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background: url("../png/bg.png") repeat top left;
+    background: linear-gradient(90deg, #090B0A 20px, transparent 1%) center, linear-gradient(#090B0A 20px, transparent 1%) center, #262827;
+    background-size: 22px 22px;
 }
