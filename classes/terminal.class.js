@@ -38,7 +38,7 @@ class Terminal {
             this.fit = () => {
                 this.term.fit();
                 setTimeout(() => {
-                    this.sendSizeToServer();
+                    this.resize(this.term.cols+1, this.term.rows);
                 }, 50);
             }
 

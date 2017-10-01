@@ -1,11 +1,6 @@
 section#main_shell {
     width: 55%;
     height: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
     padding: 8px;
     border: 2px solid rgba(190, 230, 193, 0.5);
 }
@@ -92,8 +87,8 @@ section#main_shell pre {
 
 .terminal .xterm-rows {
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 6px;
+    top: 4px;
 }
 
 .terminal .xterm-rows > div {

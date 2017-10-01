@@ -10,15 +10,26 @@ console.log(`
 const electron = require("electron");
 const path = require("path");
 const url = require("url");
+const fs = require("fs");
 const Terminal = require("./classes/terminal.class.js").Terminal;
 
 let win, tty;
+let settingsFile = path.join(__dirname, "settings.json");
+
+if (!fs.existsSync(settingsFile)) {
+    fs.writeFileSync(settingsFile, JSON.stringify({
+        shell: (process.platform === "win32") ? "cmd.exe" : "bash",
+        keyboard: "EN-us"
+    }));
+}
 
 app.on('ready', () => {
 
+    let settings = JSON.parse(fs.readFileSync(settingsFile, {encoding: "utf-8"}));
+
     tty = new Terminal({
         role: "server",
-        shell: (process.platform === "win32") ? "cmd.exe" : "bash"
+        shell: settings.shell
     });
     tty.onclosed = (code, signal) => {
         console.log("=> Terminal exited - "+code+", "+signal);
@@ -51,7 +62,8 @@ app.on('ready', () => {
         // focusable: false,
         // skipTaskbar: true,
         autoHideMenuBar: true,
-        frame: true
+        frame: true,
+        backgroundColor: '#000000'
     });
 
     win.loadURL(url.format({
