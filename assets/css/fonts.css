@@ -5,22 +5,12 @@
 /*  Fira Mono  */
 @font-face {
 font-family: "Fira Mono";
-  src: url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.eot"); /* IE9*/
-  src: url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-  url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.woff2") format("woff2"), /* chrome、firefox */
-  url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.woff") format("woff"), /* chrome、firefox */
-  url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url("../fonts/2b8448d01a50ec1ac97d96c883b8a9b8.svg#Fira Mono") format("svg"); /* iOS 4.1- */
+src: url("../fonts/fira_mono.woff2") format("woff2");
 }
 /*  United Sans Medium  */
 @font-face {
 font-family: "United Sans Medium";
-  src: url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.eot"); /* IE9*/
-  src: url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-  url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.woff2") format("woff2"), /* chrome、firefox */
-  url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.woff") format("woff"), /* chrome、firefox */
-  url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-  url("../fonts/001fbf0f03dcd8de5cf2fa710d1c66fa.svg#United Sans Reg Medium") format("svg"); /* iOS 4.1- */
+src: url("../fonts/united_sans.woff2") format("woff2");
 }
 
 /*      Apply Fonts      */
