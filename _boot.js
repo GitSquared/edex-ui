@@ -84,4 +84,4 @@ app.on('window-all-closed', () => {
 
 app.on('before-quit', () => {
     console.log("=> Shutting down...");
-})
+});

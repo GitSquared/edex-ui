@@ -40,12 +40,12 @@ class Terminal {
                 setTimeout(() => {
                     this.resize(this.term.cols+1, this.term.rows);
                 }, 50);
-            }
+            };
 
             this.resize = (cols, rows) => {
                 this.term.resize(cols, rows);
                 this.sendSizeToServer();
-            }
+            };
         } else if (opts.role === "server") {
 
             this.Pty = require("node-pty");
