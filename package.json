@@ -43,6 +43,10 @@
         {
           "target": "tar.gz",
           "arch": ["x64", "ia32", "armv7l"]
+        },
+        {
+          "target": "AppImage",
+          "arch": ["x64", "ia32", "armv7l"]
         }
       ],
       "category": "system",
