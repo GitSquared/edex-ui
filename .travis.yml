@@ -1,9 +1,7 @@
-matrix:
-  include:
-    - os: linux
-      services: docker
-      language: generic
-
+os: linux
+services:
+  - docker
+language: generic
 cache:
   directories:
   - node_modules
@@ -26,7 +24,3 @@ script:
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
-
-branches:
-  except:
-- "/^v\\d+\\.\\d+\\.\\d+$/"
