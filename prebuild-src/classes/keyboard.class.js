@@ -18,9 +18,9 @@ class Keyboard {
 
                     document.getElementById(row).innerHTML += `
                     <div class="keyboard_key">
-                        <h1>`+keyObj.name+`</h1>
-                        <h2>`+shiftName+`</h2>
-                        <h3>`+altName+`</h3>
+                        <h1>${keyObj.name}</h1>
+                        <h2>${shiftName}</h2>
+                        <h3>${altName}</h3>
                     </div>`;
                 }
 

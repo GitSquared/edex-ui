@@ -1,0 +1,3 @@
+/*      Import Variables      */
+:root{--font_main:"United Sans Medium";--font_console:"Fira Mono"}
+@font-face{font-family:"Fira Mono";src:url(../fonts/fira_mono.woff2) format("woff2")}@font-face{font-family:"United Sans Medium";src:url(../fonts/united_sans.woff2) format("woff2")}body{font-family:var(--font_main),sans-serif}pre{font-family:var(--font_console),sans-serif}

@@ -1,29 +1,72 @@
 {
   "name": "edex-ui",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "A science fiction desktop running everywhere. Awesome.",
-  "main": "_boot.js",
+  "main": "src/_boot.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron .",
-    "postinstall": "./node_modules/.bin/electron-rebuild -f -w node-pty"
+    "start": "./node_modules/.bin/electron src",
+    "postinstall": "./node_modules/.bin/electron-rebuild -f -w node-pty",
+    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && rm -R prebuild-src/node_modules && node prebuild-minify.js && cd prebuild-src && npm install",
+    "build": "./node_modules/.bin/electron-builder build -wl",
+    "postbuild": "rm -R prebuild-src",
+    "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text ./node_modules/.bin/mocha --timeout=3000",
+    "posttest": "echo coverage/lcov.info | ./node_modules/.bin/codacy-coverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GitSquared/edex-ui.git"
   },
-  "author": "GitSquared",
+  "author": "GitSquared, Pixelylon",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/GitSquared/edex-ui/issues"
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
-  "dependencies": {
-    "node-pty": "^0.7.0",
-    "ws": "^3.2.0",
-    "xterm": "^2.9.2"
+  "build": {
+    "appId": "com.edex.ui",
+    "productName": "eDEX-UI Human Interface",
+    "asar": true,
+    "compression": "maximum",
+    "copyright": "FREE FOR ALL",
+    "directories": {
+      "output": "dist",
+      "app": "prebuild-src"
+    },
+    "electronDownload": {
+      "strictSSL": false,
+      "verifyChecksum": true
+    },
+    "forceCodeSigning": false,
+    "npmRebuild": true,
+    "linux": {
+      "target": [
+        {
+          "target": "tar.gz",
+          "arch": ["x64", "ia32", "armv7l"]
+        }
+      ],
+      "category": "system",
+      "icon": "media/linuxIcons"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64", "ia32"]
+        }
+      ],
+      "icon": "media/icon.ico"
+    }
   },
   "devDependencies": {
     "electron": "^1.7.8",
-    "electron-rebuild": "^1.6.0"
+    "electron-builder": "^19.33.0",
+    "electron-rebuild": "^1.6.0",
+    "minifier": "^0.8.1",
+    "mocha": "^3.5.3",
+    "node-json-minify": "^1.0.0",
+    "nyc": "^11.2.1",
+    "spectron": "^3.7.2",
+    "uglify-js": "^3.1.3"
   }
 }
