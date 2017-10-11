@@ -1,6 +1,6 @@
 {
   "name": "edex-ui",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A science fiction desktop running everywhere. Awesome.",
   "main": "src/_boot.js",
   "scripts": {
@@ -38,6 +38,14 @@
     },
     "forceCodeSigning": false,
     "npmRebuild": true,
+    "publish": {
+      "provider": "github",
+      "repo": "edex-ui",
+      "owner": "GitSquared",
+      "vPrefixedTagName": true,
+      "host": "github.com",
+      "protocol": "https"
+    },
     "linux": {
       "target": [
         {
