@@ -19,7 +19,7 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "npm run build"
+        /bin/bash -c "npm install && npm run build"
 
 
 before_cache:
