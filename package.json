@@ -6,7 +6,7 @@
   "scripts": {
     "start": "./node_modules/.bin/electron src",
     "postinstall": "./node_modules/.bin/electron-rebuild -f -w node-pty",
-    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && rm -R prebuild-src/node_modules && node prebuild-minify.js && cd prebuild-src && npm install",
+    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
     "build": "./node_modules/.bin/electron-builder build -wl",
     "postbuild": "rm -R prebuild-src",
     "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text ./node_modules/.bin/mocha --timeout=3000",
