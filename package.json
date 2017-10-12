@@ -44,8 +44,7 @@
       "owner": "GitSquared",
       "vPrefixedTagName": true,
       "host": "github.com",
-      "protocol": "https",
-      "token": "c0a67cc4bbec5f84aa40ead4817215bcab21dae3"
+      "protocol": "https"
     },
     "linux": {
       "target": [

@@ -16,7 +16,7 @@ let writeMinified = (path, data) => {
             console.log("");
             console.log("");
             throw err;
-        };
+        }
         console.log(path+" -  ✓");
     });
 };

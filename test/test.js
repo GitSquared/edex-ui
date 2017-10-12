@@ -1,5 +1,5 @@
 const Application = require("spectron").Application;
-const asset = require("assert");
+const assert = require("assert");
 
 
 describe('application launch', function () {
