@@ -71,11 +71,11 @@
     }
   },
   "devDependencies": {
-    "electron": "^1.7.8",
-    "electron-builder": "^19.33.0",
+    "electron": "^1.7.9",
+    "electron-builder": "^19.37.1",
     "electron-rebuild": "^1.6.0",
     "minifier": "^0.8.1",
-    "mocha": "^3.5.3",
+    "mocha": "^4.0.1",
     "node-json-minify": "^1.0.0",
     "nyc": "^11.2.1",
     "spectron": "^3.7.2",
