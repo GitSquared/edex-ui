@@ -1,26 +1,30 @@
 os: linux
 services:
-  - docker
+- docker
 language: generic
 cache:
   directories:
   - node_modules
-  - $HOME/.cache/electron
-  - $HOME/.cache/electron-builder
-
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
 before_script:
-  - git lfs pull
-
+- git lfs pull
 script:
-  - |
-      docker run --rm \
-        --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
-        -v ${PWD}:/project \
-        -v ~/.cache/electron:/root/.cache/electron \
-        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-        electronuserland/builder:wine \
-        /bin/bash -c "npm install && npm run build && npm run test"
-
-
+- |
+  docker run --rm \
+    --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
+    -v ${PWD}:/project \
+    -v ~/.cache/electron:/root/.cache/electron \
+    -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+    electronuserland/builder:wine \
+    /bin/bash -c "npm install && npm run build && npm run test"
 before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
+- rm -rf $HOME/.cache/electron-builder/wine
+deploy:
+  provider: releases
+  api_key:
+    secure: rBDPbnv7goHiGlcy5fyYZf4Qt/rLUPk9+cz+2uQhTJx9O5rTE3p4BdukXLQoWOsd7XF8wvwOT6PPJTPeznLE/cW6TU7KobTLt5D44QH+ELYtc/vBz5iJd/waMeJXe1GF8Yh2Xqcvq9D5IMjroQMTjzCmP16RhrCrjmsWdmOKSbT+BXVcu1w79ly9ON0TN9IxCXH00YMxmnIvQq7PabEda2JBwys85gVXGFQt625kYQAHUp7ihNCfzrWdjkdsYeEWTu0axlVESAeLMWGoRUsYGVSaAnrXPRdW4OPbU8k0LhjwsAxkKk0VjmhsXvV2m6QKZJbXE99NMYNQksXVdi4mHNtgFDR6hSrJjIr2SLvS4aTfSrTxWPPPR+Kh+4Ocpnep5oH8vPD20dKMiFINzyzzqxlRL3MukUt5oI2ZFHNcnBogaMwSjdf2CDSIO/DI3VZCA+z388hDDUTT1x8UCkokXuXSg9PQCXYX/6fZd565GZhcHbwGEQ5aPGqzZ3/00T7E4B9Ip3UW0tZ8cXm+U+nvgT7KvjD4xby24Cr8YDaoJBK0eT/vbQM7cxl9VKPfkVU8NsYIfV8dmai1ieR1Lnor3iL5xWPsOcjkItahUPjRQLfBEcXNYoLoYEkr7txhLIhMM+q2w5hs2FmbLRLn0qwExYxtTS/rk3NyYZzZgJwtEBc=
+  file_glob: true
+  file: dist/*
+  on:
+    repo: GitSquared/edex-ui
