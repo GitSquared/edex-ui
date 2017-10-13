@@ -57,7 +57,6 @@
           "arch": ["x64", "ia32", "armv7l"]
         }
       ],
-      "category": "System",
       "icon": "media/linuxIcons"
     },
     "win": {
