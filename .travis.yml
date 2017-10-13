@@ -1,25 +1,32 @@
 os: linux
 services:
-- docker
+  - docker
 language: generic
+
 cache:
   directories:
   - node_modules
   - "$HOME/.cache/electron"
   - "$HOME/.cache/electron-builder"
+
 before_script:
-- git lfs pull
+  - git lfs pull
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+
 script:
-- |
+  - |
   docker run --rm \
     --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
     -v ${PWD}:/project \
     -v ~/.cache/electron:/root/.cache/electron \
     -v ~/.cache/electron-builder:/root/.cache/electron-builder \
     electronuserland/builder:wine \
-    /bin/bash -c "npm install && npm run build && npm run test"
+    /bin/bash -c "npm install && npm run test && npm run build"
 before_cache:
-- rm -rf $HOME/.cache/electron-builder/wine
+  - rm -rf $HOME/.cache/electron-builder/wine
+
 deploy:
   provider: releases
   api_key:

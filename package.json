@@ -9,7 +9,7 @@
     "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
     "build": "./node_modules/.bin/electron-builder build -wl -p never",
     "postbuild": "rm -R prebuild-src",
-    "test": "find . | grep electron",
+    "test": "./node_modules/.bin/nyc --reporter=lcov --reporter=text ./node_modules/.bin/mocha --timeout=3000",
     "posttest": "echo coverage/lcov.info | ./node_modules/.bin/codacy-coverage"
   },
   "repository": {
