@@ -8,10 +8,6 @@ cache:
   - $HOME/.cache/electron
   - $HOME/.cache/electron-builder
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y appstream
-
 before_script:
   - git lfs pull
 
