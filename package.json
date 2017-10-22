@@ -71,11 +71,11 @@
     }
   },
   "devDependencies": {
-    "electron": "^1.7.9",
-    "electron-builder": "^19.37.2",
-    "electron-rebuild": "^1.6.0",
-    "minifier": "^0.8.1",
-    "node-json-minify": "^1.0.0",
-    "uglify-js": "^3.1.5"
+    "electron": "1.7.9",
+    "electron-builder": "19.37.2",
+    "electron-rebuild": "1.6.0",
+    "minifier": "0.8.1",
+    "node-json-minify": "1.0.0",
+    "uglify-js": "3.1.5"
   }
 }

@@ -43,9 +43,7 @@ deploy:
   file: dist/*
   options:
     draft: true
-  branches:
-    only:
-      - master
-      - /^v\d+(\.\d+)+$/
   on:
     repo: GitSquared/edex-ui
+    branch: master
+    tags: true
