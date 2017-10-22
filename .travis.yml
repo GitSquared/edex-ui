@@ -9,8 +9,14 @@ cache:
   - "$HOME/.cache/electron"
   - "$HOME/.cache/electron-builder"
 
+before_install:
+  - npm install -g greenkeeper-lockfile@1
+
 before_script:
   - git lfs pull
+  - greenkeeper-lockfile-update
+
+after_script: greenkeeper-lockfile-upload
 
 script:
   - |
