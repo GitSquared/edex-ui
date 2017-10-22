@@ -7,7 +7,7 @@ setTimeout(() => {
 }, 500);
 
 window.keyboard = new Keyboard({
-    layout: require("path").join(__dirname, "assets/kb_layouts/EN-us.json"),
+    layout: require("path").join(__dirname, "assets/kb_layouts/en-US.json"),
     container: "keyboard"
 });
 
