@@ -5,7 +5,7 @@
   "main": "src/_boot.js",
   "scripts": {
     "start": "./node_modules/.bin/electron src",
-    "postinstall": "./node_modules/.bin/electron-rebuild -f -w node-pty",
+    "postinstall": "cd src && npm install && ./../node_modules/.bin/electron-rebuild -f -w node-pty",
     "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
     "build": "./node_modules/.bin/electron-builder build -wl -p never",
     "postbuild": "rm -R prebuild-src"
