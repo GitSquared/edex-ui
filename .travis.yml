@@ -26,7 +26,7 @@ before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
 before_deploy:
-  - rm -rf dist/*/
+  - sudo rm -rf dist/*/
 
 deploy:
   skip_cleanup: true
