@@ -32,6 +32,7 @@ class Terminal {
             this.socket = new WebSocket("ws://"+sockHost+":"+sockPort);
             this.socket.onopen = () => {
                 this.term.attach(this.socket);
+                this.fit();
             };
             this.socket.onerror = (e) => {throw e};
 

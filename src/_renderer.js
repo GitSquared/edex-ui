@@ -2,9 +2,6 @@ window.term = new Terminal({
     role: "client",
     parentId: "terminal"
 });
-setTimeout(() => {
-    window.term.fit();
-}, 500);
 
 window.keyboard = new Keyboard({
     layout: require("path").join(__dirname, "assets/kb_layouts/en-US.json"),
