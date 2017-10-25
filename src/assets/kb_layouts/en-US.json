@@ -306,7 +306,7 @@
             "ctrl-cmd": "~~~CTRLSEQ2~~~"
         },
         {
-            "name": "ENTER",
+            "name": "",
             "cmd": "\r"
         }
     ],

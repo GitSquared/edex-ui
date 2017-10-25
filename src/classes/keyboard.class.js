@@ -12,6 +12,8 @@ class Keyboard {
             layout[row].forEach((keyObj) => {
                 if (keyObj.cmd === " ") {
                     document.getElementById(row).innerHTML += `<div class="keyboard_key" id="keyboard_spacebar"></div>`;
+                } else if (keyObj.cmd === "\r") {
+                    document.getElementById(row).innerHTML += `<div class="keyboard_key keyboard_enter"><h1>${keyObj.name}</h1></div>`;
                 } else {
                     let shiftName = keyObj["shift-name"] || "";
                     let altName = keyObj["alt-name"] || "";
