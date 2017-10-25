@@ -15,12 +15,14 @@ class Keyboard {
                 } else {
                     let shiftName = keyObj["shift-name"] || "";
                     let altName = keyObj["alt-name"] || "";
+                    let fnName = keyObj["fn-name"] || "";
 
                     document.getElementById(row).innerHTML += `
                     <div class="keyboard_key">
                         <h1>${keyObj.name}</h1>
                         <h2>${shiftName}</h2>
                         <h3>${altName}</h3>
+                        <h4>${fnName}</h4>
                     </div>`;
                 }
 

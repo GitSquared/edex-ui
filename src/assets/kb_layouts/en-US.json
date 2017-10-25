@@ -1,71 +1,9 @@
 {
-    "row_functions": [
+    "row_numbers": [
         {
             "name": "ESC",
             "cmd": "~~~CTRLSEQ1~~~"
         },
-        {
-            "name": "F1",
-            "cmd": "~~~CTRLSEQ1~~~OP",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5P"
-        },
-        {
-            "name": "F2",
-            "cmd": "~~~CTRLSEQ1~~~OQ",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5Q"
-        },
-        {
-            "name": "F3",
-            "cmd": "~~~CTRLSEQ1~~~OR",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5R"
-        },
-        {
-            "name": "F4",
-            "cmd": "~~~CTRLSEQ1~~~OS",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[1;5S"
-        },
-        {
-            "name": "F5",
-            "cmd": "~~~CTRLSEQ1~~~[15~",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[15;5~"
-        },
-        {
-            "name": "F6",
-            "cmd": "~~~CTRLSEQ1~~~[17~",
-                "ctrl-cmd": "~~~CTRLSEQ1~~~[17;5~"
-        },
-        {
-            "name": "F7",
-            "cmd": "~~~CTRLSEQ1~~~[18~",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[18;5~"
-        },
-        {
-            "name": "F8",
-            "cmd": "~~~CTRLSEQ1~~~[19~",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[19;5~"
-        },
-        {
-            "name": "F9",
-            "cmd": "~~~CTRLSEQ1~~~[20~",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[20;5~"
-        },
-        {
-            "name": "F10",
-            "cmd": "~~~CTRLSEQ1~~~[21~",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[21;5~"
-        },
-        {
-            "name": "F11",
-            "cmd": "~~~CTRLSEQ1~~~[23~",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[23;5~"
-        },
-        {
-            "name": "F12",
-            "cmd": "~~~CTRLSEQ1~~~[24~",
-            "ctrl-cmd": "~~~CTRLSEQ1~~~[24;5~"
-        }
-    ],
-    "row_numbers": [
         {
             "name": "`",
             "cmd": "`",
@@ -77,14 +15,18 @@
             "cmd": "1",
             "shift-name": "!",
             "shift-cmd": "!",
-            "alt-cmd": "~~~CTRLSEQ1~~~1"
+            "alt-cmd": "~~~CTRLSEQ1~~~1",
+            "fn-name": "F1",
+            "fn-cmd": "~~~CTRLSEQ1~~~OP"
         },
         {
             "name": "2",
             "cmd": "2",
             "shift-name": "@",
             "shift-cmd": "@",
-            "alt-cmd": "~~~CTRLSEQ1~~~2"
+            "alt-cmd": "~~~CTRLSEQ1~~~2",
+            "fn-name": "F2",
+            "fn-cmd": "~~~CTRLSEQ1~~~OQ"
         },
         {
             "name": "3",
@@ -92,7 +34,9 @@
             "shift-name": "#",
             "shift-cmd": "#",
             "ctrl-cmd": "~~~CTRLSEQ1~~~",
-            "alt-cmd": "~~~CTRLSEQ1~~~3"
+            "alt-cmd": "~~~CTRLSEQ1~~~3",
+            "fn-name": "F3",
+            "fn-cmd": "~~~CTRLSEQ1~~~OR"
         },
         {
             "name": "4",
@@ -100,7 +44,9 @@
             "shift-name": "$",
             "shift-cmd": "$",
             "ctrl-cmd": "~~~CTRLSEQ2~~~",
-            "alt-cmd": "~~~CTRLSEQ1~~~4"
+            "alt-cmd": "~~~CTRLSEQ1~~~4",
+            "fn-name": "F4",
+            "fn-cmd": "~~~CTRLSEQ1~~~OS"
         },
         {
             "name": "5",
@@ -108,7 +54,9 @@
             "shift-name": "%",
             "shift-cmd": "%",
             "ctrl-cmd": "~~~CTRLSEQ3~~~",
-            "alt-cmd": "~~~CTRLSEQ1~~~5"
+            "alt-cmd": "~~~CTRLSEQ1~~~5",
+            "fn-name": "F5",
+            "fn-cmd": "~~~CTRLSEQ1~~~[15~"
         },
         {
             "name": "6",
@@ -116,47 +64,61 @@
             "shift-name": "^",
             "shift-cmd": "^",
             "ctrl-cmd": "~~~CTRLSEQ4~~~",
-            "alt-cmd": "~~~CTRLSEQ1~~~6"
+            "alt-cmd": "~~~CTRLSEQ1~~~6",
+            "fn-name": "F6",
+            "fn-cmd": "~~~CTRLSEQ1~~~[17~"
         },
         {
             "name": "7",
             "cmd": "7",
             "shift-name": "&",
             "shift-cmd": "&",
-            "ctrl-cmd": "~~~CTRLSEQ5~~~"
+            "ctrl-cmd": "~~~CTRLSEQ5~~~",
+            "fn-name": "F7",
+            "fn-cmd": "~~~CTRLSEQ1~~~[18~"
         },
         {
             "name": "8",
             "cmd": "8",
             "shift-name": "*",
             "shift-cmd": "*",
-            "ctrl-cmd": "\r"
+            "ctrl-cmd": "\r",
+            "fn-name": "F8",
+            "fn-cmd": "~~~CTRLSEQ1~~~[19~"
         },
         {
             "name": "9",
             "cmd": "9",
             "shift-name": "(",
             "shift-cmd": "(",
-            "alt-cmd": "~~~CTRLSEQ1~~~9"
+            "alt-cmd": "~~~CTRLSEQ1~~~9",
+            "fn-name": "F9",
+            "fn-cmd": "~~~CTRLSEQ1~~~[20~"
         },
         {
             "name": "0",
             "cmd": "0",
             "shift-name": ")",
             "shift-cmd": ")",
-            "alt-cmd": "~~~CTRLSEQ1~~~0"
+            "alt-cmd": "~~~CTRLSEQ1~~~0",
+            "fn-name": "F10",
+            "fn-cmd": "~~~CTRLSEQ1~~~[21~"
         },
         {
             "name": "-",
             "cmd": "-",
             "shift-name": "_",
-            "shift-cmd": "_"
+            "shift-cmd": "_",
+            "fn-name": "F11",
+            "fn-cmd": "~~~CTRLSEQ1~~~[23~"
         },
         {
             "name": "=",
             "cmd": "=",
             "shift-name": "+",
-            "shift-cmd": "+"
+            "shift-cmd": "+",
+            "fn-name": "F12",
+            "fn-cmd": "~~~CTRLSEQ1~~~[24~"
         },
         {
             "name": "BACK",
@@ -435,6 +397,11 @@
         {
             "name": "CTRL",
             "cmd": "ESCAPED|-- CTRL: LEFT"
+        },
+        {
+            "name": "FN",
+            "cmd": "ESCAPED|-- FN: ON",
+            "fn-cmd": "ESCAPED|-- FN: OFF"
         },
         {
             "name": "ALT",
