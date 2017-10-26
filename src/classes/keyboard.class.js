@@ -16,7 +16,7 @@ class Keyboard {
                 if (keyObj.cmd === " ") {
                     key.setAttribute("id", "keyboard_spacebar");
                 } else if (keyObj.cmd === "\r") {
-                    key.setAttribute("id", "keyboard_enter");
+                    key.setAttribute("class", "keyboard_key keyboard_enter");
                     key.innerHTML = `<h1>${keyObj.name}</h1>`;
                 } else {
                     key.innerHTML = `
