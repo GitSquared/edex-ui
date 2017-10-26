@@ -1,5 +1,5 @@
 section#main_shell {
-    width: 55%;
+    width: 65%;
     height: 60%;
     padding: 8px;
     border: 2px solid rgba(190, 230, 193, 0.5);
@@ -48,34 +48,19 @@ section#main_shell pre {
 }
 
 .terminal .terminal-cursor {
-    background-color: #fff;
+    background-color: #bee6c1;
     color: #000;
 }
 
 .terminal:not(.focus) .terminal-cursor {
-    outline: 1px solid #fff;
+    outline: 1px solid #bee6c1;
     outline-offset: -1px;
     background-color: transparent;
 }
 
-.terminal.focus .terminal-cursor.blinking {
-    animation: blink-cursor 1.2s infinite step-end;
-}
-
-@keyframes blink-cursor {
-    0% {
-        background-color: #fff;
-        color: #000;
-    }
-    50% {
-        background-color: transparent;
-        color: #FFF;
-    }
-}
-
 .terminal .composition-view {
     background: #000;
-    color: #FFF;
+    color: #bee6c1;
     display: none;
     position: absolute;
     white-space: nowrap;
@@ -111,7 +96,8 @@ section#main_shell pre {
  *  Determine default colors for xterm.js
  */
 .terminal a {
-    font-weight: bold;
+    font-weight: normal;
+    text-decoration: none;
     color: inherit;
 }
 
