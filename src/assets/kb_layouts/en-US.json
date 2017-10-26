@@ -404,10 +404,6 @@
             "fn_cmd": "ESCAPED|-- FN: OFF"
         },
         {
-            "name": "ALT",
-            "cmd": "ESCAPED|-- ALT: LEFT"
-        },
-        {
             "name": "",
             "cmd": " "
         },
