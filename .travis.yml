@@ -10,6 +10,7 @@ cache:
   - "$HOME/.cache/electron-builder"
 
 before_install:
+  - npm install -g npm@5
   - npm install -g greenkeeper-lockfile@1
 
 before_script:
