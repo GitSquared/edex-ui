@@ -6,7 +6,13 @@ class Keyboard {
         let layout = JSON.parse(require("fs").readFileSync(opts.layout, {encoding: "utf-8"}));
         let container = document.getElementById(opts.container);
 
-        // Create DOM
+        // Set default keyboard properties
+        container.dataset.isShiftOn = false;
+        container.dataset.isCapsLckOn = false;
+        container.dataset.isAltOn = false;
+        container.dataset.isCtrlOn = false;
+
+        // Parse keymap and create DOM
         Object.keys(layout).forEach((row) => {
             container.innerHTML += `<div class="keyboard_row" id="`+row+`"></div>`;
             layout[row].forEach((keyObj) => {
@@ -37,7 +43,45 @@ class Keyboard {
                     }
                 });
 
-                document.getElementById(row).append(key);
+                document.getElementById(row).appendChild(key);
+            });
+        });
+
+        // Apply click (and/or touch) handler functions
+        container.childNodes.forEach((row) => {
+            row.childNodes.forEach((key) => {
+
+                let enterElements = document.querySelectorAll(".keyboard_enter");
+
+                if (key.attributes["class"].value.endsWith("keyboard_enter")) {
+                    // The enter key is divided in two dom elements, so we bind their animations here
+
+                    key.onmousedown = () => {
+                        enterElements.forEach((key) => {
+                            key.setAttribute("class", "keyboard_key active keyboard_enter");
+                        });
+                    };
+                    key.onmouseup = () => {
+                        enterElements.forEach((key) => {
+                            key.setAttribute("class", "keyboard_key blink keyboard_enter");
+                        });
+                        setTimeout(() => {
+                            enterElements.forEach((key) => {
+                                key.setAttribute("class", "keyboard_key keyboard_enter");
+                            });
+                        }, 100);
+                    };
+                } else {
+                    key.onmousedown = () => {
+
+                    };
+                    key.onmouseup = () => {
+                        key.setAttribute("class", "keyboard_key blink");
+                        setTimeout(() => {
+                            key.setAttribute("class", "keyboard_key");
+                        }, 100);
+                    };
+                }
             });
         });
     }

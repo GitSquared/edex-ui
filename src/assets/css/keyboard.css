@@ -28,9 +28,22 @@ div.keyboard_key {
     position: relative;
 }
 
-div.keyboard_key.active {
-    border: 2px solid rgba(190, 230, 193, 0.5);
-    background-color: rgba(190, 230, 193, 0.3);
+div.keyboard_key:active, div.keyboard_key.keyboard_enter.active {
+    border: 2px solid rgba(190, 230, 193, 0.0);
+    background-color: rgba(190, 230, 193, 1);
+}
+
+div.keyboard_key.blink {
+    animation-name: blink;
+    animation-duration: .5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes blink {
+    0% {background-color: rgba(190, 230, 193, 0.0);}
+    50% {background-color: rgba(190, 230, 193, 1);}
+    100% {background-color: rgba(190, 230, 193, 0.0);}
 }
 
 div.keyboard_key > * {
@@ -100,8 +113,8 @@ div.keyboard_row#row_2 > div.keyboard_enter {
     right: -11px;
 }
 
-div.keyboard_row#row_2 > div.keyboard_enter.active {
-    border-top: 2px solid rgba(190, 230, 193, 0.0);
+div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {
+    border-top: 2px solid rgb(190, 230, 193);
 }
 
 div.keyboard_key#keyboard_spacebar {
