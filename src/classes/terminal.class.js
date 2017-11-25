@@ -106,7 +106,7 @@ class Terminal {
                 this.ondisconnected();
             });
         } else {
-            throw "Unknow purpose";
+            throw "Unknown purpose";
         }
     }
 }
