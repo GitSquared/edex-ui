@@ -205,7 +205,7 @@ class Keyboard {
             } else {
                 key.setAttribute("class", "keyboard_key active");
             }
-        }
+        };
 
         document.onkeyup = (e) => {
             let key = findKey(e);
@@ -225,7 +225,7 @@ class Keyboard {
                     key.setAttribute("class", "keyboard_key");
                 }, 100);
             }
-        }
+        };
     }
 }
 
