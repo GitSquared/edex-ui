@@ -51,10 +51,10 @@ class Keyboard {
         // Apply click (and/or touch) handler functions (write to socket and animations)
         let pressKey = (key) => {
             let cmd = key.dataset.cmd || "";
-            if (container.dataset.isShiftOn == "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn == "true" && key.dataset.shift_cmd) cmd = key.dataset.shift_cmd;
-            if (container.dataset.isCtrlOn == "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
-            if (container.dataset.isAltOn == "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
-            if (container.dataset.isFnOn == "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
+            if (container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.shift_cmd;
+            if (container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
+            if (container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
+            if (container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
 
             if (cmd.startsWith("ESCAPED|-- ")) {
                 cmd = cmd.substr(11);
@@ -193,7 +193,7 @@ class Keyboard {
             if (key === null) key = document.querySelector('div.keyboard_key[data-alt_cmd="'+e.key+'"]');
 
             return key;
-        }
+        };
 
         document.onkeydown = (e) => {
             let key = findKey(e);

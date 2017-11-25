@@ -92,7 +92,7 @@ div.keyboard_key > h4, div.keyboard_row > .keyboard_key:last-child > *:not(h1), 
     position: absolute;
 }
 
-div.keyboard_row:not(:nth-child(4), :last-child) > .keyboard_key:last-child, div.keyboard_row > .keyboard_key:first-child {
+div.keyboard_row:not(:nth-child(4)):not(:last-child) > .keyboard_key:last-child, div.keyboard_row > .keyboard_key:first-child {
     width: 90px;
 }
 
