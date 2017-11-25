@@ -15,7 +15,7 @@ div.keyboard_row {
 
 div.keyboard_row:last-child {
     position: relative;
-    left: 37.5px;
+    left: 34px;
 }
 
 div.keyboard_key {
@@ -118,7 +118,7 @@ div.keyboard_row#row_2 > div.keyboard_enter {
     margin-top: 0px;
     height: 69px;
     top: -4px;
-    right: -9px;
+    right: -11px;
 }
 
 div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {
