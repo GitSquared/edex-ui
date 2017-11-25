@@ -1,5 +1,4 @@
 section#keyboard {
-    overflow: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -12,6 +11,11 @@ div.keyboard_row {
     flex-wrap: nowrap;
     margin: 5px 0px;
     height: 57px;
+}
+
+div.keyboard_row:last-child {
+    position: relative;
+    left: 37.5px;
 }
 
 div.keyboard_key {
@@ -59,8 +63,12 @@ div.keyboard_key > h1, div.keyboard_key > h4, div.keyboard_row > .keyboard_key:l
     font-size: 26px;
 }
 
-div.keyboard_row > .keyboard_key:last-child > *, div.keyboard_row > .keyboard_key:first-child > *, div.keyboard_row:last-child > .keyboard_key > * {
+div.keyboard_row:not(:nth-child(4)) > .keyboard_key:last-child > *, div.keyboard_row > .keyboard_key:first-child > *, div.keyboard_row:last-child > .keyboard_key > *, div.keyboard_row:nth-child(4) > .keyboard_key:nth-last-child(2) > * {
     font-size: 20px;
+}
+
+div.keyboard_row:last-child > .keyboard_key:nth-last-child(-n+3) > * {
+    font-size: 26px;
 }
 
 div.keyboard_key > *:not(h1) {
@@ -84,7 +92,7 @@ div.keyboard_key > h4, div.keyboard_row > .keyboard_key:last-child > *:not(h1), 
     position: absolute;
 }
 
-div.keyboard_row > .keyboard_key:last-child, div.keyboard_row > .keyboard_key:first-child {
+div.keyboard_row:not(:nth-child(4), :last-child) > .keyboard_key:last-child, div.keyboard_row > .keyboard_key:first-child {
     width: 90px;
 }
 
@@ -110,7 +118,7 @@ div.keyboard_row#row_2 > div.keyboard_enter {
     margin-top: 0px;
     height: 69px;
     top: -4px;
-    right: -11px;
+    right: -9px;
 }
 
 div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {
@@ -120,6 +128,17 @@ div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div
 div.keyboard_key#keyboard_spacebar {
     width: 515px;
     height: 38px;
+}
+
+div.keyboard_row:nth-child(4) > div.keyboard_key:last-child {
+    position: relative;
+    top: 3px;
+}
+
+div.keyboard_row:last-child > div.keyboard_key:nth-last-child(-n+3) {
+    margin: 0px;
+    position: relative;
+    bottom: 3px;
 }
 
 section#keyboard[data-is-caps-lck-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- CAPSLCK: ON"] {

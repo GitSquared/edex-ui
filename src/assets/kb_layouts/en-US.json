@@ -390,6 +390,10 @@
         {
             "name": "SHIFT",
             "cmd": "ESCAPED|-- SHIFT: RIGHT"
+        },
+        {
+            "name": "⬆",
+            "cmd": "~~~CTRLSEQ1~~~OA"
         }
     ],
     "row_space": [
@@ -413,6 +417,18 @@
         {
             "name": "CTRL",
             "cmd": "ESCAPED|-- CTRL: RIGHT"
+        },
+        {
+            "name": "⬅",
+            "cmd": "~~~CTRLSEQ1~~~OD"
+        },
+        {
+            "name": "⬇",
+            "cmd": "~~~CTRLSEQ1~~~OB"
+        },
+        {
+            "name": "➡",
+            "cmd": "~~~CTRLSEQ1~~~OC"
         }
     ]
 }
