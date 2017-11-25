@@ -11,6 +11,7 @@ class Keyboard {
         container.dataset.isCapsLckOn = false;
         container.dataset.isAltOn = false;
         container.dataset.isCtrlOn = false;
+        container.dataset.isFnOn = false;
 
         // Parse keymap and create DOM
         Object.keys(layout).forEach((row) => {
@@ -26,10 +27,10 @@ class Keyboard {
                     key.innerHTML = `<h1>${keyObj.name}</h1>`;
                 } else {
                     key.innerHTML = `
-                        <h1>${keyObj.name || ""}</h1>
-                        <h2>${keyObj.shift_name || ""}</h2>
+                        <h4>${keyObj.fn_name || ""}</h4>
                         <h3>${keyObj.alt_name || ""}</h3>
-                        <h4>${keyObj.fn_name || ""}</h4>`;
+                        <h2>${keyObj.shift_name || ""}</h2>
+                        <h1>${keyObj.name || ""}</h1>`;
                 }
 
                 Object.keys(keyObj).forEach((property) => {
@@ -47,7 +48,35 @@ class Keyboard {
             });
         });
 
-        // Apply click (and/or touch) handler functions
+        // Apply click (and/or touch) handler functions (write to socket and animations)
+        let pressKey = (key) => {
+            let cmd = key.dataset.cmd || "";
+            if (container.dataset.isShiftOn == "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn == "true" && key.dataset.shift_cmd) cmd = key.dataset.shift_cmd;
+            if (container.dataset.isCtrlOn == "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
+            if (container.dataset.isAltOn == "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
+            if (container.dataset.isFnOn == "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
+
+            if (cmd.startsWith("ESCAPED|-- ")) {
+                cmd = cmd.substr(11);
+                switch(cmd) {
+                    case "CAPSLCK: ON":
+                        container.dataset.isCapsLckOn = "true";
+                        break;
+                    case "CAPSLCK: OFF":
+                        container.dataset.isCapsLckOn = "false";
+                        break;
+                    case "FN: ON":
+                        container.dataset.isFnOn = "true";
+                        break;
+                    case "FN: OFF":
+                        container.dataset.isFnOn = "false";
+                        break;
+                }
+            } else {
+                term.socket.send(cmd);
+            }
+        };
+
         container.childNodes.forEach((row) => {
             row.childNodes.forEach((key) => {
 
@@ -56,12 +85,26 @@ class Keyboard {
                 if (key.attributes["class"].value.endsWith("keyboard_enter")) {
                     // The enter key is divided in two dom elements, so we bind their animations here
 
-                    key.onmousedown = () => {
+                    key.onmousedown = (e) => {
+                        pressKey(key);
+                        key.holdTimeout = setTimeout(() => {
+                            key.holdInterval = setInterval(() => {
+                                pressKey(key);
+                            }, 70);
+                        }, 400);
+
                         enterElements.forEach((key) => {
                             key.setAttribute("class", "keyboard_key active keyboard_enter");
                         });
+
+                        // Keep focus on the terminal
+                        term.term.focus();
+                        e.preventDefault();
                     };
                     key.onmouseup = () => {
+                        clearTimeout(key.holdTimeout);
+                        clearInterval(key.holdInterval);
+
                         enterElements.forEach((key) => {
                             key.setAttribute("class", "keyboard_key blink keyboard_enter");
                         });
@@ -72,10 +115,48 @@ class Keyboard {
                         }, 100);
                     };
                 } else {
-                    key.onmousedown = () => {
+                    key.onmousedown = (e) => {
+                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
+                            let cmd = key.dataset.cmd.substr(11);
+                            if (cmd.startsWith("CTRL")) {
+                                container.dataset.isCtrlOn = "true";
+                            }
+                            if (cmd.startsWith("SHIFT")) {
+                                container.dataset.isShiftOn = "true";
+                            }
+                            if (cmd.startsWith("ALT")) {
+                                container.dataset.isAltOn = "true";
+                            }
+                        } else {
+                            key.holdTimeout = setTimeout(() => {
+                                key.holdInterval = setInterval(() => {
+                                    pressKey(key);
+                                }, 70);
+                            }, 400);
+                        }
+                        pressKey(key);
 
+                        // Keep focus on the terminal
+                        term.term.focus();
+                        e.preventDefault();
                     };
-                    key.onmouseup = () => {
+                    key.onmouseup = (e) => {
+                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
+                            let cmd = key.dataset.cmd.substr(11);
+                            if (cmd.startsWith("CTRL")) {
+                                container.dataset.isCtrlOn = "false";
+                            }
+                            if (cmd.startsWith("SHIFT")) {
+                                container.dataset.isShiftOn = "false";
+                            }
+                            if (cmd.startsWith("ALT")) {
+                                container.dataset.isAltOn = "false";
+                            }
+                        } else {
+                            clearTimeout(key.holdTimeout);
+                            clearInterval(key.holdInterval);
+                        }
+
                         key.setAttribute("class", "keyboard_key blink");
                         setTimeout(() => {
                             key.setAttribute("class", "keyboard_key");

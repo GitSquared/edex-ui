@@ -63,7 +63,7 @@ div.keyboard_row > .keyboard_key:last-child > *, div.keyboard_row > .keyboard_ke
     font-size: 20px;
 }
 
-div.keyboard_key > *:not(:first-child) {
+div.keyboard_key > *:not(h1) {
     margin: 0px;
     font-size: 18px;
     position: absolute;
@@ -120,4 +120,52 @@ div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div
 div.keyboard_key#keyboard_spacebar {
     width: 515px;
     height: 38px;
+}
+
+section#keyboard[data-is-caps-lck-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- CAPSLCK: ON"] {
+    background-color: rgb(190, 230, 193);
+    color: black;
+}
+
+section#keyboard[data-is-shift-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty), section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty) {
+    position: relative;
+    top: 3px;
+    font-size: 26px;
+    margin: 0px 5px;
+}
+
+section#keyboard[data-is-shift-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2, section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2 {
+    font-size: 20px;
+    opacity: 1;
+}
+
+section#keyboard[data-is-shift-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty) + h1, section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty) + h1 {
+    margin: 0px;
+    font-size: 18px;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+}
+
+section#keyboard[data-is-shift-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2 + h1, section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2 + h1 {
+    opacity: 0;
+}
+
+
+section#keyboard[data-is-fn-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- FN: ON"] {
+    background-color: rgb(190, 230, 193);
+    color: black;
+}
+
+section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) {
+    position: relative;
+    top: 3px;
+    font-size: 23px;
+    margin: 0px 5px;
+    opacity: 1;
+}
+
+section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) + h3, section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) + h3 + h2, section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) + h3 + h2 + h1 {
+    position: absolute;
+    opacity: 0;
 }

@@ -224,7 +224,6 @@
         {
             "name": "CAPS",
             "cmd": "ESCAPED|-- CAPSLCK: ON",
-            "shift_name": "CAPS",
             "shift_cmd": "ESCAPED|-- CAPSLCK: OFF"
         },
         {
