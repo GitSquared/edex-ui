@@ -28,7 +28,7 @@ div.keyboard_key {
     position: relative;
 }
 
-div.keyboard_key:active, div.keyboard_key.keyboard_enter.active {
+div.keyboard_key:active, div.keyboard_key.active {
     border: 2px solid rgba(190, 230, 193, 0.0);
     background-color: rgba(190, 230, 193, 1);
 }
