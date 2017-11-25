@@ -172,7 +172,7 @@ class Keyboard {
             let key = document.querySelector('div.keyboard_key[data-cmd="'+e.key+'"]');
             if (key === null) key = document.querySelector('div.keyboard_key[data-shift_cmd="'+e.key+'"]');
 
-            // Find special keys (shift, control, enter, etc.)
+            // Find special keys (shift, control, arrows, etc.)
             if (key === null && e.code === "ShiftLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- SHIFT: LEFT"]');
             if (key === null && e.code === "ShiftRight") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- SHIFT: RIGHT"]');
             if (key === null && e.code === "ControlLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CTRL: LEFT"]');
@@ -182,6 +182,10 @@ class Keyboard {
             if (key === null && e.code === "CapsLock") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CAPSLCK: ON"]');
             if (key === null && e.code === "Escape") key = document.querySelector('div.keyboard_key[data-cmd=""]');
             if (key === null && e.code === "Backspace") key = document.querySelector('div.keyboard_key[data-cmd=""]');
+            if (key === null && e.code === "ArrowUp") key = document.querySelector('div.keyboard_key[data-cmd="OA"]');
+            if (key === null && e.code === "ArrowLeft") key = document.querySelector('div.keyboard_key[data-cmd="OD"]');
+            if (key === null && e.code === "ArrowDown") key = document.querySelector('div.keyboard_key[data-cmd="OB"]');
+            if (key === null && e.code === "ArrowRight") key = document.querySelector('div.keyboard_key[data-cmd="OC"]');
             if (key === null && e.code === "Enter") key = document.querySelectorAll('div.keyboard_key.keyboard_enter');
 
             // Find "rare" keys (ctrl and alt symbols)
