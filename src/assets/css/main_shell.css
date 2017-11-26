@@ -4,6 +4,7 @@ section#main_shell {
     padding: 8px;
     border: 2px solid rgba(190, 230, 193, 0.5);
     border-radius: 3px;
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1), height .5s cubic-bezier(0.4, 0, 1, 1);
 }
 
 section#main_shell pre {

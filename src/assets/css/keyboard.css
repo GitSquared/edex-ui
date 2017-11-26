@@ -1,6 +1,8 @@
 section#keyboard {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100vw;
 }
 
 div.keyboard_row {
@@ -11,6 +13,33 @@ div.keyboard_row {
     flex-wrap: nowrap;
     margin: 5px 0px;
     height: 57px;
+}
+
+section#keyboard.animation_state_2 > div.keyboard_row:nth-child(1) {
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1), background .1s linear .5s;
+}
+section#keyboard.animation_state_2 > div.keyboard_row:nth-child(2) {
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .2s, background .1s linear .7s;
+}
+section#keyboard.animation_state_2 > div.keyboard_row:nth-child(3) {
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .4s, background .1s linear .9s;
+}
+section#keyboard.animation_state_2 > div.keyboard_row:nth-child(4) {
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .6s, background .1s linear 1.1s;
+}
+section#keyboard.animation_state_2 > div.keyboard_row:nth-child(5) {
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .8s, background .1s linear 1.3s;
+}
+
+section#keyboard.animation_state_1 > * {
+    background-color: rgba(190, 230, 193, 1);
+    width: 0px;
+    overflow: hidden;
+}
+
+section#keyboard.animation_state_2 > * {
+    width: 53vw;
+    background-color: rgba(190, 230, 193, 0);
 }
 
 div.keyboard_row:last-child {

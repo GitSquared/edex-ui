@@ -1,0 +1,34 @@
+section#boot_screen {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+
+    font-family: monospace;
+    font-size: 15px;
+    text-align: left;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+section#boot_screen.center {
+    align-items: center;
+    justify-content: center;
+}
+
+section#boot_screen h1 {
+    font-family: var(--font_main);
+    font-size: 10vh;
+    text-align: center;
+    border-bottom: 5px solid #bee6c1;
+    padding-top: 2vh;
+    padding-right: 2vh;
+    padding-left: 1.5vh;
+    background-color: transparent;
+    width: 20vw;
+}
