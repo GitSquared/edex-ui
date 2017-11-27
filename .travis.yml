@@ -10,14 +10,14 @@ cache:
   - "$HOME/.cache/electron-builder"
 
 before_install:
-  - npm install -g npm@5
-  - npm install -g greenkeeper-lockfile@1
+  - sudo npm install -g npm@5
+  - sudo npm install -g greenkeeper-lockfile@1
 
 before_script:
   - git lfs pull
   - greenkeeper-lockfile-update
 
-after_script: greenkeeper-lockfile-upload
+after_script: sudo greenkeeper-lockfile-upload
 
 script:
   - |
