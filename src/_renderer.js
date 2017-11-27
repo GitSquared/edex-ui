@@ -1,7 +1,7 @@
 // Load config
 let settings = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, "settings.json"), {encoding:"utf-8"}));
 
-
+let resumeInit, initUI;
 let bootScreen = document.getElementById("boot_screen");
 let log = require('fs').readFileSync(require('path').join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
 let i = 0;
@@ -15,16 +15,16 @@ let displayLine = () => {
     i++;
 
     switch(true) {
-        case i == 4:
+        case i === 4:
             setTimeout(displayLine, 500);
             break;
         case i > 4 && i < 25:
             setTimeout(displayLine, 30);
             break;
-        case i == 25:
+        case i === 25:
             setTimeout(displayLine, 400);
             break;
-        case i == 42:
+        case i === 42:
             setTimeout(displayLine, 300);
             break;
         case i > 42 && i < 83:
@@ -39,7 +39,7 @@ let displayLine = () => {
 };
 displayLine();
 
-let resumeInit = () => {
+resumeInit = () => {
     bootScreen.innerHTML = "";
     setTimeout(() => {
         document.body.setAttribute("style", "background: linear-gradient(90deg, #090B0A 20px, transparent 1%) center, linear-gradient(#090B0A 20px, transparent 1%) center, #262827;background-size: 22px 22px;");
@@ -67,7 +67,7 @@ let resumeInit = () => {
     }, 400);
 };
 
-let initUI = () => {
+initUI = () => {
     document.body.innerHTML += `<section id="main_shell" style="height:0%;width:0%;opacity:0;">
         <pre id="terminal"></pre>
     </section>
