@@ -15,7 +15,6 @@ before_install:
 
 before_script:
   - git lfs pull
-  - sudo greenkeeper-lockfile-update
 
 after_script: greenkeeper-lockfile-upload
 
@@ -27,7 +26,7 @@ script:
     -v ~/.cache/electron:/root/.cache/electron \
     -v ~/.cache/electron-builder:/root/.cache/electron-builder \
     electronuserland/builder:wine \
-    /bin/bash -c "npm run install-linux && npm run build"
+    /bin/bash -c "npm run install-linux && greenkeeper-lockfile-update && npm run build"
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
