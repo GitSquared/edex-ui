@@ -15,9 +15,9 @@ before_install:
 
 before_script:
   - git lfs pull
-  - greenkeeper-lockfile-update
+  - sudo greenkeeper-lockfile-update
 
-after_script: sudo greenkeeper-lockfile-upload
+after_script: greenkeeper-lockfile-upload
 
 script:
   - |
