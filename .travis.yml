@@ -20,7 +20,7 @@ script:
     -v ~/.cache/electron:/root/.cache/electron \
     -v ~/.cache/electron-builder:/root/.cache/electron-builder \
     electronuserland/builder:wine \
-    /bin/bash -c "npm install -g npm@5 greenkeeper-lockfile@1 semver npmlog update-notifier graceful-fs config-chain inherits && npm run install-linux && greenkeeper-lockfile-update && npm run build && greenkeeper-lockfile-upload"
+    /bin/bash -c "npm install -g npm@5 greenkeeper-lockfile@1 semver npmlog update-notifier graceful-fs config-chain inherits nopt && npm run install-linux && greenkeeper-lockfile-update && npm run build && greenkeeper-lockfile-upload"
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
