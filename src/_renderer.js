@@ -96,7 +96,7 @@ initUI = () => {
                             document.getElementById("keyboard").setAttribute("class", "animation_state_1 animation_state_2");
                             setTimeout(() => {
                                 document.getElementById("keyboard").setAttribute("class", "");
-                            }, 1500);
+                            }, 1100);
                         }, 100);
                     }, 50);
                 }, 260);

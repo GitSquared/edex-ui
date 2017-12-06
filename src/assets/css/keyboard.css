@@ -16,30 +16,31 @@ div.keyboard_row {
 }
 
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(1) {
-    transition: width .5s cubic-bezier(0.4, 0, 1, 1), background .1s linear .5s;
+    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .2s, filter .1s linear .8s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(2) {
-    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .2s, background .1s linear .7s;
+    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .1s, filter .1s linear .6s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(3) {
-    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .4s, background .1s linear .9s;
+    transition: width .7s cubic-bezier(0.4, 0, 1, 1), filter .1s linear .5s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(4) {
-    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .6s, background .1s linear 1.1s;
+    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .3s, filter .1s linear 1s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(5) {
-    transition: width .5s cubic-bezier(0.4, 0, 1, 1) .8s, background .1s linear 1.3s;
+    transition: width .6s cubic-bezier(0.4, 0, 1, 1) .2s, filter .1s linear .8s;
 }
 
 section#keyboard.animation_state_1 > * {
-    background-color: rgba(190, 230, 193, 1);
+    filter: brightness(170%);
     width: 0px;
     overflow: hidden;
 }
 
 section#keyboard.animation_state_2 > * {
-    width: 53vw;
-    background-color: rgba(190, 230, 193, 0);
+    filter: brightness(100%);
+    width: 100vw;
+    overflow: hidden;
 }
 
 div.keyboard_row:last-child {
@@ -123,6 +124,7 @@ div.keyboard_key > h4, div.keyboard_row > .keyboard_key:last-child > *:not(h1), 
 
 div.keyboard_row:not(:nth-child(4)):not(:last-child) > .keyboard_key:last-child, div.keyboard_row > .keyboard_key:first-child {
     width: 90px;
+    min-width: 90px;
 }
 
 div.keyboard_key#keyboard_spacebar, div.keyboard_enter {
@@ -132,6 +134,7 @@ div.keyboard_key#keyboard_spacebar, div.keyboard_enter {
 div.keyboard_row#row_1 > div.keyboard_enter {
     border-bottom-right-radius: 0px;
     width: 105px;
+    min-width: 105px;
 }
 
 div.keyboard_row#row_1 > div.keyboard_enter > h1 {
@@ -144,6 +147,7 @@ div.keyboard_row#row_2 > div.keyboard_enter {
     border-top-left-radius: 0px;
     border-top: 2px solid #090b0a;
     width: 84px;
+    min-width: 84px;
     margin-top: 0px;
     height: 69px;
     top: -4px;
@@ -156,6 +160,7 @@ div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div
 
 div.keyboard_key#keyboard_spacebar {
     width: 515px;
+    min-width: 515px;
     height: 38px;
 }
 
