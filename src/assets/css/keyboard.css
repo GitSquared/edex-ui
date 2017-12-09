@@ -25,7 +25,7 @@ section#keyboard.animation_state_2 > div.keyboard_row:nth-child(3) {
     transition: width .7s cubic-bezier(0.4, 0, 1, 1), filter .1s linear .5s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(4) {
-    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .3s, filter .1s linear 1s;
+    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .3s, filter .1s linear .8s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(5) {
     transition: width .6s cubic-bezier(0.4, 0, 1, 1) .2s, filter .1s linear .8s;
