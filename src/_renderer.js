@@ -1,7 +1,7 @@
 // Load config
-let settings = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, "settings.json"), {encoding:"utf-8"}));
+let settings = require("./settings.json");
 
-let resumeInit, initUI;
+let resumeInit, initUI, initMods;
 let bootScreen = document.getElementById("boot_screen");
 let log = require('fs').readFileSync(require('path').join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
 let i = 0;
@@ -68,8 +68,17 @@ resumeInit = () => {
 };
 
 initUI = () => {
-    document.body.innerHTML += `<section id="main_shell" style="height:0%;width:0%;opacity:0;">
+    document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
+        <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
+        <h3 class="title" style="top:27px;width:14.5%;left:8px;"><p></p><p></p></h3>
+    </section>
+    <section id="main_shell" style="height:0%;width:0%;opacity:0;">
+        <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
         <pre id="terminal"></pre>
+    </section>
+    <section class="mod_column" id="mod_column_right">
+        <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
+        <h3 class="title" style="top:27px;width:14.5%;right:8px;"><p></p><p></p></h3>
     </section>
     <section id="keyboard" style="opacity:0;">
     </section>`;
@@ -80,6 +89,7 @@ initUI = () => {
     });
     setTimeout(() => {
         document.getElementById("main_shell").setAttribute("style", "");
+        document.querySelector("#main_shell > h3.title").setAttribute("style", "");
         setTimeout(() => {
             document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
             setTimeout(() => {
@@ -97,6 +107,7 @@ initUI = () => {
                             setTimeout(() => {
                                 document.getElementById("keyboard").setAttribute("class", "");
                             }, 1100);
+                            initMods();
                         }, 100);
                     }, 50);
                 }, 260);
@@ -105,6 +116,13 @@ initUI = () => {
     }, 10);
 };
 
+initMods = () => {
+    document.querySelectorAll(".mod_column").forEach((e) => {
+        e.setAttribute("class", "mod_column activated");
+    });
+
+    let clock = new Clock("mod_column_left");
+};
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 window.onkeydown = (e) => {

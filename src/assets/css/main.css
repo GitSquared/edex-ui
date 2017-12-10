@@ -8,6 +8,7 @@ html, body {
 body {
     /*cursor: none !important;*/
     user-select: none !important;
+    padding-top: 20px;
     color: #bee6c1;
     display: flex;
     flex-direction: row;
@@ -16,4 +17,36 @@ body {
     flex-wrap: wrap;
     background: linear-gradient(90deg, #090B0A 20px, transparent 1%) center, linear-gradient(#090B0A 20px, transparent 1%) center, #262827;
     background-size: 22px 22px;
+}
+
+h3.title {
+    position: fixed;
+    margin: 0px;
+    padding: 0px 10px;
+    font-size: 11px;
+    border-bottom: 1px solid rgba(190, 230, 193, 0.3);
+}
+h3.title > p {
+    display: inline-block;
+    margin: 0px;
+    width: 49.6%;
+}
+h3.title > p:last-child {
+    text-align: right;
+}
+h3.title::before {
+    content: "";
+    border-left: 1px solid rgba(190, 230, 193, 0.3);
+    position: relative;
+    left: -10px;
+    bottom: -6px;
+    height: 5px;
+}
+h3.title::after {
+    content: "";
+    border-right: 1px solid rgba(190, 230, 193, 0.3);
+    position: relative;
+    right: -10px;
+    bottom: -6px;
+    height: 5px;
 }

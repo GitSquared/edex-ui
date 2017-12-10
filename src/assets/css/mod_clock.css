@@ -1,0 +1,44 @@
+div#mod_clock {
+    display: flex;
+    height: 80px;
+    border-bottom: 1px solid rgba(190, 230, 193, 0.3);
+}
+
+div#mod_clock::before {
+    content: "";
+    border-left: 1px solid rgba(190, 230, 193, 0.3);
+    position: relative;
+    left: -1px;
+    bottom: -76px;
+    height: 9px;
+}
+
+div#mod_clock::after {
+    content: "";
+    border-right: 1px solid rgba(190, 230, 193, 0.3);
+    position: relative;
+    right: -1px;
+    bottom: -76px;
+    height: 9px;
+}
+
+div#mod_clock h1 {
+    margin: auto;
+    font-size: 52px;
+}
+
+div#mod_clock span, div#mod_clock em {
+    display: inline-block;
+    text-align: center;
+}
+
+div#mod_clock span {
+    margin: 0px 2.5px;
+    width: .6em;
+}
+
+div#mod_clock em {
+    font-style: normal;
+    margin: 0px 5px;
+    width: .3em;
+}

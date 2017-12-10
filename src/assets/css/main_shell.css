@@ -7,6 +7,17 @@ section#main_shell {
     transition: width .5s cubic-bezier(0.4, 0, 1, 1), height .5s cubic-bezier(0.4, 0, 1, 1);
 }
 
+section#main_shell > h3.title {
+    top: 8px;
+    left: 16.5%;
+    width: 66%;
+    transition: opacity .5s cubic-bezier(0.4, 0, 1, 1) .5s;
+}
+
+section#main_shell > h3.title > p {
+    width: 49.92%;
+}
+
 section#main_shell pre {
     height: 100%;
     width: 100%;

@@ -1,0 +1,48 @@
+section.mod_column {
+    width: 17%;
+    top: 27px;
+    min-height: 10%;
+    max-height: 96%;
+    padding: 15px;
+    padding-bottom: 0px;
+    box-sizing: border-box;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+
+    opacity: 0;
+    transition: opacity .5s cubic-bezier(0.4, 0, 1, 1);
+}
+
+section.mod_column.activated {
+    opacity: 1;
+}
+
+section.mod_column > h3.title {
+    top: 8px;
+    width: 14.8%;
+}
+
+section.mod_column > div {
+    width: 100%;
+}
+
+section#mod_column_left {
+    left: -6px;
+    align-items: flex-end;
+}
+
+section#mod_column_left > h3.title {
+    left: 6px;
+}
+
+section#mod_column_right {
+    right: -6px;
+    align-items: flex-start;
+}
+
+section#mod_column_right > h3.title {
+    right: 6px;
+}

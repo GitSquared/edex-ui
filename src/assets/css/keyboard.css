@@ -3,6 +3,8 @@ section#keyboard {
     flex-direction: column;
     align-items: center;
     width: 100vw;
+    position: relative;
+    top: -10px;
 }
 
 div.keyboard_row {
