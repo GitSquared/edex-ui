@@ -122,6 +122,7 @@ initMods = () => {
     });
 
     let clock = new Clock("mod_column_left");
+    let sysinfo = new Sysinfo("mod_column_left");
 };
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts

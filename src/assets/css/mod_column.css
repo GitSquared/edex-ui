@@ -10,7 +10,6 @@ section.mod_column {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: hidden;
 
     opacity: 0;
     transition: opacity .5s cubic-bezier(0.4, 0, 1, 1);
