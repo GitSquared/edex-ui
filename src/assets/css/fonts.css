@@ -4,20 +4,25 @@
 /*      Import Fonts      */
 /*  Fira Mono  */
 @font-face {
-font-family: "Fira Mono";
-src: url("../fonts/fira_mono.woff2") format("woff2");
+    font-family: "Fira Mono";
+    src: url("../fonts/fira_mono.woff2") format("woff2");
 }
 /*  United Sans Medium  */
 @font-face {
-font-family: "United Sans Medium";
-src: url("../fonts/united_sans.woff2") format("woff2");
+    font-family: "United Sans Medium";
+    src: url("../fonts/united_sans.woff2") format("woff2");
+}
+/*  United Sans Light  */
+@font-face {
+    font-family: "United Sans Light";
+    src: url("../fonts/united_sans_light.woff2") format("woff2");
 }
 
 /*      Apply Fonts      */
 body {
-  font-family: var(--font_main), sans-serif;
+    font-family: var(--font_main), sans-serif;
 }
 
 pre {
-  font-family: var(--font_console), sans-serif;
+    font-family: var(--font_console), sans-serif;
 }
