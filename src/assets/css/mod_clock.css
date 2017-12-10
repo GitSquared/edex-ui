@@ -1,6 +1,7 @@
 div#mod_clock {
     display: flex;
     height: 80px;
+    padding-top: 7px;
     border-bottom: 1px solid rgba(190, 230, 193, 0.3);
 }
 

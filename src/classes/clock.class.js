@@ -5,10 +5,9 @@ class Clock {
         // Create DOM
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_clock">
-            <h1><span>?</span><span>?</span><span>:</span><span>?</span><span>?</span><span>:</span><span>?</span><span>?</span></h1>
+            <h1 id="mod_clock_text"><span>?</span><span>?</span><span>:</span><span>?</span><span>?</span><span>:</span><span>?</span><span>?</span></h1>
         </div>`;
 
-        this.clockText = document.querySelector("#mod_clock > h1");
         this.updateClock();
         this.updater = setInterval(() => {
             this.updateClock();
@@ -29,7 +28,7 @@ class Clock {
             if (e === ":") clockString += "<em>"+e+"</em>";
             else clockString += "<span>"+e+"</span>";
         });
-        this.clockText.innerHTML = clockString;
+        document.getElementById("mod_clock_text").innerHTML = clockString;
     }
 }
 
