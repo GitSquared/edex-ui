@@ -1,14 +1,23 @@
 {
   "name": "edex-ui",
+  "productName": "eDEX-UI",
   "version": "0.1.0",
   "description": "A science fiction desktop running everywhere. Awesome.",
+  "keywords": [
+    "desktop",
+    "sci-fi",
+    "gui",
+    "portable",
+    "tty",
+    "terminal"
+  ],
   "main": "src/_boot.js",
   "scripts": {
-    "start": "node_modules/.bin/electron src",
-    "install-linux": "npm install && cd src && npm install && ./../node_modules/.bin/electron-rebuild -f -w node-pty && cd ..",
+    "start": "node_modules/.bin/electron .",
+    "install-linux": "npm install && ./node_modules/.bin/electron-rebuild -f -w node-pty",
     "preinstall-windows": "npm install --global --production windows-build-tools && npm install --global node-gyp && setx PYTHON \"%USERPROFILE%\\.windows-build-tools\\python27\\python.exe\"",
-    "install-windows": "npm install && cd src && npm install && ..\\node_modules\\.bin\\electron-rebuild -f -w node-pty && cd ..",
-    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
+    "install-windows": "npm install && node_modules\\.bin\\electron-rebuild -f -w node-pty",
+    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && npm install",
     "build": "./node_modules/.bin/electron-builder build -wl -p never",
     "postbuild": "rm -R prebuild-src"
   },
@@ -71,6 +80,11 @@
       ],
       "icon": "media/icon.ico"
     }
+  },
+  "dependencies": {
+    "node-pty": "0.7.1",
+    "ws": "3.2.0",
+    "xterm": "2.9.2"
   },
   "devDependencies": {
     "electron": "1.7.9",
