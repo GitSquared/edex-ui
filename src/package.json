@@ -1,0 +1,31 @@
+{
+  "name": "edex-ui",
+  "productName": "eDEX-UI",
+  "version": "0.1.0",
+  "description": "A science fiction desktop running everywhere. Awesome.",
+  "keywords": [
+    "desktop",
+    "sci-fi",
+    "gui",
+    "portable",
+    "tty",
+    "terminal"
+  ],
+  "main": "_boot.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GitSquared/edex-ui.git"
+  },
+  "author": "GitSquared, Pixelylon",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/GitSquared/edex-ui/issues"
+  },
+  "homepage": "https://github.com/GitSquared/edex-ui#readme",
+  "dependencies": {
+    "battery-level": "3.0.0",
+    "node-pty": "0.7.1",
+    "ws": "3.2.0",
+    "xterm": "2.9.2"
+  }
+}
