@@ -3,6 +3,7 @@ div#mod_clock {
     height: 80px;
     padding-top: 7px;
     border-bottom: 1px solid rgba(190, 230, 193, 0.3);
+    font-family: var(--font_main_light);
 }
 
 div#mod_clock::before {
