@@ -17,7 +17,7 @@
     "install-linux": "npm install && ./node_modules/.bin/electron-rebuild -f -w node-pty",
     "preinstall-windows": "npm install --global --production windows-build-tools && npm install --global node-gyp && setx PYTHON \"%USERPROFILE%\\.windows-build-tools\\python27\\python.exe\"",
     "install-windows": "npm install && node_modules\\.bin\\electron-rebuild -f -w node-pty",
-    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && npm install",
+    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && cp package.json prebuild-src/ && node prebuild-minify.js",
     "build": "./node_modules/.bin/electron-builder build -wl -p never",
     "postbuild": "rm -R prebuild-src"
   },
