@@ -76,7 +76,7 @@ class Sysinfo {
             case 11:
                 month = "DEC";
                 break;
-        };
+        }
         document.querySelector("#mod_sysinfo > div:first-child > h2").innerHTML = month+" "+time.getDate();
 
         let timeToNewDay = ((23 - time.getHours()) * 3600000) + ((59 - time.getMinutes()) * 60000);
@@ -105,7 +105,7 @@ class Sysinfo {
     }
     updateBattery() {
         let btrlvl = require("battery-level");
-        btrlvl().then(level => {
+        btrlvl().then((level) => {
             document.querySelector("#mod_sysinfo > div:last-child > h2").innerHTML = (level*100)+"%";
         });
     }
