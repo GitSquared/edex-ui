@@ -82,7 +82,7 @@
     }
   },
   "devDependencies": {
-    "electron": "1.7.9",
+    "electron": "1.7.10",
     "electron-builder": "19.49.0",
     "electron-rebuild": "1.6.0",
     "minifier": "0.8.1",
