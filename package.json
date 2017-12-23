@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "electron": "1.7.9",
-    "electron-builder": "19.49.0",
+    "electron-builder": "19.49.2",
     "electron-rebuild": "1.6.0",
     "minifier": "0.8.1",
     "node-json-minify": "1.0.0",
