@@ -121,8 +121,10 @@ initMods = () => {
         e.setAttribute("class", "mod_column activated");
     });
 
-    let clock = new Clock("mod_column_left");
-    let sysinfo = new Sysinfo("mod_column_left");
+    window.mods = {};
+    window.mods.clock = new Clock("mod_column_left");
+    window.mods.sysinfo = new Sysinfo("mod_column_left");
+    window.mods.cpuinfo = new Cpuinfo("mod_column_left");
 };
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
