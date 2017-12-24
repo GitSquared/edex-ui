@@ -87,6 +87,6 @@
     "electron-rebuild": "1.6.0",
     "minifier": "0.8.1",
     "node-json-minify": "1.0.0",
-    "uglify-js": "3.2.2"
+    "uglify-js": "3.3.0"
   }
 }
