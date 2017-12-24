@@ -23,9 +23,11 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
-    "battery-level": "3.0.0",
+    "battery-level": "^3.0.0",
     "node-pty": "0.7.4",
-    "ws": "3.3.2",
+    "smoothie": "^1.33.0",
+    "systeminformation": "^3.33.11",
+    "ws": "3.3.3",
     "xterm": "2.9.2"
   }
 }
