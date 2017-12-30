@@ -61,7 +61,7 @@ class Terminal {
                 name: 'xterm-color',
                 cols: 80,
                 rows: 24,
-                cwd: process.env.PWD,
+                cwd: opts.cwd || process.env.PWD,
                 env: process.env
             });
 

@@ -1,5 +1,5 @@
 // Load config
-let settings = require("./settings.json");
+let settings = require(require('path').join(require('electron').remote.app.getPath("userData"), "settings.json"));
 
 let resumeInit, initUI, initMods;
 let bootScreen = document.getElementById("boot_screen");

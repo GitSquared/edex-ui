@@ -13,23 +13,25 @@ const url = require("url");
 const fs = require("fs");
 const Terminal = require("./classes/terminal.class.js").Terminal;
 
-let win, tty;
-let settingsFile = path.join(__dirname, "settings.json");
+var win, tty;
+const settingsFile = path.join(electron.app.getPath("userData"), "settings.json");
 
 if (!fs.existsSync(settingsFile)) {
     fs.writeFileSync(settingsFile, JSON.stringify({
         shell: (process.platform === "win32") ? "powershell.exe" : "bash",
-        keyboard: "en-US"
+        keyboard: "en-US",
+        cwd: electron.app.getPath("userData")
     }));
 }
 
 app.on('ready', () => {
 
-    let settings = JSON.parse(fs.readFileSync(settingsFile, {encoding: "utf-8"}));
+    let settings = require(settingsFile);
 
     tty = new Terminal({
         role: "server",
-        shell: settings.shell
+        shell: settings.shell,
+        cwd: settings.cwd
     });
     tty.onclosed = (code, signal) => {
         console.log("=> Terminal exited - "+code+", "+signal);
