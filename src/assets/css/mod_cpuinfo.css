@@ -1,0 +1,77 @@
+div#mod_cpuinfo {
+    border-top: 1px solid rgba(190, 230, 193, 0.3);
+    font-family: var(--font_main_light);
+    letter-spacing: 1px;
+    padding: 7px 0px;
+    display: flex;
+}
+
+div#mod_cpuinfo::before {
+    content: "";
+    border-left: 1px solid rgba(190, 230, 193, 0.3);
+    align-self: flex-start;
+    position: relative;
+    left: -1px;
+    top: -12px;
+    height: 9px;
+}
+
+div#mod_cpuinfo::after {
+    content: "";
+    border-right: 1px solid rgba(190, 230, 193, 0.3);
+    position: relative;
+    right: -1px;
+    top: -12px;
+    height: 9px;
+}
+
+div#mod_cpuinfo > div#mod_cpuinfo_innercontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+div#mod_cpuinfo > div > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 3px 0px;
+}
+
+div#mod_cpuinfo h1 {
+    font-size: 16px;
+    margin: 0px;
+}
+
+div#mod_cpuinfo em {
+    font-family: var(--font_main);
+    font-style: normal;
+}
+
+div#mod_cpuinfo span {
+    width: 1em;
+    position: relative;
+    top: 4px;
+    right: 3px;
+    text-align: center;
+    overflow: hidden;
+    display: inline-block;
+}
+
+div#mod_cpuinfo i {
+    font-style: normal;
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+div#mod_cpuinfo canvas {
+    width: 76%;
+    height: 45px;
+    border-top: 1px dashed rgba(190, 230, 193, 0.3);
+    border-bottom: 1px dashed rgba(190, 230, 193, 0.3);
+    margin: 5px 0px;
+}
