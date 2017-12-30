@@ -104,6 +104,7 @@ class Sysinfo {
         document.querySelector("#mod_sysinfo > div:nth-child(2) > h2").innerHTML = uptime.days+":"+uptime.hours+":"+uptime.minutes;
     }
     updateBattery() {
+        // Note: SystemInformation's battery tools seems to be kinda broken (at least on Arch), so we're going with another dep for this one
         let btrlvl = require("battery-level");
         btrlvl().then((level) => {
             document.querySelector("#mod_sysinfo > div:last-child > h2").innerHTML = (level*100)+"%";

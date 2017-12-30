@@ -4,7 +4,7 @@ div#mod_sysinfo {
     align-items: center;
     justify-content: space-between;
     height: 60px;
-    border-bottom: 1px solid rgba(190, 230, 193, 0.3);
+    border-top: 1px solid rgba(190, 230, 193, 0.3);
     font-size: 12px;
     font-family: var(--font_main_light);
     letter-spacing: 1px;
@@ -15,7 +15,7 @@ div#mod_sysinfo::before {
     border-left: 1px solid rgba(190, 230, 193, 0.3);
     position: relative;
     left: -1px;
-    bottom: -30px;
+    top: -31px;
     height: 9px;
 }
 
@@ -24,7 +24,7 @@ div#mod_sysinfo::after {
     border-right: 1px solid rgba(190, 230, 193, 0.3);
     position: relative;
     right: -1px;
-    bottom: -30px;
+    top: -31px;
     height: 9px;
 }
 

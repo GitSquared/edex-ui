@@ -2,7 +2,7 @@ div#mod_clock {
     display: flex;
     height: 80px;
     padding-top: 7px;
-    border-bottom: 1px solid rgba(190, 230, 193, 0.3);
+    border-top: 1px solid rgba(190, 230, 193, 0.3);
     font-family: var(--font_main_light);
 }
 
@@ -11,7 +11,7 @@ div#mod_clock::before {
     border-left: 1px solid rgba(190, 230, 193, 0.3);
     position: relative;
     left: -1px;
-    bottom: -76px;
+    top: -12px;
     height: 9px;
 }
 
@@ -20,7 +20,7 @@ div#mod_clock::after {
     border-right: 1px solid rgba(190, 230, 193, 0.3);
     position: relative;
     right: -1px;
-    bottom: -76px;
+    top: -12px;
     height: 9px;
 }
 

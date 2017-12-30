@@ -70,7 +70,6 @@ resumeInit = () => {
 initUI = () => {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
-        <h3 class="title" style="top:27px;width:14.5%;left:8px;"><p></p><p></p></h3>
     </section>
     <section id="main_shell" style="height:0%;width:0%;opacity:0;">
         <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
@@ -78,7 +77,6 @@ initUI = () => {
     </section>
     <section class="mod_column" id="mod_column_right">
         <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
-        <h3 class="title" style="top:27px;width:14.5%;right:8px;"><p></p><p></p></h3>
     </section>
     <section id="keyboard" style="opacity:0;">
     </section>`;
@@ -117,14 +115,19 @@ initUI = () => {
 };
 
 initMods = () => {
-    document.querySelectorAll(".mod_column").forEach((e) => {
-        e.setAttribute("class", "mod_column activated");
-    });
-
     window.mods = {};
+
+    // Left column
     window.mods.clock = new Clock("mod_column_left");
     window.mods.sysinfo = new Sysinfo("mod_column_left");
     window.mods.cpuinfo = new Cpuinfo("mod_column_left");
+
+    // Right column
+    
+
+    document.querySelectorAll(".mod_column").forEach((e) => {
+        e.setAttribute("class", "mod_column activated");
+    });
 };
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
