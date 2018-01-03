@@ -1,5 +1,5 @@
 div#mod_cpuinfo {
-    border-top: 1px solid rgba(var(--color_r), var(--color_g), 193, 0.3);
+    border-top: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     font-family: var(--font_main_light);
     letter-spacing: 1px;
     padding: 7px 0px;
@@ -8,7 +8,7 @@ div#mod_cpuinfo {
 
 div#mod_cpuinfo::before {
     content: "";
-    border-left: 1px solid rgba(var(--color_r), var(--color_g), 193, 0.3);
+    border-left: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     align-self: flex-start;
     position: relative;
     left: -1px;
@@ -18,7 +18,7 @@ div#mod_cpuinfo::before {
 
 div#mod_cpuinfo::after {
     content: "";
-    border-right: 1px solid rgba(var(--color_r), var(--color_g), 193, 0.3);
+    border-right: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
     right: -1px;
     top: -12px;
@@ -71,7 +71,7 @@ div#mod_cpuinfo i {
 div#mod_cpuinfo canvas {
     width: 76%;
     height: 45px;
-    border-top: 1px dashed rgba(var(--color_r), var(--color_g), 193, 0.3);
-    border-bottom: 1px dashed rgba(var(--color_r), var(--color_g), 193, 0.3);
+    border-top: 1px dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-bottom: 1px dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     margin: 5px 0px;
 }

@@ -4,7 +4,7 @@ div#mod_sysinfo {
     align-items: center;
     justify-content: space-between;
     height: 60px;
-    border-top: 1px solid rgba(var(--color_r), var(--color_g), 193, 0.3);
+    border-top: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     font-size: 12px;
     font-family: var(--font_main_light);
     letter-spacing: 1px;
@@ -12,7 +12,7 @@ div#mod_sysinfo {
 
 div#mod_sysinfo::before {
     content: "";
-    border-left: 1px solid rgba(var(--color_r), var(--color_g), 193, 0.3);
+    border-left: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
     left: -1px;
     top: -31px;
@@ -21,7 +21,7 @@ div#mod_sysinfo::before {
 
 div#mod_sysinfo::after {
     content: "";
-    border-right: 1px solid rgba(var(--color_r), var(--color_g), 193, 0.3);
+    border-right: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
     right: -1px;
     top: -31px;
