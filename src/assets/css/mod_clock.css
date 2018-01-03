@@ -2,13 +2,13 @@ div#mod_clock {
     display: flex;
     height: 80px;
     padding-top: 7px;
-    border-top: 1px solid rgba(190, 230, 193, 0.3);
+    border-top: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     font-family: var(--font_main_light);
 }
 
 div#mod_clock::before {
     content: "";
-    border-left: 1px solid rgba(190, 230, 193, 0.3);
+    border-left: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
     left: -1px;
     top: -12px;
@@ -17,7 +17,7 @@ div#mod_clock::before {
 
 div#mod_clock::after {
     content: "";
-    border-right: 1px solid rgba(190, 230, 193, 0.3);
+    border-right: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
     right: -1px;
     top: -12px;

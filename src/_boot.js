@@ -15,23 +15,48 @@ const Terminal = require("./classes/terminal.class.js").Terminal;
 
 var win, tty;
 const settingsFile = path.join(electron.app.getPath("userData"), "settings.json");
+const themesDir = path.join(electron.app.getPath("userData"), "themes");
+const inner_themesDir = path.join(__dirname, "assets/themes");
+const kblayoutsDir = path.join(electron.app.getPath("userData"), "keyboards");
+const inner_kblayoutsDir = path.join(__dirname, "assets/kb_layouts");
 
+// Create default settings file
 if (!fs.existsSync(settingsFile)) {
     fs.writeFileSync(settingsFile, JSON.stringify({
         shell: (process.platform === "win32") ? "powershell.exe" : "bash",
+        cwd: electron.app.getPath("userData"),
         keyboard: "en-US",
-        cwd: electron.app.getPath("userData")
+        theme: "tron"
     }));
 }
 
-app.on('ready', () => {
+// Copy default themes & keyboard layouts
+try {
+    fs.mkdirSync(themesDir);
+} catch(e) {
+    // Folder already exists
+}
+fs.readdirSync(inner_themesDir).forEach((e) => {
+    fs.writeFileSync(path.join(themesDir, e), fs.readFileSync(path.join(inner_themesDir, e), {encoding:"utf-8"}))
+});
+try {
+    fs.mkdirSync(kblayoutsDir);
+} catch(e) {
+    // Folder already exists
+}
+fs.readdirSync(inner_kblayoutsDir).forEach((e) => {
+    fs.writeFileSync(path.join(kblayoutsDir, e), fs.readFileSync(path.join(inner_kblayoutsDir, e), {encoding:"utf-8"}))
+});
 
+app.on('ready', () => {
     let settings = require(settingsFile);
 
+    // Initialize terminal server
     tty = new Terminal({
         role: "server",
         shell: settings.shell,
-        cwd: settings.cwd
+        cwd: settings.cwd,
+        port: settings.port || 3000
     });
     tty.onclosed = (code, signal) => {
         console.log("=> Terminal exited - "+code+", "+signal);
@@ -64,7 +89,7 @@ app.on('ready', () => {
         // focusable: false,
         // skipTaskbar: true,
         autoHideMenuBar: true,
-        frame: true,
+        frame: false,
         backgroundColor: '#000000'
     });
 

@@ -9,14 +9,17 @@ body {
     /*cursor: none !important;*/
     user-select: none !important;
     padding-top: 20px;
-    color: #bee6c1;
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background: linear-gradient(90deg, #090B0A 20px, transparent 1%) center, linear-gradient(#090B0A 20px, transparent 1%) center, #262827;
+    background: linear-gradient(90deg, var(--color_light_black) 20px, transparent 1%) center, linear-gradient(var(--color_light_black) 20px, transparent 1%) center, var(--color_grey);
     background-size: 22px 22px;
+}
+body.solidBackground {
+    background: var(--color_light_black);
 }
 
 h3.title {
@@ -24,7 +27,7 @@ h3.title {
     margin: 0px;
     padding: 0px 10px;
     font-size: 11px;
-    border-bottom: 1px solid rgba(190, 230, 193, 0.3);
+    border-bottom: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
 }
 h3.title > p {
     display: inline-block;
@@ -36,7 +39,7 @@ h3.title > p:last-child {
 }
 h3.title::before {
     content: "";
-    border-left: 1px solid rgba(190, 230, 193, 0.3);
+    border-left: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
     left: -10px;
     bottom: -6px;
@@ -44,7 +47,7 @@ h3.title::before {
 }
 h3.title::after {
     content: "";
-    border-right: 1px solid rgba(190, 230, 193, 0.3);
+    border-right: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
     right: -10px;
     bottom: -6px;

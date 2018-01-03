@@ -1,9 +1,43 @@
-// Load config
-let settings = require(require('path').join(require('electron').remote.app.getPath("userData"), "settings.json"));
+const path = require("path");
+const fs = require("fs");
+const electron = require("electron");
 
+const themesDir = path.join(electron.remote.app.getPath("userData"), "themes");
+const keyboardsDir = path.join(electron.remote.app.getPath("userData"), "keyboards");
+const settingsFile = path.join(electron.remote.app.getPath("userData"), "settings.json");
+
+// Load config
+const settings = require(settingsFile);
+
+// Load theme
+let theme = require(path.join(themesDir, settings.theme+".json"));
+document.querySelector("head").innerHTML += `<style id="theme_${settings.theme}_cssvars">
+:root {
+    --font_main: "${theme.cssvars.font_main}";
+    --font_main_light: "${theme.cssvars.font_main_light}";
+    --font_console: "${theme.cssvars.font_console}";
+    --color_r: ${theme.colors.red};
+    --color_g: ${theme.colors.green};
+    --color_b: ${theme.colors.blue};
+    --color_black: ${theme.colors.black};
+    --color_light_black: ${theme.colors.light_black};
+    --color_grey: ${theme.colors.grey};
+}
+</style>
+<style id="theme_${settings.theme}_xtermcss">
+${theme.xtermcss}
+</style>`;
+
+window.theme = {
+    r: theme.colors.red,
+    g: theme.colors.green,
+    b: theme.colors.blue
+};
+
+// Startup boot log
 let resumeInit, initUI, initMods;
 let bootScreen = document.getElementById("boot_screen");
-let log = require('fs').readFileSync(require('path').join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
+let log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
 let i = 0;
 
 let displayLine = () => {
@@ -39,14 +73,15 @@ let displayLine = () => {
 };
 displayLine();
 
+// Show "logo" and background grid
 resumeInit = () => {
     bootScreen.innerHTML = "";
     setTimeout(() => {
-        document.body.setAttribute("style", "background: linear-gradient(90deg, #090B0A 20px, transparent 1%) center, linear-gradient(#090B0A 20px, transparent 1%) center, #262827;background-size: 22px 22px;");
+        document.body.setAttribute("class", "");
         setTimeout(() => {
-            document.body.setAttribute("style", "background: #090b0a;");
+            document.body.setAttribute("class", "solidBackground");
             setTimeout(() => {
-                document.body.setAttribute("style", "background: linear-gradient(90deg, #090B0A 20px, transparent 1%) center, linear-gradient(#090B0A 20px, transparent 1%) center, #262827;background-size: 22px 22px;");
+                document.body.setAttribute("class", "");
             }, 400);
         }, 200);
 
@@ -55,9 +90,9 @@ resumeInit = () => {
         let title = document.querySelector("section > h1");
 
         setTimeout(() => {
-            title.setAttribute("style", "background-color: rgba(190, 230, 193, 1);border-bottom: 5px solid rgba(190, 230, 193, 1);");
+            title.setAttribute("style", `background-color: rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});border-bottom: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
             setTimeout(() => {
-                title.setAttribute("style", "border: 5px solid rgba(190, 230, 193, 1);");
+                title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
                 setTimeout(() => {
                     document.getElementById("boot_screen").remove();
                     initUI();
@@ -67,6 +102,7 @@ resumeInit = () => {
     }, 400);
 };
 
+// Create the UI's html structure and initialize the terminal client and the keyboard
 initUI = () => {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
@@ -82,7 +118,7 @@ initUI = () => {
     </section>`;
 
     window.keyboard = new Keyboard({
-        layout: require("path").join(__dirname, "assets/kb_layouts/"+settings.keyboard+".json"),
+        layout: path.join(keyboardsDir, settings.keyboard+".json"),
         container: "keyboard"
     });
     setTimeout(() => {
@@ -114,6 +150,7 @@ initUI = () => {
     }, 10);
 };
 
+// Create the "mods" in each column
 initMods = () => {
     window.mods = {};
 

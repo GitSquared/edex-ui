@@ -64,7 +64,7 @@ class Cpuinfo {
                         }
                     });
 
-                    chart.addTimeSeries(serie, {lineWidth:1.7,strokeStyle:'#bee6c1'});
+                    chart.addTimeSeries(serie, {lineWidth:1.7,strokeStyle:`rgb(${window.theme.r},${window.theme.g},${window.theme.b})`});
                     chart.streamTo(document.getElementById(`mod_cpuinfo_canvas_${i}`), 500);
 
                     this.charts.push(chart);

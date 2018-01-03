@@ -55,8 +55,8 @@ div.keyboard_key {
     min-width: 53px;
     overflow: hidden;
     border-radius: 5px;
-    background-color: rgba(190, 230, 193, 0.0);
-    border: 2px solid rgba(190, 230, 193, 0.0);
+    background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
+    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
     margin: 0px 5px;
     display: flex;
     align-items: center;
@@ -65,8 +65,8 @@ div.keyboard_key {
 }
 
 div.keyboard_key:active, div.keyboard_key.active {
-    border: 2px solid rgba(190, 230, 193, 0.0);
-    background-color: rgba(190, 230, 193, 1);
+    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
+    background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 1);
 }
 
 div.keyboard_key.blink {
@@ -77,9 +77,9 @@ div.keyboard_key.blink {
 }
 
 @keyframes blink {
-    0% {background-color: rgba(190, 230, 193, 0.0);}
-    50% {background-color: rgba(190, 230, 193, 1);}
-    100% {background-color: rgba(190, 230, 193, 0.0);}
+    0% {background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);}
+    50% {background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 1);}
+    100% {background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);}
 }
 
 div.keyboard_key > * {
@@ -130,7 +130,7 @@ div.keyboard_row:not(:nth-child(4)):not(:last-child) > .keyboard_key:last-child,
 }
 
 div.keyboard_key#keyboard_spacebar, div.keyboard_enter {
-    border: 2px solid rgba(190, 230, 193, 0.5);
+    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
 }
 
 div.keyboard_row#row_1 > div.keyboard_enter {
@@ -147,7 +147,7 @@ div.keyboard_row#row_1 > div.keyboard_enter > h1 {
 div.keyboard_row#row_2 > div.keyboard_enter {
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
-    border-top: 2px solid #090b0a;
+    border-top: 2px solid var(--color_light_black);
     width: 84px;
     min-width: 84px;
     margin-top: 0px;
@@ -157,7 +157,7 @@ div.keyboard_row#row_2 > div.keyboard_enter {
 }
 
 div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {
-    border-top: 2px solid rgb(190, 230, 193);
+    border-top: 2px solid rgb(var(--color_r), var(--color_g), var(--color_b));
 }
 
 div.keyboard_key#keyboard_spacebar {
@@ -178,8 +178,8 @@ div.keyboard_row:last-child > div.keyboard_key:nth-last-child(-n+3) {
 }
 
 section#keyboard[data-is-caps-lck-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- CAPSLCK: ON"] {
-    background-color: rgb(190, 230, 193);
-    color: black;
+    background-color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    color: var(--color_black);
 }
 
 section#keyboard[data-is-shift-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty), section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty) {
@@ -208,8 +208,8 @@ section#keyboard[data-is-shift-on="true"] > div.keyboard_row:first-child > div.k
 
 
 section#keyboard[data-is-fn-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- FN: ON"] {
-    background-color: rgb(190, 230, 193);
-    color: black;
+    background-color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    color: var(--color_black);
 }
 
 section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) {

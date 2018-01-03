@@ -25,7 +25,7 @@ section#boot_screen h1 {
     font-family: var(--font_main);
     font-size: 10vh;
     text-align: center;
-    border-bottom: 5px solid #bee6c1;
+    border-bottom: 5px solid rgb(var(--color_r), var(--color_g), var(--color_b));
     padding-top: 2vh;
     padding-right: 2vh;
     padding-left: 1.5vh;

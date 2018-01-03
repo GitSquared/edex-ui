@@ -27,13 +27,13 @@ class Conninfo {
             grid:{
                 millisPerLine: 5000,
                 fillStyle:'transparent',
-                strokeStyle:'rgba(190,230,193,0.4)',
+                strokeStyle:`rgba(${window.theme.r},${window.theme.g},${window.theme.b},0.4)`,
                 verticalSections:3,
                 borderVisible:false
             },
             labels:{
                 fontSize: 10,
-                fillStyle: '#bee6c1',
+                fillStyle: `rgb(${window.theme.r},${window.theme.g},${window.theme.b})`,
                 precision: 0
             }
         }];
@@ -45,8 +45,8 @@ class Conninfo {
         this.series = [new TimeSeries(), new TimeSeries()];
         this.charts = [new SmoothieChart(chartOptions[0]), new SmoothieChart(chartOptions[1])];
 
-        this.charts[0].addTimeSeries(this.series[0], {lineWidth:1.7,strokeStyle:'#bee6c1'});
-        this.charts[1].addTimeSeries(this.series[1], {lineWidth:1.7,strokeStyle:'#bee6c1'});
+        this.charts[0].addTimeSeries(this.series[0], {lineWidth:1.7,strokeStyle:`rgb(${window.theme.r},${window.theme.g},${window.theme.b})`});
+        this.charts[1].addTimeSeries(this.series[1], {lineWidth:1.7,strokeStyle:`rgb(${window.theme.r},${window.theme.g},${window.theme.b})`});
 
         this.charts[0].streamTo(document.getElementById("mod_conninfo_canvas_top"), 1000);
         this.charts[1].streamTo(document.getElementById("mod_conninfo_canvas_bottom"), 1000);
