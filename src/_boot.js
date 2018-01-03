@@ -16,9 +16,9 @@ const Terminal = require("./classes/terminal.class.js").Terminal;
 var win, tty;
 const settingsFile = path.join(electron.app.getPath("userData"), "settings.json");
 const themesDir = path.join(electron.app.getPath("userData"), "themes");
-const inner_themesDir = path.join(__dirname, "assets/themes");
+const innerThemesDir = path.join(__dirname, "assets/themes");
 const kblayoutsDir = path.join(electron.app.getPath("userData"), "keyboards");
-const inner_kblayoutsDir = path.join(__dirname, "assets/kb_layouts");
+const innerKblayoutsDir = path.join(__dirname, "assets/kb_layouts");
 
 // Create default settings file
 if (!fs.existsSync(settingsFile)) {
@@ -36,16 +36,16 @@ try {
 } catch(e) {
     // Folder already exists
 }
-fs.readdirSync(inner_themesDir).forEach((e) => {
-    fs.writeFileSync(path.join(themesDir, e), fs.readFileSync(path.join(inner_themesDir, e), {encoding:"utf-8"}))
+fs.readdirSync(innerThemesDir).forEach((e) => {
+    fs.writeFileSync(path.join(themesDir, e), fs.readFileSync(path.join(innerThemesDir, e), {encoding:"utf-8"}));
 });
 try {
     fs.mkdirSync(kblayoutsDir);
 } catch(e) {
     // Folder already exists
 }
-fs.readdirSync(inner_kblayoutsDir).forEach((e) => {
-    fs.writeFileSync(path.join(kblayoutsDir, e), fs.readFileSync(path.join(inner_kblayoutsDir, e), {encoding:"utf-8"}))
+fs.readdirSync(innerKblayoutsDir).forEach((e) => {
+    fs.writeFileSync(path.join(kblayoutsDir, e), fs.readFileSync(path.join(innerKblayoutsDir, e), {encoding:"utf-8"}));
 });
 
 app.on('ready', () => {
