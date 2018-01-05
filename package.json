@@ -61,12 +61,7 @@
           ]
         },
         {
-          "target": "snap",
-          "arch": [
-            "x64",
-            "ia32",
-            "armv7l"
-          ]
+          "target": "snap"
         }
       ],
       "category": "System",
