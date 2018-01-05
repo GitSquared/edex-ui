@@ -6,11 +6,18 @@ install:
 build_script:
 - cmd: npm install && npm run build-windows
 test: off
+artifacts:
+  - path: dist\eDEX-UI.exe
+    name: eDEX-UI-Portable.exe
+    type: file
 deploy:
 - provider: GitHub
+  tag: $(appveyor_repo_tag_name)
+  release: eDEX-UI $(appveyor_repo_tag_name)
+  description: 'Placeholder description'
   auth_token:
     secure: xbDg5MsNRSCKs8kfz7jFP8D4g0BoPVB0vUPEy446Bru5RQCF/JDMGdhAa6SjLVTW
-  artifact: dist\eDEX-UI.exe
+  artifact: eDEX-UI-Portable.exe
   draft: true
   force_update: true
   on:
