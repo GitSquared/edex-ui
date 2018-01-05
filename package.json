@@ -50,6 +50,7 @@
     },
     "forceCodeSigning": false,
     "npmRebuild": true,
+    "artifactName": "eDEX-UI-${arch}.${ext}",
     "linux": {
       "target": [
         {
