@@ -36,7 +36,7 @@
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "build": {
     "appId": "com.edex.ui",
-    "productName": "eDEX-UI Human Interface",
+    "productName": "eDEX-UI",
     "asar": true,
     "compression": "maximum",
     "copyright": "FREE FOR ALL",
@@ -50,14 +50,6 @@
     },
     "forceCodeSigning": false,
     "npmRebuild": true,
-    "publish": {
-      "provider": "github",
-      "repo": "edex-ui",
-      "owner": "GitSquared",
-      "vPrefixedTagName": true,
-      "host": "github.com",
-      "protocol": "https"
-    },
     "linux": {
       "target": [
         {
@@ -85,11 +77,11 @@
     }
   },
   "devDependencies": {
+    "clean-css": "4.1.9",
     "electron": "1.7.10",
     "electron-builder": "19.52.1",
     "electron-rebuild": "1.6.0",
-    "minifier": "0.8.1",
     "node-json-minify": "1.0.0",
-    "uglify-js": "3.3.4"
+    "uglify-es": "^3.3.4"
   }
 }

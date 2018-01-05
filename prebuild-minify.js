@@ -1,15 +1,10 @@
 const fs = require("fs");
 const path = require("path");
-const UglifyJS = require("uglify-js");
-const minifier = require("minifier");
+const UglifyJS = require("uglify-es");
+const CleanCSS = require("clean-css");
 JSON.minify = require("node-json-minify");
 
-minifier.on("error", (err) => {
-    console.log(err);
-    throw err;
-});
-
-let writeMinified = (path, data) => {
+const writeMinified = (path, data) => {
     fs.writeFile(path, data, (err) => {
         if (err) {
             console.log(path+" -  ❌");
@@ -21,26 +16,57 @@ let writeMinified = (path, data) => {
     });
 };
 
-let recursiveMinify = (dirPath) => {
+const recursiveMinify = (dirPath) => {
     try { var files = fs.readdirSync(dirPath); }
     catch(e) { return; }
     if (files.length > 0) {
         for (let i = 0; i < files.length; i++) {
             let filePath = dirPath + '/' + files[i];
             if (fs.statSync(filePath).isFile()) {
-                let tst = filePath.split(".").pop();
-                switch (tst) {
+                switch (filePath.split(".").pop()) {
                     case "js":
-                        // writeMinified(filePath, UglifyJS.minify(fs.readFileSync(filePath, {encoding: "utf-8"})).error);
-                        // Commented out, broken for some reason
-                        break;
+                        let minified = UglifyJS.minify(fs.readFileSync(filePath, {encoding: "utf-8"}), {
+                            compress: {
+                                dead_code: false,
+                                unused: false,
+                                warnings: true
+                            },
+                            output: {
+                                beautify: false,
+                                ecma: 6
+                            }
+                        });
+                        if (!minified.error) {
+                            writeMinified(filePath, minified.code);
+                            break;
+                        }
+                        else {
+                            console.log(filePath+" -  ❌");
+                            console.log("");
+                            console.log("");
+                            throw err;
+                        }
                     case "css":
-                        minifier.minify(filePath, {output: filePath});
-                        console.log(filePath+" -  ✓");
-                        break;
+                        let output = new CleanCSS({level:2}).minify(fs.readFileSync(filePath, {encoding:"utf-8"}));
+                        if (output.errors.length >= 1) {
+                            console.log(filePath+" -  ❌");
+                            console.log("");
+                            console.log("");
+                            throw err;
+                        } else {
+                            writeMinified(filePath, output.styles);
+                            break;
+                        }
                     case "json":
-                        writeMinified(filePath, JSON.minify(fs.readFileSync(filePath, {encoding:"utf-8"})));
-                        break;
+                        try {
+                            writeMinified(filePath, JSON.minify(fs.readFileSync(filePath, {encoding:"utf-8"})));
+                            break;
+                        } catch(err) {
+                            console.log(filePath+" -  ❌");
+                            console.log("");
+                            console.log("");
+                            throw err;
+                        }
                 }
             } else {
                 recursiveMinify(filePath);
