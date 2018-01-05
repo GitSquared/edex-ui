@@ -20,7 +20,7 @@ script:
     -v ~/.cache/electron:/root/.cache/electron \
     -v ~/.cache/electron-builder:/root/.cache/electron-builder \
     electronuserland/builder \
-    /bin/bash -c "npm install -g greenkeeper-lockfile@1 && npm run install-linux && greenkeeper-lockfile-update && npm run build && greenkeeper-lockfile-upload"
+    /bin/bash -c "npm install -g greenkeeper-lockfile@1 && npm install && greenkeeper-lockfile-update && npm run build && greenkeeper-lockfile-upload"
 
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine

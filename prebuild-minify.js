@@ -44,7 +44,7 @@ const recursiveMinify = (dirPath) => {
                             console.log(filePath+" -  ❌");
                             console.log("");
                             console.log("");
-                            throw err;
+                            throw minified.error;
                         }
                     case "css":
                         let output = new CleanCSS({level:2}).minify(fs.readFileSync(filePath, {encoding:"utf-8"}));
@@ -52,7 +52,7 @@ const recursiveMinify = (dirPath) => {
                             console.log(filePath+" -  ❌");
                             console.log("");
                             console.log("");
-                            throw err;
+                            throw output.errors;
                         } else {
                             writeMinified(filePath, output.styles);
                             break;
