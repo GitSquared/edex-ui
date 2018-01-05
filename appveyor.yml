@@ -1,0 +1,16 @@
+version: '{build}'
+pull_requests:
+  do_not_increment_build_number: true
+install:
+- ps: Install-Product node 8
+build_script:
+- cmd: npm install && npm run build-windows
+test: off
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: xbDg5MsNRSCKs8kfz7jFP8D4g0BoPVB0vUPEy446Bru5RQCF/JDMGdhAa6SjLVTW
+  artifact: /.*\.exe/
+  force_update: true
+  on:
+    appveyor_repo_tag: true
