@@ -85,8 +85,8 @@
     "clean-css": "4.1.9",
     "electron": "1.7.10",
     "electron-builder": "19.54.0",
-    "electron-rebuild": "1.6.0",
+    "electron-rebuild": "1.7.3",
     "node-json-minify": "1.0.0",
-    "uglify-es": "3.3.4"
+    "uglify-es": "3.3.7"
   }
 }
