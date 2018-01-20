@@ -41,7 +41,7 @@ class Cpuinfo {
             }
             waitForCoresDOM().then(() => {
                 for (var i = 0; i < data.cores; i++) {
-                    if (i >= 4) break;
+                    if (i >= 4) return;
 
                     // Create TimeSeries
                     this.series.push(new TimeSeries());
@@ -85,7 +85,7 @@ class Cpuinfo {
     updateInfo() {
         this.si.currentLoad((data) => {
             data.cpus.forEach((e, i) => {
-                if (i >= 4) break;
+                if (i >= 4) return;
                 this.series[i].append(new Date().getTime(), e.load);
             });
         });
