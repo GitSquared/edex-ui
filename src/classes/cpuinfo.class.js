@@ -28,7 +28,7 @@ class Cpuinfo {
                         <canvas id="mod_cpuinfo_canvas_${i}" height="60"></canvas>
                         </div>`;
 
-                        if (i === data.cores-1) {
+                        if (i === data.cores-1 || i === 3) { // Do not display more than 4 cores, for UX reasons
                             clearTimeout(timeId); // Clear fail timer
                             resolve(true);
                         }
@@ -41,6 +41,8 @@ class Cpuinfo {
             }
             waitForCoresDOM().then(() => {
                 for (var i = 0; i < data.cores; i++) {
+                    if (i >= 4) break;
+
                     // Create TimeSeries
                     this.series.push(new TimeSeries());
 
@@ -83,6 +85,7 @@ class Cpuinfo {
     updateInfo() {
         this.si.currentLoad((data) => {
             data.cpus.forEach((e, i) => {
+                if (i >= 4) break;
                 this.series[i].append(new Date().getTime(), e.load);
             });
         });
