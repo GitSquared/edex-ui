@@ -1,7 +1,7 @@
 {
   "name": "edex-ui",
   "productName": "eDEX-UI",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "A science fiction desktop running everywhere. Awesome.",
   "keywords": [
     "desktop",
@@ -87,6 +87,6 @@
     "electron-builder": "19.54.0",
     "electron-rebuild": "1.7.3",
     "node-json-minify": "1.0.0",
-    "uglify-es": "3.3.7"
+    "uglify-es": "3.3.8"
   }
 }
