@@ -1,22 +1,22 @@
 html, body {
     width: 100%;
     height: 100%;
-    margin: 0px;
-    padding: 0px;
+    margin: 0vh;
+    padding: 0vh;
     overflow: hidden;
 }
 body {
     /*cursor: none !important;*/
     user-select: none !important;
-    padding-top: 20px;
+    padding-top: 1.85vh;
     color: rgb(var(--color_r), var(--color_g), var(--color_b));
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background: linear-gradient(90deg, var(--color_light_black) 20px, transparent 1%) center, linear-gradient(var(--color_light_black) 20px, transparent 1%) center, var(--color_grey);
-    background-size: 22px 22px;
+    background: linear-gradient(90deg, var(--color_light_black) 1.85vh, transparent 1%) center, linear-gradient(var(--color_light_black) 1.85vh, transparent 1%) center, var(--color_grey);
+    background-size: 2.04vh 2.04vh;
 }
 body.solidBackground {
     background: var(--color_light_black);
@@ -24,32 +24,32 @@ body.solidBackground {
 
 h3.title {
     position: fixed;
-    margin: 0px;
-    padding: 0px 10px;
-    font-size: 11px;
-    border-bottom: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    margin: 0vh;
+    padding: 0vh 0.925vh;
+    font-size: 1.02vh;
+    border-bottom: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
 }
 h3.title > p {
     display: inline-block;
-    margin: 0px;
-    width: 49.6%;
+    margin: 0vh;
+    width: 49.4%;
 }
 h3.title > p:last-child {
     text-align: right;
 }
 h3.title::before {
     content: "";
-    border-left: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
-    left: -10px;
-    bottom: -6px;
-    height: 5px;
+    left: -0.925vh;
+    bottom: -0.555vh;
+    height: 0.46vh;
 }
 h3.title::after {
     content: "";
-    border-right: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
-    right: -10px;
-    bottom: -6px;
-    height: 5px;
+    right: -0.94vh;
+    bottom: -0.555vh;
+    height: 0.46vh;
 }

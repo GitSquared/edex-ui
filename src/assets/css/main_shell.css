@@ -1,27 +1,27 @@
 section#main_shell {
     width: 65%;
     height: 60%;
-    padding: 8px;
-    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
-    border-radius: 3px;
+    padding: 0.74vh;
+    border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    border-radius: 0.278vh;
     transition: width .5s cubic-bezier(0.4, 0, 1, 1), height .5s cubic-bezier(0.4, 0, 1, 1);
 }
 
 section#main_shell > h3.title {
-    top: 8px;
-    left: 16.5%;
+    top: 0.74vh;
+    left: 16.5vw;
     width: 66%;
     transition: opacity .5s cubic-bezier(0.4, 0, 1, 1) .5s;
 }
 
 section#main_shell > h3.title > p {
-    width: 49.92%;
+    width: 49.8%;
 }
 
 section#main_shell pre {
     height: 100%;
     width: 100%;
-    margin: 0px;
+    margin: 0vh;
     overflow: hidden;
 }
 
@@ -65,8 +65,8 @@ section#main_shell pre {
 
 .terminal .xterm-rows {
     position: absolute;
-    left: 6px;
-    top: 4px;
+    left: 0.555vh;
+    top: 0.37vh;
 }
 
 .terminal .xterm-rows > div {

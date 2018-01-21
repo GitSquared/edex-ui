@@ -1,28 +1,28 @@
 div#mod_cpuinfo {
-    border-top: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     font-family: var(--font_main_light);
-    letter-spacing: 1px;
-    padding: 7px 0px;
+    letter-spacing: 0.092vh;
+    padding: 0.645vh 0vh;
     display: flex;
 }
 
 div#mod_cpuinfo::before {
     content: "";
-    border-left: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     align-self: flex-start;
     position: relative;
-    left: -1px;
-    top: -12px;
-    height: 9px;
+    left: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
 }
 
 div#mod_cpuinfo::after {
     content: "";
-    border-right: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
-    right: -1px;
-    top: -12px;
-    height: 9px;
+    right: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
 }
 
 div#mod_cpuinfo > div#mod_cpuinfo_innercontainer {
@@ -39,12 +39,13 @@ div#mod_cpuinfo > div > div {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin: 3px 0px;
+    margin: 0.278vh 0vh;
 }
 
 div#mod_cpuinfo h1 {
-    font-size: 16px;
-    margin: 0px;
+    font-size: 1.3vh;
+    line-height: 1.5vh;
+    margin: 0vh;
 }
 
 div#mod_cpuinfo em {
@@ -55,8 +56,8 @@ div#mod_cpuinfo em {
 div#mod_cpuinfo span {
     width: 1em;
     position: relative;
-    top: 4px;
-    right: 3px;
+    top: 0.37vh;
+    right: 0.278vh;
     text-align: center;
     overflow: hidden;
     display: inline-block;
@@ -64,14 +65,15 @@ div#mod_cpuinfo span {
 
 div#mod_cpuinfo i {
     font-style: normal;
-    font-size: 14px;
+    font-size: 1.3vh;
     opacity: 0.5;
+    margin-top: 0.5vh;
 }
 
 div#mod_cpuinfo canvas {
     width: 76%;
-    height: 45px;
-    border-top: 1px dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
-    border-bottom: 1px dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
-    margin: 5px 0px;
+    height: 4.167vh;
+    border-top: 0.092vh dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-bottom: 0.092vh dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    margin: 0.46vh 0vh;
 }

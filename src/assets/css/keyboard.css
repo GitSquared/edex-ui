@@ -4,7 +4,7 @@ section#keyboard {
     align-items: center;
     width: 100vw;
     position: relative;
-    top: -10px;
+    top: -0.925vh;
 }
 
 div.keyboard_row {
@@ -13,15 +13,15 @@ div.keyboard_row {
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
-    margin: 5px 0px;
-    height: 57px;
+    margin: 0.46vh 0vh;
+    height: 5.28vh;
 }
 
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(1) {
-    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .2s, filter .1s linear .8s;
+    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .3s, filter .1s linear .8s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(2) {
-    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .1s, filter .1s linear .6s;
+    transition: width .7s cubic-bezier(0.4, 0, 1, 1) .2s, filter .1s linear .6s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(3) {
     transition: width .7s cubic-bezier(0.4, 0, 1, 1), filter .1s linear .5s;
@@ -30,12 +30,12 @@ section#keyboard.animation_state_2 > div.keyboard_row:nth-child(4) {
     transition: width .7s cubic-bezier(0.4, 0, 1, 1) .3s, filter .1s linear .8s;
 }
 section#keyboard.animation_state_2 > div.keyboard_row:nth-child(5) {
-    transition: width .6s cubic-bezier(0.4, 0, 1, 1) .2s, filter .1s linear .8s;
+    transition: width .6s cubic-bezier(0.4, 0, 1, 1) .4s, filter .1s linear .8s;
 }
 
 section#keyboard.animation_state_1 > * {
     filter: brightness(170%);
-    width: 0px;
+    width: 0vh;
     overflow: hidden;
 }
 
@@ -47,17 +47,17 @@ section#keyboard.animation_state_2 > * {
 
 div.keyboard_row:last-child {
     position: relative;
-    left: 34px;
+    left: 2.98vh;
 }
 
 div.keyboard_key {
-    height: 53px;
-    min-width: 53px;
+    height: 4.9vh;
+    min-width: 4.9vh;
     overflow: hidden;
-    border-radius: 5px;
+    border-radius: 0.46vh;
     background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
-    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
-    margin: 0px 5px;
+    border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
+    margin: 0vh 0.46vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,7 +65,7 @@ div.keyboard_key {
 }
 
 div.keyboard_key:active, div.keyboard_key.active {
-    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
+    border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
     background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 1);
 }
 
@@ -83,40 +83,40 @@ div.keyboard_key.blink {
 }
 
 div.keyboard_key > * {
-    margin: 0px 5px;
-    padding: 0px;
-    -webkit-margin-after: 0px;
-    -webkit-margin-before: 0px;
+    margin: 0vh 0.46vh;
+    padding: 0vh;
+    -webkit-margin-after: 0vh;
+    -webkit-margin-before: 0vh;
 }
 
 div.keyboard_key > h1, div.keyboard_key > h4, div.keyboard_row > .keyboard_key:last-child > *, div.keyboard_row > .keyboard_key:first-child > * {
     position: relative;
-    top: 3px;
-    font-size: 26px;
+    top: 0.278vh;
+    font-size: 2.4vh;
 }
 
 div.keyboard_row:not(:nth-child(4)) > .keyboard_key:last-child > *, div.keyboard_row > .keyboard_key:first-child > *, div.keyboard_row:last-child > .keyboard_key > *, div.keyboard_row:nth-child(4) > .keyboard_key:nth-last-child(2) > * {
-    font-size: 20px;
+    font-size: 1.85vh;
 }
 
 div.keyboard_row:last-child > .keyboard_key:nth-last-child(-n+3) > * {
-    font-size: 26px;
+    font-size: 2.4vh;
 }
 
 div.keyboard_key > *:not(h1) {
-    margin: 0px;
-    font-size: 18px;
+    margin: 0vh;
+    font-size: 1.67vh;
     position: absolute;
 }
 
 div.keyboard_key > h2 {
-    top: 3px;
-    left: 3px;
+    top: 0.278vh;
+    left: 0.278vh;
 }
 
 div.keyboard_key > h3 {
-    bottom: 3px;
-    right: 3px;
+    bottom: 0.278vh;
+    right: 0.278vh;
 }
 
 div.keyboard_key > h4, div.keyboard_row > .keyboard_key:last-child > *:not(h1), div.keyboard_row > .keyboard_key:first-child > *:not(h1) {
@@ -125,56 +125,52 @@ div.keyboard_key > h4, div.keyboard_row > .keyboard_key:last-child > *:not(h1), 
 }
 
 div.keyboard_row:not(:nth-child(4)):not(:last-child) > .keyboard_key:last-child, div.keyboard_row > .keyboard_key:first-child {
-    width: 90px;
-    min-width: 90px;
-}
-
-div.keyboard_key#keyboard_spacebar, div.keyboard_enter {
-    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
-}
-
-div.keyboard_row#row_1 > div.keyboard_enter {
-    border-bottom-right-radius: 0px;
-    width: 105px;
-    min-width: 105px;
-}
-
-div.keyboard_row#row_1 > div.keyboard_enter > h1 {
-    position: relative;
-    left: 5px;
-}
-
-div.keyboard_row#row_2 > div.keyboard_enter {
-    border-top-right-radius: 0px;
-    border-top-left-radius: 0px;
-    border-top: 2px solid var(--color_light_black);
-    width: 84px;
-    min-width: 84px;
-    margin-top: 0px;
-    height: 69px;
-    top: -4px;
-    right: -11px;
-}
-
-div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {
-    border-top: 2px solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    width: 8.33vh;
+    min-width: 8.33vh;
 }
 
 div.keyboard_key#keyboard_spacebar {
-    width: 515px;
-    min-width: 515px;
-    height: 38px;
+    border: 0.19vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+}
+
+div.keyboard_row#row_1 > div.keyboard_enter {
+    border: 0.19vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    border-bottom-left-radius: 0vh;
+    width: 9.72vh;
+    min-width: 9.72vh;
+}
+
+div.keyboard_row#row_2 > div.keyboard_enter {
+    border: 0.19vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    border-top-right-radius: 0vh;
+    border-top: 0.3vh solid var(--color_light_black);
+    width: 7.78vh;
+    min-width: 7.78vh;
+    margin-top: 0vh;
+    height: 6.389vh;
+    top: -0.37vh;
+    right: 1vh;
+}
+
+div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {
+    border-top: 0.3vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
+}
+
+div.keyboard_key#keyboard_spacebar {
+    width: 47.68vh;
+    min-width: 47.68vh;
+    height: 3.52vh;
 }
 
 div.keyboard_row:nth-child(4) > div.keyboard_key:last-child {
     position: relative;
-    top: 3px;
+    top: 0.278vh;
 }
 
 div.keyboard_row:last-child > div.keyboard_key:nth-last-child(-n+3) {
-    margin: 0px;
+    margin: 0vh;
     position: relative;
-    bottom: 3px;
+    bottom: 0.278vh;
 }
 
 section#keyboard[data-is-caps-lck-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- CAPSLCK: ON"] {
@@ -184,22 +180,22 @@ section#keyboard[data-is-caps-lck-on="true"] div.keyboard_key[data-cmd="ESCAPED|
 
 section#keyboard[data-is-shift-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty), section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty) {
     position: relative;
-    top: 3px;
-    font-size: 26px;
-    margin: 0px 5px;
+    top: 0.278vh;
+    font-size: 2.4vh;
+    margin: 0vh 0.46vh;
 }
 
 section#keyboard[data-is-shift-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2, section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2 {
-    font-size: 20px;
+    font-size: 1.85vh;
     opacity: 1;
 }
 
 section#keyboard[data-is-shift-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty) + h1, section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row > div.keyboard_key > h2:not(:empty) + h1 {
-    margin: 0px;
-    font-size: 18px;
+    margin: 0vh;
+    font-size: 1.67vh;
     position: absolute;
-    top: 3px;
-    left: 3px;
+    top: 0.278vh;
+    left: 0.278vh;
 }
 
 section#keyboard[data-is-shift-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2 + h1, section#keyboard[data-is-caps-lck-on="true"] > div.keyboard_row:first-child > div.keyboard_key:last-child > h2 + h1 {
@@ -214,9 +210,9 @@ section#keyboard[data-is-fn-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- FN:
 
 section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) {
     position: relative;
-    top: 3px;
-    font-size: 23px;
-    margin: 0px 5px;
+    top: 0.278vh;
+    font-size: 20.278vh;
+    margin: 0vh 0.46vh;
     opacity: 1;
 }
 

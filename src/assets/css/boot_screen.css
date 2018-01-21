@@ -1,15 +1,15 @@
 section#boot_screen {
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 0vh;
+    left: 0vh;
     width: 100%;
     height: 100%;
-    padding: 0px;
-    margin: 0px;
+    padding: 0vh;
+    margin: 0vh;
     overflow: hidden;
 
     font-family: monospace;
-    font-size: 15px;
+    font-size: 1.4vh;
     text-align: left;
     display: flex;
     align-items: flex-end;
@@ -25,10 +25,9 @@ section#boot_screen h1 {
     font-family: var(--font_main);
     font-size: 10vh;
     text-align: center;
-    border-bottom: 5px solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    border-bottom: 0.46vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
     padding-top: 2vh;
     padding-right: 2vh;
     padding-left: 1.5vh;
     background-color: transparent;
-    width: 20vw;
 }

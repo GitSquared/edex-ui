@@ -20,6 +20,12 @@ const innerThemesDir = path.join(__dirname, "assets/themes");
 const kblayoutsDir = path.join(electron.app.getPath("userData"), "keyboards");
 const innerKblayoutsDir = path.join(__dirname, "assets/kb_layouts");
 
+// Fix userData folder not setup on Windows
+try {
+    fs.mkdirSync(electron.app.getPath("userData"));
+} catch(e) {
+    // Folder already exists
+}
 // Create default settings file
 if (!fs.existsSync(settingsFile)) {
     fs.writeFileSync(settingsFile, JSON.stringify({

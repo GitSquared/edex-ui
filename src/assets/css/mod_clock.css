@@ -1,32 +1,32 @@
 div#mod_clock {
     display: flex;
-    height: 80px;
-    padding-top: 7px;
-    border-top: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    height: 7.41vh;
+    padding-top: 0.645vh;
+    border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     font-family: var(--font_main_light);
 }
 
 div#mod_clock::before {
     content: "";
-    border-left: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
-    left: -1px;
-    top: -12px;
-    height: 9px;
+    left: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
 }
 
 div#mod_clock::after {
     content: "";
-    border-right: 1px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
-    right: -1px;
-    top: -12px;
-    height: 9px;
+    right: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
 }
 
 div#mod_clock h1 {
     margin: auto;
-    font-size: 52px;
+    font-size: 4vh;
 }
 
 div#mod_clock span, div#mod_clock em {
@@ -35,12 +35,12 @@ div#mod_clock span, div#mod_clock em {
 }
 
 div#mod_clock span {
-    margin: 0px 2.5px;
-    width: .6em;
+    margin: 0vh 0.2vh;
+    width: 2.3vh;
 }
 
 div#mod_clock em {
     font-style: normal;
-    margin: 0px 5px;
-    width: .3em;
+    margin: 0vh 0.3vh;
+    width: 2.5vh;
 }
