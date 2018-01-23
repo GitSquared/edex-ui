@@ -135,21 +135,21 @@ div.keyboard_key#keyboard_spacebar {
 
 div.keyboard_row#row_1 > div.keyboard_enter {
     border: 0.19vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
-    border-bottom-left-radius: 0vh;
+    border-bottom-right-radius: 0vh;
     width: 9.72vh;
     min-width: 9.72vh;
 }
 
 div.keyboard_row#row_2 > div.keyboard_enter {
     border: 0.19vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
-    border-top-right-radius: 0vh;
+    border-top-left-radius: 0vh;
     border-top: 0.3vh solid var(--color_light_black);
     width: 7.78vh;
     min-width: 7.78vh;
     margin-top: 0vh;
     height: 6.389vh;
     top: -0.37vh;
-    right: 1vh;
+    right: -1vh;
 }
 
 div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {

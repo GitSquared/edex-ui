@@ -24,7 +24,7 @@ class Terminal {
                 rows: 24,
                 cursorBlink: false
             });
-            this.term.open(document.getElementById(opts.parentId));
+            this.term.open(document.getElementById(opts.parentId), true);
             this.term.focus();
 
             let sockHost = opts.host || "127.0.0.1";
