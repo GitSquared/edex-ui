@@ -1,7 +1,7 @@
 {
   "name": "edex-ui",
   "productName": "eDEX-UI",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "A science fiction desktop running everywhere. Awesome.",
   "keywords": [
     "desktop",
@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
-    "battery-level": "^3.0.0",
+    "battery-level": "3.0.0",
     "node-pty": "0.7.4",
-    "smoothie": "^1.34.0",
-    "systeminformation": "^3.33.12",
+    "smoothie": "1.34.0",
+    "systeminformation": "3.33.18",
     "ws": "4.0.0",
-    "xterm": "2.9.2"
+    "xterm": "3.0.2"
   }
 }
