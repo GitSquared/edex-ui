@@ -1,0 +1,68 @@
+div.modal_popup {
+    position: fixed;
+    min-width: 30vw;
+    background: var(--color_light_black);
+    border-color: rgb(var(--color_r), var(--color_g), var(--color_b));;
+    border-radius: 0.278vh;
+    padding: 2vh;
+    padding-bottom: 0vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    cursor: default;
+}
+
+div.modal_popup.error {border-width: 0.7vh; border-style: double;}
+div.modal_popup.warning {border-width: 0.5vh; border-style: solid;}
+div.modal_popup.info {border-width: 0.2vh; border-style: solid;}
+
+div.modal_popup.blink {
+    border: none;
+    animation-name: blink;
+    animation-duration: .1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes blink {
+    0% {background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);}
+    100% {background: rgba(var(--color_r), var(--color_g), var(--color_b), 1);}
+}
+
+div.modal_popup > h1 {
+    font-size: 4vh;
+    margin: 0vh;
+    margin-bottom: 2vh;
+}
+
+div.modal_popup > h5 {
+    font-size: 2vh;
+    font-weight: normal;
+    margin: 0vh;
+    margin-bottom: 2vh;
+}
+
+div.modal_popup > div:last-child {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    position: relative;
+    top: 0.2vh;
+}
+
+div.modal_popup button {
+    background: transparent;
+    border: 0.19vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.7);
+    border-radius: 0.278vh;
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    font-size: 1.85vh;
+    font-weight: bold;
+    padding: 0.5vh 0.9vh;
+    margin-left: 1.5vh;
+    border-bottom-left-radius: 0vh;
+    border-bottom-right-radius: 0vh;
+    padding-bottom: 0.7vh;
+    cursor: pointer;
+}
