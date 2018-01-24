@@ -34,6 +34,11 @@ window.theme = {
     b: theme.colors.blue
 };
 
+// Initiate basic error handling
+window.onerror = (msg, path, line, col, error) => {
+    document.getElementById("boot_screen").innerHTML += `${error} :  ${msg}<br/>==> at ${path}  ${line}:${col}`;
+};
+
 // Startup boot log
 let resumeInit, initUI, initMods;
 let bootScreen = document.getElementById("boot_screen");
@@ -94,6 +99,14 @@ resumeInit = () => {
             setTimeout(() => {
                 title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
                 setTimeout(() => {
+                    // Initiate graphical error display
+                    window.onerror = (msg, path, line, col, error) => {
+                        new Modal({
+                            type: "error",
+                            title: error,
+                            message: `${msg}<br/>        at ${path}  ${line}:${col}`
+                        });
+                    };
                     document.getElementById("boot_screen").remove();
                     initUI();
                 }, 1200);
@@ -179,3 +192,7 @@ window.onkeydown = (e) => {
         e.preventDefault();
     }
 };
+// Prevent losing hardware keyboard focus on the terminal when using touch keyboard
+window.onmouseup = (e) => {
+    window.term.term.focus();
+}
