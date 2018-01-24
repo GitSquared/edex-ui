@@ -168,9 +168,13 @@ class Keyboard {
 
         // Bind actual keyboard actions to on-screen animations (for use without a touchscreen)
         let findKey = (e) => {
+            // Fix incorrect querySelector error
+            let physkey;
+            (e.key === "\"") ? physkey = `\\"` : physkey = e.key;
+
             // Find basic keys (typically letters, upper and lower-case)
-            let key = document.querySelector('div.keyboard_key[data-cmd="'+e.key+'"]');
-            if (key === null) key = document.querySelector('div.keyboard_key[data-shift_cmd="'+e.key+'"]');
+            let key = document.querySelector('div.keyboard_key[data-cmd="'+physkey+'"]');
+            if (key === null) key = document.querySelector('div.keyboard_key[data-shift_cmd="'+physkey+'"]');
 
             // Find special keys (shift, control, arrows, etc.)
             if (key === null && e.code === "ShiftLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- SHIFT: LEFT"]');
