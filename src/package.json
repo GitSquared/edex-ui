@@ -26,8 +26,8 @@
     "battery-level": "3.0.0",
     "node-pty": "0.7.4",
     "smoothie": "1.34.0",
-    "systeminformation": "3.33.18",
-    "ws": "4.0.0",
+    "systeminformation": "3.37.4",
+    "ws": "4.1.0",
     "xterm": "2.9.2"
   }
 }
