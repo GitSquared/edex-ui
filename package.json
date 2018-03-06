@@ -82,7 +82,7 @@
     }
   },
   "devDependencies": {
-    "clean-css": "4.1.10",
+    "clean-css": "4.1.11",
     "electron": "1.8.3",
     "electron-builder": "20.2.0",
     "electron-rebuild": "1.7.3",
