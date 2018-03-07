@@ -211,7 +211,7 @@ section#keyboard[data-is-fn-on="true"] div.keyboard_key[data-cmd="ESCAPED|-- FN:
 section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) {
     position: relative;
     top: 0.278vh;
-    font-size: 20.278vh;
+    font-size: 2.4vh;
     margin: 0vh 0.46vh;
     opacity: 1;
 }
