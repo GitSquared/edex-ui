@@ -149,7 +149,7 @@ initUI = () => {
                     // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
                     window.onmouseup = (e) => {
                         window.term.term.focus();
-                    }
+                    };
                     setTimeout(() => {
                         document.getElementById("keyboard").setAttribute("style", "");
                         document.getElementById("keyboard").setAttribute("class", "animation_state_1");

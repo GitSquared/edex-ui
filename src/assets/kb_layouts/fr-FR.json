@@ -171,8 +171,7 @@
             "shift_cmd": "E",
             "alt_name": "€",
             "alt_cmd": "€",
-            "ctrl_cmd": "\r",
-            "alt_cmd": "~~~CTRLSEQ1~~~e"
+            "ctrl_cmd": "\r"
         },
         {
             "name": "R",
