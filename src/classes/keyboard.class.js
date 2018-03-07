@@ -2,9 +2,9 @@ class Keyboard {
     constructor(opts) {
         if (!opts.layout || !opts.container) throw "Missing options";
 
-        let ctrlseq = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
-        let layout = JSON.parse(require("fs").readFileSync(opts.layout, {encoding: "utf-8"}));
-        let container = document.getElementById(opts.container);
+        const ctrlseq = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+        const layout = JSON.parse(require("fs").readFileSync(opts.layout, {encoding: "utf-8"}));
+        const container = document.getElementById(opts.container);
 
         // Set default keyboard properties
         container.dataset.isShiftOn = false;
@@ -48,13 +48,127 @@ class Keyboard {
             });
         });
 
+        // Helper functions for latin diacritics
+        let addCircum = (char) => {
+            switch(char) {
+                case "a":
+                    return "â";
+                case "A":
+                    return "Â";
+                case "z":
+                    return "ẑ";
+                case "Z":
+                    return "Ẑ";
+                case "e":
+                    return "ê";
+                case "E":
+                    return "Ê";
+                case "y":
+                    return "ŷ";
+                case "Y":
+                    return "Ŷ";
+                case "u":
+                    return "û";
+                case "U":
+                    return "Û";
+                case "i":
+                    return "î";
+                case "I":
+                    return "Î";
+                case "o":
+                    return "ô";
+                case "O":
+                    return "Ô";
+                case "s":
+                    return "ŝ";
+                case "S":
+                    return "Ŝ";
+                case "g":
+                    return "ĝ";
+                case "G":
+                    return "Ĝ";
+                case "h":
+                    return "ĥ";
+                case "H":
+                    return "Ĥ";
+                case "j":
+                    return "ĵ";
+                case "J":
+                    return "Ĵ";
+                case "w":
+                    return "ŵ";
+                case "W":
+                    return "Ŵ";
+                case "c":
+                    return "ĉ";
+                case "C":
+                    return "Ĉ";
+                default:
+                    return char;
+            }
+        };
+        let addTrema = (char) => {
+            switch(char) {
+                case "a":
+                    return "ä";
+                case "A":
+                    return "Ä";
+                case "e":
+                    return "ë";
+                case "E":
+                    return "Ë";
+                case "t":
+                    return "ẗ";
+                // My keyboard says no uppercase ẗ
+                case "y":
+                    return "ÿ";
+                case "Y":
+                    return "Ÿ";
+                case "u":
+                    return "ü";
+                case "U":
+                    return "Ü";
+                case "i":
+                    return "ï";
+                case "I":
+                    return "Ï";
+                case "o":
+                    return "ö";
+                case "O":
+                    return "Ö";
+                case "h":
+                    return "ḧ";
+                case "H":
+                    return "Ḧ";
+                case "w":
+                    return "ẅ";
+                case "W":
+                    return "Ẅ";
+                case "x":
+                    return "ẍ";
+                case "X":
+                    return "Ẍ";
+                default:
+                    return char;
+            }
+        };
+
         // Apply click (and/or touch) handler functions (write to socket and animations)
         let pressKey = (key) => {
             let cmd = key.dataset.cmd || "";
-            if (container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.shift_cmd;
+            if (container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;
             if (container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
             if (container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
             if (container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
+
+            if (container.dataset.isNextCircum === "true") {
+                cmd = addCircum(cmd);
+                container.dataset.isNextCircum = "false";
+            }
+            if (container.dataset.isNextTrema === "true") {
+                cmd = addTrema(cmd);
+                container.dataset.isNextTrema = "false";
+            }
 
             if (cmd.startsWith("ESCAPED|-- ")) {
                 cmd = cmd.substr(11);
@@ -70,6 +184,12 @@ class Keyboard {
                         break;
                     case "FN: OFF":
                         container.dataset.isFnOn = "false";
+                        break;
+                    case "CIRCUM":
+                        container.dataset.isNextCircum = "true";
+                        break;
+                    case "TREMA":
+                        container.dataset.isNextTrema = "true";
                         break;
                 }
             } else {
