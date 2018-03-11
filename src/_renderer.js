@@ -178,6 +178,7 @@ initMods = () => {
     window.mods.cpuinfo = new Cpuinfo("mod_column_left");
 
     // Right column
+    window.mods.conninfo = new Netstat("mod_column_right");
     window.mods.conninfo = new Conninfo("mod_column_right");
 
     document.querySelectorAll(".mod_column").forEach((e) => {
