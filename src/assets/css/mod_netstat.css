@@ -27,10 +27,6 @@ div#mod_netstat::after {
     height: 0.833vh;
 }
 
-div#mod_netstat_inner {
-
-}
-
 div#mod_netstat_inner > h1:first-child {
     font-size: 1.48vh;
     margin: 0vh;
