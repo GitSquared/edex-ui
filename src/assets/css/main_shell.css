@@ -7,6 +7,23 @@ section#main_shell {
     transition: width .5s cubic-bezier(0.4, 0, 1, 1), height .5s cubic-bezier(0.4, 0, 1, 1);
 }
 
+section#main_shell.greeting {
+    display: flex;
+}
+
+h1#main_shell_greeting {
+    font-size: 3.9vh;
+    font-weight: normal;
+    margin: auto;
+    opacity: 0;
+    transition: opacity .5s cubic-bezier(0.4, 0, 1, 1);
+}
+
+h1#main_shell_greeting > em {
+    font-style: normal;
+    font-weight: bold;
+}
+
 section#main_shell > h3.title {
     top: 0.74vh;
     left: 16.5vw;

@@ -40,7 +40,7 @@ window.onerror = (msg, path, line, col, error) => {
 };
 
 // Startup boot log
-let resumeInit, initUI, initMods;
+let resumeInit, initUI, initMods, initGreeter;
 let bootScreen = document.getElementById("boot_screen");
 let log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
 let i = 0;
@@ -120,9 +120,9 @@ initUI = () => {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
-    <section id="main_shell" style="height:0%;width:0%;opacity:0;">
+    <section id="main_shell" class="greeting" style="height:0%;width:0%;opacity:0;">
         <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
-        <pre id="terminal"></pre>
+        <h1 id="main_shell_greeting"></h1>
     </section>
     <section class="mod_column" id="mod_column_right">
         <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
@@ -142,27 +142,18 @@ initUI = () => {
             setTimeout(() => {
                 document.getElementById("main_shell").setAttribute("style", "");
                 setTimeout(() => {
-                    window.term = new Terminal({
-                        role: "client",
-                        parentId: "terminal"
-                    });
-                    // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
-                    window.onmouseup = (e) => {
-                        window.term.term.focus();
-                    };
+                    initGreeter();
+
+                    document.getElementById("keyboard").setAttribute("style", "");
+                    document.getElementById("keyboard").setAttribute("class", "animation_state_1");
                     setTimeout(() => {
-                        document.getElementById("keyboard").setAttribute("style", "");
-                        document.getElementById("keyboard").setAttribute("class", "animation_state_1");
+                        document.getElementById("keyboard").setAttribute("class", "animation_state_1 animation_state_2");
                         setTimeout(() => {
-                            document.getElementById("keyboard").setAttribute("class", "animation_state_1 animation_state_2");
-                            setTimeout(() => {
-                                document.getElementById("keyboard").setAttribute("class", "");
-                                window.term.fit();
-                                initMods();
-                            }, 1100);
-                        }, 100);
-                    }, 50);
-                }, 260);
+                            document.getElementById("keyboard").setAttribute("class", "");
+                            initMods();
+                        }, 1100);
+                    }, 100);
+                }, 270);
             }, 10);
         }, 200);
     }, 10);
@@ -185,6 +176,42 @@ initMods = () => {
         e.setAttribute("class", "mod_column activated");
     });
 };
+
+initGreeter = () => {
+    let shell_container = document.getElementById("main_shell");
+    let greeter = document.getElementById("main_shell_greeting");
+
+    require("systeminformation").users()
+        .then((userlist) => {
+            greeter.innerHTML += `Welcome back, <em>${userlist[0].user}</em>`;
+        })
+        .catch(() => {
+            greeter.innerHTML += `We||//c0m€ _b@-K;; <em>##ERr0r</em>`;
+        })
+    .then(() => {
+        greeter.setAttribute("style", "opacity: 1;");
+        setTimeout(() => {
+            greeter.setAttribute("style", "opacity: 0;");
+            setTimeout(() => {
+                greeter.remove();
+                setTimeout(() => {
+                    shell_container.innerHTML += `<pre id="terminal"></pre>`;
+                    window.term = new Terminal({
+                        role: "client",
+                        parentId: "terminal"
+                    });
+                    // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
+                    window.onmouseup = (e) => {
+                        window.term.term.focus();
+                    };
+                    setTimeout(() => {
+                        window.term.fit();
+                    }, 50);
+                }, 100);
+            }, 500);
+        }, 1100);
+    });
+}
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 window.onkeydown = (e) => {
