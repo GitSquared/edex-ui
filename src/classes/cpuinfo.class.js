@@ -7,9 +7,8 @@ class Cpuinfo {
         // Create initial DOM
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_cpuinfo">
-            <div id="mod_cpuinfo_innercontainer"></div>
         </div>`;
-        this.container = document.getElementById("mod_cpuinfo_innercontainer");
+        this.container = document.getElementById("mod_cpuinfo");
 
         // Init Smoothie
         let TimeSeries = require("smoothie").TimeSeries;
@@ -21,14 +20,18 @@ class Cpuinfo {
             let createCoresDOM = () => {
                 return new Promise((resolve, reject) => {
                     let timeId = setTimeout(reject, 1000); // Fail after 1s
+                    let chartsDOM = `<div id="mod_cpuinfo_innercontainer">
+                        <h1>CPU USAGE<i>${data.manufacturer} ${data.brand}</i></h1>`;
                     for (var i = 0; i < data.cores; i++) {
-                        // Create DOM
-                        this.container.innerHTML += `<div>
-                        <h1>CORE <em>#<span>${i}</span></em><br><i>% USED</i></h1>
+                        // Add DOM for each chart
+                        chartsDOM += `<div>
+                        <h1>CORE <em>#<span>${i}</span></em><br><i>${data.speed}GHz</i></h1>
                         <canvas id="mod_cpuinfo_canvas_${i}" height="60"></canvas>
                         </div>`;
 
                         if (i === data.cores-1 || i === 3) { // Do not display more than 4 cores, for UX reasons
+                            chartsDOM += `</div>`;
+                            this.container.innerHTML = chartsDOM;
                             clearTimeout(timeId); // Clear fail timer
                             resolve(true);
                         }

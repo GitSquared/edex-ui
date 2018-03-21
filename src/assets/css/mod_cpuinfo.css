@@ -33,6 +33,25 @@ div#mod_cpuinfo > div#mod_cpuinfo_innercontainer {
     width: 100%;
 }
 
+div#mod_cpuinfo_innercontainer > h1:first-child {
+    font-size: 1.48vh;
+    margin: 0vh;
+    width: 98%;
+    padding-left: 2%;
+    margin-bottom: -1.5vh;
+}
+
+div#mod_cpuinfo_innercontainer > h1:first-child > i {
+    font-style: normal;
+    font-size: 1.20vh;
+    opacity: 0.5;
+    text-align: right;
+    display: inline-block;
+    position: relative;
+    bottom: 1.9vh;
+    width: 100%;
+}
+
 div#mod_cpuinfo > div > div {
     display: flex;
     flex-direction: row;
