@@ -27,7 +27,7 @@
     "node-pty": "0.7.4",
     "smoothie": "1.34.0",
     "systeminformation": "3.37.7",
-    "ws": "5.0.0",
+    "ws": "5.1.0",
     "xterm": "2.9.2"
   }
 }
