@@ -52,25 +52,26 @@ div#mod_ramwatcher_inner > h1:first-child > i {
 
 div#mod_ramwatcher_pointmap {
     display: grid;
-    grid-template-columns: repeat(50, 1fr);
-    grid-template-rows: repeat(20, 1fr);
+    grid-template-columns: repeat(40, 1fr);
+    grid-template-rows: repeat(25, 1fr);
     grid-auto-flow: column;
     grid-gap: 0.23vh;
     padding-top: 0.5vh;
+    padding-left: 0.5vh;
 }
 
 div.mod_ramwatcher_point {
-    width: 0.19vh;
-    height: 0.195vh;
+    width: 0.2vh;
+    height: 0.25vh;
     background: rgb(var(--color_r), var(--color_g), var(--color_b));
 }
 
 div.mod_ramwatcher_point.free {
-    opacity: 0.2;
+    opacity: 0;
 }
 
 div.mod_ramwatcher_point.available {
-    opacity: 0.4;
+    opacity: 0.3;
 }
 
 div.mod_ramwatcher_point.active {
