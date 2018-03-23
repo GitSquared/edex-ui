@@ -20,7 +20,7 @@ class RAMwatcher {
 
         modExtContainer.innerHTML = ramwatcherDOM;
         modExtContainer.setAttribute("id", "mod_ramwatcher");
-        this.parent.append(mod_external_container);
+        this.parent.append(modExtContainer);
 
         this.points = Array.from(document.querySelectorAll("div.mod_ramwatcher_point"));
         this.shuffleArray(this.points);
