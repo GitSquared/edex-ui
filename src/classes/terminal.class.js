@@ -3,9 +3,12 @@ class Terminal {
         if (opts.role === "client") {
             if (!opts.parentId) throw "Missing options";
 
-            this.xTerm = require("xterm");
-            this.xTerm.loadAddon('attach');
-            this.xTerm.loadAddon('fit');
+            this.xTerm = require("xterm").Terminal;
+
+            let attachAddon = require("./node_modules/xterm/lib/addons/attach/attach.js");
+            let fitAddon = require("./node_modules/xterm/lib/addons/fit/fit.js");
+            this.xTerm.applyAddon(attachAddon);
+            this.xTerm.applyAddon(fitAddon);
 
             this.sendSizeToServer = () => {
                 let cols = this.term.cols.toString();
@@ -24,7 +27,7 @@ class Terminal {
                 rows: 24,
                 cursorBlink: false
             });
-            this.term.open(document.getElementById(opts.parentId), true);
+            this.term.open(document.getElementById(opts.parentId));
             this.term.focus();
 
             let sockHost = opts.host || "127.0.0.1";

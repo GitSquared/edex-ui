@@ -24,9 +24,9 @@ document.querySelector("head").innerHTML += `<style id="theme_${settings.theme}_
     --color_grey: ${theme.colors.grey};
 }
 </style>
-<style id="theme_${settings.theme}_xtermcss">
+<!--<style id="theme_${settings.theme}_xtermcss">
 ${theme.xtermcss}
-</style>`;
+</style>-->`;
 
 window.theme = {
     r: theme.colors.red,
