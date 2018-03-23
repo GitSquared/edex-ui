@@ -16,7 +16,3 @@
 body {
     font-family: var(--font_main), sans-serif;
 }
-
-pre {
-    font-family: var(--font_console), sans-serif;
-}

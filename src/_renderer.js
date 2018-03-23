@@ -9,30 +9,26 @@ const settingsFile = path.join(electron.remote.app.getPath("userData"), "setting
 // Load config
 const settings = require(settingsFile);
 
-// Load theme
+// Load UI theme
 let theme = require(path.join(themesDir, settings.theme+".json"));
 document.querySelector("head").innerHTML += `<style id="theme_${settings.theme}_cssvars">
 :root {
     --font_main: "${theme.cssvars.font_main}";
     --font_main_light: "${theme.cssvars.font_main_light}";
     --font_console: "${theme.cssvars.font_console}";
-    --color_r: ${theme.colors.red};
-    --color_g: ${theme.colors.green};
-    --color_b: ${theme.colors.blue};
+    --color_r: ${theme.colors.r};
+    --color_g: ${theme.colors.g};
+    --color_b: ${theme.colors.b};
     --color_black: ${theme.colors.black};
     --color_light_black: ${theme.colors.light_black};
     --color_grey: ${theme.colors.grey};
 }
-</style>
-<!--<style id="theme_${settings.theme}_xtermcss">
-${theme.xtermcss}
-</style>-->`;
+</style>`;
 
-window.theme = {
-    r: theme.colors.red,
-    g: theme.colors.green,
-    b: theme.colors.blue
-};
+window.theme = theme;
+window.theme.r = theme.colors.r;
+window.theme.g = theme.colors.g;
+window.theme.b = theme.colors.b;
 
 // Initiate basic error handling
 window.onerror = (msg, path, line, col, error) => {

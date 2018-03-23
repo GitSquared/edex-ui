@@ -47,7 +47,7 @@ section#main_shell pre {
 }
 
 .xterm {
-    font-family: var(--font_console), courier, monospace;
+    font-family: inherit;
     font-feature-settings: "liga" 0;
     position: relative;
     user-select: none;
@@ -94,7 +94,7 @@ section#main_shell pre {
 
 .xterm .xterm-viewport {
     background-color: #000;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .xterm canvas {
