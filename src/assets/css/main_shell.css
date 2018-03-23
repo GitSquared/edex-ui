@@ -46,24 +46,27 @@ section#main_shell pre {
     overflow: hidden;
 }
 
-.terminal {
-    background-color: transparent;
-    color: inherit;
+.xterm {
     font-family: inherit;
+    font-feature-settings: "liga" 0;
     position: relative;
+    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 
-.terminal.focus,
-.terminal:focus {
+.xterm.focus,
+.xterm:focus {
     outline: none;
 }
 
-.terminal .xterm-helpers {
+.xterm .xterm-helpers {
     position: absolute;
     top: 0;
+    z-index: 10;
 }
 
-.terminal .xterm-helper-textarea {
+.xterm .xterm-helper-textarea {
     position: absolute;
     opacity: 0;
     left: -9999em;
@@ -76,27 +79,46 @@ section#main_shell pre {
     resize: none;
 }
 
-.terminal .composition-view.active {
+.xterm .composition-view {
+    background: #000;
+    color: #FFF;
+    display: none;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.xterm .composition-view.active {
     display: block;
 }
 
-.terminal .xterm-rows {
+.xterm .xterm-viewport {
+    background-color: #000;
+    overflow-y: hidden;
+}
+
+.xterm canvas {
     position: absolute;
-    left: 0.555vh;
-    top: 0.37vh;
+    left: 0;
+    top: 0;
 }
 
-.terminal .xterm-rows > div {
-    white-space: nowrap;
-}
-
-.terminal .xterm-scroll-area {
+.xterm .xterm-scroll-area {
     visibility: hidden;
 }
 
-.terminal .xterm-char-measure-element {
+.xterm .xterm-char-measure-element {
     display: inline-block;
     visibility: hidden;
     position: absolute;
     left: -9999em;
+}
+
+.xterm.enable-mouse-events {
+    /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
+    cursor: default;
+}
+
+.xterm:not(.enable-mouse-events) {
+    cursor: text;
 }

@@ -3,9 +3,12 @@ class Terminal {
         if (opts.role === "client") {
             if (!opts.parentId) throw "Missing options";
 
-            this.xTerm = require("xterm");
-            this.xTerm.loadAddon('attach');
-            this.xTerm.loadAddon('fit');
+            this.xTerm = require("xterm").Terminal;
+
+            let attachAddon = require("./node_modules/xterm/lib/addons/attach/attach.js");
+            let fitAddon = require("./node_modules/xterm/lib/addons/fit/fit.js");
+            this.xTerm.applyAddon(attachAddon);
+            this.xTerm.applyAddon(fitAddon);
 
             this.sendSizeToServer = () => {
                 let cols = this.term.cols.toString();
@@ -19,12 +22,51 @@ class Terminal {
                 this.socket.send("ESCAPED|-- RESIZE:"+cols+";"+rows);
             };
 
+            let color = require("color");
+            let colorify = (base, target) => {
+                return color(base).grayscale().mix(color(target), 0.3).hex();
+            };
+            let themeColor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;
+
             this.term = new this.xTerm({
                 cols: 80,
                 rows: 24,
-                cursorBlink: false
+                cursorBlink: window.theme.terminal.cursorBlink || true,
+                cursorStyle: window.theme.terminal.cursorStyle || "block",
+                allowTransparency: window.theme.terminal.allowTransparency || false,
+                fontFamily: window.theme.terminal.fontFamily || "Fira Mono",
+                fontSize: window.theme.terminal.fontSize || 15,
+                fontWeight: window.theme.terminal.fontWeight || "normal",
+                fontWeightBold: window.theme.terminal.fontWeightBold || "bold",
+                letterSpacing: window.theme.terminal.letterSpacing || 0,
+                lineHeight: window.theme.terminal.lineHeight || 1,
+                scrollback: 1500,
+                bellStyle: "none",
+                theme: {
+                    foreground: window.theme.terminal.foreground,
+                    background: window.theme.terminal.background,
+                    cursor: window.theme.terminal.cursor,
+                    cursorAccent: window.theme.terminal.cursorAccent,
+                    selection: window.theme.terminal.selection,
+                    black: window.theme.colors.black || colorify("#2e3436", themeColor),
+                    red: window.theme.colors.red || colorify("#cc0000", themeColor),
+                    green: window.theme.colors.green || colorify("#4e9a06", themeColor),
+                    yellow: window.theme.colors.yellow || colorify("#c4a000", themeColor),
+                    blue: window.theme.colors.blue || colorify("#3465a4", themeColor),
+                    magenta: window.theme.colors.magenta || colorify("#75507b", themeColor),
+                    cyan: window.theme.colors.cyan || colorify("#06989a", themeColor),
+                    white: window.theme.colors.white || colorify("#d3d7cf", themeColor),
+                    brightBlack: window.theme.colors.brightBlack || colorify("#555753", themeColor),
+                    brightRed: window.theme.colors.brightRed || colorify("#ef2929", themeColor),
+                    brightGreen: window.theme.colors.brightGreen || colorify("#8ae234", themeColor),
+                    brightYellow: window.theme.colors.brightYellow || colorify("#fce94f", themeColor),
+                    brightBlue: window.theme.colors.brightBlue || colorify("#729fcf", themeColor),
+                    brightMagenta: window.theme.colors.brightMagenta || colorify("#ad7fa8", themeColor),
+                    brightCyan: window.theme.colors.brightCyan || colorify("#34e2e2", themeColor),
+                    brightWhite: window.theme.colors.brightWhite || colorify("#eeeeec", themeColor)
+                }
             });
-            this.term.open(document.getElementById(opts.parentId), true);
+            this.term.open(document.getElementById(opts.parentId));
             this.term.focus();
 
             let sockHost = opts.host || "127.0.0.1";
