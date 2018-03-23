@@ -22,9 +22,9 @@ class Terminal {
                 this.socket.send("ESCAPED|-- RESIZE:"+cols+";"+rows);
             };
 
-            let Color = require("color");
+            let color = require("color");
             let colorify = (base, target) => {
-                return Color(base).grayscale().mix(Color(target), 0.3).hex();
+                return color(base).grayscale().mix(color(target), 0.3).hex();
             };
             let themeColor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;
 
