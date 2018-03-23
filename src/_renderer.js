@@ -96,12 +96,14 @@ resumeInit = () => {
                 title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
                 setTimeout(() => {
                     // Initiate graphical error display
+                    window.edexErrorsModals = [];
                     window.onerror = (msg, path, line, col, error) => {
-                        new Modal({
+                        let errorModal = new Modal({
                             type: "error",
                             title: error,
                             message: `${msg}<br/>        at ${path}  ${line}:${col}`
                         });
+                        window.edexErrorsModals.push(errorModal);
                     };
                     document.getElementById("boot_screen").remove();
                     initUI();
@@ -175,7 +177,7 @@ initMods = () => {
 };
 
 initGreeter = () => {
-    let shell_container = document.getElementById("main_shell");
+    let shellContainer = document.getElementById("main_shell");
     let greeter = document.getElementById("main_shell_greeting");
 
     require("systeminformation").users()
@@ -192,7 +194,7 @@ initGreeter = () => {
             setTimeout(() => {
                 greeter.remove();
                 setTimeout(() => {
-                    shell_container.innerHTML += `<pre id="terminal"></pre>`;
+                    shellContainer.innerHTML += `<pre id="terminal"></pre>`;
                     window.term = new Terminal({
                         role: "client",
                         parentId: "terminal"
@@ -208,7 +210,7 @@ initGreeter = () => {
             }, 500);
         }, 1100);
     });
-}
+};
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 window.onkeydown = (e) => {

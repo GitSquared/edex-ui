@@ -6,7 +6,7 @@ class RAMwatcher {
 
         // Create DOM
         this.parent = document.getElementById(parentId);
-        let mod_external_container = document.createElement("div");
+        let modExtContainer = document.createElement("div");
         let ramwatcherDOM = `<div id="mod_ramwatcher_inner">
                 <h1>MEMORY<i id="mod_ramwatcher_info"></i></h1>
                 <div id="mod_ramwatcher_pointmap">`;
@@ -18,8 +18,8 @@ class RAMwatcher {
         ramwatcherDOM += `</div>
         </div>`;
 
-        mod_external_container.innerHTML = ramwatcherDOM;
-        mod_external_container.setAttribute("id", "mod_ramwatcher");
+        modExtContainer.innerHTML = ramwatcherDOM;
+        modExtContainer.setAttribute("id", "mod_ramwatcher");
         this.parent.append(mod_external_container);
 
         this.points = Array.from(document.querySelectorAll("div.mod_ramwatcher_point"));
@@ -62,8 +62,8 @@ class RAMwatcher {
             });
 
             // Update info text
-            let totalGiB = Math.round((total/1073742000)*2)/2 // 1073742000 bytes = 1 Gibibyte (GiB)
-            let usedGiB = Math.round((data.active/1073742000)*2)/2
+            let totalGiB = Math.round((total/1073742000)*2)/2; // 1073742000 bytes = 1 Gibibyte (GiB)
+            let usedGiB = Math.round((data.active/1073742000)*2)/2;
             document.getElementById("mod_ramwatcher_info").innerText = `USING ${usedGiB} OUT OF ${totalGiB} GiB`;
         });
     }
