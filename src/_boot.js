@@ -19,6 +19,8 @@ const themesDir = path.join(electron.app.getPath("userData"), "themes");
 const innerThemesDir = path.join(__dirname, "assets/themes");
 const kblayoutsDir = path.join(electron.app.getPath("userData"), "keyboards");
 const innerKblayoutsDir = path.join(__dirname, "assets/kb_layouts");
+const fontsDir = path.join(electron.app.getPath("userData"), "fonts");
+const innerFontsDir = path.join(__dirname, "assets/fonts");
 
 // Fix userData folder not setup on Windows
 try {
@@ -36,7 +38,7 @@ if (!fs.existsSync(settingsFile)) {
     }));
 }
 
-// Copy default themes & keyboard layouts
+// Copy default themes & keyboard layouts & fonts
 try {
     fs.mkdirSync(themesDir);
 } catch(e) {
@@ -52,6 +54,14 @@ try {
 }
 fs.readdirSync(innerKblayoutsDir).forEach((e) => {
     fs.writeFileSync(path.join(kblayoutsDir, e), fs.readFileSync(path.join(innerKblayoutsDir, e), {encoding:"utf-8"}));
+});
+try {
+    fs.mkdirSync(fontsDir);
+} catch(e) {
+    // Folder already exists
+}
+fs.readdirSync(innerFontsDir).forEach((e) => {
+    fs.writeFileSync(path.join(fontsDir, e), fs.readFileSync(path.join(innerFontsDir, e)));
 });
 
 app.on('ready', () => {

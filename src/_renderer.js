@@ -4,6 +4,7 @@ const electron = require("electron");
 
 const themesDir = path.join(electron.remote.app.getPath("userData"), "themes");
 const keyboardsDir = path.join(electron.remote.app.getPath("userData"), "keyboards");
+const fontsDir = path.join(electron.remote.app.getPath("userData"), "fonts");
 const settingsFile = path.join(electron.remote.app.getPath("userData"), "settings.json");
 
 // Load config
@@ -11,17 +12,34 @@ const settings = require(settingsFile);
 
 // Load UI theme
 let theme = require(path.join(themesDir, settings.theme+".json"));
-document.querySelector("head").innerHTML += `<style id="theme_${settings.theme}_cssvars">
+
+document.querySelector("head").innerHTML += `<style id="theme_${settings.theme}_css">
+@font-face {
+    font-family: "${theme.cssvars.font_main}";
+    src: url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+}
+@font-face {
+    font-family: "${theme.cssvars.font_main_light}";
+    src: url("${path.join(fontsDir, theme.cssvars.font_main_light.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+}
+@font-face {
+    font-family: "${theme.terminal.fontFamily}";
+    src: url("${path.join(fontsDir, theme.terminal.fontFamily.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+}
+
 :root {
     --font_main: "${theme.cssvars.font_main}";
     --font_main_light: "${theme.cssvars.font_main_light}";
-    --font_console: "${theme.cssvars.font_console}";
     --color_r: ${theme.colors.r};
     --color_g: ${theme.colors.g};
     --color_b: ${theme.colors.b};
     --color_black: ${theme.colors.black};
     --color_light_black: ${theme.colors.light_black};
     --color_grey: ${theme.colors.grey};
+}
+
+body {
+    font-family: var(--font_main), sans-serif;
 }
 </style>`;
 
