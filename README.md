@@ -1,6 +1,6 @@
 # eDEX-UI
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93b816722c4e4af2bdf401b8187b8a2d)](https://www.codacy.com/app/GitSquared/edex-ui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GitSquared/edex-ui&amp;utm_campaign=Badge_Grade)  [![Greenkeeper badge](https://badges.greenkeeper.io/GitSquared/edex-ui.svg)](https://greenkeeper.io/)   [![Build Status](https://travis-ci.org/GitSquared/edex-ui.svg?branch=master)](https://travis-ci.org/GitSquared/edex-ui)   [![Build status](https://ci.appveyor.com/api/projects/status/leb069bro8gwocu7/branch/master?svg=true)](https://ci.appveyor.com/project/GitSquared/edex-ui/branch/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93b816722c4e4af2bdf401b8187b8a2d)](https://www.codacy.com/app/GitSquared/edex-ui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GitSquared/edex-ui&amp;utm_campaign=Badge_Grade)  [![Greenkeeper badge](https://badges.greenkeeper.io/GitSquared/edex-ui.svg)](https://greenkeeper.io/)   [![Build Status](https://travis-ci.org/GitSquared/edex-ui.svg?branch=master)](https://travis-ci.org/GitSquared/edex-ui)   [![Build status](https://ci.appveyor.com/api/projects/status/leb069bro8gwocu7/branch/master?svg=true)](https://ci.appveyor.com/project/GitSquared/edex-ui/branch/master)   [![Known Vulnerabilities](https://snyk.io/test/github/gitsquared/edex-ui/badge.svg)](https://snyk.io/test/github/gitsquared/edex-ui)
 
 ![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot1.png)
 
