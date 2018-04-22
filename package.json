@@ -81,7 +81,7 @@
       "icon": "media/icon.ico"
     }
   },
-  "devDependencies": {
+  "dependencies": {
     "clean-css": "4.1.11",
     "electron": "1.8.4",
     "electron-builder": "20.10.0",
