@@ -100,10 +100,10 @@ app.on('ready', () => {
         show: false,
         resizable: true,
         movable: false,
-        alwaysOnTop: true,
+        // alwaysOnTop: true,
         fullscreen: true,
         // focusable: false,
-        // skipTaskbar: true,
+        skipTaskbar: true,
         autoHideMenuBar: true,
         frame: false,
         backgroundColor: '#000000'
