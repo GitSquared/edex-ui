@@ -83,8 +83,8 @@
   },
   "dependencies": {
     "clean-css": "4.1.11",
-    "electron": "1.8.5",
-    "electron-builder": "20.10.0",
+    "electron": "2.0.0",
+    "electron-builder": "20.11.1",
     "electron-rebuild": "1.7.3",
     "node-json-minify": "1.0.0",
     "uglify-es": "3.3.10"
