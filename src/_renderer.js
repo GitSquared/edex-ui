@@ -221,9 +221,6 @@ initGreeter = () => {
                     window.onmouseup = (e) => {
                         window.term.term.focus();
                     };
-                    setTimeout(() => {
-                        window.term.fit();
-                    }, 50);
                 }, 100);
             }, 500);
         }, 1100);

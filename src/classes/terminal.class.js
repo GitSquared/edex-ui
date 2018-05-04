@@ -19,7 +19,9 @@ class Terminal {
                 while (rows.length < 3) {
                     rows = "0"+rows;
                 }
-                this.socket.send("ESCAPED|-- RESIZE:"+cols+";"+rows);
+                if (this.socket.readyState === 1) {
+                    this.socket.send("ESCAPED|-- RESIZE:"+cols+";"+rows);
+                }
             };
 
             let color = require("color");
@@ -76,6 +78,9 @@ class Terminal {
             this.socket.onopen = () => {
                 this.term.attach(this.socket);
                 this.fit();
+                setTimeout(() => {
+                    this.fit();
+                }, 200);
             };
             this.socket.onerror = (e) => {throw e};
 
