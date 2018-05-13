@@ -146,7 +146,7 @@ class Terminal {
                             this.renderer.send("terminal_channel", "New cwd", cwd);
                         }
                     }).catch(e => {
-                        console.err("Error while tracking TTY working directory: ", e);
+                        console.log("Error while tracking TTY working directory: ", e);
                     });
                 }
             }, 500);
