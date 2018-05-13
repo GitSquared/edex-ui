@@ -7,6 +7,7 @@ class Terminal {
             this.Ipc = require("electron").ipcRenderer;
 
             this.cwd = "";
+            this.oncwdchange = () => {};
 
             let attachAddon = require("./node_modules/xterm/lib/addons/attach/attach.js");
             let fitAddon = require("./node_modules/xterm/lib/addons/fit/fit.js");
@@ -77,6 +78,7 @@ class Terminal {
                 switch(args[0]) {
                     case "New cwd":
                         this.cwd = args[1];
+                        this.oncwdchange();
                         break;
                     default:
                         return;

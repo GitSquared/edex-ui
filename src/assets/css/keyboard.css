@@ -2,7 +2,7 @@ section#keyboard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    width: 56vw;
     position: relative;
     top: -0.925vh;
 }
@@ -149,7 +149,7 @@ div.keyboard_row#row_2 > div.keyboard_enter {
     margin-top: 0vh;
     height: 6.389vh;
     top: -0.37vh;
-    right: -1vh;
+    right: -0.9vh;
 }
 
 div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {

@@ -143,6 +143,9 @@ initUI = () => {
     <section class="mod_column" id="mod_column_right">
         <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
     </section>
+    <section id="filesystem">
+        <h3 class="title"><p>PANEL</p><p>FILESYSTEM</p></h3>
+    </section>
     <section id="keyboard" style="opacity:0;">
     </section>`;
 
