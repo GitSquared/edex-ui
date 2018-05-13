@@ -144,7 +144,6 @@ initUI = () => {
         <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
     </section>
     <section id="filesystem">
-        <h3 class="title"><p>PANEL</p><p>FILESYSTEM</p></h3>
     </section>
     <section id="keyboard" style="opacity:0;">
     </section>`;
@@ -224,6 +223,10 @@ initGreeter = () => {
                     window.onmouseup = (e) => {
                         window.term.term.focus();
                     };
+
+                    window.fsDisp = new FilesystemDisplay({
+                        parentId: "filesystem"
+                    });
                 }, 100);
             }, 500);
         }, 1100);

@@ -143,6 +143,7 @@ class Terminal {
                 if (this._nextTickUpdateTtyCWD) {
                     this._nextTickUpdateTtyCWD = false;
                     this._getTtyCWD(this.tty).then(cwd => {
+                        if (this.tty._cwd === cwd) return;
                         this.tty._cwd = cwd;
                         if (this.renderer) {
                             this.renderer.send("terminal_channel", "New cwd", cwd);
@@ -151,7 +152,7 @@ class Terminal {
                         console.log("Error while tracking TTY working directory: ", e);
                     });
                 }
-            }, 500);
+            }, 1000);
 
             this.tty = this.Pty.spawn(opts.shell || "bash", [], {
                 name: 'xterm-color',
