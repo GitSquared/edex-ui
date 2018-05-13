@@ -10,3 +10,7 @@ section#filesystem > h3.title {
     width: 43vw;
     padding-right: 0;
 }
+
+pre#fs_disp_container {
+    padding-left: 1vh;
+}

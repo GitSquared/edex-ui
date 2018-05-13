@@ -6,6 +6,7 @@ class Terminal {
             this.xTerm = require("xterm").Terminal;
             this.Ipc = require("electron").ipcRenderer;
 
+            this.port = opts.port || 3000;
             this.cwd = "";
             this.oncwdchange = () => {};
 
@@ -23,7 +24,7 @@ class Terminal {
                 while (rows.length < 3) {
                     rows = "0"+rows;
                 }
-                this.Ipc.send("terminal_channel", "Resize", cols, rows);
+                this.Ipc.send("terminal_channel-"+this.port, "Resize", cols, rows);
             };
 
             let color = require("color");
@@ -73,8 +74,8 @@ class Terminal {
             this.term.open(document.getElementById(opts.parentId));
             this.term.focus();
 
-            this.Ipc.send("terminal_channel", "Renderer startup");
-            this.Ipc.on("terminal_channel", (e, ...args) => {
+            this.Ipc.send("terminal_channel-"+this.port, "Renderer startup");
+            this.Ipc.on("terminal_channel-"+this.port, (e, ...args) => {
                 switch(args[0]) {
                     case "New cwd":
                         this.cwd = args[1];
@@ -86,7 +87,7 @@ class Terminal {
             });
 
             let sockHost = opts.host || "127.0.0.1";
-            let sockPort = opts.port || 3000;
+            let sockPort = this.port;
 
             this.socket = new WebSocket("ws://"+sockHost+":"+sockPort);
             this.socket.onopen = () => {
@@ -116,6 +117,7 @@ class Terminal {
             this.Ipc = require("electron").ipcMain;
 
             this.renderer = null;
+            this.port = opts.port || 3000;
 
             this.onclosed = () => {};
             this.onopened = () => {};
@@ -146,7 +148,7 @@ class Terminal {
                         if (this.tty._cwd === cwd) return;
                         this.tty._cwd = cwd;
                         if (this.renderer) {
-                            this.renderer.send("terminal_channel", "New cwd", cwd);
+                            this.renderer.send("terminal_channel-"+this.port, "New cwd", cwd);
                         }
                     }).catch(e => {
                         console.log("Error while tracking TTY working directory: ", e);
@@ -167,7 +169,7 @@ class Terminal {
             });
 
             this.wss = new this.Websocket({
-                port: opts.port || 3000,
+                port: this.port,
                 clientTracking: true,
                 verifyClient: (info) => {
                     if (this.wss.clients.length >= 1) {
@@ -177,7 +179,7 @@ class Terminal {
                     }
                 }
             });
-            this.Ipc.on("terminal_channel", (e, ...args) => {
+            this.Ipc.on("terminal_channel-"+this.port, (e, ...args) => {
                 switch(args[0]) {
                     case "Renderer startup":
                         this.renderer = e.sender;

@@ -43,6 +43,7 @@ body {
 }
 </style>`;
 
+window.settings = settings;
 window.theme = theme;
 window.theme.r = theme.colors.r;
 window.theme.g = theme.colors.g;
