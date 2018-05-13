@@ -4,13 +4,16 @@ class Terminal {
             if (!opts.parentId) throw "Missing options";
 
             this.xTerm = require("xterm").Terminal;
+            this.Ipc = require("electron").ipcRenderer;
+
+            this.cwd = "";
 
             let attachAddon = require("./node_modules/xterm/lib/addons/attach/attach.js");
             let fitAddon = require("./node_modules/xterm/lib/addons/fit/fit.js");
             this.xTerm.applyAddon(attachAddon);
             this.xTerm.applyAddon(fitAddon);
 
-            this.sendSizeToServer = () => {
+            this._sendSizeToServer = () => {
                 let cols = this.term.cols.toString();
                 let rows = this.term.rows.toString();
                 while (cols.length < 3) {
@@ -19,9 +22,7 @@ class Terminal {
                 while (rows.length < 3) {
                     rows = "0"+rows;
                 }
-                if (this.socket.readyState === 1) {
-                    this.socket.send("ESCAPED|-- RESIZE:"+cols+";"+rows);
-                }
+                this.Ipc.send("terminal_channel", "Resize", cols, rows);
             };
 
             let color = require("color");
@@ -71,6 +72,17 @@ class Terminal {
             this.term.open(document.getElementById(opts.parentId));
             this.term.focus();
 
+            this.Ipc.send("terminal_channel", "Renderer startup");
+            this.Ipc.on("terminal_channel", (e, ...args) => {
+                switch(args[0]) {
+                    case "New cwd":
+                        this.cwd = args[1];
+                        break;
+                    default:
+                        return;
+                }
+            });
+
             let sockHost = opts.host || "127.0.0.1";
             let sockPort = opts.port || 3000;
 
@@ -93,12 +105,15 @@ class Terminal {
 
             this.resize = (cols, rows) => {
                 this.term.resize(cols, rows);
-                this.sendSizeToServer();
+                this._sendSizeToServer();
             };
         } else if (opts.role === "server") {
 
             this.Pty = require("node-pty");
             this.Websocket = require("ws").Server;
+            this.Ipc = require("electron").ipcMain;
+
+            this.renderer = null;
 
             this.onclosed = () => {};
             this.onopened = () => {};
@@ -127,6 +142,9 @@ class Terminal {
                     this._nextTickUpdateTtyCWD = false;
                     this._getTtyCWD(this.tty).then(cwd => {
                         this.tty._cwd = cwd;
+                        if (this.renderer) {
+                            this.renderer.send("terminal_channel", "New cwd", cwd);
+                        }
                     }).catch(e => {
                         console.err("Error while tracking TTY working directory: ", e);
                     });
@@ -144,6 +162,7 @@ class Terminal {
             this.tty.on('exit', (code, signal) => {
                 this.onclosed(code, signal);
             });
+
             this.wss = new this.Websocket({
                 port: opts.port || 3000,
                 clientTracking: true,
@@ -155,20 +174,25 @@ class Terminal {
                     }
                 }
             });
+            this.Ipc.on("terminal_channel", (e, ...args) => {
+                switch(args[0]) {
+                    case "Renderer startup":
+                        this.renderer = e.sender;
+                        break;
+                    case "Resize":
+                        let cols = args[1];
+                        let rows = args[2];
+                        this.tty.resize(Number(cols), Number(rows));
+                        this.onresized(cols, rows);
+                        break;
+                    default:
+                        return;
+                }
+            });
             this.wss.on('connection', (ws) => {
                 this.onopened();
                 ws.on('message', (msg) => {
-                    if (msg.startsWith("ESCAPED|-- ")) {
-                        if (msg.startsWith("ESCAPED|-- RESIZE:")) {
-                            msg = msg.substr(18);
-                            let cols = msg.slice(0, -4);
-                            let rows = msg.substr(4);
-                            this.tty.resize(Number(cols), Number(rows));
-                            this.onresized(cols, rows);
-                        }
-                    } else {
-                        this.tty.write(msg);
-                    }
+                    this.tty.write(msg);
                 });
                 this.tty.on('data', (data) => {
                     this._nextTickUpdateTtyCWD = true;
