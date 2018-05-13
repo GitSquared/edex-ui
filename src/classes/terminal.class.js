@@ -105,6 +105,34 @@ class Terminal {
             this.onresize = () => {};
             this.ondisconnected = () => {};
 
+            this._getTtyCWD = (tty) => {
+                return new Promise((resolve, reject) => {
+                    let pid = tty._pid;
+                    if (require("os").type() === "Linux") {
+                        require("fs").readlink(`/proc/${pid}/cwd`, (e, cwd) => {
+                            if (e !== null) {
+                                reject(e);
+                            } else {
+                                resolve(cwd);
+                            }
+                        });
+                    } else {
+                        reject("Unsupported OS");
+                    }
+                });
+            };
+            this._nextTickUpdateTtyCWD = false;
+            this._tick = setInterval(() => {
+                if (this._nextTickUpdateTtyCWD) {
+                    this._nextTickUpdateTtyCWD = false;
+                    this._getTtyCWD.then(cwd => {
+                        this.tty._cwd = cwd;
+                    }).catch(e => {
+                        console.err("Error while tracking TTY working directory: ", e);
+                    });
+                }
+            }, 500);
+
             this.tty = this.Pty.spawn(opts.shell || "bash", [], {
                 name: 'xterm-color',
                 cols: 80,
@@ -143,6 +171,7 @@ class Terminal {
                     }
                 });
                 this.tty.on('data', (data) => {
+                    this._nextTickUpdateTtyCWD = true;
                     try {
                         ws.send(data);
                     } catch (e) {
