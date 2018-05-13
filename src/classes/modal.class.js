@@ -19,7 +19,7 @@ class Modal {
             case "error":
                 classes += " error";
                 zindex = 1500;
-                buttons.push({label:"PANIC", action:""}, {label:"RELOAD", action:"window.location.reload(true);"});
+                buttons.push({label:"PANIC", action:"window.modals["+this.id+"].close();"}, {label:"RELOAD", action:"window.location.reload(true);"});
                 break;
             case "warning":
                 classes += " warning";

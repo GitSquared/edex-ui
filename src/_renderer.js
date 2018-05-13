@@ -143,7 +143,7 @@ initUI = () => {
     <section class="mod_column" id="mod_column_right">
         <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
     </section>
-    <section id="filesystem">
+    <section id="filesystem" style="width: 0px;">
     </section>
     <section id="keyboard" style="opacity:0;">
     </section>`;
@@ -161,7 +161,7 @@ initUI = () => {
                 document.getElementById("main_shell").setAttribute("style", "");
                 setTimeout(() => {
                     initGreeter();
-
+                    document.getElementById("filesystem").setAttribute("style", "");
                     document.getElementById("keyboard").setAttribute("style", "");
                     document.getElementById("keyboard").setAttribute("class", "animation_state_1");
                     setTimeout(() => {

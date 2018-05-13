@@ -5,3 +5,8 @@ section#filesystem {
     height: 30vh;
     overflow: hidden;
 }
+
+section#filesystem > h3.title {
+    width: 43vw;
+    padding-right: 0;
+}
