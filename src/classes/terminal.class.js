@@ -125,7 +125,7 @@ class Terminal {
             this._tick = setInterval(() => {
                 if (this._nextTickUpdateTtyCWD) {
                     this._nextTickUpdateTtyCWD = false;
-                    this._getTtyCWD.then(cwd => {
+                    this._getTtyCWD(this.tty).then(cwd => {
                         this.tty._cwd = cwd;
                     }).catch(e => {
                         console.err("Error while tracking TTY working directory: ", e);
