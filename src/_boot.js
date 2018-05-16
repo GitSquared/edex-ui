@@ -32,7 +32,6 @@ try {
 if (!fs.existsSync(settingsFile)) {
     fs.writeFileSync(settingsFile, JSON.stringify({
         shell: (process.platform === "win32") ? "powershell.exe" : "bash",
-        fsDispCmd: (process.platform === "win32") ? "dir.exe" : "ls",
         cwd: electron.app.getPath("userData"),
         keyboard: "en-US",
         theme: "tron"
