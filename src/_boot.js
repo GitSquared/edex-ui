@@ -100,13 +100,17 @@ app.on('ready', () => {
         show: false,
         resizable: true,
         movable: false,
-        // alwaysOnTop: true,
         fullscreen: true,
-        // focusable: false,
         skipTaskbar: true,
         autoHideMenuBar: true,
         frame: false,
-        backgroundColor: '#000000'
+        backgroundColor: '#000000',
+        webPreferences: {
+            devTools: true,
+            backgroundThrottling: false,
+            webSecurity: true,
+            allowRunningInsecureContent: false
+        }
     });
 
     win.loadURL(url.format({

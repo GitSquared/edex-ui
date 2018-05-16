@@ -1,3 +1,8 @@
+// Disable eval()
+window.eval = global.eval = function () {
+    throw new Error("eval() is disabled for security reasons.");
+};
+
 const path = require("path");
 const fs = require("fs");
 const electron = require("electron");
