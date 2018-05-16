@@ -110,6 +110,14 @@ class Terminal {
                 this.term.resize(cols, rows);
                 this._sendSizeToServer();
             };
+
+            this.write = cmd => {
+                this.socket.send(cmd);
+            };
+
+            this.writelr = cmd => {
+                this.socket.send(cmd+"\r");
+            };
         } else if (opts.role === "server") {
 
             this.Pty = require("node-pty");
