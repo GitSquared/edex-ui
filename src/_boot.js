@@ -1,17 +1,27 @@
+const signale = require("signale");
 const {app, BrowserWindow} = require("electron");
 
-console.log(`
-    ===========================================================
-              Starting eDEX-UI v${app.getVersion()} with Node ${process.versions.node}
-                           on Electron ${process.versions.electron}
-    ===========================================================
-    `);
+process.on("uncaughtException", e => {
+    signale.fatal(e);
+    tty.tty.kill();
+    app.exit(1);
+});
+
+signale.start(`Starting eDEX-UI v${app.getVersion()}`);
+signale.info(`With Node ${process.versions.node} and Electron ${process.versions.electron}`);
+signale.info(`Renderer is Chrome ${process.versions.chrome}`);
+signale.time("Startup");
 
 const electron = require("electron");
+const ipc = electron.ipcMain;
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
 const Terminal = require("./classes/terminal.class.js").Terminal;
+
+ipc.on("log", (e, type, content) => {
+    signale[type](content);
+});
 
 var win, tty;
 const settingsFile = path.join(electron.app.getPath("userData"), "settings.json");
@@ -25,8 +35,9 @@ const innerFontsDir = path.join(__dirname, "assets/fonts");
 // Fix userData folder not setup on Windows
 try {
     fs.mkdirSync(electron.app.getPath("userData"));
+    signale.info(`Created config dir at ${electron.app.getPath("userData")}`);
 } catch(e) {
-    // Folder already exists
+    signale.info(`Base config dir is ${electron.app.getPath("userData")}`);
 }
 // Create default settings file
 if (!fs.existsSync(settingsFile)) {
@@ -65,30 +76,35 @@ fs.readdirSync(innerFontsDir).forEach((e) => {
 });
 
 app.on('ready', () => {
+    signale.pending(`Loading settings file...`);
     let settings = require(settingsFile);
+    signale.success(`Settings loaded!`);
 
-    // Initialize terminal server
+    signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
         role: "server",
         shell: settings.shell,
         cwd: settings.cwd,
         port: settings.port || 3000
     });
+    signale.success(`Terminal back-end initialized!`);
     tty.onclosed = (code, signal) => {
-        console.log("=> Terminal exited - "+code+", "+signal);
+        signale.complete("Terminal exited", code, signal);
         app.quit();
     };
     tty.onopened = () => {
-        console.log("=> Connected to front-end");
+        signale.success("Connected to frontend!");
+        signale.timeEnd("Startup");
     };
     tty.onresized = (cols, rows) => {
-        console.log("=> Resized terminal to "+cols+"x"+rows);
+        signale.info("Resized TTY to ", cols, rows);
     };
     tty.ondisconnected = () => {
-        tty.tty.kill();
-        app.quit();
+        signale.error("Lost connection to frontend");
+        signale.watch("Waiting for frontend connection...");
     };
 
+    signale.info("Creating window...");
     let {x, y, width, height} = electron.screen.getPrimaryDisplay().bounds;
     width++; height++;
     win = new BrowserWindow({
@@ -120,15 +136,20 @@ app.on('ready', () => {
     }));
 
     win.once("ready-to-show", () => {
+        signale.complete("Frontend window is up!");
         win.show();
         win.setResizable(false);
     });
+
+    signale.watch("Waiting for frontend connection...");
 });
 
 app.on('window-all-closed', () => {
+    signale.info("All windows closed");
     app.quit();
 });
 
 app.on('before-quit', () => {
-    console.log("=> Shutting down...");
+    tty.tty.kill();
+    signale.complete("Shutting down...");
 });

@@ -165,14 +165,14 @@ class Terminal {
             }, 1000);
 
             this.tty = this.Pty.spawn(opts.shell || "bash", [], {
-                name: 'xterm-color',
+                name: "xterm-color",
                 cols: 80,
                 rows: 24,
                 cwd: opts.cwd || process.env.PWD,
                 env: process.env
             });
 
-            this.tty.on('exit', (code, signal) => {
+            this.tty.on("exit", (code, signal) => {
                 this.onclosed(code, signal);
             });
 
@@ -202,12 +202,15 @@ class Terminal {
                         return;
                 }
             });
-            this.wss.on('connection', (ws) => {
+            this.wss.on("connection", (ws) => {
                 this.onopened();
-                ws.on('message', (msg) => {
+                ws.on("close", (code, reason) => {
+                    this.ondisconnected(code, reason);
+                });
+                ws.on("message", (msg) => {
                     this.tty.write(msg);
                 });
-                this.tty.on('data', (data) => {
+                this.tty.on("data", (data) => {
                     this._nextTickUpdateTtyCWD = true;
                     try {
                         ws.send(data);
@@ -215,9 +218,6 @@ class Terminal {
                         // Websocket closed
                     }
                 });
-            });
-            this.wss.on('close', () => {
-                this.ondisconnected();
             });
         } else {
             throw "Unknown purpose";

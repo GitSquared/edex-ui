@@ -3,9 +3,15 @@ window.eval = global.eval = function () {
     throw new Error("eval() is disabled for security reasons.");
 };
 
+// Initiate basic error handling
+window.onerror = (msg, path, line, col, error) => {
+    document.getElementById("boot_screen").innerHTML += `${error} :  ${msg}<br/>==> at ${path}  ${line}:${col}`;
+};
+
 const path = require("path");
 const fs = require("fs");
 const electron = require("electron");
+const ipc = electron.ipcRenderer;
 
 const themesDir = path.join(electron.remote.app.getPath("userData"), "themes");
 const keyboardsDir = path.join(electron.remote.app.getPath("userData"), "keyboards");
@@ -53,11 +59,6 @@ window.theme = theme;
 window.theme.r = theme.colors.r;
 window.theme.g = theme.colors.g;
 window.theme.b = theme.colors.b;
-
-// Initiate basic error handling
-window.onerror = (msg, path, line, col, error) => {
-    document.getElementById("boot_screen").innerHTML += `${error} :  ${msg}<br/>==> at ${path}  ${line}:${col}`;
-};
 
 // Startup boot log
 let resumeInit, initUI, initMods, initGreeter;
@@ -128,6 +129,9 @@ resumeInit = () => {
                             message: `${msg}<br/>        at ${path}  ${line}:${col}`
                         });
                         window.edexErrorsModals.push(errorModal);
+
+                        ipc.send("log", "error", `${error}: ${msg}`);
+                        ipc.send("log", "debug", `at ${path} ${line}:${col}`);
                     };
                     document.getElementById("boot_screen").remove();
                     initUI();
