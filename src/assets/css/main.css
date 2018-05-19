@@ -22,6 +22,21 @@ body.solidBackground {
     background: var(--color_light_black);
 }
 
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-button {
+    display: none;
+}
+::-webkit-scrollbar-track {
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.4);
+    border: 3px solid var(--color_light_black);
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(var(--color_r), var(--color_g), var(--color_b));
+    height: auto;
+}
+
 h3.title {
     position: fixed;
     margin: 0vh;

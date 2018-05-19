@@ -97,7 +97,7 @@ let displayLine = () => {
             setTimeout(displayLine, 2);
     }
 };
-displayLine();
+// displayLine();
 
 // Show "logo" and background grid
 resumeInit = () => {
@@ -255,3 +255,19 @@ window.onkeydown = (e) => {
         e.preventDefault();
     }
 };
+
+// Initiate graphical error display
+window.edexErrorsModals = [];
+window.onerror = (msg, path, line, col, error) => {
+    let errorModal = new Modal({
+        type: "error",
+        title: error,
+        message: `${msg}<br/>        at ${path}  ${line}:${col}`
+    });
+    window.edexErrorsModals.push(errorModal);
+
+    ipc.send("log", "error", `${error}: ${msg}`);
+    ipc.send("log", "debug", `at ${path} ${line}:${col}`);
+};
+document.getElementById("boot_screen").remove();
+initUI();
