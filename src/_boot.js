@@ -89,6 +89,7 @@ app.on('ready', () => {
     });
     signale.success(`Terminal back-end initialized!`);
     tty.onclosed = (code, signal) => {
+        tty.ondisconnected = () => {};
         signale.complete("Terminal exited", code, signal);
         app.quit();
     };
