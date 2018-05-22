@@ -84,7 +84,7 @@
   "dependencies": {
     "clean-css": "4.1.11",
     "electron": "2.0.1",
-    "electron-builder": "20.13.4",
+    "electron-builder": "20.14.7",
     "electron-rebuild": "1.7.3",
     "node-abi": "2.4.1",
     "node-json-minify": "1.0.0",
