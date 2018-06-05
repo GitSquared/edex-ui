@@ -37,6 +37,7 @@ div#fs_disp_container > * {
     height: 8.5vh;
     text-align: center;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -44,6 +45,10 @@ div#fs_disp_container > * {
 
 div#fs_disp_container > *.hidden {
     opacity: 0.7;
+}
+
+div#fs_disp_container > * > svg {
+    width: 5vh;
 }
 
 div#fs_disp_container > * > h3 {
@@ -56,6 +61,10 @@ div#fs_disp_container > * > h3 {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+div.fs_disp_up > svg {
+    width: 4vh !important;
 }
 
 div.fs_disp_file > h3 {
