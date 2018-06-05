@@ -97,7 +97,7 @@ let displayLine = () => {
             setTimeout(displayLine, 2);
     }
 };
-// displayLine();
+displayLine();
 
 // Show "logo" and background grid
 resumeInit = () => {
@@ -269,5 +269,3 @@ window.onerror = (msg, path, line, col, error) => {
     ipc.send("log", "error", `${error}: ${msg}`);
     ipc.send("log", "debug", `at ${path} ${line}:${col}`);
 };
-document.getElementById("boot_screen").remove();
-initUI();

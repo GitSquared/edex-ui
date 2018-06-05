@@ -22,7 +22,7 @@ div#fs_disp_container {
     top: 1.5vh;
     height: 25.5vh;
     width: 43vw;
-    overflow: auto; /* need to style scrollbars */
+    overflow: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(8.5vh, 1fr));
     grid-auto-rows: 8.5vh;
