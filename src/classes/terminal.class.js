@@ -136,16 +136,26 @@ class Terminal {
             this._getTtyCWD = (tty) => {
                 return new Promise((resolve, reject) => {
                     let pid = tty._pid;
-                    if (require("os").type() === "Linux") {
-                        require("fs").readlink(`/proc/${pid}/cwd`, (e, cwd) => {
-                            if (e !== null) {
-                                reject(e);
-                            } else {
-                                resolve(cwd);
-                            }
-                        });
-                    } else {
-                        reject("Unsupported OS");
+                    switch(require("os").type()) {
+                        case "Linux":
+                            require("fs").readlink(`/proc/${pid}/cwd`, (e, cwd) => {
+                                if (e !== null) {
+                                    reject(e);
+                                } else {
+                                    resolve(cwd);
+                                }
+                            });
+                            break;
+                        case "Darwin":
+                            require("child_process").exec(`lsof -a -d cwd -p ${pid} | tail -1 | awk '{print $9}'`, (e, cwd) => {
+                                if (e !== null) {
+                                    reject(e);
+                                } else {
+                                    resolve(cwd);
+                                }
+                            });
+                        default:
+                            reject("Unsupported OS");
                     }
                 });
             };
