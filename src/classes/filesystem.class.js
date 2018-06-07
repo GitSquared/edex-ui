@@ -130,7 +130,7 @@ class FilesystemDisplay {
                 }
 
                 let cmd = `window.term.write('${e.name}')`;
-                if (e.type === "dir") {
+                if (e.type === "dir" || e.type === "up") {
                     cmd = `window.term.writelr('cd ${e.name}')`;
                 }
 
