@@ -147,7 +147,11 @@ class Terminal {
                             });
                             break;
                         case "Darwin":
-                            require("child_process").exec(`lsof -a -d cwd -p ${pid} | tail -1 | awk '{print $9}'`, (e, cwd) => {
+                            // OK, the following is quite of a hacky solution
+                            // Each $XX after the $9 in the awk commands provide support for one more space
+                            // character in the path (otherwise it just gets cut)
+                            // There's probably a better way to do this, PRs welcome
+                            require("child_process").exec(`lsof -a -d cwd -p ${pid} | tail -1 | awk '{print $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20}'`, (e, cwd) => {
                                 if (e !== null) {
                                     reject(e);
                                 } else {
