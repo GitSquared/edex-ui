@@ -154,6 +154,7 @@ class Terminal {
                                     resolve(cwd);
                                 }
                             });
+                            break;
                         default:
                             reject("Unsupported OS");
                     }
