@@ -155,7 +155,7 @@ class Terminal {
                                 if (e !== null) {
                                     reject(e);
                                 } else {
-                                    resolve(cwd);
+                                    resolve(cwd.trim());
                                 }
                             });
                             break;
