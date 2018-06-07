@@ -132,6 +132,7 @@ class Terminal {
             this.onresize = () => {};
             this.ondisconnected = () => {};
 
+            this._disableCWDtracking = false;
             this._getTtyCWD = (tty) => {
                 return new Promise((resolve, reject) => {
                     let pid = tty._pid;
@@ -150,7 +151,7 @@ class Terminal {
             };
             this._nextTickUpdateTtyCWD = false;
             this._tick = setInterval(() => {
-                if (this._nextTickUpdateTtyCWD) {
+                if (this._nextTickUpdateTtyCWD && this._disableCWDtracking === false) {
                     this._nextTickUpdateTtyCWD = false;
                     this._getTtyCWD(this.tty).then(cwd => {
                         if (this.tty._cwd === cwd) return;
@@ -160,6 +161,10 @@ class Terminal {
                         }
                     }).catch(e => {
                         console.log("Error while tracking TTY working directory: ", e);
+                        this._disableCWDtracking = true;
+                        if (this.renderer) {
+                            this.renderer.send("terminal_channel-"+this.port, "New cwd", opts.cwd || process.env.PWD);
+                        }
                     });
                 }
             }, 1000);
