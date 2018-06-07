@@ -57,12 +57,15 @@
           "target": "tar.gz",
           "arch": [
             "x64",
-            "ia32",
-            "armv7l"
+            "ia32"
           ]
         },
         {
-          "target": "snap"
+          "target": "AppImage",
+          "arch": [
+              "x64",
+              "ia32"
+          ]
         }
       ],
       "category": "System",
