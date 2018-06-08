@@ -39,7 +39,7 @@
     "productName": "eDEX-UI",
     "asar": true,
     "compression": "maximum",
-    "copyright": "FREE FOR ALL",
+    "copyright": "Copyright © 2017-2018 ${author}",
     "directories": {
       "output": "dist",
       "app": "prebuild-src"
