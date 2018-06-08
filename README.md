@@ -1,11 +1,18 @@
-# eDEX-UI
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93b816722c4e4af2bdf401b8187b8a2d)](https://www.codacy.com/app/GitSquared/edex-ui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GitSquared/edex-ui&amp;utm_campaign=Badge_Grade)  [![Greenkeeper badge](https://badges.greenkeeper.io/GitSquared/edex-ui.svg)](https://greenkeeper.io/)   [![Build Status](https://travis-ci.org/GitSquared/edex-ui.svg?branch=master)](https://travis-ci.org/GitSquared/edex-ui)   [![Build status](https://ci.appveyor.com/api/projects/status/leb069bro8gwocu7/branch/master?svg=true)](https://ci.appveyor.com/project/GitSquared/edex-ui/branch/master)   [![Known Vulnerabilities](https://snyk.io/test/github/gitsquared/edex-ui/badge.svg)](https://snyk.io/test/github/gitsquared/edex-ui)
+<p align="center">
+  <br>
+  <img alt="Icon" src="https://github.com/GitSquared/edex-ui/raw/master/media/linuxIcons/128x128.png" />
+  <br><br><br><br>
+</p>
 
 ![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot1.png)
 
 _(tmux running htop and systemctl status, on eDEX-UI v0.7.3 with the "red theme")_
 
+# eDEX-UI
+
+Cleanness | Linux & MacOS | Windows | Dependencies
+--------- | ------------- | ------- | ------------
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/93b816722c4e4af2bdf401b8187b8a2d)](https://www.codacy.com/app/GitSquared/edex-ui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=GitSquared/edex-ui&amp;utm_campaign=Badge_Grade) | [![Build Status](https://travis-ci.org/GitSquared/edex-ui.svg?branch=master)](https://travis-ci.org/GitSquared/edex-ui) | [![Build status](https://ci.appveyor.com/api/projects/status/leb069bro8gwocu7/branch/master?svg=true)](https://ci.appveyor.com/project/GitSquared/edex-ui/branch/master) | [![Greenkeeper badge](https://badges.greenkeeper.io/GitSquared/edex-ui.svg)](https://greenkeeper.io/)  [![Known Vulnerabilities](https://snyk.io/test/github/gitsquared/edex-ui/badge.svg)](https://snyk.io/test/github/gitsquared/edex-ui)
 
 eDEX-UI is a sci-fi interactive terminal interface heavily inspired from [DEX-UI](https://github.com/seenaburns/dex-ui) and the [TRON Legacy movie effects](https://web.archive.org/web/20170511000410/http://jtnimoy.com/blogs/projects/14881671), made cross-platform and easy to install with [Electron](https://github.com/electron/electron).
 
@@ -13,7 +20,7 @@ I had no ideas for a name so i took DEX-UI and added a "e" for Electron. Deal wi
 
 ## FAQ
 #### What OS can this thing run on?
-Currently Windows and any linux distro that can run Chromium.
+Currently Windows (portable binary), the latest MacOS (.dmg and pkg) and any linux distro that can run Chromium (AppImage and tarball).
 #### Is this a real terminal?
 Yes. By default, eDEX runs bash on linux and Powershell on Windows, but you can change that to any command in the settings.json file.
 #### Why is there a keyboard?
@@ -26,7 +33,7 @@ My goal with eDEX is to create a similar experience, but easier to install, run,
 
 
 ## How to run it from source?
-on *nix systems:
+on *nix systems (You'll need the Xcode command line tools on MacOS):
 - clone the repository
 - `npm run install-linux`
 - `npm start`

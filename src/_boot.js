@@ -3,7 +3,9 @@ const {app, BrowserWindow} = require("electron");
 
 process.on("uncaughtException", e => {
     signale.fatal(e);
-    tty.tty.kill();
+    if (tty) {
+        tty.tty.kill();
+    }
     app.exit(1);
 });
 
