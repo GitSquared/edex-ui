@@ -7,7 +7,7 @@ build_script:
 - cmd: npm install && npm install 7zip-bin-win && npm run build-windows
 test: off
 artifacts:
-  - path: dist\eDEX-UI.exe
+  - path: dist\eDEX-UI-win.exe
     name: eDEX-UI-Portable.exe
     type: file
 deploy:

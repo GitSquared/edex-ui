@@ -19,7 +19,7 @@
     "install-windows": "npm install && cd src && npm install && ..\\node_modules\\.bin\\electron-rebuild -f -w node-pty && cd ..",
     "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
     "prebuild-windows": "mkdir prebuild-src && xcopy src\\* prebuild-src\\ /E /C /Q /Y && node prebuild-minify.js && cd prebuild-src && npm install",
-    "build": "./node_modules/.bin/electron-builder build -l -p never",
+    "build": "./node_modules/.bin/electron-builder build -lm -p never",
     "build-windows": "node_modules\\.bin\\electron-builder -w -p never",
     "postbuild": "rm -R prebuild-src",
     "postbuild-windows": "rmdir /S /Q prebuild-src"
@@ -50,7 +50,7 @@
     },
     "forceCodeSigning": false,
     "npmRebuild": true,
-    "artifactName": "eDEX-UI-${arch}.${ext}",
+    "artifactName": "eDEX-UI-${os}-${arch}.${ext}",
     "linux": {
       "target": [
         {
@@ -70,6 +70,24 @@
       ],
       "category": "System",
       "icon": "media/linuxIcons"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "pkg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "public.app-category.utilities",
+      "icon": "media/icon.icns"
     },
     "win": {
       "target": [
