@@ -4,11 +4,6 @@
   <br><br><br><br>
 </p>
 
-![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot1.png)
-
-_(tmux running htop and systemctl status, on eDEX-UI v0.7.3 with the "red theme")_
-
-# eDEX-UI
 
 Cleanness | Linux & MacOS | Windows | Dependencies
 --------- | ------------- | ------- | ------------
@@ -43,3 +38,9 @@ on windows:
 - clone the repository
 - `npm run install-windows`
 - `npm start`
+
+
+## Screenshots
+![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot1.png)
+
+_(tmux running htop and systemctl status, on eDEX-UI v0.7.3 with the "red theme")_
