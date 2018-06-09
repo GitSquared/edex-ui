@@ -58,10 +58,30 @@ class Conninfo {
         }, 1000);
     }
     updateInfo() {
-        this.si.networkStats((data) => {
+        this.si.networkInterfaces((data) => {
+            let net = data[0];
+            let netID = 0;
+            while (net.internal === true) {
+                netID++;
+                if (data[netID] !== undefined) {
+                    net = data[netID];
+                } else {
+                    break;
+                }
+            }
+
             let time = new Date().getTime();
-            this.series[0].append(time,data.tx_sec);
-            this.series[1].append(time, -data.rx_sec);
+
+            if (net.ip4 === "127.0.0.1") {
+                this.series[0].append(time, 0);
+                this.series[1].append(time, 0);
+                return;
+            } else {
+                this.si.networkStats(net.iface, (data) => {
+                    this.series[0].append(time,data.tx_sec);
+                    this.series[1].append(time, -data.rx_sec);
+                });
+            }
         });
     }
 }
