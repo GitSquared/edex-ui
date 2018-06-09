@@ -3,6 +3,9 @@ section#filesystem {
     top: -0.925vh;
     width: 43vw;
     height: 30vh;
+
+    opacity: 0;
+    transition: opacity .5s cubic-bezier(0.4, 0, 1, 1);
 }
 
 section#filesystem > h3.title {

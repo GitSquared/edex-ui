@@ -146,44 +146,48 @@ initUI = () => {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
-    <section id="main_shell" class="greeting" style="height:0%;width:0%;opacity:0;">
+    <section id="main_shell" class="greeting" style="height:0%;width:0%;opacity:0;margin-bottom:30vh;">
         <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
         <h1 id="main_shell_greeting"></h1>
     </section>
     <section class="mod_column" id="mod_column_right">
         <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
-    </section>
-    <section id="filesystem" style="width: 0px;">
-    </section>
-    <section id="keyboard" style="opacity:0;">
     </section>`;
 
-    window.keyboard = new Keyboard({
-        layout: path.join(keyboardsDir, settings.keyboard+".json"),
-        container: "keyboard"
-    });
     setTimeout(() => {
-        document.getElementById("main_shell").setAttribute("style", "");
-        document.querySelector("#main_shell > h3.title").setAttribute("style", "");
+        document.getElementById("main_shell").setAttribute("style", "height:0%;margin-bottom:30vh;");
         setTimeout(() => {
-            document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
+            document.getElementById("main_shell").setAttribute("style", "margin-bottom: 30vh;");
+            document.querySelector("#main_shell > h3.title").setAttribute("style", "");
             setTimeout(() => {
-                document.getElementById("main_shell").setAttribute("style", "");
+                document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
+                document.body.innerHTML += `
+                <section id="filesystem" style="width: 0px;">
+                </section>
+                <section id="keyboard" style="opacity:0;">
+                </section>`;
+                window.keyboard = new Keyboard({
+                    layout: path.join(keyboardsDir, settings.keyboard+".json"),
+                    container: "keyboard"
+                });
                 setTimeout(() => {
-                    initGreeter();
-                    document.getElementById("filesystem").setAttribute("style", "");
-                    document.getElementById("keyboard").setAttribute("style", "");
-                    document.getElementById("keyboard").setAttribute("class", "animation_state_1");
+                    document.getElementById("main_shell").setAttribute("style", "");
                     setTimeout(() => {
-                        document.getElementById("keyboard").setAttribute("class", "animation_state_1 animation_state_2");
+                        initGreeter();
+                        document.getElementById("filesystem").setAttribute("style", "");
+                        document.getElementById("keyboard").setAttribute("style", "");
+                        document.getElementById("keyboard").setAttribute("class", "animation_state_1");
                         setTimeout(() => {
-                            document.getElementById("keyboard").setAttribute("class", "");
-                            initMods();
-                        }, 1100);
-                    }, 100);
-                }, 270);
-            }, 10);
-        }, 200);
+                            document.getElementById("keyboard").setAttribute("class", "animation_state_1 animation_state_2");
+                            setTimeout(() => {
+                                document.getElementById("keyboard").setAttribute("class", "");
+                                initMods();
+                            }, 1100);
+                        }, 100);
+                    }, 270);
+                }, 10);
+            }, 700);
+        }, 500);
     }, 10);
 };
 
@@ -201,9 +205,27 @@ initMods = () => {
     window.mods.netstat = new Netstat("mod_column_right");
     window.mods.conninfo = new Conninfo("mod_column_right");
 
+    // Fade-in animations
     document.querySelectorAll(".mod_column").forEach((e) => {
         e.setAttribute("class", "mod_column activated");
     });
+
+    let i = 0;
+    let left = document.querySelectorAll("#mod_column_left > div");
+    let right = document.querySelectorAll("#mod_column_right > div");
+    let x = setInterval(() => {
+        if (!left[i] && !right[i]) {
+            clearInterval(x);
+        } else {
+            if (left[i]) {
+                left[i].setAttribute("style", "animation-play-state: running;");
+            }
+            if (right[i]) {
+                right[i].setAttribute("style", "animation-play-state: running;");
+            }
+            i++;
+        }
+    }, 500);
 };
 
 initGreeter = () => {
@@ -237,6 +259,10 @@ initGreeter = () => {
                     window.fsDisp = new FilesystemDisplay({
                         parentId: "filesystem"
                     });
+
+                    setTimeout(() => {
+                        document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
+                    }, 300);
                 }, 100);
             }, 500);
         }, 1100);
