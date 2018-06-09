@@ -59,7 +59,7 @@ class Netstat {
 
                 document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = net.ip4;
 
-                this.si.inetLatency((data) => {
+                this.si.inetLatency("1.1.1.1", (data) => {
                     let ping;
                     if (data === -1) {
                         ping = "--ms";
