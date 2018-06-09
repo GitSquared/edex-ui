@@ -262,6 +262,7 @@ initGreeter = () => {
 
                     setTimeout(() => {
                         document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
+                        new UpdateChecker();
                     }, 300);
                 }, 100);
             }, 500);
