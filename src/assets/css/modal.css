@@ -43,6 +43,14 @@ div.modal_popup > h5 {
     margin-bottom: 2vh;
 }
 
+div.modal_popup > h5 > a {
+    color: inherit;
+}
+
+div.modal_popup > h5 > a:hover {
+    font-weight: bold;
+}
+
 div.modal_popup > div:last-child {
     width: 100%;
     display: flex;

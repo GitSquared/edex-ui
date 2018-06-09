@@ -62,6 +62,7 @@ div.keyboard_key {
     align-items: center;
     justify-content: center;
     position: relative;
+    cursor: pointer;
 }
 
 div.keyboard_key:active, div.keyboard_key.active {
