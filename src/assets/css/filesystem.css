@@ -44,6 +44,18 @@ div#fs_disp_container > * {
     cursor: pointer;
 }
 
+div#fs_disp_container > *:active {
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-duration: .1s;
+}
+
+@keyframes blink {
+    0% {background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);}
+    50% {background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 1);}
+    100% {background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);}
+}
+
 div#fs_disp_container > *.hidden {
     opacity: 0.7;
 }
