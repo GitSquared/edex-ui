@@ -1,7 +1,7 @@
 <p align="center">
   <br>
-  <img alt="Icon" src="https://github.com/GitSquared/edex-ui/raw/master/media/linuxIcons/128x128.png" />
-  <br><br><br><br>
+  <img alt="Logo" src="https://github.com/GitSquared/edex-ui/raw/master/media/logo.png" />
+  <br><br><br>
 </p>
 
 
