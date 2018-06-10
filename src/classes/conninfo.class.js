@@ -8,11 +8,15 @@ class Conninfo {
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_conninfo">
             <div id="mod_conninfo_innercontainer">
-                <h1>NETWORK TRAFFIC<i>DOWN / UP, KBPS</i></h1>
+                <h1>NETWORK TRAFFIC<i>UP / DOWN, MB/S</i></h1>
+                <h2>TOTAL<i>0B OUT, 0B IN</i></h2>
                 <canvas id="mod_conninfo_canvas_top"></canvas>
                 <canvas id="mod_conninfo_canvas_bottom"></canvas>
             </div>
         </div>`;
+
+        this.total = document.querySelector("#mod_conninfo_innercontainer > h2 > i");
+        this._pb = require("pretty-bytes");
 
         // Init Smoothie
         let TimeSeries = require("smoothie").TimeSeries;
@@ -34,7 +38,7 @@ class Conninfo {
             labels:{
                 fontSize: 10,
                 fillStyle: `rgb(${window.theme.r},${window.theme.g},${window.theme.b})`,
-                precision: 0
+                precision: 2
             }
         }];
         chartOptions.push(Object.assign({}, chartOptions[0]));  // Deep copy object, see http://jsben.ch/bWfk9
@@ -78,8 +82,10 @@ class Conninfo {
                 return;
             } else {
                 this.si.networkStats(net.iface, (data) => {
-                    this.series[0].append(time,data.tx_sec);
-                    this.series[1].append(time, -data.rx_sec);
+                    this.series[0].append(time,data.tx_sec/125000);
+                    this.series[1].append(time, -data.rx_sec/125000);
+
+                    this.total.innerText = `${this._pb(data.tx)} OUT, ${this._pb(data.rx)} IN`.toUpperCase();
                 });
             }
         });

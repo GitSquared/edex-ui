@@ -36,7 +36,16 @@ div#mod_conninfo_innercontainer {
 div#mod_conninfo h1 {
     font-size: 1.48vh;
     margin: 0vh;
+    margin-bottom: -1vh;
     width: 98%;
+}
+
+div#mod_conninfo h2 {
+    font-size: 1.4vh;
+    margin: 0vh;
+    margin-bottom: -0.7vh;
+    width: 98%;
+    opacity: .5;
 }
 
 div#mod_conninfo i {
