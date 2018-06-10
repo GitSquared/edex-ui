@@ -4,6 +4,7 @@ class FilesystemDisplay {
 
         const fs = require("fs");
         const path = require("path");
+        const si = require("systeminformation");
         this.cwd = [];
         this.iconcolor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;
         this.icons = {
@@ -18,8 +19,16 @@ class FilesystemDisplay {
         container.innerHTML = `
             <h3 class="title"><p>FILESYSTEM</p><p id="fs_disp_title_dir"></p></h3>
             <div id="fs_disp_container">
+            </div>
+            <div id="fs_space_bar">
+                <h3>Calculating available space...</h3><progress value="100" max="100"></progress>
             </div>`;
         this.filesContainer = document.getElementById("fs_disp_container");
+        this.space_bar = {
+            text: document.querySelector("#fs_space_bar > h3"),
+            bar: document.querySelector("#fs_space_bar > progress")
+        };
+        this.fsBlock = {};
         this.failed = false;
         this._runNextTick = false;
 
@@ -112,7 +121,15 @@ class FilesystemDisplay {
                                     });
                                 });
 
-                                this.render();
+                                si.fsSize(d => {
+                                    d.forEach(fsBlock => {
+                                        if (window.term.cwd.startsWith(fsBlock.mount)) {
+                                            this.fsBlock = fsBlock;
+                                        }
+                                    });
+
+                                    this.render();
+                                });
                             }
                         });
                     });
@@ -159,17 +176,19 @@ class FilesystemDisplay {
                             </div>`;
             });
             this.filesContainer.innerHTML = filesDOM;
-        };
 
-        this._escapeHtml = (text) => {
-            let map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return text.replace(/[&<>"']/g, m => {return map[m];});
+            this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
+            this.space_bar.bar.value = Math.round(this.fsBlock.use);
         };
+    }
+    _escapeHtml(text) {
+        let map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => {return map[m];});
     }
 }

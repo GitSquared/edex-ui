@@ -30,8 +30,6 @@ div#fs_disp_container {
     grid-template-columns: repeat(auto-fill, minmax(8.5vh, 1fr));
     grid-auto-rows: 8.5vh;
     grid-gap: 1vh;
-
-    border-bottom: 2.3vh solid red; /* Placeholder for the disk space bar */
 }
 
 div#fs_disp_container > * {
@@ -79,4 +77,53 @@ div.fs_disp_symlink > h3 {
 }
 div.fs_disp_other > h3 {
     font-style: italic;
+}
+
+div#fs_space_bar {
+    position: relative;
+    top: 1.5vh;
+    left: .15vw;
+}
+
+div#fs_space_bar > h3 {
+    width: 30%;
+    margin: 0;
+    display: inline-block;
+    font-size: 1.4vh;
+    font-weight: normal;
+    white-space: nowrap;
+    position: relative;
+    bottom: .4vh;
+}
+
+div#fs_space_bar > progress {
+    width: 70%;
+    height: 2.2vh;
+    padding-top: .5vh;
+    -webkit-appearance: none;
+}
+
+div#fs_space_bar > progress::after {
+    content: "";
+    position: absolute;
+    right: -.1vh;
+    top: .45vh;
+    width: .1vh;
+    height: 1.7vh;
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.8);
+}
+
+div#fs_space_bar > progress::-webkit-progress-bar {
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.4);
+    height: .7vh;
+    position: relative;
+    top: .7vh;
+}
+
+div#fs_space_bar > progress::-webkit-progress-value {
+    background: rgb(var(--color_r), var(--color_g), var(--color_b));
+    height: .7vh;
+    position: relative;
+    bottom: .7vh;
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1);
 }
