@@ -49,7 +49,7 @@ class UpdateChecker {
                         }
                     } catch(e) {
                         this._fail(e);
-                    };
+                    }
                 }
             });
         }).on('error', e => {
