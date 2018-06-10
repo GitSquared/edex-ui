@@ -281,6 +281,7 @@ window.themeChanger = (theme) => {
     for (let i; i < 99999; i++) {
         clearInterval(i);
     }
+    window.term.socket.close();
     delete window.term;
     delete window.mods;
     delete window.fsDisp;
