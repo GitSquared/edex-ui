@@ -19,46 +19,52 @@ const fontsDir = path.join(electron.remote.app.getPath("userData"), "fonts");
 const settingsFile = path.join(electron.remote.app.getPath("userData"), "settings.json");
 
 // Load config
-const settings = require(settingsFile);
+window.settings = require(settingsFile);
 
 // Load UI theme
-let theme = require(path.join(themesDir, settings.theme+".json"));
+window._loadTheme = (theme) => {
 
-document.querySelector("head").innerHTML += `<style id="theme_${settings.theme}_css">
-@font-face {
-    font-family: "${theme.cssvars.font_main}";
-    src: url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
-}
-@font-face {
-    font-family: "${theme.cssvars.font_main_light}";
-    src: url("${path.join(fontsDir, theme.cssvars.font_main_light.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
-}
-@font-face {
-    font-family: "${theme.terminal.fontFamily}";
-    src: url("${path.join(fontsDir, theme.terminal.fontFamily.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
-}
+    if (document.querySelector("style.theming")) {
+        document.querySelector("style.theming").remove();
+    }
 
-:root {
-    --font_main: "${theme.cssvars.font_main}";
-    --font_main_light: "${theme.cssvars.font_main_light}";
-    --color_r: ${theme.colors.r};
-    --color_g: ${theme.colors.g};
-    --color_b: ${theme.colors.b};
-    --color_black: ${theme.colors.black};
-    --color_light_black: ${theme.colors.light_black};
-    --color_grey: ${theme.colors.grey};
-}
+    document.querySelector("head").innerHTML += `<style class="theming" id="theme_${settings.theme}_css">
+    @font-face {
+        font-family: "${theme.cssvars.font_main}";
+        src: url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+    }
+    @font-face {
+        font-family: "${theme.cssvars.font_main_light}";
+        src: url("${path.join(fontsDir, theme.cssvars.font_main_light.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+    }
+    @font-face {
+        font-family: "${theme.terminal.fontFamily}";
+        src: url("${path.join(fontsDir, theme.terminal.fontFamily.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+    }
 
-body {
-    font-family: var(--font_main), sans-serif;
-}
-</style>`;
+    :root {
+        --font_main: "${theme.cssvars.font_main}";
+        --font_main_light: "${theme.cssvars.font_main_light}";
+        --color_r: ${theme.colors.r};
+        --color_g: ${theme.colors.g};
+        --color_b: ${theme.colors.b};
+        --color_black: ${theme.colors.black};
+        --color_light_black: ${theme.colors.light_black};
+        --color_grey: ${theme.colors.grey};
+    }
 
-window.settings = settings;
-window.theme = theme;
-window.theme.r = theme.colors.r;
-window.theme.g = theme.colors.g;
-window.theme.b = theme.colors.b;
+    body {
+        font-family: var(--font_main), sans-serif;
+    }
+    </style>`;
+
+    window.theme = theme;
+    window.theme.r = theme.colors.r;
+    window.theme.g = theme.colors.g;
+    window.theme.b = theme.colors.b;
+};
+
+_loadTheme(require(path.join(themesDir, settings.theme+".json")));
 
 // Startup boot log
 let resumeInit, initUI, initMods, initGreeter;
@@ -267,6 +273,31 @@ initGreeter = () => {
                 }, 100);
             }, 500);
         }, 1100);
+    });
+};
+
+window.themeChanger = (theme) => {
+    window._loadTheme(require(path.join(themesDir, theme || settings.theme+".json")));
+    for (let i; i < 99999; i++) {
+        clearInterval(i);
+    }
+    delete window.term;
+    delete window.mods;
+    delete window.fsDisp;
+
+    document.getElementById("terminal").innerHTML = "";
+    document.querySelectorAll(".mod_column").forEach((e) => {
+        e.setAttribute("class", "mod_column");
+    });
+    document.querySelectorAll(".mod_column > div").forEach(e => {e.remove()});
+
+    window.term = new Terminal({
+        role: "client",
+        parentId: "terminal"
+    });
+    initMods();
+    window.fsDisp = new FilesystemDisplay({
+        parentId: "filesystem"
     });
 };
 
