@@ -1,0 +1,23 @@
+{
+    "colors": {
+        "r": 235,
+        "g": 235,
+        "b": 235,
+        "black": "#000000",
+        "light_black": "#191919",
+        "grey": "#262827"
+    },
+    "cssvars": {
+        "font_main": "United Sans Medium",
+        "font_main_light": "United Sans Light"
+    },
+    "terminal": {
+        "fontFamily": "Fira Mono",
+        "cursorStyle": "block",
+        "foreground": "#ebebeb",
+        "background": "#191919",
+        "cursor": "#ebebeb",
+        "cursorAccent": "#ebebeb",
+        "selection": "rgba(235,235,235,0.3)"
+    }
+}
