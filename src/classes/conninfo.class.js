@@ -82,7 +82,16 @@ class Conninfo {
                 return;
             } else {
                 this.si.networkStats(net.iface, (data) => {
-                    this.series[0].append(time,data.tx_sec/125000);
+
+                    let max0 = this.series[0].maxValue;
+                    let max1 = -this.series[1].minValue;
+                    if (max0 > max1) {
+                        this.series[1].minValue = -max0;
+                    } else if (max1 > max0) {
+                        this.series[0].maxValue = max1;
+                    }
+
+                    this.series[0].append(time, data.tx_sec/125000);
                     this.series[1].append(time, -data.rx_sec/125000);
 
                     this.total.innerText = `${this._pb(data.tx)} OUT, ${this._pb(data.rx)} IN`.toUpperCase();
