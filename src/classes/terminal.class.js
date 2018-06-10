@@ -211,6 +211,9 @@ class Terminal {
                 switch(args[0]) {
                     case "Renderer startup":
                         this.renderer = e.sender;
+                        if (this._disableCWDtracking === false && this.tty._cwd) {
+                            this.renderer.send("terminal_channel-"+this.port, "New cwd", this.tty._cwd);
+                        }
                         break;
                     case "Resize":
                         let cols = args[1];
