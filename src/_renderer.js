@@ -14,11 +14,7 @@ window._escapeHtml = (text) => {
     return text.replace(/[&<>"']/g, m => {return map[m];});
 };
 window._purifyCSS = (str) => {
-    let map = {
-        '<': '&lt;',
-        '>': '&gt;'
-    };
-    return str.replace(/[&<>"']/g, m => {return map[m];});
+    return str.replace(/[<]/g, "");
 };
 
 // Initiate basic error handling
@@ -46,7 +42,7 @@ window._loadTheme = (theme) => {
         document.querySelector("style.theming").remove();
     }
 
-    document.querySelector("head").innerHTML += `<style class="theming" id="theme_${settings.theme}_css">
+    document.querySelector("head").innerHTML += `<style class="theming" id="theme_${theme}_css">
     @font-face {
         font-family: "${theme.cssvars.font_main}";
         src: url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
@@ -297,7 +293,11 @@ initGreeter = () => {
 };
 
 window.themeChanger = (theme) => {
-    window._loadTheme(require(path.join(themesDir, theme || settings.theme+".json")));
+    let src = path.join(themesDir, theme+".json" || settings.theme+".json");
+    // Always get fresh theme files
+    delete require.cache[src];
+
+    window._loadTheme(require(src));
     for (let i; i < 99999; i++) {
         clearInterval(i);
     }
@@ -320,6 +320,10 @@ window.themeChanger = (theme) => {
     window.fsDisp = new FilesystemDisplay({
         parentId: "filesystem"
     });
+
+    setTimeout(() => {
+        window.term.fit();
+    }, 2700);
 };
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts

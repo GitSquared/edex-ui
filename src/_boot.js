@@ -128,7 +128,8 @@ app.on('ready', () => {
             devTools: true,
             backgroundThrottling: false,
             webSecurity: true,
-            allowRunningInsecureContent: false
+            allowRunningInsecureContent: false,
+            experimentalFeatures: settings.experimentalFeatures || false
         }
     });
 
