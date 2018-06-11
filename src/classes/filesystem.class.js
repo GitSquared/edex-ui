@@ -107,25 +107,25 @@ class FilesystemDisplay {
 
                                     this._tmp.dirs.forEach(e => {
                                         this.cwd.push({
-                                            name: this._escapeHtml(e),
+                                            name: window._escapeHtml(e),
                                             type: "dir"
                                         });
                                     });
                                     this._tmp.symlinks.forEach(e => {
                                         this.cwd.push({
-                                            name: this._escapeHtml(e),
+                                            name: window._escapeHtml(e),
                                             type: "symlink"
                                         });
                                     });
                                     this._tmp.files.forEach(e => {
                                         if (tcwd === themesDir && e.endsWith(".json")) {
                                             this.cwd.push({
-                                                name: this._escapeHtml(e),
+                                                name: window._escapeHtml(e),
                                                 type: "edex-theme"
                                             });
                                         } else {
                                             this.cwd.push({
-                                                name: this._escapeHtml(e),
+                                                name: window._escapeHtml(e),
                                                 type: "file"
                                             });
                                         }
@@ -203,15 +203,5 @@ class FilesystemDisplay {
             this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
             this.space_bar.bar.value = Math.round(this.fsBlock.use);
         };
-    }
-    _escapeHtml(text) {
-        let map = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#039;'
-        };
-        return text.replace(/[&<>"']/g, m => {return map[m];});
     }
 }

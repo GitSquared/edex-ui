@@ -2,6 +2,24 @@
 window.eval = global.eval = function () {
     throw new Error("eval() is disabled for security reasons.");
 };
+// Security helper :)
+window._escapeHtml = (text) => {
+    let map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => {return map[m];});
+};
+window._purifyCSS = (str) => {
+    let map = {
+        '<': '&lt;',
+        '>': '&gt;'
+    };
+    return str.replace(/[&<>"']/g, m => {return map[m];});
+};
 
 // Initiate basic error handling
 window.onerror = (msg, path, line, col, error) => {
@@ -56,6 +74,8 @@ window._loadTheme = (theme) => {
     body {
         font-family: var(--font_main), sans-serif;
     }
+
+    ${window._purifyCSS(theme.injectCSS || "")}
     </style>`;
 
     window.theme = theme;
