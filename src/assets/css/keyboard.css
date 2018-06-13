@@ -47,12 +47,12 @@ section#keyboard.animation_state_2 > * {
 
 div.keyboard_row:last-child {
     position: relative;
-    left: 2.98vh;
+    left: 2.4vh;
 }
 
 div.keyboard_key {
-    height: 4.9vh;
-    min-width: 4.9vh;
+    height: 2.7vw;
+    min-width: 2.7vw;
     overflow: hidden;
     border-radius: 0.46vh;
     background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
@@ -150,7 +150,7 @@ div.keyboard_row#row_2 > div.keyboard_enter {
     margin-top: 0vh;
     height: 6.389vh;
     top: -0.37vh;
-    right: -0.9vh;
+    right: -1vh;
 }
 
 div.keyboard_row#row_2 > div.keyboard_enter:active, div.keyboard_row#row_2 > div.keyboard_enter.active {
@@ -220,4 +220,16 @@ section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h
 section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) + h3, section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) + h3 + h2, section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h4:not(:empty) + h3 + h2 + h1 {
     position: absolute;
     opacity: 0;
+}
+
+/* Support for other screen ratios than 16:9 */
+@media (aspect-ratio: 16/10) {
+    div.keyboard_row:last-child {
+        left: 1.1vh;
+    }
+
+    div.keyboard_row#row_2 > div.keyboard_enter {
+        top: -0.7vh;
+        right: -0.9vh;
+    }
 }

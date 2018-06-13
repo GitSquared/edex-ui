@@ -122,6 +122,19 @@ class Terminal {
                 this._lastTouch = null;
             });
 
+            document.querySelector(".xterm-helper-textarea").addEventListener("keydown", e => {
+                if (e.key === "F11" && window.settings.allowWindowed) {
+                    e.preventDefault();
+                    let win = require("electron").remote.BrowserWindow.getFocusedWindow();
+                    let bool = (win.isFullScreen() ? false : true);
+                    win.setFullScreen(bool);
+
+                    setTimeout(() => {
+                        this.fit();
+                    }, 700);
+                }
+            });
+
             this.fit = () => {
                 this.term.fit();
                 setTimeout(() => {

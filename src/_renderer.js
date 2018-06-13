@@ -327,8 +327,11 @@ window.themeChanger = (theme) => {
 };
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
-window.onkeydown = (e) => {
-    if (e.key === "Alt" || e.key === "F11") {
+window.onkeydown = e => {
+    if (e.key === "Alt") {
+        e.preventDefault();
+    }
+    if (e.key === "F11" && !settings.allowWindowed) {
         e.preventDefault();
     }
     if (e.code === "KeyD" && e.ctrlKey) {
@@ -339,16 +342,5 @@ window.onkeydown = (e) => {
     }
 };
 
-// Initiate graphical error display
-window.edexErrorsModals = [];
-window.onerror = (msg, path, line, col, error) => {
-    let errorModal = new Modal({
-        type: "error",
-        title: error,
-        message: `${msg}<br/>        at ${path}  ${line}:${col}`
-    });
-    window.edexErrorsModals.push(errorModal);
-
-    ipc.send("log", "error", `${error}: ${msg}`);
-    ipc.send("log", "debug", `at ${path} ${line}:${col}`);
-};
+// Fix double-tap zoom on touchscreens
+require('electron').webFrame.setVisualZoomLevelLimits(1, 1);

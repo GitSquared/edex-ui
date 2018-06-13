@@ -1,8 +1,9 @@
 const signale = require("signale");
-const {app, BrowserWindow} = require("electron");
+const {app, BrowserWindow, dialog} = require("electron");
 
 process.on("uncaughtException", e => {
     signale.fatal(e);
+    dialog.showErrorBox("eEDEX-UI failed to launch", e.message || "Cannot retrieve error message.");
     if (tty) {
         tty.tty.kill();
     }
@@ -118,11 +119,10 @@ app.on('ready', () => {
         height,
         show: false,
         resizable: true,
-        movable: false,
+        movable: settings.allowWindowed || false,
         fullscreen: true,
-        skipTaskbar: true,
         autoHideMenuBar: true,
-        frame: false,
+        frame: settings.allowWindowed || false,
         backgroundColor: '#000000',
         webPreferences: {
             devTools: true,
@@ -142,7 +142,9 @@ app.on('ready', () => {
     win.once("ready-to-show", () => {
         signale.complete("Frontend window is up!");
         win.show();
-        win.setResizable(false);
+        if (!settings.allowWindowed) {
+            win.setResizable(false);
+        }
     });
 
     signale.watch("Waiting for frontend connection...");
