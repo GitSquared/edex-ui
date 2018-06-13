@@ -27,10 +27,11 @@ const fs = require("fs");
 const electron = require("electron");
 const ipc = electron.ipcRenderer;
 
-const themesDir = path.join(electron.remote.app.getPath("userData"), "themes");
-const keyboardsDir = path.join(electron.remote.app.getPath("userData"), "keyboards");
-const fontsDir = path.join(electron.remote.app.getPath("userData"), "fonts");
-const settingsFile = path.join(electron.remote.app.getPath("userData"), "settings.json");
+const settingsDir = electron.remote.app.getPath("userData");
+const themesDir = path.join(settingsDir, "themes");
+const keyboardsDir = path.join(settingsDir, "keyboards");
+const fontsDir = path.join(settingsDir, "fonts");
+const settingsFile = path.join(settingsDir, "settings.json");
 
 // Load config
 window.settings = require(settingsFile);
