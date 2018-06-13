@@ -326,6 +326,14 @@ window.themeChanger = (theme) => {
     }, 2700);
 };
 
+window.remakeKeyboard = (layout) => {
+    document.getElementById("keyboard").innerHTML = "";
+    window.keyboard = new Keyboard({
+        layout: path.join(keyboardsDir, layout+".json" || settings.keyboard+".json"),
+        container: "keyboard"
+    });
+};
+
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 window.onkeydown = e => {
     if (e.key === "Alt") {
