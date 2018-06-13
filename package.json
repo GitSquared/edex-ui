@@ -17,11 +17,14 @@
     "install-linux": "npm install && cd src && npm install && ./../node_modules/.bin/electron-rebuild -f -w node-pty && cd ..",
     "preinstall-windows": "npm install --global --production windows-build-tools && npm install --global node-gyp && setx PYTHON \"%USERPROFILE%\\.windows-build-tools\\python27\\python.exe\"",
     "install-windows": "npm install && cd src && npm install && ..\\node_modules\\.bin\\electron-rebuild -f -w node-pty && cd ..",
-    "prebuild": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
+    "prebuild-linux": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
+    "prebuild-darwin": "mkdir prebuild-src && cp -R src/* prebuild-src/ && node prebuild-minify.js && cd prebuild-src && npm install",
     "prebuild-windows": "mkdir prebuild-src && xcopy src\\* prebuild-src\\ /E /C /Q /Y && node prebuild-minify.js && cd prebuild-src && npm install",
-    "build": "./node_modules/.bin/electron-builder build -lm -p never",
+    "build-linux": "./node_modules/.bin/electron-builder build -l -p never",
+    "build-darwin": "./node_modules/.bin/electron-builder build -m -p never",
     "build-windows": "node_modules\\.bin\\electron-builder -w -p never",
-    "postbuild": "rm -R prebuild-src",
+    "postbuild-linux": "rm -R prebuild-src",
+    "postbuild-darwin": "rm -R prebuild-src",
     "postbuild-windows": "rmdir /S /Q prebuild-src"
   },
   "repository": {

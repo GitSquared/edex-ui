@@ -1,29 +1,24 @@
-os: linux
-services:
-  - docker
-language: generic
+os:
+  - linux
+  - osx
+language: node_js
+node_js:
+    - "8"
 
-cache:
-  directories:
-  - node_modules
-  - "$HOME/.cache/electron"
-  - "$HOME/.cache/electron-builder"
+before_install:
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
 
 before_script:
-  - git lfs pull
+  - npm i -g greenkeeper-lockfile@1
+  - npm install
+  - greenkeeper-lockfile-update
 
 script:
-  - |
-    docker run --rm \
-    --env-file <(env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
-    -v ${PWD}:/project \
-    -v ~/.cache/electron:/root/.cache/electron \
-    -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-    electronuserland/builder \
-    /bin/bash -c "npm install -g greenkeeper-lockfile@1 && npm install && greenkeeper-lockfile-update && npm run build && greenkeeper-lockfile-upload"
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run build-darwin         ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm run build-linux        ; fi
 
-before_cache:
-  - rm -rf $HOME/.cache/electron-builder/wine
+after_script:
+  - greenkeeper-lockfile-upload
 
 before_deploy:
   - sudo rm -rf dist/*/
