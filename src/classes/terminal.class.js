@@ -99,6 +99,29 @@ class Terminal {
             };
             this.socket.onerror = (e) => {throw e};
 
+            let parent = document.getElementById(opts.parentId);
+            parent.addEventListener("wheel", e => {
+                this.term.scrollLines(Math.round(e.deltaY/10));
+            });
+            this._lastTouchY = null;
+            parent.addEventListener("touchstart", e => {
+                this._lastTouchY = e.targetTouches[0].screenY;
+            });
+            parent.addEventListener("touchmove", e => {
+                if (this._lastTouchY) {
+                    let y = e.changedTouches[0].screenY;
+                    let deltaY = y - this._lastTouchY;
+                    this._lastTouchY = y;
+                    this.term.scrollLines(-Math.round(deltaY/10));
+                }
+            });
+            parent.addEventListener("touchend", e => {
+                this._lastTouch = null;
+            });
+            parent.addEventListener("touchcancel", e => {
+                this._lastTouch = null;
+            });
+
             this.fit = () => {
                 this.term.fit();
                 setTimeout(() => {
