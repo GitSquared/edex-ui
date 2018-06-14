@@ -31,7 +31,7 @@
     "type": "git",
     "url": "git+https://github.com/GitSquared/edex-ui.git"
   },
-  "author": "GitSquared, Pixelylon",
+  "author": "GitSquared <squared@codebrew.fr>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/GitSquared/edex-ui/issues"
@@ -42,7 +42,7 @@
     "productName": "eDEX-UI",
     "asar": true,
     "compression": "maximum",
-    "copyright": "Copyright © 2017-2018 ${author}",
+    "copyright": "Copyright © 2017-2018 GitSquared <squared@codebrew.fr>",
     "directories": {
       "output": "dist",
       "app": "prebuild-src"
@@ -57,13 +57,6 @@
     "linux": {
       "target": [
         {
-          "target": "tar.gz",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        },
-        {
           "target": "AppImage",
           "arch": [
             "x64",
@@ -74,16 +67,13 @@
       "category": "System",
       "icon": "media/linuxIcons"
     },
+    "appImage": {
+      "artifactName": "eDEX-UI Linux (${arch})"
+    },
     "mac": {
       "target": [
         {
           "target": "dmg",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "pkg",
           "arch": [
             "x64"
           ]
@@ -92,10 +82,13 @@
       "category": "public.app-category.utilities",
       "icon": "media/icon.icns"
     },
+    "dmg": {
+      "artifactName": "eDEX-UI MacOS Image.dmg"
+    },
     "win": {
       "target": [
         {
-          "target": "portable",
+          "target": "nsis",
           "arch": [
             "x64",
             "ia32"
@@ -103,6 +96,11 @@
         }
       ],
       "icon": "media/icon.ico"
+    },
+    "nsis": {
+      "artifactName": "eDEX-UI Windows Installer.exe",
+      "oneClick": true,
+      "deleteAppDataOnUninstall": true
     }
   },
   "dependencies": {

@@ -22,7 +22,7 @@ _(htop running on eDEX-UI v0.9.0 with the default keyboard and theme)_
 
 ## Q&A
 #### What OS can this thing run on?
-Currently Windows (portable binary), the latest MacOS (.dmg and pkg) and any linux distro that can run Chromium (AppImage and tarball).
+Currently Windows, the latest MacOS and any linux distro that can run Chromium (AppImage package).
 #### Is this a real terminal?
 Yes. By default, eDEX runs bash on linux and Powershell on Windows, but you can change that to any command in the settings.json file.
 #### I don't like the colors/the keyboard layout is not right for me!

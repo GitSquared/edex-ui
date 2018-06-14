@@ -7,9 +7,8 @@ build_script:
 - cmd: npm install && npm install 7zip-bin-win && npm run build-windows
 test: off
 artifacts:
-  - path: dist\eDEX-UI-win.exe
-    name: eDEX-UI-Portable.exe
-    type: file
+  - path: "dist\\eDEX-UI Windows Installer.exe"
+    name: Installer
 deploy:
 - provider: GitHub
   tag: $(appveyor_repo_tag_name)
@@ -17,7 +16,7 @@ deploy:
   description: 'Placeholder description'
   auth_token:
     secure: xbDg5MsNRSCKs8kfz7jFP8D4g0BoPVB0vUPEy446Bru5RQCF/JDMGdhAa6SjLVTW
-  artifact: eDEX-UI-Portable.exe
+  artifact: Installer
   draft: true
   force_update: true
   on:
