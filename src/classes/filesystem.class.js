@@ -203,14 +203,14 @@ class FilesystemDisplay {
                 }
 
                 let cmd = `window.term.write('${e.name}')`;
-                if (e.type === "dir" || e.type === "up") {
+                if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
                     cmd = `window.term.writelr('cd ${e.name}')`;
                 }
 
                 if (e.type === "up" && this._noTracking) {
                     cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..')}')`;
                 }
-                if (e.type === "dir" && this._noTracking) {
+                if ((e.type === "dir" || e.type.endsWith("Dir")) && this._noTracking) {
                     cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name)}')`;
                 }
 
