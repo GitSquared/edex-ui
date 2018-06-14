@@ -43,18 +43,18 @@ window._loadTheme = (theme) => {
         document.querySelector("style.theming").remove();
     }
 
-    document.querySelector("head").innerHTML += `<style class="theming" id="theme_${theme}_css">
+    document.querySelector("head").innerHTML += `<style class="theming">
     @font-face {
         font-family: "${theme.cssvars.font_main}";
-        src: url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+        src: url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}") format("woff2");
     }
     @font-face {
         font-family: "${theme.cssvars.font_main_light}";
-        src: url("${path.join(fontsDir, theme.cssvars.font_main_light.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+        src: url("${path.join(fontsDir, theme.cssvars.font_main_light.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}") format("woff2");
     }
     @font-face {
         font-family: "${theme.terminal.fontFamily}";
-        src: url("${path.join(fontsDir, theme.terminal.fontFamily.toLowerCase().replace(/ /g, '_')+'.woff2')}") format("woff2");
+        src: url("${path.join(fontsDir, theme.terminal.fontFamily.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}") format("woff2");
     }
 
     :root {
@@ -260,7 +260,7 @@ initGreeter = () => {
             greeter.innerHTML += `Welcome back, <em>${userlist[0].user}</em>`;
         })
         .catch(() => {
-            greeter.innerHTML += `We||//c0m€ _b@-K;; <em>##ERr0r</em>`;
+            greeter.innerHTML += "Welcome back";
         })
     .then(() => {
         greeter.setAttribute("style", "opacity: 1;");

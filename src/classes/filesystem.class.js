@@ -81,6 +81,7 @@ class FilesystemDisplay {
             let tcwd = dir;
             fs.readdir(tcwd, (err, content) => {
                 if (err !== null) {
+                    console.warn(err);
                     this.setFailedState();
                 } else {
                     this.cwd = [];
@@ -208,10 +209,10 @@ class FilesystemDisplay {
                 }
 
                 if (e.type === "up" && this._noTracking) {
-                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..')}')`;
+                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..').replace(/\\/g, '\\\\')}')`;
                 }
                 if ((e.type === "dir" || e.type.endsWith("Dir")) && this._noTracking) {
-                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name)}')`;
+                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name).replace(/\\/g, '\\\\')}')`;
                 }
 
                 if (e.type === "edex-theme") {

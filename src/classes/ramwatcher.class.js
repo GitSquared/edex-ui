@@ -38,7 +38,10 @@ class RAMwatcher {
             let available = data.used-data.active;
             let active = data.active;
 
-            if (free+available+active !== total) throw("RAM Watcher Error: Bad memory values");
+            if (process.platform === "win32") available = data.available;
+
+            if (free+available+active !== total && process.platform !== "win32") throw("RAM Watcher Error: Bad memory values");
+            if (free+data.used !== total && process.platform === "win32") console.warn("RAM Watcher Error: Bad memory values");
 
             // Convert the data for the 1000-points grid
             active = Math.round((1000*active)/total);
