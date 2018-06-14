@@ -79,7 +79,11 @@ class Terminal {
                 switch(args[0]) {
                     case "New cwd":
                         this.cwd = args[1];
-                        this.oncwdchange();
+                        this.oncwdchange(this.cwd);
+                        break;
+                    case "Fallback cwd":
+                        this.cwd = "FALLBACK |-- "+args[1];
+                        this.oncwdchange(this.cwd);
                         break;
                     default:
                         return;
@@ -214,7 +218,7 @@ class Terminal {
                         console.log("Error while tracking TTY working directory: ", e);
                         this._disableCWDtracking = true;
                         if (this.renderer) {
-                            this.renderer.send("terminal_channel-"+this.port, "New cwd", opts.cwd || process.env.PWD);
+                            this.renderer.send("terminal_channel-"+this.port, "Fallback cwd", opts.cwd || process.env.PWD);
                         }
                     });
                 }
@@ -247,8 +251,11 @@ class Terminal {
                 switch(args[0]) {
                     case "Renderer startup":
                         this.renderer = e.sender;
-                        if (this._disableCWDtracking === false && this.tty._cwd) {
+                        if (!this._disableCWDtracking && this.tty._cwd) {
                             this.renderer.send("terminal_channel-"+this.port, "New cwd", this.tty._cwd);
+                        }
+                        if (this._disableCWDtracking) {
+                            this.renderer.send("terminal_channel-"+this.port, "Fallback cwd", opts.cwd || process.env.PWD);
                         }
                         break;
                     case "Resize":

@@ -36,7 +36,9 @@ class FilesystemDisplay {
             bar: document.querySelector("#fs_space_bar > progress")
         };
         this.fsBlock = {};
+        this.dirpath = "";
         this.failed = false;
+        this._noTracking = false;
         this._runNextTick = false;
 
         this._timer = setInterval(() => {
@@ -53,26 +55,30 @@ class FilesystemDisplay {
             <h2 id="fs_disp_error">CANNOT ACCESS CURRENT WORKING DIRECTORY</h2>`;
         };
 
-        window.term.oncwdchange = () => {
-            if (window.term.cwd) {
-                this.readFS();
-                this.watchFS();
+        window.term.oncwdchange = (cwd) => {
+            if (cwd) {
+                if (cwd.startsWith("FALLBACK |-- ")) {
+                    this.readFS(cwd.slice(13));
+                    this._noTracking = true;
+                } else {
+                    this.readFS(cwd);
+                    this.watchFS(cwd);
+                }
             }
         };
 
-        this.watchFS = () => {
+        this.watchFS = (dir) => {
             if (this._fsWatcher) {
                 this._fsWatcher.close();
             }
-            this._fsWatcher = fs.watch(window.term.cwd, () => {
+            this._fsWatcher = fs.watch(dir, () => {
                 this._runNextTick = true;
             });
         };
 
-        this.readFS = () => {
+        this.readFS = (dir) => {
             if (this.failed === true) return false;
-            let tcwd = window.term.cwd;
-            document.getElementById("fs_disp_title_dir").innerText = tcwd;
+            let tcwd = dir;
             fs.readdir(tcwd, (err, content) => {
                 if (err !== null) {
                     this.setFailedState();
@@ -170,6 +176,7 @@ class FilesystemDisplay {
                                             }
                                         });
 
+                                        this.dirpath = tcwd;
                                         this.render();
                                     });
                                 }
@@ -182,6 +189,12 @@ class FilesystemDisplay {
 
         this.render = () => {
             if (this.failed === true) return false;
+
+            document.getElementById("fs_disp_title_dir").innerText = this.dirpath;
+            if (this._noTracking) {
+                document.querySelector("section#filesystem > h3.title > p:first-of-type").innerText = "FILESYSTEM - TRACKING FAILED, RUNNING DETACHED FROM TTY";
+            }
+
             let filesDOM = ``;
             this.cwd.forEach(e => {
                 let hidden = "";
@@ -193,6 +206,14 @@ class FilesystemDisplay {
                 if (e.type === "dir" || e.type === "up") {
                     cmd = `window.term.writelr('cd ${e.name}')`;
                 }
+
+                if (e.type === "up" && this._noTracking) {
+                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..')}')`;
+                }
+                if (e.type === "dir" && this._noTracking) {
+                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name)}')`;
+                }
+
                 if (e.type === "edex-theme") {
                     cmd = `window.themeChanger('${e.name.slice(0, -5)}')`;
                 }
