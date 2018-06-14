@@ -16,9 +16,9 @@ Technically speaking, it is a Node.js+Electron app with a pure HTML-CSS frontend
 I had no ideas for a name so i took DEX-UI and added a "e" for Electron. Deal with it.
 
 ## Screenshots
-![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot1.png)
+![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
 
-_(tmux running htop and systemctl status, on eDEX-UI v0.7.3 with the "red theme")_
+_(htop running on eDEX-UI v0.9.0 with the default keyboard and theme)_
 
 ## Q&A
 #### What OS can this thing run on?
