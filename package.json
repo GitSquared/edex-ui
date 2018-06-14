@@ -68,7 +68,7 @@
       "icon": "media/linuxIcons"
     },
     "appImage": {
-      "artifactName": "eDEX-UI Linux (${arch})"
+      "artifactName": "eDEX-UI Linux (${arch}).AppImage"
     },
     "mac": {
       "target": [
