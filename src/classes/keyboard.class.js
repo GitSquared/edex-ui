@@ -192,8 +192,10 @@ class Keyboard {
                         container.dataset.isNextTrema = "true";
                         break;
                 }
+            } else if (cmd === "\n") {
+                term.writelr("");
             } else {
-                term.socket.send(cmd);
+                term.write(cmd);
             }
         };
 
