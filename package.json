@@ -25,7 +25,9 @@
     "build-windows": "node_modules\\.bin\\electron-builder -w -p never",
     "postbuild-linux": "rm -R prebuild-src",
     "postbuild-darwin": "rm -R prebuild-src",
-    "postbuild-windows": "rmdir /S /Q prebuild-src"
+    "postbuild-windows": "rmdir /S /Q prebuild-src",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -110,6 +112,8 @@
     "electron-rebuild": "1.7.3",
     "node-abi": "2.4.1",
     "node-json-minify": "1.0.0",
-    "uglify-es": "3.3.10"
-  }
+    "uglify-es": "3.3.10",
+    "snyk": "^1.83.0"
+  },
+  "snyk": true
 }
