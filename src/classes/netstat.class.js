@@ -61,6 +61,8 @@ class Netstat {
                     resp.on('data', (ip) => {
                         document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
                     });
+                }).on("error", (e) => {
+                    // Drop it
                 });
 
                 this.si.inetLatency("1.1.1.1", (data) => {
