@@ -57,7 +57,11 @@ class Netstat {
             } else {
                 document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "ONLINE";
 
-                document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = net.ip4;
+                require("http").get({"host": "api.ipify.org", "port": 80, "path": "/"}, (resp) => {
+                    resp.on('data', (ip) => {
+                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
+                    });
+                });
 
                 this.si.inetLatency("1.1.1.1", (data) => {
                     let ping;
