@@ -49,10 +49,6 @@
       "output": "dist",
       "app": "prebuild-src"
     },
-    "electronDownload": {
-      "strictSSL": false,
-      "verifyChecksum": true
-    },
     "forceCodeSigning": false,
     "npmRebuild": true,
     "artifactName": "eDEX-UI-${os}-${arch}.${ext}",
@@ -108,11 +104,11 @@
   "dependencies": {
     "clean-css": "4.1.11",
     "electron": "2.0.5",
-    "electron-builder": "20.18.0",
-    "electron-rebuild": "1.7.3",
+    "electron-builder": "20.22.0",
+    "electron-rebuild": "1.8.1",
     "node-abi": "2.4.3",
     "node-json-minify": "1.0.0",
-    "snyk": "^1.83.0",
+    "snyk": "^1.89.0",
     "uglify-es": "3.3.10"
   },
   "snyk": true

@@ -25,12 +25,12 @@
   "dependencies": {
     "battery-level": "3.0.0",
     "color": "3.0.0",
-    "node-pty": "0.7.4",
+    "node-pty": "0.7.6",
     "pretty-bytes": "5.1.0",
-    "signale": "1.2.0",
+    "signale": "1.2.1",
     "smoothie": "1.35.0",
-    "systeminformation": "3.42.0",
-    "ws": "5.2.0",
-    "xterm": "3.4.1"
+    "systeminformation": "3.42.4",
+    "ws": "5.2.2",
+    "xterm": "3.5.1"
   }
 }
