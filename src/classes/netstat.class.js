@@ -57,9 +57,23 @@ class Netstat {
             } else {
                 document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "ONLINE";
 
-                require("http").get({"host": "api.ipify.org", "port": 80, "path": "/"}, (resp) => {
-                    resp.on('data', (ip) => {
-                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
+                require("https").get({"host": "ipinfo.now.sh", "port": 443, "path": "/"}, (res) => {
+                    let rawData = "";
+                    res.on("data", (chunk) => {
+                        rawData += chunk;
+                    });
+                    res.on("end", () => {
+                        try {
+                            this.ipinfo = JSON.parse(rawData);
+                            let ip = this.ipinfo.ip;
+                            document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
+                        } catch(e) {
+                            console.warn(e);
+                            console.info(json);
+                            let electron = require("electron");
+                            electron.ipcRenderer.send("log", "note", "NetStat: Error parsing data from ipinfo.now.sh");
+                            electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
+                        }
                     });
                 }).on("error", (e) => {
                     // Drop it
