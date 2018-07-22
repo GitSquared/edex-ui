@@ -67,7 +67,7 @@ div.mod_ramwatcher_point {
 }
 
 div.mod_ramwatcher_point.free {
-    opacity: 0;
+    opacity: 0.1;
 }
 
 div.mod_ramwatcher_point.available {
