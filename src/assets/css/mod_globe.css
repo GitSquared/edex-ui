@@ -1,0 +1,78 @@
+div#mod_globe {
+    border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    font-family: var(--font_main_light);
+    letter-spacing: 0.092vh;
+    padding: 0.645vh 0vh;
+    display: flex;
+}
+
+div#mod_globe::before {
+    content: "";
+    border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    align-self: flex-start;
+    position: relative;
+    left: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
+}
+
+div#mod_globe::after {
+    content: "";
+    border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    position: relative;
+    right: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
+}
+
+div#mod_globe_innercontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+div#mod_globe h1 {
+    font-size: 1.48vh;
+    margin: 0vh;
+    margin-bottom: -1vh;
+    width: 98%;
+}
+
+div#mod_globe h2 {
+    font-size: 1.4vh;
+    margin: 0vh;
+    margin-bottom: -0.7vh;
+    width: 98%;
+    opacity: .5;
+}
+
+div#mod_globe i {
+    font-style: normal;
+    font-size: 1.20vh;
+    opacity: 0.5;
+    text-align: right;
+    display: inline-block;
+    position: relative;
+    bottom: 1.5vh;
+    width: 100%;
+}
+
+div#mod_globe i.mod_globe_headerInfo {
+    padding-top: .2vh;
+}
+
+div#mod_globe canvas {
+    width: 109%;
+    margin: 0px;
+    margin-top: -1.5vh;
+}
+
+div#mod_globe_canvas_placeholder {
+    width: 109%;
+    height: 0px;
+    padding-bottom: 100%;
+    margin: 0px;
+    margin-top: -1.5vh;
+}

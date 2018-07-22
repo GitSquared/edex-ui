@@ -226,6 +226,7 @@ initMods = () => {
 
     // Right column
     window.mods.netstat = new Netstat("mod_column_right");
+    window.mods.globe = new LocationGlobe("mod_column_right");
     window.mods.conninfo = new Conninfo("mod_column_right");
 
     // Fade-in animations
@@ -297,6 +298,9 @@ window.themeChanger = (theme) => {
     let src = path.join(themesDir, theme+".json" || settings.theme+".json");
     // Always get fresh theme files
     delete require.cache[src];
+
+    window.mods.globe.globe.destroy();
+    window.removeEventListener("resize", window.mods.globe.resizeHandler);
 
     window._loadTheme(require(src));
     for (let i; i < 99999; i++) {
