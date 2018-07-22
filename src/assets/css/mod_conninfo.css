@@ -61,7 +61,7 @@ div#mod_conninfo i {
 
 div#mod_conninfo canvas {
     width: 100%;
-    height: 9.26vh;
+    height: 8.7vh;
     border-top: 0.092vh dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     border-bottom: 0.092vh dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     margin: 0.46vh 0vh;
