@@ -19,5 +19,11 @@
         "cursor": "#cc5e37",
         "cursorAccent": "#cc5e37",
         "selection": "rgba(204,94,55,0.3)"
+    },
+    "globe": {
+        "base": "#cc5e37",
+        "marker": "#cc5e37",
+        "pin": "#cc5e37",
+        "satellite": "#cc5e37"
     }
 }
