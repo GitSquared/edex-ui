@@ -136,6 +136,8 @@ class LocationGlobe {
     updateLoc() {
         try {
             let newgeo = window.mods.netstat.ipinfo.geo.location;
+            newgeo.latitude = Math.round(newgeo.latitude*10000)/10000;
+            newgeo.longitude = Math.round(newgeo.longitude*10000)/10000;
 
             if (newgeo.latitude !== this.lastgeo.latitude || newgeo.longitude !== this.lastgeo.longitude) {
                 document.querySelector("i.mod_globe_headerInfo").innerText = `${newgeo.latitude}, ${newgeo.longitude}`;
