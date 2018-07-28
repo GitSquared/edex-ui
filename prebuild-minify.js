@@ -23,6 +23,10 @@ const recursiveMinify = (dirPath) => {
         for (let i = 0; i < files.length; i++) {
             let filePath = dirPath + '/' + files[i];
             if (fs.statSync(filePath).isFile()) {
+
+                // Grid.json is a massive file that's already pre-minified. Do not process.
+                if (filePath.endsWith("grid.json")) return;
+
                 switch (filePath.split(".").pop()) {
                     case "js":
                         let minified = UglifyJS.minify(fs.readFileSync(filePath, {encoding: "utf-8"}), {

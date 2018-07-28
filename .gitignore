@@ -38,3 +38,4 @@ jspm_packages
 
 settings.json
 dist
+prebuild-src
