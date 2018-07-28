@@ -44,7 +44,7 @@ class FilesystemDisplay {
         this._timer = setInterval(() => {
             if (this._runNextTick === true) {
                 this._runNextTick = false;
-                this.readFS();
+                this.readFS(this.dirpath);
             }
         }, 1000);
 
