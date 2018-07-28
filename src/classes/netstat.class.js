@@ -26,6 +26,7 @@ class Netstat {
             </div>
         </div>`;
 
+        this.offline = false;
 
         // Init updaters
         this.updateInfo();
@@ -35,6 +36,8 @@ class Netstat {
     }
     updateInfo() {
         this.si.networkInterfaces((data) => {
+            let offline = false;
+
             // Find the first external network networkInterface
             let net = data[0];
             let netID = 0;
@@ -49,14 +52,8 @@ class Netstat {
             }
 
             if (net.ip4 === "127.0.0.1") {
-                // We're offline.
-                document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "OFFLINE";
-                document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = "--.--.--.--";
-                document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = "--ms";
-                return;
+                offline = true;
             } else {
-                document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "ONLINE";
-
                 require("https").get({"host": "ipinfo.now.sh", "port": 443, "path": "/"}, (res) => {
                     let rawData = "";
                     res.on("data", (chunk) => {
@@ -83,10 +80,20 @@ class Netstat {
                     let ping;
                     if (data === -1) {
                         ping = "--ms";
+                        offline = true;
                     } else {
                         ping = Math.round(data)+"ms";
                     }
-                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = ping;
+
+                    this.offline = offline;
+                    if (offline) {
+                        document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "OFFLINE";
+                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = "--.--.--.--";
+                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = "--ms";
+                    } else {
+                        document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "ONLINE";
+                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = ping;
+                    }
                 });
             }
         });

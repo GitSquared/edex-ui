@@ -62,9 +62,11 @@ div#mod_conninfo i {
 div#mod_conninfo canvas {
     width: 100%;
     height: 8.7vh;
+    z-index: 10;
     border-top: 0.092vh dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     border-bottom: 0.092vh dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     margin: 0.46vh 0vh;
+    opacity: 1;
 }
 
 div#mod_conninfo canvas#mod_conninfo_canvas_top {
@@ -75,4 +77,19 @@ div#mod_conninfo canvas#mod_conninfo_canvas_top {
 div#mod_conninfo canvas#mod_conninfo_canvas_bottom {
     border-top: 0.139vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.4);
     margin-top: -0.092vh;
+}
+
+div#mod_conninfo h3:last-child {
+    position: absolute;
+    font-size: 2vh;
+    z-index: 15;
+    opacity: 0;
+}
+
+div#mod_conninfo.offline canvas {
+    opacity: 0.3;
+}
+
+div#mod_conninfo.offline h3:last-child {
+    opacity: 1;
 }

@@ -12,6 +12,7 @@ class Conninfo {
                 <h2>TOTAL<i>0B OUT, 0B IN</i></h2>
                 <canvas id="mod_conninfo_canvas_top"></canvas>
                 <canvas id="mod_conninfo_canvas_bottom"></canvas>
+                <h3>OFFLINE</h3>
             </div>
         </div>`;
 
@@ -76,11 +77,13 @@ class Conninfo {
 
             let time = new Date().getTime();
 
-            if (net.ip4 === "127.0.0.1") {
+            if (window.mods.netstat.offline) {
                 this.series[0].append(time, 0);
                 this.series[1].append(time, 0);
+                document.querySelector("div#mod_conninfo").setAttribute("class", "offline");
                 return;
             } else {
+                document.querySelector("div#mod_conninfo").setAttribute("class", "");
                 this.si.networkStats(net.iface, (data) => {
 
                     let max0 = this.series[0].maxValue;
