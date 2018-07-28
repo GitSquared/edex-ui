@@ -1,0 +1,30 @@
+{
+    "colors": {
+        "r": 190,
+        "g": 230,
+        "b": 193,
+        "black": "#000000",
+        "light_black": "#090B0A",
+        "grey": "#262827"
+    },
+    "cssvars": {
+        "font_main": "United Sans Medium",
+        "font_main_light": "United Sans Light"
+    },
+    "terminal": {
+        "fontFamily": "Fira Mono",
+        "cursorStyle": "block",
+        "foreground": "#bee6c1",
+        "background": "#090B0A",
+        "cursor": "#bee6c1",
+        "cursorAccent": "#bee6c1",
+        "selection": "rgba(190,230,193,0.3)"
+    },
+    "globe": {
+        "base": "#bee6c1",
+        "marker": "#ffffff",
+        "pin": "#ffffff",
+        "satellite": "#bee6c1"
+    },
+    "injectCSS": "section#main_shell{position:relative;left:29vh;}section#main_shell>h3.title{left:calc(29vh + 16.5vw)!important;}section#mod_column_right{left:28.5vh!important;}section#mod_column_right>h3.title{left:29.6vh!important;}div#mod_netstat_inner{height:6.85vh;padding-top:.5vh;}div#mod_globe_innercontainer{padding-bottom:.95vh;}div#mod_conninfo canvas{height:8vh!important;}"
+}
