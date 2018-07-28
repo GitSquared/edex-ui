@@ -81,14 +81,16 @@ class LocationGlobe {
                     res.on("end", () => {
                         try {
                             let json = JSON.parse(rawData);
-                            let lat = Number(json.geo.location.latitude);
-                            let lon = Number(json.geo.location.longitude);
+                            if (json.geo) {
+                                let lat = Number(json.geo.location.latitude);
+                                let lon = Number(json.geo.location.longitude);
 
-                            window.mods.globe.conns.push({
-                                ip,
-                                pin: window.mods.globe.globe.addPin(lat, lon, "", 1.2),
-                                // marker: window.mods.globe.globe.addMarker(lat, lon, "", window.mods.globe._locMarker, 1, "transparent")
-                            });
+                                window.mods.globe.conns.push({
+                                    ip,
+                                    pin: window.mods.globe.globe.addPin(lat, lon, "", 1.2),
+                                    // marker: window.mods.globe.globe.addMarker(lat, lon, "", window.mods.globe._locMarker, 1, "transparent")
+                                });
+                            }
                         } catch(e) {
                             let electron = require("electron");
                             electron.ipcRenderer.send("log", "note", "LocationGlobe: Error parsing data from ipinfo.now.sh");
