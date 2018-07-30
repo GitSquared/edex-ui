@@ -20,6 +20,7 @@ class LocationGlobe {
         </div>`;
 
         this.lastgeo = {};
+        this.conns = [];
 
 
         setTimeout(() => {
@@ -165,6 +166,7 @@ class LocationGlobe {
         }
     }
     updateConns() {
+        if (!window.mods.globe.globe) return false;
         this.si.networkConnections().then(conns => {
             let newconns = [];
             conns.forEach(conn => {
