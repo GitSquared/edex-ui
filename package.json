@@ -104,11 +104,11 @@
   "dependencies": {
     "clean-css": "4.1.11",
     "electron": "2.0.6",
-    "electron-builder": "20.26.0",
-    "electron-rebuild": "1.8.1",
+    "electron-builder": "20.26.1",
+    "electron-rebuild": "1.8.2",
     "node-abi": "2.4.3",
     "node-json-minify": "1.0.0",
-    "snyk": "^1.89.0",
+    "snyk": "^1.90.0",
     "uglify-es": "3.3.10"
   },
   "snyk": true
