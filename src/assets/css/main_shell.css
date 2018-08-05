@@ -44,14 +44,19 @@ section#main_shell pre {
 
 .terminal .xterm-viewport {
     overflow: hidden;
+    cursor: default;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .xterm {
-    font-family: inherit;
+    font-family: monospace;
     font-feature-settings: "liga" 0;
     position: relative;
     user-select: none;
-    -ms-user-select: none;
     -webkit-user-select: none;
 }
 
@@ -97,6 +102,10 @@ section#main_shell pre {
     overflow-y: hidden;
 }
 
+.xterm .xterm-screen {
+    position: relative;
+}
+
 .xterm canvas {
     position: absolute;
     left: 0;
@@ -112,6 +121,7 @@ section#main_shell pre {
     visibility: hidden;
     position: absolute;
     left: -9999em;
+    line-height: normal;
 }
 
 .xterm.enable-mouse-events {
