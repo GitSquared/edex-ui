@@ -165,6 +165,12 @@ class Terminal {
             this.writelr = cmd => {
                 this.socket.send(cmd+"\r");
             };
+
+            this.copy = () => {
+                if (!this.term.hasSelection()) return false;
+                document.execCommand("copy");
+                this.term.clearSelection();
+            };
         } else if (opts.role === "server") {
 
             this.Pty = require("node-pty");
