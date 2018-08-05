@@ -273,7 +273,8 @@ initGreeter = () => {
                     shellContainer.innerHTML += `<pre id="terminal"></pre>`;
                     window.term = new Terminal({
                         role: "client",
-                        parentId: "terminal"
+                        parentId: "terminal",
+                        port: window.settings.port || 3000
                     });
                     // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
                     window.onmouseup = (e) => {
@@ -319,7 +320,8 @@ window.themeChanger = (theme) => {
 
     window.term = new Terminal({
         role: "client",
-        parentId: "terminal"
+        parentId: "terminal",
+        port: window.settings.port || 3000
     });
     initMods();
     window.fsDisp = new FilesystemDisplay({
