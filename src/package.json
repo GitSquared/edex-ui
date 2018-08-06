@@ -24,6 +24,7 @@
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
     "battery-level": "3.0.0",
+    "clipboardy": "1.2.3",
     "color": "3.0.0",
     "node-pty": "0.7.6",
     "pretty-bytes": "5.1.0",

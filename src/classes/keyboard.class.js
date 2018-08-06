@@ -195,7 +195,9 @@ class Keyboard {
             } else if (cmd === "\n") {
                 term.writelr("");
             } else if (cmd === ctrlseq[19] && window.term.term.hasSelection()) {
-                window.term.copy();
+                window.term.clipboard.copy();
+            } else if (cmd === ctrlseq[20] && window.term.clipboard.didCopy) {
+                window.term.clipboard.paste();
             } else {
                 term.write(cmd);
             }

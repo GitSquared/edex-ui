@@ -166,11 +166,23 @@ class Terminal {
                 this.socket.send(cmd+"\r");
             };
 
-            this.copy = () => {
-                if (!this.term.hasSelection()) return false;
-                document.execCommand("copy");
-                this.term.clearSelection();
-            };
+            this.clipboard = {
+                copy: () => {
+                    if (!this.term.hasSelection()) return false;
+                    document.execCommand("copy");
+                    this.term.clearSelection();
+                    this.clipboard.didCopy = true;
+                },
+                paste: () => {
+                    this.Ipc.once("clipboard-reply", (e, txt) => {
+                        this.write(txt);
+                        this.clipboard.didCopy = false;
+                    });
+                    this.Ipc.send("clipboard", "read");
+                },
+                didCopy: false
+            }
+
         } else if (opts.role === "server") {
 
             this.Pty = require("node-pty");

@@ -58,6 +58,7 @@ div#mod_ramwatcher_pointmap {
     grid-gap: 0.23vh;
     padding-top: 0.5vh;
     padding-left: 0.5vh;
+    margin-bottom: 0.8vh;
 }
 
 div.mod_ramwatcher_point {

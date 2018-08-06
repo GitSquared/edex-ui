@@ -223,6 +223,7 @@ initMods = () => {
     window.mods.sysinfo = new Sysinfo("mod_column_left");
     window.mods.cpuinfo = new Cpuinfo("mod_column_left");
     window.mods.ramwatcher = new RAMwatcher("mod_column_left");
+    window.mods.clipboardButtons = new ClipboardButtons("mod_column_left");
 
     // Right column
     window.mods.netstat = new Netstat("mod_column_right");
