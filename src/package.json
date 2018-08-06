@@ -1,7 +1,7 @@
 {
   "name": "edex-ui",
   "productName": "eDEX-UI",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "A science fiction desktop running everywhere. Awesome.",
   "keywords": [
     "desktop",
@@ -30,7 +30,7 @@
     "pretty-bytes": "5.1.0",
     "signale": "1.2.1",
     "smoothie": "1.35.0",
-    "systeminformation": "3.42.4",
+    "systeminformation": "3.42.8",
     "ws": "6.0.0",
     "xterm": "3.5.1"
   }
