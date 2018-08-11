@@ -17,78 +17,74 @@ class Cpuinfo {
         this.series = [];
         this.charts = [];
         this.si.cpu((data) => {
-            let createCoresDOM = () => {
-                return new Promise((resolve, reject) => {
-                    let timeId = setTimeout(reject, 1000); // Fail after 1s
-                    let chartsDOM = `<div id="mod_cpuinfo_innercontainer">
-                        <h1>CPU USAGE<i>${data.manufacturer} ${data.brand}</i></h1>`;
-                    for (var i = 0; i < data.cores; i++) {
-                        // Add DOM for each chart
-                        chartsDOM += `<div>
-                        <h1>CORE <em>#<span>${i}</span></em><br><i>${data.speed}GHz</i></h1>
-                        <canvas id="mod_cpuinfo_canvas_${i}" height="60"></canvas>
-                        </div>`;
+            let divide = Math.floor(data.cores/2);
 
-                        if (i === data.cores-1 || i === 3) { // Do not display more than 4 cores, for UX reasons
-                            chartsDOM += `</div>`;
-                            this.container.innerHTML = chartsDOM;
-                            clearTimeout(timeId); // Clear fail timer
-                            resolve(true);
-                        }
+            let innercontainer = document.createElement("div");
+            innercontainer.setAttribute("id", "mod_cpuinfo_innercontainer");
+            innercontainer.innerHTML = `<h1>CPU USAGE<i>${data.manufacturer} ${data.brand}</i></h1>
+                <div>
+                    <h1># <em>1</em> - <em>${divide}</em><br>
+                    <i>${data.speed}GHz</i></h1>
+                    <canvas id="mod_cpuinfo_canvas_0" height="60"></canvas>
+                </div>
+                <div>
+                    <h1># <em>${divide+1}</em> - <em>${data.cores}</em><br>
+                    <i>${data.speed}GHz</i></h1>
+                    <canvas id="mod_cpuinfo_canvas_1" height="60"></canvas>
+                </div>`;
+            this.container.append(innercontainer);
+
+            for (var i = 0; i < 2; i++) {
+                this.charts.push(new SmoothieChart({
+                    limitFPS: 30,
+                    responsive: true,
+                    millisPerPixel: 50,
+                    grid:{
+                        fillStyle:'transparent',
+                        strokeStyle:'transparent',
+                        verticalSections:0,
+                        borderVisible:false
+                    },
+                    labels:{
+                        disabled: true
+                    },
+                    yRangeFunction: () => {
+                        return {min:0,max:100};
                     }
-                });
-            };
-            async function waitForCoresDOM() {
-                let result = createCoresDOM();
-                return await result;
+                }));
             }
-            waitForCoresDOM().then(() => {
-                for (var i = 0; i < data.cores; i++) {
-                    if (i >= 4) return;
 
-                    // Create TimeSeries
-                    this.series.push(new TimeSeries());
+            for (var i = 0; i < data.cores; i++) {
+                // Create TimeSeries
+                this.series.push(new TimeSeries());
 
-                    // Create charts
-                    let serie = this.series[i];
-                    let chart = new SmoothieChart({
-                        limitFPS: 30,
-                        responsive: true,
-                        millisPerPixel: 50,
-                        grid:{
-                            fillStyle:'transparent',
-                            strokeStyle:'transparent',
-                            verticalSections:0,
-                            borderVisible:false
-                        },
-                        labels:{
-                            disabled: true
-                        },
-                        yRangeFunction: () => {
-                            return {min:0,max:100};
-                        }
-                    });
+                let serie = this.series[i];
+                let options = {
+                    lineWidth: 1.7,
+                    strokeStyle: `rgb(${window.theme.r},${window.theme.g},${window.theme.b})`
+                };
 
-                    chart.addTimeSeries(serie, {lineWidth:1.7,strokeStyle:`rgb(${window.theme.r},${window.theme.g},${window.theme.b})`});
-                    chart.streamTo(document.getElementById(`mod_cpuinfo_canvas_${i}`), 500);
-
-                    this.charts.push(chart);
+                if (i < divide) {
+                    this.charts[0].addTimeSeries(serie, options);
+                } else {
+                    this.charts[1].addTimeSeries(serie, options);
                 }
+            }
 
-                // Init updater
+            for (var i = 0; i < 2; i++) {
+                this.charts[i].streamTo(document.getElementById(`mod_cpuinfo_canvas_${i}`), 500);
+            }
+
+            // Init updater
+            this.updateInfo();
+            this.infoUpdater = setInterval(() => {
                 this.updateInfo();
-                this.infoUpdater = setInterval(() => {
-                    this.updateInfo();
-                }, 500);
-            }, () => {
-                console.error("[mod_cpuinfo]: Error when creating DOM.");
-            });
+            }, 500);
         });
     }
     updateInfo() {
         this.si.currentLoad((data) => {
             data.cpus.forEach((e, i) => {
-                if (i >= 4) return;
                 this.series[i].append(new Date().getTime(), e.load);
             });
         });
