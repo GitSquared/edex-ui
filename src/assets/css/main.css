@@ -37,22 +37,22 @@ body.solidBackground {
     height: auto;
 }
 
-h3.title {
+section > h3.title:first-child {
     position: fixed;
     margin: 0vh;
     padding: 0vh 0.925vh;
     font-size: 1.02vh;
     border-bottom: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
 }
-h3.title > p {
+section > h3.title:first-child > p {
     display: inline-block;
     margin: 0vh;
     width: 49.4%;
 }
-h3.title > p:last-child {
+section > h3.title:first-child > p:last-child {
     text-align: right;
 }
-h3.title::before {
+section > h3.title:first-child::before {
     content: "";
     border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
@@ -60,11 +60,11 @@ h3.title::before {
     bottom: -0.555vh;
     height: 0.46vh;
 }
-h3.title::after {
+section > h3.title:first-child::after {
     content: "";
     border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
-    right: -0.94vh;
+    right: -1.2vh;
     bottom: -0.555vh;
     height: 0.46vh;
 }
