@@ -42044,10 +42044,10 @@ function Globe(width, height, opts){
 
 /* public globe functions */
 
-Globe.prototype.init = function(cb){
+Globe.prototype.init = function(fog_color, cb){
 
     // create the camera
-    this.camera = new THREE.PerspectiveCamera( 50, this.width / this.height, 1, this.cameraDistance + 300 );
+    this.camera = new THREE.PerspectiveCamera( 50, this.width / this.height, 1, this.cameraDistance + 900 );
     this.camera.position.z = this.cameraDistance;
 
     this.cameraAngle=(Math.PI);
@@ -42055,7 +42055,7 @@ Globe.prototype.init = function(cb){
     // create the scene
     this.scene = new THREE.Scene();
 
-    this.scene.fog = new THREE.Fog( 0x000000, this.cameraDistance, this.cameraDistance+300 );
+    this.scene.fog = new THREE.Fog( new THREE.Color(fog_color || 0x000000), this.cameraDistance, this.cameraDistance+300 );
 
     createIntroLines.call(this);
 

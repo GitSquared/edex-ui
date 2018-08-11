@@ -58,7 +58,7 @@ class LocationGlobe {
                     requestAnimationFrame(window.mods.globe._animate);
                 }
             };
-            this.globe.init(() => {
+            this.globe.init(window.theme.colors.light_black, () => {
                 this._animate();
             });
 
