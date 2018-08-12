@@ -1,5 +1,5 @@
 const signale = require("signale");
-const {app, BrowserWindow, dialog} = require("electron");
+const {app, BrowserWindow, dialog, shell} = require("electron");
 
 process.on("uncaughtException", e => {
     signale.fatal(e);
@@ -162,6 +162,18 @@ app.on('ready', () => {
     });
 
     signale.watch("Waiting for frontend connection...");
+});
+
+app.on('web-contents-created', (e, contents) => {
+    // Prevent creating more than one window
+    contents.on('new-window', (e, url) => {
+        e.preventDefault();
+        shell.openExternal(url);
+    });
+    // Prevent loading something else than the UI
+    contents.on('will-navigate', (e, url) => {
+        e.preventDefault();
+    });
 });
 
 app.on('window-all-closed', () => {
