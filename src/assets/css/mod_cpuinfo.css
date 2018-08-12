@@ -61,6 +61,16 @@ div#mod_cpuinfo > div > div {
     margin: 0.278vh 0vh;
 }
 
+div#mod_cpuinfo > div > div:last-child {
+    width: 95%;
+    border-top: 0.092vh dashed rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    padding-top: 0.838vh;
+}
+div#mod_cpuinfo > div > div:last-child > div {
+    width: 20%;
+    text-align: center;
+}
+
 div#mod_cpuinfo h1 {
     font-size: 1.3vh;
     line-height: 1.5vh;
