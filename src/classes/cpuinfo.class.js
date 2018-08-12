@@ -43,12 +43,12 @@ class Cpuinfo {
                         <i id="mod_cpuinfo_speed_min">--GHz</i></h1>
                     </div>
                     <div>
-                        <h1>AVG<br>
-                        <i id="mod_cpuinfo_speed_avg">--GHz</i></h1>
-                    </div>
-                    <div>
                         <h1>MAX<br>
                         <i id="mod_cpuinfo_speed_max">--GHz</i></h1>
+                    </div>
+                    <div>
+                        <h1>TASKS<br>
+                        <i id="mod_cpuinfo_tasks">---</i></h1>
                     </div>
                 </div>`;
             this.container.append(innercontainer);
@@ -98,6 +98,7 @@ class Cpuinfo {
             this.updateCPUload();
             this.updateCPUtemp();
             this.updateCPUspeed();
+            this.updateCPUtasks();
             this.loadUpdater = setInterval(() => {
                 this.updateCPUload();
             }, 500);
@@ -107,6 +108,9 @@ class Cpuinfo {
             this.speedUpdater = setInterval(() => {
                 this.updateCPUspeed();
             }, 1000);
+            this.tasksUpdater = setInterval(() => {
+                this.updateCPUtasks();
+            }, 5000);
         });
     }
     updateCPUload() {
@@ -135,8 +139,12 @@ class Cpuinfo {
     updateCPUspeed() {
         this.si.cpuCurrentspeed((data) => {
             document.getElementById("mod_cpuinfo_speed_min").innerText = `${data.min}GHz`;
-            document.getElementById("mod_cpuinfo_speed_avg").innerText = `${data.avg}GHz`;
             document.getElementById("mod_cpuinfo_speed_max").innerText = `${data.max}GHz`;
+        });
+    }
+    updateCPUtasks() {
+        this.si.processes((data) => {
+            document.getElementById("mod_cpuinfo_tasks").innerText = `${data.all}`;
         });
     }
 }
