@@ -31,6 +31,11 @@ class Cpuinfo {
                     <h1># <em>${divide+1}</em> - <em>${data.cores}</em><br>
                     <i>${data.speed}GHz</i></h1>
                     <canvas id="mod_cpuinfo_canvas_1" height="60"></canvas>
+                </div>
+                <div>
+                    <h1>TEMP<br>
+                    <i id="mod_cpuinfo_temp">--°C</i></h1>
+                    <canvas id="mod_cpuinfo_canvas_2" height="60"></canvas>
                 </div>`;
             this.container.append(innercontainer);
 
@@ -54,7 +59,26 @@ class Cpuinfo {
                 }));
             }
 
-            for (var i = 0; i < data.cores; i++) {
+            // temperature chart
+            this.charts.push(new SmoothieChart({
+                limitFPS: 30,
+                responsive: true,
+                millisPerPixel: 50,
+                grid:{
+                    fillStyle:'transparent',
+                    strokeStyle:'transparent',
+                    verticalSections:0,
+                    borderVisible:false
+                },
+                labels:{
+                    disabled: true
+                },
+                yRangeFunction: () => {
+                    return {min:20,max:120};
+                }
+            }));
+
+            for (var i = 0; i < data.cores+1; i++) {
                 // Create TimeSeries
                 this.series.push(new TimeSeries());
 
@@ -64,7 +88,10 @@ class Cpuinfo {
                     strokeStyle: `rgb(${window.theme.r},${window.theme.g},${window.theme.b})`
                 };
 
-                if (i < divide) {
+                if (i === data.cores) {
+                    this.tempSerie = this.series.pop();
+                    this.charts[2].addTimeSeries(this.tempSerie, options);
+                } else if (i < divide) {
                     this.charts[0].addTimeSeries(serie, options);
                 } else {
                     this.charts[1].addTimeSeries(serie, options);
@@ -74,19 +101,30 @@ class Cpuinfo {
             for (var i = 0; i < 2; i++) {
                 this.charts[i].streamTo(document.getElementById(`mod_cpuinfo_canvas_${i}`), 500);
             }
+            this.charts[2].streamTo(document.getElementById(`mod_cpuinfo_canvas_${i}`), 2000);
 
             // Init updater
-            this.updateInfo();
-            this.infoUpdater = setInterval(() => {
-                this.updateInfo();
+            this.updateCPUload();
+            this.updateCPUtemp();
+            this.loadUpdater = setInterval(() => {
+                this.updateCPUload();
             }, 500);
+            this.tempUpdater = setInterval(() => {
+                this.updateCPUtemp();
+            }, 2000);
         });
     }
-    updateInfo() {
+    updateCPUload() {
         this.si.currentLoad((data) => {
             data.cpus.forEach((e, i) => {
                 this.series[i].append(new Date().getTime(), e.load);
             });
+        });
+    }
+    updateCPUtemp() {
+        this.si.cpuTemperature((data) => {
+            this.tempSerie.append(new Date().getTime(), data.main);
+            document.getElementById("mod_cpuinfo_temp").innerText = `${data.main}°C`;
         });
     }
 }
