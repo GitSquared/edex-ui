@@ -42,10 +42,10 @@ div#mod_clipboardButtons h1 {
 }
 
 div#mod_clipboardButtons_inner div {
-    margin-top: 1.2vh;
+    margin-top: 1.5vh;
     background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.1);
-    height: 3.8vh;
-    width: 45%;
+    height: 3.2vh;
+    width: 42%;
     display: flex;
     align-items: center;
     justify-content: center;
