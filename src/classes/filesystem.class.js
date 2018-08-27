@@ -165,7 +165,7 @@ class FilesystemDisplay {
                                     });
                                     this._tmp.others.forEach(e => {
                                         this.cwd.push({
-                                            name: this._escapeHtml(e),
+                                            name: window._escapeHtml(e),
                                             type: "other"
                                         });
                                     });
