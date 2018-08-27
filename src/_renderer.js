@@ -242,6 +242,7 @@ initMods = () => {
     window.mods.sysinfo = new Sysinfo("mod_column_left");
     window.mods.cpuinfo = new Cpuinfo("mod_column_left");
     window.mods.ramwatcher = new RAMwatcher("mod_column_left");
+    window.mods.syslog = new Syslog("mod_column_left");
     window.mods.clipboardButtons = new ClipboardButtons("mod_column_left");
 
     // Right column
@@ -322,6 +323,8 @@ window.themeChanger = (theme) => {
 
     window.mods.globe.globe.destroy();
     window.removeEventListener("resize", window.mods.globe.resizeHandler);
+
+    window.mods.syslog.tail.unwatch();
 
     window._loadTheme(require(src));
     for (let i; i < 99999; i++) {
