@@ -11,7 +11,7 @@ class RAMwatcher {
                 <h1>MEMORY<i id="mod_ramwatcher_info"></i></h1>
                 <div id="mod_ramwatcher_pointmap">`;
 
-        for (var i = 0; i < 1000; i++) {
+        for (var i = 0; i < 440; i++) {
             ramwatcherDOM += `<div class="mod_ramwatcher_point free"></div>`;
         }
 
@@ -43,9 +43,9 @@ class RAMwatcher {
             if (free+available+active !== total && process.platform !== "win32") throw("RAM Watcher Error: Bad memory values");
             if (free+data.used !== total && process.platform === "win32") console.warn("RAM Watcher Error: Bad memory values");
 
-            // Convert the data for the 1000-points grid
-            active = Math.round((1000*active)/total);
-            available = Math.round((1000*available)/total);
+            // Convert the data for the 440-points grid
+            active = Math.round((440*active)/total);
+            available = Math.round((440*available)/total);
 
             // Update grid
             this.points.slice(0, active).forEach((domPoint) => {
