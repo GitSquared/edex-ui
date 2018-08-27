@@ -86,10 +86,30 @@ _loadTheme(require(path.join(themesDir, settings.theme+".json")));
 // Startup boot log
 let resumeInit, initUI, initMods, initGreeter;
 let bootScreen = document.getElementById("boot_screen");
-let log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
+let log;
 let i = 0;
+// [EXPERIMENTAL] Show dmesg as boot log on *nix
+if (process.platform === "linux" || process.platform === "darwin") {
+    let su = require("sudo-prompt");
+    su.exec("dmesg -HtP", {
+        name: "eDEX UI Log Display",
+        icns: "src/icons/icon.icns"
+    }, (err, stdout, stderr) => {
+        if (err) {
+            log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
+            displayLine();
+        } else {
+            log = stdout.toString().split('\n');
+            log = log.slice(0, 150); // Max 150 lines
+            displayLine();
+        }
+    });
+} else {
+    log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
+    displayLine();
+}
 
-let displayLine = () => {
+displayLine = () => {
     if (log[i] === undefined) {
         setTimeout(resumeInit, 300);
         return;
@@ -110,17 +130,16 @@ let displayLine = () => {
         case i === 42:
             setTimeout(displayLine, 300);
             break;
-        case i > 42 && i < 83:
+        case i > 42 && i < 82:
             setTimeout(displayLine, 25);
             break;
-        case i >= 83:
+        case i >= log.length-2 && i < log.length:
             setTimeout(displayLine, 300);
             break;
         default:
-            setTimeout(displayLine, 2);
+            setTimeout(displayLine, Math.pow(1 - (i/1000), 3)*25);
     }
 };
-displayLine();
 
 // Show "logo" and background grid
 resumeInit = () => {
