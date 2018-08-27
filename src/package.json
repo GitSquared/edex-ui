@@ -23,15 +23,14 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
-    "battery-level": "3.0.0",
     "clipboardy": "1.2.3",
     "color": "3.0.0",
     "node-pty": "0.7.6",
     "pretty-bytes": "5.1.0",
     "signale": "1.2.1",
     "smoothie": "1.35.0",
-    "systeminformation": "3.42.8",
+    "systeminformation": "3.44.0",
     "ws": "6.0.0",
-    "xterm": "3.5.1"
+    "xterm": "3.6.0"
   }
 }
