@@ -2,6 +2,8 @@ class Sysinfo {
     constructor(parentId) {
         if (!parentId) throw "Missing parameters";
 
+        this.si = require("systeminformation");
+
         // Create DOM
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_sysinfo">
@@ -15,7 +17,7 @@ class Sysinfo {
             </div>
             <div>
                 <h1>TYPE</h1>
-                <h2>${require("os").platform()}</h2>
+                <h2>${require("os").platform().toUpperCase()}</h2>
             </div>
             <div>
                 <h1>POWER</h1>
@@ -104,10 +106,19 @@ class Sysinfo {
         document.querySelector("#mod_sysinfo > div:nth-child(2) > h2").innerHTML = uptime.days+":"+uptime.hours+":"+uptime.minutes;
     }
     updateBattery() {
-        // Note: SystemInformation's battery tools seems to be kinda broken (at least on Arch), so we're going with another dep for this one
-        let btrlvl = require("battery-level");
-        btrlvl().then((level) => {
-            document.querySelector("#mod_sysinfo > div:last-child > h2").innerHTML = Math.round(level*100)+"%";
+        this.si.battery(bat => {
+            let indicator = document.querySelector("#mod_sysinfo > div:last-child > h2");
+            if (bat.hasbattery) {
+                if (bat.ischarging) {
+                    indicator.innerHTML = "CHARGE";
+                } else if (bat.acconnected || bat.timeremaining === -1) {
+                    indicator.innerHTML = "WIRED";
+                } else {
+                    indicator.innerHTML = bat.percent+"%";
+                }
+            } else {
+                indicator.innerHTML = "ON";
+            }
         });
     }
 }
