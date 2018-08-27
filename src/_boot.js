@@ -172,7 +172,7 @@ app.on('web-contents-created', (e, contents) => {
     });
     // Prevent loading something else than the UI
     contents.on('will-navigate', (e, url) => {
-        e.preventDefault();
+        if (url !== contents.getURL()) e.preventDefault();
     });
 });
 
