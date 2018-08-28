@@ -109,7 +109,7 @@ if (process.platform === "linux" || process.platform === "darwin") {
     displayLine();
 }
 
-displayLine = () => {
+function displayLine() {
     if (log[i] === undefined) {
         setTimeout(resumeInit, 300);
         return;
@@ -139,7 +139,7 @@ displayLine = () => {
         default:
             setTimeout(displayLine, Math.pow(1 - (i/1000), 3)*25);
     }
-};
+}
 
 // Show "logo" and background grid
 resumeInit = () => {
