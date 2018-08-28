@@ -109,7 +109,7 @@ if (process.platform === "linux" || process.platform === "darwin") {
     displayLine();
 }
 
-function displayLine() {
+displayLine = () => {
     if (log[i] === undefined) {
         setTimeout(resumeInit, 300);
         return;
@@ -139,7 +139,7 @@ function displayLine() {
         default:
             setTimeout(displayLine, Math.pow(1 - (i/1000), 3)*25);
     }
-}
+};
 
 // Show "logo" and background grid
 resumeInit = () => {
@@ -324,7 +324,7 @@ window.themeChanger = (theme) => {
     window.mods.globe.globe.destroy();
     window.removeEventListener("resize", window.mods.globe.resizeHandler);
 
-    window.mods.syslog.tail.unwatch();
+    if (process.platform === "linux" || process.platform === "darwin") window.mods.syslog.tail.unwatch();
 
     window._loadTheme(require(src));
     for (let i; i < 99999; i++) {
