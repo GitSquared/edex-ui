@@ -27,6 +27,12 @@ class Netstat {
         </div>`;
 
         this.offline = false;
+        this.lastconn = {_ended: true};
+
+        this._httpsAgent = new require("https").Agent({
+            keepAlive: false,
+            maxSockets: 10
+        });
 
         // Init updaters
         this.updateInfo();
@@ -54,27 +60,34 @@ class Netstat {
             if (net.ip4 === "127.0.0.1") {
                 offline = true;
             } else {
-                require("https").get({"host": "ipinfo.now.sh", "port": 443, "path": "/"}, (res) => {
-                    let rawData = "";
-                    res.on("data", (chunk) => {
-                        rawData += chunk;
+                if (this.lastconn._ended) {
+                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", agent: this._httpsAgent}, (res) => {
+                        let rawData = "";
+                        res.on("data", (chunk) => {
+                            rawData += chunk;
+                        });
+                        res.on("end", () => {
+                            try {
+                                this.ipinfo = JSON.parse(rawData);
+
+                                if (this.ipinfo.api_version !== "2.0.0") console.warn("Warning: ipinfo API version might not be compatible");
+
+                                delete this.ipinfo.api_version;
+                                delete this.ipinfo.time;
+                                let ip = this.ipinfo.ip;
+                                document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
+                            } catch(e) {
+                                console.warn(e);
+                                console.info(json);
+                                let electron = require("electron");
+                                electron.ipcRenderer.send("log", "note", "NetStat: Error parsing data from ipinfo.now.sh");
+                                electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
+                            }
+                        });
+                    }).on("error", (e) => {
+                        // Drop it
                     });
-                    res.on("end", () => {
-                        try {
-                            this.ipinfo = JSON.parse(rawData);
-                            let ip = this.ipinfo.ip;
-                            document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
-                        } catch(e) {
-                            console.warn(e);
-                            console.info(json);
-                            let electron = require("electron");
-                            electron.ipcRenderer.send("log", "note", "NetStat: Error parsing data from ipinfo.now.sh");
-                            electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
-                        }
-                    });
-                }).on("error", (e) => {
-                    // Drop it
-                });
+                }
 
                 this.si.inetLatency("1.1.1.1", (data) => {
                     let ping;

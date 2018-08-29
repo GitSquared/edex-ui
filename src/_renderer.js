@@ -340,6 +340,7 @@ window.themeChanger = (theme) => {
         e.setAttribute("class", "mod_column");
     });
     document.querySelectorAll(".mod_column > div").forEach(e => {e.remove()});
+    document.querySelectorAll("div.smoothie-chart-tooltip").forEach(e => {e.remove()});
 
     window.term = new Terminal({
         role: "client",
