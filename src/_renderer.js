@@ -86,28 +86,9 @@ _loadTheme(require(path.join(themesDir, settings.theme+".json")));
 // Startup boot log
 let resumeInit, initUI, initMods, initGreeter;
 let bootScreen = document.getElementById("boot_screen");
-let log;
+let log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
 let i = 0;
-// [EXPERIMENTAL] Show dmesg as boot log on *nix
-if (process.platform === "linux" || process.platform === "darwin") {
-    let su = require("sudo-prompt");
-    su.exec("dmesg -HtP", {
-        name: "eDEX UI Log Display",
-        icns: "src/icons/icon.icns"
-    }, (err, stdout, stderr) => {
-        if (err) {
-            log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
-            displayLine();
-        } else {
-            log = stdout.toString().split('\n');
-            log = log.slice(0, 150); // Max 150 lines
-            displayLine();
-        }
-    });
-} else {
-    log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
-    displayLine();
-}
+displayLine();
 
 function displayLine() {
     if (log[i] === undefined) {
