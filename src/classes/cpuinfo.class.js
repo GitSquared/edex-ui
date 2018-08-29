@@ -127,24 +127,41 @@ class Cpuinfo {
             });
             average.forEach((stats, i) => {
                 average[i] = Math.round(stats.reduce((a, b) => a + b, 0)/stats.length);
-                document.getElementById(`mod_cpuinfo_usagecounter${i}`).innerText = `Avg. ${average[i]}%`;
+
+                try {
+                    document.getElementById(`mod_cpuinfo_usagecounter${i}`).innerText = `Avg. ${average[i]}%`;
+                } catch(e) {
+                    // Fail silently, DOM element is probably getting refreshed (new theme, etc)
+                }
             });
         });
     }
     updateCPUtemp() {
         this.si.cpuTemperature((data) => {
-            document.getElementById("mod_cpuinfo_temp").innerText = `${data.main}°C`;
+            try {
+                document.getElementById("mod_cpuinfo_temp").innerText = `${data.main}°C`;
+            } catch(e) {
+                // See above notice
+            }
         });
     }
     updateCPUspeed() {
         this.si.cpuCurrentspeed((data) => {
-            document.getElementById("mod_cpuinfo_speed_min").innerText = `${data.min}GHz`;
-            document.getElementById("mod_cpuinfo_speed_max").innerText = `${data.max}GHz`;
+            try {
+                document.getElementById("mod_cpuinfo_speed_min").innerText = `${data.min}GHz`;
+                document.getElementById("mod_cpuinfo_speed_max").innerText = `${data.max}GHz`;
+            } catch(e) {
+                // See above notice
+            }
         });
     }
     updateCPUtasks() {
         this.si.processes((data) => {
-            document.getElementById("mod_cpuinfo_tasks").innerText = `${data.all}`;
+            try {
+                document.getElementById("mod_cpuinfo_tasks").innerText = `${data.all}`;
+            } catch(e) {
+                // See above notice
+            }
         });
     }
 }
