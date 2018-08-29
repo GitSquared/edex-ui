@@ -9,16 +9,11 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
 
 before_script:
-  - npm i -g greenkeeper-lockfile@1
   - npm install
-  - greenkeeper-lockfile-update
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run build-darwin         ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm run build-linux        ; fi
-
-after_script:
-  - greenkeeper-lockfile-upload
 
 deploy:
   skip_cleanup: true
