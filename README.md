@@ -16,7 +16,7 @@ I had no ideas for a name so i took DEX-UI and added a "e" for Electron. Deal wi
 ## Screenshots
 ![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
 
-_(htop running on eDEX-UI v0.9.0 with the default keyboard and theme)_
+_(neofetch on eDEX-UI v1.0.0-rc1 with the french keyboard and default "tron" theme)_
 
 ## Q&A
 #### What OS can this thing run on?
