@@ -7,7 +7,6 @@ process.on("uncaughtException", e => {
     if (tty) {
         tty.tty.kill();
     }
-    app.exit(1);
 });
 
 signale.start(`Starting eDEX-UI v${app.getVersion()}`);
@@ -79,6 +78,49 @@ fs.readdirSync(innerFontsDir).forEach((e) => {
     fs.writeFileSync(path.join(fontsDir, e), fs.readFileSync(path.join(innerFontsDir, e)));
 });
 
+function createWindow(settings) {
+    signale.info("Creating window...");
+    let {x, y, width, height} = electron.screen.getPrimaryDisplay().bounds;
+    width++; height++;
+    win = new BrowserWindow({
+        title: "eDEX-UI",
+        x,
+        y,
+        width,
+        height,
+        show: false,
+        resizable: true,
+        movable: settings.allowWindowed || false,
+        fullscreen: true,
+        autoHideMenuBar: true,
+        frame: settings.allowWindowed || false,
+        backgroundColor: '#000000',
+        webPreferences: {
+            devTools: true,
+            backgroundThrottling: false,
+            webSecurity: true,
+            allowRunningInsecureContent: false,
+            experimentalFeatures: settings.experimentalFeatures || false
+        }
+    });
+
+    win.loadURL(url.format({
+        pathname: path.join(__dirname, 'ui.html'),
+        protocol: 'file:',
+        slashes: true
+    }));
+
+    win.once("ready-to-show", () => {
+        signale.complete("Frontend window is up!");
+        win.show();
+        if (!settings.allowWindowed) {
+            win.setResizable(false);
+        }
+    });
+
+    signale.watch("Waiting for frontend connection...");
+}
+
 app.on('ready', () => {
     signale.pending(`Loading settings file...`);
     let settings = require(settingsFile);
@@ -122,46 +164,7 @@ app.on('ready', () => {
         }
     });
 
-    signale.info("Creating window...");
-    let {x, y, width, height} = electron.screen.getPrimaryDisplay().bounds;
-    width++; height++;
-    win = new BrowserWindow({
-        title: "eDEX-UI",
-        x,
-        y,
-        width,
-        height,
-        show: false,
-        resizable: true,
-        movable: settings.allowWindowed || false,
-        fullscreen: true,
-        autoHideMenuBar: true,
-        frame: settings.allowWindowed || false,
-        backgroundColor: '#000000',
-        webPreferences: {
-            devTools: true,
-            backgroundThrottling: false,
-            webSecurity: true,
-            allowRunningInsecureContent: false,
-            experimentalFeatures: settings.experimentalFeatures || false
-        }
-    });
-
-    win.loadURL(url.format({
-        pathname: path.join(__dirname, 'ui.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
-
-    win.once("ready-to-show", () => {
-        signale.complete("Frontend window is up!");
-        win.show();
-        if (!settings.allowWindowed) {
-            win.setResizable(false);
-        }
-    });
-
-    signale.watch("Waiting for frontend connection...");
+    createWindow(settings);
 });
 
 app.on('web-contents-created', (e, contents) => {

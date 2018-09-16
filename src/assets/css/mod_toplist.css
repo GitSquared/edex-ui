@@ -1,4 +1,4 @@
-div#mod_syslog {
+div#mod_toplist {
     border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     font-family: var(--font_main_light);
     letter-spacing: 0.092vh;
@@ -7,7 +7,7 @@ div#mod_syslog {
     flex-wrap: wrap;
 }
 
-div#mod_syslog::before {
+div#mod_toplist::before {
     content: "";
     border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     align-self: flex-start;
@@ -17,7 +17,7 @@ div#mod_syslog::before {
     height: 0.833vh;
 }
 
-div#mod_syslog::after {
+div#mod_toplist::after {
     content: "";
     border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
     position: relative;
@@ -26,41 +26,32 @@ div#mod_syslog::after {
     height: 0.833vh;
 }
 
-div#mod_syslog h1 {
+div#mod_toplist h1 {
     font-size: 1.48vh;
     margin: 0vh;
     margin-bottom: -1vh;
-    width: 98%;
+    width: 97%;
+    padding-left: 0.5vh;
 }
 
-div#mod_syslog i {
+div#mod_toplist i {
     font-style: normal;
     font-size: 1.20vh;
     opacity: 0.5;
     text-align: right;
     display: inline-block;
     position: relative;
-    bottom: 1.78vh;
+    bottom: 1.6vh;
     width: 100%;
 }
 
-div#mod_syslog pre {
-    overflow: hidden;
-    white-space: pre-wrap;
+table#mod_toplist_table {
     margin: 0px;
-    height: 9.8vh;
-    margin-top: 0.2vh;
-    width: 99%;
-    margin-left: 1%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    opacity: 0.8;
+    margin-bottom: 0.2vh;
+    width: 97%;
+    padding-left: 0.5vh;
 }
 
-div#mod_syslog pre:empty::after {
-    content: "NO LOG";
-    margin: auto;
-    position: relative;
-    right: 0.5vh;
+table#mod_toplist_table > td {
+
 }
