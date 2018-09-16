@@ -49,7 +49,7 @@ class Netstat {
             let netID = 0;
             while (net.internal === true) {
                 netID++;
-                if (data[netID] !== undefined) {
+                if (data[netID]) {
                     net = data[netID];
                 } else {
                     // No external connection!
@@ -78,7 +78,7 @@ class Netstat {
                                 document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
                             } catch(e) {
                                 console.warn(e);
-                                console.info(json);
+                                console.info(rawData.toString());
                                 let electron = require("electron");
                                 electron.ipcRenderer.send("log", "note", "NetStat: Error parsing data from ipinfo.now.sh");
                                 electron.ipcRenderer.send("log", "debug", `Error: ${e}`);

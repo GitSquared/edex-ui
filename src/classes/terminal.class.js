@@ -181,7 +181,7 @@ class Terminal {
                     this.Ipc.send("clipboard", "read");
                 },
                 didCopy: false
-            }
+            };
 
         } else if (opts.role === "server") {
 
