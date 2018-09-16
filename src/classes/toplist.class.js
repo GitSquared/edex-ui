@@ -31,8 +31,8 @@ class Toplist {
                 let el = document.createElement("tr");
                 el.innerHTML = `<td>${proc.pid}</td>
                                 <td><strong>${proc.name}</strong></td>
-                                <td>${Math.round(proc.pcpu)}%</td>
-                                <td>${proc.pmem}%</td>`;
+                                <td>${Math.round(proc.pcpu*10)/10}%</td>
+                                <td>${Math.round(proc.pmem*10)/10}%</td>`;
                 document.getElementById("mod_toplist_table").append(el);
             });
         });
