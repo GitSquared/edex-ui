@@ -52,6 +52,10 @@ table#mod_toplist_table {
     padding-left: 0.5vh;
 }
 
+table#mod_toplist_table td {
+    font-size: 1.50vh;
+}
+
 table#mod_toplist_table td:nth-child(2) {
     max-width: 7vw;
     min-width: 7vw;
