@@ -106,7 +106,7 @@
     "electron": "2.0.9",
     "electron-builder": "20.28.4",
     "electron-rebuild": "1.8.2",
-    "node-abi": "2.4.3",
+    "node-abi": "2.4.4",
     "node-json-minify": "1.0.0",
     "snyk": "^1.95.3",
     "uglify-es": "3.3.10"
