@@ -30,7 +30,7 @@
     "signale": "1.3.0",
     "smoothie": "1.35.0",
     "systeminformation": "3.45.6",
-    "tail": "1.4.0",
+    "tail": "2.0.0",
     "ws": "6.0.0",
     "xterm": "3.7.0"
   }
