@@ -108,7 +108,7 @@
     "electron-rebuild": "1.8.2",
     "node-abi": "2.4.5",
     "node-json-minify": "1.0.0",
-    "snyk": "^1.100.1",
+    "snyk": "^1.100.2",
     "uglify-es": "3.3.10"
   },
   "snyk": true
