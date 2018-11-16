@@ -14,9 +14,17 @@ eDEX-UI is a fullscreen desktop application ressembling a sci-fi computer interf
 I had no ideas for a name so i took DEX-UI and added a "e" for Electron. Deal with it.
 
 ## Screenshots
-![Pre-release screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
+![Default screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
 
-_(neofetch on eDEX-UI v1.0.0-rc2 with the default "tron" theme & QWERTY keyboard)_
+_([neofetch](https://github.com/dylanaraps/neofetch) on eDEX-UI 1.0 with the default "tron" theme & QWERTY keyboard)_
+
+![Blade screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_blade.png)
+
+_([browsh](https://github.com/browsh-org/browsh) showing the results of a DuckDuckGo image search on eDEX-UI 1.0 with the "blade" theme & AZERTY keyboard)_
+
+![Disrupted screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_disrupted.png)
+
+_([fx](https://github.com/antonmedv/fx) showing the results of a [ipapi](https://github.com/GitSquared/ipapi) query on eDEX-UI 1.0 with the experimental "tron-disrupted" theme, and the French AZERTY keyboard)_
 
 ## Q&A
 #### What OS can this thing run on?
