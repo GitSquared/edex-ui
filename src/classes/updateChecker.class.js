@@ -43,7 +43,6 @@ class UpdateChecker {
                 } else if (this._willfail) {
                     this._fail(d.toString());
                 } else {
-                    console.log(d.toString());
                     try {
                         let release = JSON.parse(d.toString());
                         if (release.tag_name.slice(1) === current) {
