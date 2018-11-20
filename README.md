@@ -43,6 +43,7 @@ Seenaburns' DEX-UI was created _"as an experiment or an art piece, not distribut
 
 ## Featured in...
 - [Linux Uprising Blog](https://www.linuxuprising.com/2018/11/edex-ui-fully-functioning-sci-fi.html)
+- [My post on r/unixporn](https://www.reddit.com/r/unixporn/comments/9ysbx7/oc_a_little_project_that_ive_been_working_on/)
 
 
 ## Useful commands for the nerds
