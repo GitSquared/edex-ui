@@ -116,6 +116,9 @@ class Cpuinfo {
     updateCPUload() {
         this.si.currentLoad((data) => {
             let average = [[], []];
+
+            if (!data.cpus) return; // Prevent memleak in rare case where systeminformation takes extra time to retrieve CPU info (see github issue #216)
+            
             data.cpus.forEach((e, i) => {
                 this.series[i].append(new Date().getTime(), e.load);
 
