@@ -30,12 +30,20 @@ class UpdateChecker {
                     this._willfail = true;
             }
 
-            res.on('data', d => {
+            let rawData = "";
+
+            res.on('data', chunk => {
+                rawData += chunk;
+            });
+
+            res.on('end', () => {
+                let d = rawData;
                 if (this._failed === true) {
                     // Do nothing, it already failed
                 } else if (this._willfail) {
                     this._fail(d.toString());
                 } else {
+                    console.log(d.toString());
                     try {
                         let release = JSON.parse(d.toString());
                         if (release.tag_name.slice(1) === current) {
