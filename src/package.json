@@ -2,7 +2,7 @@
   "name": "edex-ui",
   "productName": "eDEX-UI",
   "version": "1.0.0",
-  "description": "A science fiction desktop running everywhere. Awesome.",
+  "description": "eDEX-UI sci-fi interface",
   "keywords": [
     "desktop",
     "sci-fi",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/GitSquared/edex-ui.git"
   },
-  "author": "GitSquared, Pixelylon",
+  "author": "GitSquared",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/GitSquared/edex-ui/issues"
