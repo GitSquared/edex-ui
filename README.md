@@ -41,6 +41,10 @@ Seenaburns' DEX-UI was created _"as an experiment or an art piece, not distribut
 [Yes.](https://78.media.tumblr.com/35d4ef4447e0112f776b629bffd99188/tumblr_mk4gf8zvyC1s567uwo1_500.gif)
 
 
+## Featured in...
+- [Linux Uprising Blog](https://www.linuxuprising.com/2018/11/edex-ui-fully-functioning-sci-fi.html)
+
+
 ## Useful commands for the nerds
 #### Starting from source:
 on *nix systems (You'll need the Xcode command line tools on MacOS):
