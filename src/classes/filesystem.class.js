@@ -205,7 +205,7 @@ class FilesystemDisplay {
 
                 let cmd = `window.term.write('${e.name}')`;
                 if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
-                    cmd = `window.term.writelr('cd ${e.name}')`;
+                    cmd = `window.term.writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
                 }
 
                 if (e.type === "up" && this._noTracking) {
