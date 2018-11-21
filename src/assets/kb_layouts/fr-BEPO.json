@@ -462,7 +462,9 @@
         },
         {
             "name": "",
-            "cmd": " "
+            "cmd": " ",
+            "shift_cmd": " ",
+            "alt_cmd": "_"
         },
         {
             "name": "ALT GR",
