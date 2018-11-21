@@ -514,6 +514,262 @@ class Keyboard {
                 return char;
             }
         };
+        let addTilde = (char) => {
+            switch (char) {
+            case "a":
+                return "ã";
+            case "A":
+                return "Ã";
+            case "e":
+                return "ẽ";
+            case "E":
+                return "Ẽ";
+            case "i":
+                return "ĩ";
+            case "I":
+                return "Ĩ";
+            case "n":
+                return "ñ";
+            case "N":
+                return "Ñ";
+            case "o":
+                return "õ";
+            case "O":
+                return "Õ";
+            case "u":
+                return "ũ";
+            case "U":
+                return "Ũ";
+            case "v":
+                return "ṽ";
+            case "V":
+                return "Ṽ";
+            case "y":
+                return "ỹ";
+            case "Y":
+                return "Ỹ";
+            case "ê":
+                return "ễ";
+            case "Ê":
+                return "Ễ";
+            default:
+                return char;
+            }
+        };
+        let addMacron = (char) => {
+            switch (char) {
+            case "a":
+                return "ā";
+            case "A":
+                return "Ā";
+            case "e":
+                return "ē";
+            case "E":
+                return "Ē";
+            case "g":
+                return "ḡ";
+            case "G":
+                return "Ḡ";
+            case "i":
+                return "ī";
+            case "I":
+                return "Ī";
+            case "o":
+                return "ō";
+            case "O":
+                return "Ō";
+            case "u":
+                return "ū";
+            case "U":
+                return "Ū";
+            case "y":
+                return "ȳ";
+            case "Y":
+                return "Ȳ";
+            case "é":
+                return "ḗ";
+            case "É":
+                return "Ḗ";
+            case "è":
+                return "ḕ";
+            case "È":
+                return "Ḕ";
+            default:
+                return char;
+            }
+        };
+        let addCedilla = (char) => {
+            switch (char) {
+            case "c":
+                return "ç";
+            case "C":
+                return "Ç";
+            case "d":
+                return "ḑ";
+            case "D":
+                return "Ḑ";
+            case "e":
+                return "ȩ";
+            case "E":
+                return "Ȩ";
+            case "g":
+                return "ģ";
+            case "G":
+                return "Ģ";
+            case "h":
+                return "ḩ";
+            case "H":
+                return "Ḩ";
+            case "k":
+                return "ķ";
+            case "K":
+                return "Ķ";
+            case "l":
+                return "ļ";
+            case "L":
+                return "Ļ";
+            case "n":
+                return "ņ";
+            case "N":
+                return "Ņ";
+            case "r":
+                return "ŗ";
+            case "R":
+                return "Ŗ";
+            case "s":
+                return "ş";
+            case "S":
+                return "Ş";
+            case "t":
+                return "ţ";
+            case "T":
+                return "Ţ";
+            default:
+                return char;
+            }
+        };
+        let addOverring = (char) => {
+            switch (char) {
+            case "a":
+                return "å";
+            case "A":
+                return "Å";
+            case "u":
+                return "ů";
+            case "U":
+                return "Ů";
+            case "w":
+                return "ẘ"; // capital w with overring not supported on bépo layout apparently
+            case "y":
+                return "ẙ"; // same for capital y with overring
+            default:
+                return char;
+            }
+        };
+        let toGreek = (char) => {
+            switch (char) {
+            case "b":
+                return "β";
+            case "p":
+                return "π";
+            case "P":
+                return "Π";
+            case "d":
+                return "δ";
+            case "D":
+                return "Δ";
+            case "l":
+                return "λ";
+            case "L":
+                return "Λ";
+            case "j":
+                return "θ";
+            case "J":
+                return "Θ";
+            case "z":
+                return "ζ";
+            case "w":
+                return "ω";
+            case "W":
+                return "Ω";
+            case "A":
+                return "α";
+            case "u":
+                return "υ";
+            case "U":
+                return "Υ";
+            case "i":
+                return "ι";
+            case "e":
+                return "ε";
+            case "t":
+                return "τ";
+            case "s":
+                return "σ";
+            case "S":
+                return "Σ";
+            case "r":
+                return "ρ";
+            case "R":
+                return "Ρ";
+            case "n":
+                return "ν";
+            case "m":
+                return "μ";
+            case "y":
+                return "ψ";
+            case "Y":
+                return "Ψ";
+            case "x":
+                return "ξ";
+            case "X":
+                return "Ξ";
+            case "k":
+                return "κ";
+            case "q":
+                return "χ";
+            case "Q":
+                return "Χ";
+            case "g":
+                return "γ";
+            case "G":
+                return "Γ";
+            case "h":
+                return "η";
+            case "f":
+                return "φ";
+            case "F":
+                return "Φ";
+            default:
+                return char;
+            }
+        };
+        let addIotasub = (char) => {
+            switch (char) {
+            case "o":
+                return "ǫ";
+            case "O":
+                return "Ǫ";
+            case "a":
+                return "ą";
+            case "A":
+                return "Ą";
+            case "u":
+                return "ų";
+            case "U":
+                return "Ų";
+            case "i":
+                return "į";
+            case "I":
+                return "Į";
+            case "e":
+                return "ę";
+            case "E":
+                return "Ę";
+            default:
+                return char;
+            }
+        };
 
         // Apply click (and/or touch) handler functions (write to socket and animations)
         let pressKey = (key) => {
@@ -551,6 +807,30 @@ class Keyboard {
                 cmd = addBar(cmd);
                 container.dataset.isNextBreve = "false";
             }
+            if (container.dataset.isNextTilde === "true") {
+                cmd = addTilde(cmd);
+                container.dataset.isNextTilde = "false";
+            }
+            if (container.dataset.isNextMacron === "true") {
+                cmd = addMacron(cmd);
+                container.dataset.isNextMacron = "false";
+            }
+            if (container.dataset.isNextCedilla === "true") {
+                cmd = addCedilla(cmd);
+                container.dataset.isNextCedilla = "true";
+            }
+            if (container.dataset.isNextOverring === "true") {
+                cmd = addOverring(cmd);
+                container.dataset.isNextOverring = "false";
+            }
+            if (container.dataset.isNextGreek === "true") {
+                cmd = toGreek(cmd);
+                container.dataset.isNextGreek = "false";
+            }
+            if (container.dataset.isNextIotasub === "true") {
+                cmd = addIotasub(cmd);
+                container.dataset.isNextIotasub = "false";
+            }
 
 
             if (cmd.startsWith("ESCAPED|-- ")) {
@@ -582,13 +862,28 @@ class Keyboard {
                         break;
                     case "CARON":
                         container.dataset.isNextCaron = "true";
-                    break;
-                case "BAR":
-                    container.dataset.isNextBar = "true";
-                    break;
-                case "BREVE":
-                    container.dataset.isNextBreve = "true";
-                    break;
+                        break;
+                    case "BAR":
+                        container.dataset.isNextBar = "true";
+                        break;
+                    case "BREVE":
+                        container.dataset.isNextBreve = "true";
+                        break;
+                    case "MACRON":
+                        container.dataset.isNextMacron = "true";
+                        break;
+                    case "CEDILLA":
+                        container.dataset.isNextCedilla = "true";
+                        break;
+                    case "OVERRING":
+                        container.dataset.isNextOverring = "true";
+                        break;
+                    case "GREEK":
+                        container.dataset.isNextGreek = "true";
+                        break;
+                    case "IOTASUB":
+                        container.dataset.isNextIotasub = "true";
+                        break;
                 }
             } else if (cmd === "\n") {
                 term.writelr("");
