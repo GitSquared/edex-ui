@@ -103,6 +103,27 @@ class Keyboard {
                     return "ĉ";
                 case "C":
                     return "Ĉ";
+                // the circumflex can also be used for subscript numbers
+                case "1":
+                    return "¹";
+                case "2":
+                    return "²";
+                case "3":
+                    return "³";
+                case "4":
+                    return "⁴";
+                case "5":
+                    return "⁵";
+                case "6":
+                    return "⁶";
+                case "7":
+                    return "⁷";
+                case "8":
+                    return "⁸";
+                case "9":
+                    return "⁹";
+                case "0":
+                    return "⁰";
                 default:
                     return char;
             }
@@ -152,6 +173,347 @@ class Keyboard {
                     return char;
             }
         };
+        let addAcute = (char) => {
+            switch(char) {
+            case "a":
+                return "á";
+            case "A":
+                return "Á";
+            case "c":
+                return "ć";
+            case "C":
+                return "Ć";
+            case "e":
+                return "é";
+            case "E":
+                return "E";
+            case "g":
+                return "ǵ";
+            case "G":
+                return "Ǵ";
+            case "i":
+                return "í";
+            case "I":
+                return "Í";
+            case "j":
+                return "ȷ́";
+            case "J":
+                return "J́";
+            case "k":
+                return "ḱ";
+            case "K":
+                return "Ḱ";
+            case "l":
+                return "ĺ";
+            case "L":
+                return "Ĺ";
+            case "m":
+                return "ḿ";
+            case "M":
+                return "Ḿ";
+            case "n":
+                return "ń";
+            case "N":
+                return "Ń";
+            case "o":
+                return "ó";
+            case "O":
+                return "Ó";
+            case "p":
+                return "ṕ";
+            case "P":
+                return "Ṕ";
+            case "r":
+                return "ŕ";
+            case "R":
+                return "Ŕ";
+            case "s":
+                return "ś";
+            case "S":
+                return "Ś";
+            case "u":
+                return "ú";
+            case "U":
+                return "Ú";
+            case "v":
+                return "v́";
+            case "V":
+                return "V́";
+            case "w":
+                return "ẃ";
+            case "W":
+                return "Ẃ";
+            case "y":
+                return "ý";
+            case "Y":
+                return "Ý";
+            case "z":
+                return "ź";
+            case "Z":
+                return "Ź";
+            case "ê":
+                return "ế";
+            case "Ê":
+                return "Ế";
+            case "ç":
+                return "ḉ";
+            case "Ç":
+                return "Ḉ";
+            default:
+                return char;
+            }
+        };
+        let addGrave = (char) => {
+            switch (char) {
+            case "a":
+                return "à";
+            case "A":
+                return "À";
+            case "e":
+                return "è";
+            case "E":
+                return "È";
+            case "i":
+                return "ì";
+            case "I":
+                return "Ì";
+            case "m":
+                return "m̀";
+            case "M":
+                return "M̀";
+            case "n":
+                return "ǹ";
+            case "N":
+                return "Ǹ";
+            case "o":
+                return "ò";
+            case "O":
+                return "Ò";
+            case "u":
+                return "ù";
+            case "U":
+                return "Ù";
+            case "v":
+                return "v̀";
+            case "V":
+                return "V̀";
+            case "w":
+                return "ẁ";
+            case "W":
+                return "Ẁ";
+            case "y":
+                return "ỳ";
+            case "Y":
+                return "Ỳ";
+            case "ê":
+                return "ề";
+            case "Ê":
+                return "Ề";
+            default:
+                return char;
+            }
+        };
+        let addCaron = (char) => {
+            switch (char) {
+            case "a":
+                return "ǎ";
+            case "A":
+                return "Ǎ";
+            case "c":
+                return "č";
+            case "C":
+                return "Č";
+            case "d":
+                return "ď";
+            case "D":
+                return "Ď";
+            case "e":
+                return "ě";
+            case "E":
+                return "Ě";
+            case "g":
+                return "ǧ";
+            case "G":
+                return "Ǧ";
+            case "h":
+                return "ȟ";
+            case "H":
+                return "Ȟ";
+            case "i":
+                return "ǐ";
+            case "I":
+                return "Ǐ";
+            case "j":
+                return "ǰ";
+            case "k":
+                return "ǩ";
+            case "K":
+                return "Ǩ";
+            case "l":
+                return "ľ";
+            case "L":
+                return "Ľ";
+            case "n":
+                return "ň";
+            case "N":
+                return "Ň";
+            case "o":
+                return "ǒ";
+            case "O":
+                return "Ǒ";
+            case "r":
+                return "ř";
+            case "R":
+                return "Ř";
+            case "s":
+                return "š";
+            case "S":
+                return "Š";
+            case "t":
+                return "ť";
+            case "T":
+                return "Ť";
+            case "u":
+                return "ǔ";
+            case "U":
+                return "Ǔ";
+            case "z":
+                return "ž";
+            case "Z":
+                return "Ž";
+                // caron can also be used for subscript numbers
+            case "1":
+                return "₁";
+            case "2":
+                return "₂";
+            case "3":
+                return "₃";
+            case "4":
+                return "₄";
+            case "5":
+                return "₅";
+            case "6":
+                return "₆";
+            case "7":
+                return "₇";
+            case "8":
+                return "₈";
+            case "9":
+                return "₉";
+            case "0":
+                return "₀";
+            default:
+                return char;
+            }
+        };
+        let addBar = (char) => {
+            switch (char) {
+            case "a":
+                return "ⱥ";
+            case "A":
+                return "Ⱥ";
+            case "b":
+                return "ƀ";
+            case "B":
+                return "Ƀ";
+            case "c":
+                return "ȼ";
+            case "C":
+                return "Ȼ";
+            case "d":
+                return "đ";
+            case "D":
+                return "Đ";
+            case "e":
+                return "ɇ";
+            case "E":
+                return "Ɇ";
+            case "g":
+                return "ǥ";
+            case "G":
+                return "Ǥ";
+            case "h":
+                return "ħ";
+            case "H":
+                return "Ħ";
+            case "i":
+                return "ɨ";
+            case "I":
+                return "Ɨ";
+            case "j":
+                return "ɉ";
+            case "J":
+                return "Ɉ";
+            case "l":
+                return "ł";
+            case "L":
+                return "Ł";
+            case "o":
+                return "ø";
+            case "O":
+                return "Ø";
+            case "p":
+                return "ᵽ";
+            case "P":
+                return "Ᵽ";
+            case "r":
+                return "ɍ";
+            case "R":
+                return "Ɍ";
+            case "t":
+                return "ŧ";
+            case "T":
+                return "Ŧ";
+            case "u":
+                return "ʉ";
+            case "U":
+                return "Ʉ";
+            case "y":
+                return "ɏ";
+            case "Y":
+                return "Ɏ";
+            case "z":
+                return "ƶ";
+            case "Z":
+                return "Ƶ";
+            default:
+                return char;
+            }
+        };
+        let addBreve = (char) => {
+            switch (char) {
+            case "a":
+                return "ă";
+            case "A":
+                return "Ă";
+            case "e":
+                return "ĕ";
+            case "E":
+                return "Ĕ";
+            case "g":
+                return "ğ";
+            case "G":
+                return "Ğ";
+            case "i":
+                return "ĭ";
+            case "I":
+                return "Ĭ";
+            case "o":
+                return "ŏ";
+            case "O":
+                return "Ŏ";
+            case "u":
+                return "ŭ";
+            case "U":
+                return "Ŭ";
+            case "à":
+                return "ằ";
+            case "À":
+                return "Ằ";
+            default:
+                return char;
+            }
+        };
 
         // Apply click (and/or touch) handler functions (write to socket and animations)
         let pressKey = (key) => {
@@ -169,6 +531,27 @@ class Keyboard {
                 cmd = addTrema(cmd);
                 container.dataset.isNextTrema = "false";
             }
+            if (container.dataset.isNextAcute === "true") {
+                cmd = addAcute(cmd);
+                container.dataset.isNextAcute = "false";
+            }
+            if (container.dataset.isNextGrave === "true") {
+                cmd = addGrave(cmd);
+                container.dataset.isNextGrave = "false";
+            }
+            if (container.dataset.isNextCaron === "true") {
+                cmd = addCaron(cmd);
+                container.dataset.isNextCaron = "false";
+            }
+            if (container.dataset.isNextBar === "true") {
+                cmd = addBar(cmd);
+                container.dataset.isNextBar = "false";
+            }
+            if (container.dataset.isNextBreve === "true") {
+                cmd = addBar(cmd);
+                container.dataset.isNextBreve = "false";
+            }
+
 
             if (cmd.startsWith("ESCAPED|-- ")) {
                 cmd = cmd.substr(11);
@@ -191,6 +574,21 @@ class Keyboard {
                     case "TREMA":
                         container.dataset.isNextTrema = "true";
                         break;
+                    case "ACUTE":
+                        container.dataset.isNextAcute = "true";
+                        break;
+                    case "GRAVE":
+                        container.dataset.isNextGrave = "true";
+                        break;
+                    case "CARON":
+                        container.dataset.isNextCaron = "true";
+                    break;
+                case "BAR":
+                    container.dataset.isNextBar = "true";
+                    break;
+                case "BREVE":
+                    container.dataset.isNextBreve = "true";
+                    break;
                 }
             } else if (cmd === "\n") {
                 term.writelr("");
