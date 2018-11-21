@@ -153,13 +153,12 @@
             "shift_cmd": "B",
             "alt_name": "|",
             "alt_cmd": "|",
-            "ctrl_cmd": "~~~CTRLSEQ13~~~"
+            "ctrl_cmd": "~~~CTRLSEQ21~~~"
         },
         {
             "name": "É",
             "cmd": "é",
             "shift_cmd": "É",
-            "ctrl_cmd": "~~~CTRLSEQ17~~~",
             "alt_name": "´",
             "alt_cmd": "ESCAPED|-- ACUTE"
         },
@@ -169,7 +168,7 @@
             "shift_cmd": "P",
             "alt_name": "&",
             "alt_cmd": "&",
-            "ctrl_cmd": "\r"
+            "ctrl_cmd": "~~~CTRLSEQ12~~~"
         },
         {
             "name": "O",
@@ -200,8 +199,9 @@
             "name": "V",
             "cmd": "v",
             "shift_cmd": "V",
-            "ctrl_cmd": "~~~CTRLSEQ11~~~",
-            "alt_cmd": "~~~CTRLSEQ1~~~v"
+            "ctrl_cmd": "~~~CTRLSEQ20~~~",
+            "alt_name": "ˇ",
+            "alt_cmd": "ESCAPE|-- CARON"
         },
         {
             "name": "D",
@@ -215,6 +215,7 @@
             "name": "L",
             "cmd": "l",
             "shift_cmd": "L",
+            "alt_name": "/",
             "alt_cmd": "ESCAPED|-- BAR"
         },
         {
@@ -319,6 +320,7 @@
             "name": "R",
             "cmd": "r",
             "shift_cmd": "R",
+            "ctrl_cmd": "~~~CTRLSEQ8~~~",
             "alt_name": "®",
             "alt_cmd": "®"
         },
@@ -404,6 +406,7 @@
             "cmd": "'",
             "shift_name": "?",
             "shift_cmd": "?",
+            "ctrl_cmd": "~~~CTRLSEQ2~~~",
             "alt_name": "¿",
             "alt_cmd": "¿"
         },
@@ -434,6 +437,7 @@
             "name": "F",
             "cmd": "f",
             "shift_cmd": "F",
+            "ctrl_cmd": "~~~CTRLSEQ16~~~",
             "alt_name": "˛",
             "alt_cmd": "ESCAPED|-- IOTASUB"
         },
