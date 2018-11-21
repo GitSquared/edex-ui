@@ -1,0 +1,46 @@
+/* Support for other screen ratios than 16:9 */
+@media (aspect-ratio: 16/10) {
+    div.keyboard_row:last-child {
+        left: 1.1vh;
+    }
+    div.keyboard_row#row_2 > div.keyboard_enter {
+        top: -0.7vh;
+        right: -0.9vh;
+    }
+}
+
+@media (aspect-ratio: 64/27) { /* Commercial name of 64/27 ratio is 21:9 */
+    div.keyboard_row#row_1 > div.keyboard_enter {
+        height: 2.1vw;
+        margin-top: 0.2vh;
+    }
+    div.keyboard_row#row_2 > div.keyboard_enter {
+        height: 6vh;
+    }
+    div.keyboard_key#keyboard_spacebar {
+        width: 60vh;
+    }
+    div.keyboard_row#row_space {
+        left: 1.6vw;
+    }
+
+    div#mod_cpuinfo > div > div {
+        width: 94%;
+    }
+
+    table#mod_toplist_table {
+        margin-top: -1vh;
+    }
+
+    div#mod_netstat_inner {
+        width: 100%;
+    }
+
+    div#mod_globe canvas {
+        width: 85%;
+    }
+
+    div#mod_conninfo canvas {
+        height: 8vh;
+    }
+}
