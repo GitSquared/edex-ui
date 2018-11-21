@@ -222,7 +222,7 @@ class FilesystemDisplay {
                     cmd = `window.remakeKeyboard('${e.name.slice(0, -5)}')`;
                 }
                 if (e.type === "edex-settings" && process.env.editor) {
-                    cmd = `window.term.writelr('${process.env.editor} ${e.name.slice(0, -5)}')`;
+                    cmd = `window.term.writelr('${process.env.editor} \\'${e.name.slice(0, -5)}\\'')`;
                 }
 
                 let icon = "";
