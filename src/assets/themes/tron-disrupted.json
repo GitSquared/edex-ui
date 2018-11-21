@@ -26,5 +26,5 @@
         "pin": "#aacfd1",
         "satellite": "#aacfd1"
     },
-    "injectCSS": "section#main_shell{position:relative;left:29vh;}section#main_shell>h3.title{left:calc(29vh + 16.5vw)!important;}section#mod_column_right{left:28.5vh!important;}section#mod_column_right>h3.title{left:29.6vh!important;}div#mod_netstat_inner{height:6.85vh;padding-top:.5vh;}div#mod_globe_innercontainer{padding-bottom:.95vh;}div#mod_conninfo canvas{height:8vh!important;}"
+    "injectCSS": "section#main_shell{position:relative;left:29vh;}section#main_shell>h3.title{left:calc(29vh + 16.5vw)!important;}section#mod_column_right{left:28.5vh!important;}section#mod_column_right>h3.title{left:29.6vh!important;}div#mod_netstat_inner{height:6.85vh;padding-top:.5vh;}div#mod_globe_innercontainer{padding-bottom:.95vh;}div#mod_conninfo canvas{height:8vh!important;} @media (aspect-ratio:64/27) {section#mod_column_left > h3.title{left:1.6vh!important}section#mod_column_left{left:1vh !important}section#mod_column_right > h3.title{left:44vh!important}section#mod_column_right{left:43vh !important}section#main_shell > h3.title{left:37vw !important;width:60% !important}section#main_shell{left:41vh;width:60%}}"
 }

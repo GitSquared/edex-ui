@@ -221,15 +221,3 @@ section#keyboard[data-is-fn-on="true"] > div.keyboard_row > div.keyboard_key > h
     position: absolute;
     opacity: 0;
 }
-
-/* Support for other screen ratios than 16:9 */
-@media (aspect-ratio: 16/10) {
-    div.keyboard_row:last-child {
-        left: 1.1vh;
-    }
-
-    div.keyboard_row#row_2 > div.keyboard_enter {
-        top: -0.7vh;
-        right: -0.9vh;
-    }
-}
