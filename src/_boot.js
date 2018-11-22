@@ -82,7 +82,7 @@ function createWindow(settings) {
     signale.info("Creating window...");
 
     let display;
-    if (!isNaN(settings.monitor)) {
+    if (!isNaN(settings.monitor) && electron.screen.getAllDisplays()[settings.monitor]) {
         display = electron.screen.getAllDisplays()[settings.monitor];
     } else {
         display = electron.screen.getPrimaryDisplay();
