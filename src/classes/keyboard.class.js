@@ -291,6 +291,12 @@ class Keyboard {
                         }, 100);
                     };
                 }
+                
+                // See #229
+                key.onmouseleave = () => {
+                    clearTimeout(key.holdTimeout);
+                    clearInterval(key.holdInterval);
+                };
             });
         });
 
