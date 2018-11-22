@@ -9,6 +9,8 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
 
 before_script:
+  - npm install snyk
+  - npm run snyk-protect
   - npm install
 
 script:
