@@ -27,6 +27,7 @@ class Keyboard {
                     key.innerHTML = `<h1>${keyObj.name}</h1>`;
                 } else {
                     key.innerHTML = `
+                        <h5>${keyObj.altshift_name || ""}</h5>
                         <h4>${keyObj.fn_name || ""}</h4>
                         <h3>${keyObj.alt_name || ""}</h3>
                         <h2>${keyObj.shift_name || ""}</h2>
@@ -777,6 +778,7 @@ class Keyboard {
             if (container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;
             if (container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
             if (container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
+            if (container.dataset.isAltOn === "true" && container.dataset.isShiftOn === "true" && key.dataset.altshift_cmd) cmd = key.dataset.altshift_cmd;
             if (container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
 
             if (container.dataset.isNextCircum === "true") {
@@ -982,6 +984,12 @@ class Keyboard {
                         }, 100);
                     };
                 }
+                
+                // See #229
+                key.onmouseleave = () => {
+                    clearTimeout(key.holdTimeout);
+                    clearInterval(key.holdInterval);
+                };
             });
         });
 

@@ -4,7 +4,7 @@ pull_requests:
 install:
 - ps: Install-Product node 8
 build_script:
-- cmd: npm install && npm install 7zip-bin-win && npm run build-windows
+- cmd: npm install snyk && npm run snyk-protect && npm install && npm install 7zip-bin-win && npm run build-windows
 test: off
 artifacts:
   - path: "dist\\eDEX-UI Windows Installer.exe"

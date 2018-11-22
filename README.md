@@ -5,13 +5,15 @@
 </p>
 
 
-Download | Linux & MacOS | Windows | Dependencies | Build system | Source
---------- | ------------- | ------- | ------------ | ------------ | ------
+Download | Linux & macOS | Windows | Dependencies | Build system | Source
+-------- | ------------- | ------- | ------------ | ------------ | ------
 [![Release Badge](https://badgen.net/github/release/GitSquared/edex-ui)](https://github.com/GitSquared/edex-ui/releases) | [![Build Status](https://travis-ci.org/GitSquared/edex-ui.svg?branch=master)](https://travis-ci.org/GitSquared/edex-ui) | [![Build status](https://ci.appveyor.com/api/projects/status/leb069bro8gwocu7/branch/master?svg=true)](https://ci.appveyor.com/project/GitSquared/edex-ui/branch/master) | [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=GitSquared/edex-ui)](https://dependabot.com) | [![Known Vulnerabilities](https://snyk.io/test/github/GitSquared/edex-ui/badge.svg?targetFile=package.json)](https://snyk.io/test/github/GitSquared/edex-ui?targetFile=package.json) | [![Known Vulnerabilities](https://snyk.io/test/github/GitSquared/edex-ui/badge.svg?targetFile=src%2Fpackage.json)](https://snyk.io/test/github/GitSquared/edex-ui?targetFile=src%2Fpackage.json)
 
 eDEX-UI is a fullscreen desktop application resembling a sci-fi computer interface, heavily inspired from [DEX-UI](https://github.com/seenaburns/dex-ui) and the [TRON Legacy movie effects](https://web.archive.org/web/20170511000410/http://jtnimoy.com/blogs/projects/14881671). It runs the shell of your choice in a real terminal, and displays live information about your system. It was made to be used on large touchscreens but will work nicely on a regular desktop computer or perhaps a tablet PC or one of those funky 360° laptops with touchscreens.
 
 I had no ideas for a name so i took DEX-UI and added a "e" for Electron. Deal with it.
+
+([Official ArchLinux AUR package](https://aur.archlinux.org/packages/edex-ui/) maintained by [@JesusCrie](https://github.com/JesusCrie))
 
 ## Screenshots
 ![Default screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
@@ -28,9 +30,9 @@ _([fx](https://github.com/antonmedv/fx) showing the results of a [ipapi](https:/
 
 ## Q&A
 #### What OS can this thing run on?
-Currently Windows, the latest MacOS and any linux distro that can run Chromium (AppImage package).
+Currently Windows, the latest macOS and any Linux distro that can run Chromium (AppImage package).
 #### Is this a real terminal?
-Yes. By default, eDEX runs bash on linux and Powershell on Windows, but you can change that to any command in the settings.json file.
+Yes. By default, eDEX runs bash on Linux and Powershell on Windows, but you can change that to any command in the settings.json file.
 #### I don't like the colors/the keyboard layout is not right for me!
 We got you covered! Check the [repo's Wiki](https://github.com/GitSquared/edex-ui/wiki) for in-depth information about customizing eDEX.
 #### Why is there a keyboard?
@@ -45,16 +47,18 @@ Seenaburns' DEX-UI was created _"as an experiment or an art piece, not distribut
 - [Linux Uprising Blog](https://www.linuxuprising.com/2018/11/edex-ui-fully-functioning-sci-fi.html)
 - [My post on r/unixporn](https://www.reddit.com/r/unixporn/comments/9ysbx7/oc_a_little_project_that_ive_been_working_on/)
 - [Korben article (in french)](https://korben.info/une-interface-futuriste-pour-vos-ecrans-tactiles.html)
+- [Hacker News](https://news.ycombinator.com/item?id=18509828)
+- [This tweet that made me smile](https://twitter.com/mikemaccana/status/1065615451940667396)
 
 
 ## Useful commands for the nerds
 #### Starting from source:
-on *nix systems (You'll need the Xcode command line tools on MacOS):
+on *nix systems (You'll need the Xcode command line tools on macOS):
 - clone the repository
 - `npm run install-linux`
 - `npm start`
 
-on windows:
+on Windows:
 - start cmd or powershell **as administrator**
 - clone the repository
 - `npm run install-windows`
