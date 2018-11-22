@@ -265,9 +265,20 @@ class FilesystemDisplay {
                             </div>`;
             });
             this.filesContainer.innerHTML = filesDOM;
-
-            this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
-            this.space_bar.bar.value = Math.round(this.fsBlock.use);
+            
+            // See #226
+            if (!isNaN(this.fsBlock.use)) {
+                this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
+                this.space_bar.bar.value = Math.round(this.fsBlock.use);
+            } else if (!isNaN((this.fsBlock.size / this.fsBlock.used) * 100)) {
+                let usage = Math.round((this.fsBlock.size / this.fsBlock.used) * 100);
+                
+                this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${usage}%</strong>`;
+                this.space_bar.bar.value = usage;
+            } else {
+                this.space_bar.text.innerHTML = "Could not calculate mountpoint usage.";
+                this.space_bar.bar.value = 100;
+            }
         };
     }
 }
