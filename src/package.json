@@ -16,7 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/GitSquared/edex-ui.git"
   },
-  "author": "GitSquared",
+  "author": "GitSquared <squared@codebrew.fr>",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/GitSquared/edex-ui/issues"
