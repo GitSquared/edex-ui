@@ -13,6 +13,8 @@ eDEX-UI is a fullscreen desktop application resembling a sci-fi computer interfa
 
 I had no ideas for a name so i took DEX-UI and added a "e" for Electron. Deal with it.
 
+([Official ArchLinux AUR package](https://aur.archlinux.org/packages/edex-ui/) maintained by [@JesusCrie](https://github.com/JesusCrie))
+
 ## Screenshots
 ![Default screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
 
