@@ -189,6 +189,7 @@
         {
             "name": "^",
             "cmd": "ESCAPED|-- CIRCUM",
+            "capslck_cmd": "ESCAPED|-- CIRCUM",
             "shift_name": "!",
             "shift_cmd": "!",
             "ctrl_cmd": "~~~CTRLSEQ10~~~",
@@ -287,6 +288,7 @@
         {
             "name": ",",
             "cmd": ",",
+            "capslck_cmd": ",",
             "shift_name": ";",
             "shift_cmd": ";",
             "alt_name": "’",
@@ -389,6 +391,7 @@
         {
             "name": ".",
             "cmd": ".",
+            "capslck_cmd": ".",
             "shift_name": ":",
             "shift_cmd": ":",
             "alt_name": "…",
@@ -404,6 +407,7 @@
         {
             "name": "'",
             "cmd": "'",
+            "capslck_cmd": "'",
             "shift_name": "?",
             "shift_cmd": "?",
             "ctrl_cmd": "~~~CTRLSEQ2~~~",
