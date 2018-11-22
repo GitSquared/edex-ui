@@ -108,7 +108,7 @@ class Terminal {
                     }
                 }, 200);
             };
-            this.socket.onerror = (e) => {throw e};
+            this.socket.onerror = (e) => {throw JSON.stringify(e)};
 
             let parent = document.getElementById(opts.parentId);
             parent.addEventListener("wheel", e => {
