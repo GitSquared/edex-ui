@@ -103,7 +103,7 @@ class Keyboard {
                     return "ĉ";
                 case "C":
                     return "Ĉ";
-                // the circumflex can also be used for subscript numbers
+                // the circumflex can also be used for superscript numbers
                 case "1":
                     return "¹";
                 case "2":
