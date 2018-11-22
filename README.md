@@ -45,6 +45,8 @@ Seenaburns' DEX-UI was created _"as an experiment or an art piece, not distribut
 - [Linux Uprising Blog](https://www.linuxuprising.com/2018/11/edex-ui-fully-functioning-sci-fi.html)
 - [My post on r/unixporn](https://www.reddit.com/r/unixporn/comments/9ysbx7/oc_a_little_project_that_ive_been_working_on/)
 - [Korben article (in french)](https://korben.info/une-interface-futuriste-pour-vos-ecrans-tactiles.html)
+- [Hacker News](https://news.ycombinator.com/item?id=18509828)
+- [This tweet that made me smile](https://twitter.com/mikemaccana/status/1065615451940667396)
 
 
 ## Useful commands for the nerds
