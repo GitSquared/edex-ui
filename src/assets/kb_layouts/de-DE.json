@@ -204,7 +204,6 @@
         {
             "name": "Ü",
             "cmd": "ü",
-            "shift_name": "Ü",
             "shift_cmd": "Ü",
             "ctrl_cmd": "~~~CTRLSEQ1~~~"
         },
@@ -288,13 +287,11 @@
         {
             "name": "Ö",
             "cmd": "ö",
-            "shift_name": "Ö",
             "shift_cmd": "Ö"
         },
         {
             "name": "Ä",
             "cmd": "ä",
-            "shift_name": "Ä",
             "shift_cmd": "Ä"
         },
         {
