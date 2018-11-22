@@ -40,7 +40,7 @@ eDEX-UI is meant to be used on touchscreens, even if it works well on regular di
 #### What's the difference between this and the original DEX-UI?
 Seenaburns' DEX-UI was created _"as an experiment or an art piece, not distributable software"_. The goal of this project is to push Seena's vision forward by making such an interface usable in real-life scenarios.
 #### Will using this make me insanely badass?
-[Yes.](https://78.media.tumblr.com/35d4ef4447e0112f776b629bffd99188/tumblr_mk4gf8zvyC1s567uwo1_500.gif)
+![Yes.](https://78.media.tumblr.com/35d4ef4447e0112f776b629bffd99188/tumblr_mk4gf8zvyC1s567uwo1_500.gif)
 
 
 ## Featured in...
