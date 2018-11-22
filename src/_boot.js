@@ -80,7 +80,14 @@ fs.readdirSync(innerFontsDir).forEach((e) => {
 
 function createWindow(settings) {
     signale.info("Creating window...");
-    let {x, y, width, height} = electron.screen.getPrimaryDisplay().bounds;
+
+    let display;
+    if (!isNaN(settings.monitor)) {
+        display = electron.screen.getAllDisplays()[settings.monitor];
+    } else {
+        display = electron.screen.getPrimaryDisplay();
+    }
+    let {x, y, width, height} = display.bounds;
     width++; height++;
     win = new BrowserWindow({
         title: "eDEX-UI",
