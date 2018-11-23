@@ -253,7 +253,7 @@ class Terminal {
                 }
             }, 1000);
 
-            this.tty = this.Pty.spawn(opts.shell || "bash", [], {
+            this.tty = this.Pty.spawn(opts.shell || "bash", opts.params || [], {
                 name: "xterm-color",
                 cols: 80,
                 rows: 24,

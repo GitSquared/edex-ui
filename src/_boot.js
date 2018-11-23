@@ -136,7 +136,8 @@ app.on('ready', () => {
     signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
         role: "server",
-        shell: settings.shell,
+        shell: settings.shell.split(" ")[0],
+        params: settings.shell.split(" ").splice(1),
         cwd: settings.cwd,
         port: settings.port || 3000
     });
