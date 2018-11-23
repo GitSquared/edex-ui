@@ -26,7 +26,8 @@
     "postbuild-linux": "rm -R prebuild-src",
     "postbuild-darwin": "rm -R prebuild-src",
     "postbuild-windows": "rmdir /S /Q prebuild-src",
-    "snyk-protect": "snyk protect"
+    "snyk-protect": "snyk protect",
+    "test": "rsync -a --info=progress2 src prebuild-src --exclude node_modules && node prebuild-minify.js && rm -R prebuild-src"
   },
   "repository": {
     "type": "git",
