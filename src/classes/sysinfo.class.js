@@ -8,13 +8,13 @@ class Sysinfo {
         let os;
         switch (require("os").platform()) {
             case "darwin":
-                let os = "macOS";
+                os = "macOS";
                 break;
             case "win32":
-                let os = "win";
+                os = "win";
                 break;
             default:
-                let os = require("os").platform();
+                os = require("os").platform();
         }
         
         // Create DOM
