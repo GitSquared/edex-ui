@@ -82,7 +82,14 @@ class FilesystemDisplay {
             fs.readdir(tcwd, (err, content) => {
                 if (err !== null) {
                     console.warn(err);
-                    this.setFailedState();
+                    if (this._noTracking === true && this.dirpath) { // #262
+                        this.setFailedState();
+                        setTimeout(() => {
+                            this.readFS(this.dirpath);
+                        }, 1000);
+                    } else {
+                        this.setFailedState();
+                    }
                 } else {
                     this.cwd = [];
                     this._tmp = {
@@ -265,14 +272,14 @@ class FilesystemDisplay {
                             </div>`;
             });
             this.filesContainer.innerHTML = filesDOM;
-            
+
             // See #226
             if (!isNaN(this.fsBlock.use)) {
                 this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
                 this.space_bar.bar.value = Math.round(this.fsBlock.use);
             } else if (!isNaN((this.fsBlock.size / this.fsBlock.used) * 100)) {
                 let usage = Math.round((this.fsBlock.size / this.fsBlock.used) * 100);
-                
+
                 this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${usage}%</strong>`;
                 this.space_bar.bar.value = usage;
             } else {
