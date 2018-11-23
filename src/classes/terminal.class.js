@@ -183,6 +183,10 @@ class Terminal {
                 didCopy: false
             };
 
+            window.onresize = () => {
+                window.term.fit();
+            }
+
         } else if (opts.role === "server") {
 
             this.Pty = require("node-pty");
