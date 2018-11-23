@@ -109,7 +109,7 @@ class FilesystemDisplay {
 
                                 i++;
                                 if (i === content.length) {
-                                    if (tcwd !== "/") {
+                                    if (tcwd !== "/" && tcwd !== "\\") {
                                         this.cwd.push({
                                             name: "..",
                                             type: "up"
