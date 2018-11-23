@@ -210,7 +210,7 @@ class FilesystemDisplay {
                     hidden = " hidden";
                 }
 
-                let cmd = `window.term.write('${e.name}')`;
+                let cmd = `window.term.write('\\'${e.name}'\\')`;
                 if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
                     cmd = `window.term.writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
                 }
