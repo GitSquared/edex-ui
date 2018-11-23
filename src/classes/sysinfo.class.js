@@ -46,7 +46,7 @@ class Sysinfo {
         this.updateBattery();
         this.batteryUpdater = setInterval(() => {
             this.updateBattery();
-        }, 60000);
+        }, 3000);
     }
     updateDate() {
         let time = new Date();
