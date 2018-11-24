@@ -53,6 +53,8 @@ Yes.
 - [Korben article (in french)](https://korben.info/une-interface-futuriste-pour-vos-ecrans-tactiles.html)
 - [Hacker News](https://news.ycombinator.com/item?id=18509828)
 - [This tweet that made me smile](https://twitter.com/mikemaccana/status/1065615451940667396)
+- [BoingBoing article](https://boingboing.net/2018/11/23/simulacrum-sf.html) - Apparently i'm a "French hacker" lol
+- [OReilly 4 short links](https://www.oreilly.com/ideas/four-short-links-23-november-2018)
 
 
 ## Useful commands for the nerds
