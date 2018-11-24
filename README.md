@@ -55,6 +55,9 @@ Yes.
 
 ## Useful commands for the nerds
 #### Starting from source:
+
+**IMPORTANT NOTE:** the following instructions are meant **for DEVELOPERS ONLY**. If you're just a casual user please download the precompiled binaries available on the [Releases tab](https://github.com/GitSquared/edex-ui/releases).
+
 on *nix systems (You'll need the Xcode command line tools on macOS):
 - clone the repository
 - `npm run install-linux`
