@@ -221,6 +221,7 @@ app.on('ready', () => {
             term.onopened = () => {
                 signale.success(`TTY ${port} connected to frontend`);
             };
+            term.onresized = () => {};
             term.ondisconnected = () => {
                 term.onclosed = () => {};
                 term.close();
@@ -229,6 +230,7 @@ app.on('ready', () => {
             };
 
             extraTtys[port] = term;
+            e.sender.send("ttyspawn-reply", "SUCCESS: "+port);
         }
     });
 });
