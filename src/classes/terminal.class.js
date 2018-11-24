@@ -314,6 +314,10 @@ class Terminal {
                     }
                 });
             });
+
+            this.close = () => {
+                this.tty.kill();
+            };
         } else {
             throw "Unknown purpose";
         }
