@@ -6,7 +6,7 @@ html, body {
     overflow: hidden;
 }
 body {
-    /* cursor: none; */
+    cursor: default !important;
     user-select: none !important;
     padding-top: 1.85vh;
     color: rgb(var(--color_r), var(--color_g), var(--color_b));
