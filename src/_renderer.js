@@ -295,6 +295,9 @@ initGreeter = () => {
                         })
                     };
                     window.currentTerm = 0;
+                    window.term[0].onprocesschange = p => {
+                        document.getElementById("shell_tab0").innerText = "MAIN - "+p;
+                    };
                     // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
                     window.onmouseup = (e) => {
                         window.term[window.currentTerm].term.focus();
@@ -316,6 +319,14 @@ initGreeter = () => {
 
 window.themeChanger = (theme) => {
     window.focusShellTab(0);
+    for (let i = 1; i <= 4; i++) {
+        if (typeof window.term[i] !== undefined) {
+            window.term[i].socket.close();
+            delete window.term[i];
+            document.getElementById("shell_tab"+i).innerText = "EMPTY";
+            document.getElementById("terminal"+i).innerHTML = "";
+        }
+    }
 
     let src = path.join(themesDir, theme+".json" || settings.theme+".json");
     // Always get fresh theme files
@@ -348,6 +359,11 @@ window.themeChanger = (theme) => {
         })
     };
     window.currentTerm = 0;
+    window.term[0].onprocesschange = p => {
+        document.getElementById("shell_tab0").innerText = "MAIN - "+p;
+    };
+
+
     initMods();
     window.fsDisp = new FilesystemDisplay({
         parentId: "filesystem"
@@ -383,6 +399,8 @@ window.focusShellTab = (number) => {
         window.term[number].fit();
         window.term[number].term.focus();
         window.term[number].resendCWD();
+
+        window.fsDisp.followTab();
     } else if (number > 0 && number <= 4 && window.term[number] !== null) {
         window.term[number] = null;
 
@@ -401,10 +419,15 @@ window.focusShellTab = (number) => {
                 });
 
                 window.term[number].onclose = e => {
+                    delete window.term[number].onprocesschange;
                     document.getElementById("shell_tab"+number).innerText = "EMPTY";
                     document.getElementById("terminal"+number).innerHTML = "";
                     delete window.term[number];
                     window.focusShellTab(0);
+                };
+
+                window.term[number].onprocesschange = p => {
+                    document.getElementById("shell_tab"+number).innerText = `#${number} - ${p}`;
                 };
 
                 document.getElementById("shell_tab"+number).innerText = "::"+port;

@@ -85,6 +85,11 @@ class Terminal {
                         this.cwd = "FALLBACK |-- "+args[1];
                         this.oncwdchange(this.cwd);
                         break;
+                    case "New process":
+                        if (this.onprocesschange) {
+                            this.onprocesschange(args[1]);
+                        }
+                        break;
                     default:
                         return;
                 }
@@ -239,6 +244,7 @@ class Terminal {
                 });
             };
             this._nextTickUpdateTtyCWD = false;
+            this._nextTickUpdateProcess = false;
             this._tick = setInterval(() => {
                 if (this._nextTickUpdateTtyCWD && this._disableCWDtracking === false) {
                     this._nextTickUpdateTtyCWD = false;
@@ -257,6 +263,11 @@ class Terminal {
                             }
                         }
                     });
+                }
+
+                if (this.renderer && this._nextTickUpdateProcess) {
+                    this.renderer.send("terminal_channel-"+this.port, "New process", this.tty._file);
+                    this._nextTickUpdateProcess = false;
                 }
             }, 1000);
 
@@ -315,6 +326,7 @@ class Terminal {
                 });
                 this.tty.on("data", (data) => {
                     this._nextTickUpdateTtyCWD = true;
+                    this._nextTickUpdateProcess = true;
                     try {
                         ws.send(data);
                     } catch (e) {

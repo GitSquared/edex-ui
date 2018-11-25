@@ -55,20 +55,25 @@ class FilesystemDisplay {
             <h2 id="fs_disp_error">CANNOT ACCESS CURRENT WORKING DIRECTORY</h2>`;
         };
 
-        window.term[window.currentTerm].oncwdchange = (cwd) => {
-            if (cwd) {
-                if (this._fsWatcher) {
-                    this._fsWatcher.close();
+        this.followTab = () => {
+            let num = window.currentTerm;
+
+            window.term[num].oncwdchange = (cwd) => {
+                if (cwd && window.currentTerm === num) {
+                    if (this._fsWatcher) {
+                        this._fsWatcher.close();
+                    }
+                    if (cwd.startsWith("FALLBACK |-- ")) {
+                        this.readFS(cwd.slice(13));
+                        this._noTracking = true;
+                    } else {
+                        this.readFS(cwd);
+                        this.watchFS(cwd);
+                    }
                 }
-                if (cwd.startsWith("FALLBACK |-- ")) {
-                    this.readFS(cwd.slice(13));
-                    this._noTracking = true;
-                } else {
-                    this.readFS(cwd);
-                    this.watchFS(cwd);
-                }
-            }
+            };
         };
+        this.followTab();
 
         this.watchFS = (dir) => {
             if (this._fsWatcher) {
