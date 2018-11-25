@@ -195,13 +195,13 @@ class Keyboard {
                         break;
                 }
             } else if (cmd === "\n") {
-                term.writelr("");
-            } else if (cmd === ctrlseq[19] && window.term.term.hasSelection()) {
-                window.term.clipboard.copy();
-            } else if (cmd === ctrlseq[20] && window.term.clipboard.didCopy) {
-                window.term.clipboard.paste();
+                window.term[window.currentTerm].writelr("");
+            } else if (cmd === ctrlseq[19] && window.term[window.currentTerm].term.hasSelection()) {
+                window.term[window.currentTerm].clipboard.copy();
+            } else if (cmd === ctrlseq[20] && window.term[window.currentTerm].clipboard.didCopy) {
+                window.term[window.currentTerm].clipboard.paste();
             } else {
-                term.write(cmd);
+                window.term[window.currentTerm].write(cmd);
             }
         };
 
@@ -226,7 +226,7 @@ class Keyboard {
                         });
 
                         // Keep focus on the terminal
-                        term.term.focus();
+                        window.term[window.currentTerm].term.focus();
                         e.preventDefault();
                     };
                     key.onmouseup = () => {
@@ -265,7 +265,7 @@ class Keyboard {
                         pressKey(key);
 
                         // Keep focus on the terminal
-                        term.term.focus();
+                        window.term[window.currentTerm].term.focus();
                         e.preventDefault();
                     };
                     key.onmouseup = (e) => {
@@ -291,7 +291,7 @@ class Keyboard {
                         }, 100);
                     };
                 }
-                
+
                 // See #229
                 key.onmouseleave = () => {
                     clearTimeout(key.holdTimeout);

@@ -169,7 +169,7 @@ initUI = () => {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
-    <section id="main_shell" class="greeting" style="height:0%;width:0%;opacity:0;margin-bottom:30vh;">
+    <section id="main_shell" style="height:0%;width:0%;opacity:0;margin-bottom:30vh;">
         <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
         <h1 id="main_shell_greeting"></h1>
     </section>
@@ -272,15 +272,32 @@ initGreeter = () => {
             setTimeout(() => {
                 greeter.remove();
                 setTimeout(() => {
-                    shellContainer.innerHTML += `<pre id="terminal"></pre>`;
-                    window.term = new Terminal({
-                        role: "client",
-                        parentId: "terminal",
-                        port: window.settings.port || 3000
-                    });
+                    shellContainer.innerHTML += `
+                        <ul id="main_shell_tabs">
+                            <li id="shell_tab0" onclick="window.focusShellTab(0);" class="active">MAIN SHELL</li>
+                            <li id="shell_tab1" onclick="window.focusShellTab(1);">EMPTY</li>
+                            <li id="shell_tab2" onclick="window.focusShellTab(2);">EMPTY</li>
+                            <li id="shell_tab3" onclick="window.focusShellTab(3);">EMPTY</li>
+                            <li id="shell_tab4" onclick="window.focusShellTab(4);">EMPTY</li>
+                        </ul>
+                        <div id="main_shell_innercontainer">
+                            <pre id="terminal0" class="active"></pre>
+                            <pre id="terminal1"></pre>
+                            <pre id="terminal2"></pre>
+                            <pre id="terminal3"></pre>
+                            <pre id="terminal4"></pre>
+                        </div>`;
+                    window.term = {
+                        0: new Terminal({
+                            role: "client",
+                            parentId: "terminal0",
+                            port: window.settings.port || 3000
+                        })
+                    };
+                    window.currentTerm = 0;
                     // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
                     window.onmouseup = (e) => {
-                        window.term.term.focus();
+                        window.term[window.currentTerm].term.focus();
                     };
 
                     window.fsDisp = new FilesystemDisplay({
@@ -298,6 +315,8 @@ initGreeter = () => {
 };
 
 window.themeChanger = (theme) => {
+    window.focusShellTab(0);
+
     let src = path.join(themesDir, theme+".json" || settings.theme+".json");
     // Always get fresh theme files
     delete require.cache[src];
@@ -309,30 +328,33 @@ window.themeChanger = (theme) => {
     for (let i; i < 99999; i++) {
         clearInterval(i);
     }
-    window.term.socket.close();
-    delete window.term;
+    window.term[window.currentTerm].socket.close();
+    delete window.term[window.currentTerm];
     delete window.mods;
     delete window.fsDisp;
 
-    document.getElementById("terminal").innerHTML = "";
+    document.getElementById("terminal0").innerHTML = "";
     document.querySelectorAll(".mod_column").forEach((e) => {
         e.setAttribute("class", "mod_column");
     });
     document.querySelectorAll(".mod_column > div").forEach(e => {e.remove()});
     document.querySelectorAll("div.smoothie-chart-tooltip").forEach(e => {e.remove()});
 
-    window.term = new Terminal({
-        role: "client",
-        parentId: "terminal",
-        port: window.settings.port || 3000
-    });
+    window.term = {
+        0: new Terminal({
+            role: "client",
+            parentId: "terminal0",
+            port: window.settings.port || 3000
+        })
+    };
+    window.currentTerm = 0;
     initMods();
     window.fsDisp = new FilesystemDisplay({
         parentId: "filesystem"
     });
 
     setTimeout(() => {
-        window.term.fit();
+        window.term[window.currentTerm].fit();
     }, 2700);
 };
 
@@ -343,6 +365,67 @@ window.remakeKeyboard = (layout) => {
         container: "keyboard"
     });
 };
+
+window.focusShellTab = (number) => {
+    if (number !== window.currentTerm && window.term[number]) {
+        window.currentTerm = number;
+
+        document.querySelectorAll(`ul#main_shell_tabs > li:not(:nth-child(${number+1}))`).forEach(e => {
+            e.setAttribute("class", "");
+        });
+        document.getElementById("shell_tab"+number).setAttribute("class", "active");
+
+        document.querySelectorAll(`div#main_shell_innercontainer > pre:not(:nth-child(${number+1}))`).forEach(e => {
+            e.setAttribute("class", "");
+        });
+        document.getElementById("terminal"+number).setAttribute("class", "active");
+
+        window.term[number].fit();
+        window.term[number].term.focus();
+        window.term[number].resendCWD();
+    } else if (number > 0 && number <= 4 && window.term[number] !== null) {
+        window.term[number] = null;
+
+        document.getElementById("shell_tab"+number).innerText = "LOADING...";
+        ipc.send("ttyspawn", "true");
+        ipc.once("ttyspawn-reply", (e, r) => {
+            if (r.startsWith("ERROR")) {
+                document.getElementById("shell_tab"+number).innerText = "ERROR";
+            } else if (r.startsWith("SUCCESS")) {
+                let port = Number(r.substr(9));
+
+                window.term[number] = new Terminal({
+                    role: "client",
+                    parentId: "terminal"+number,
+                    port
+                });
+
+                window.term[number].onclose = e => {
+                    document.getElementById("shell_tab"+number).innerText = "EMPTY";
+                    document.getElementById("terminal"+number).innerHTML = "";
+                    delete window.term[number];
+                    window.focusShellTab(0);
+                };
+
+                document.getElementById("shell_tab"+number).innerText = "::"+port;
+                setTimeout(() => {
+                    window.focusShellTab(number);
+                }, 500);
+            }
+        });
+    }
+};
+
+// Global keyboard shortcuts
+const globalShortcut = electron.remote.globalShortcut;
+globalShortcut.register("CommandOrControl+Tab", () => {
+    if (window.currentTerm <= 3) {
+        window.focusShellTab(window.currentTerm+1);
+    } else {
+        window.focusShellTab(0);
+    }
+});
+
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 window.onkeydown = e => {
@@ -362,3 +445,8 @@ window.onkeydown = e => {
 
 // Fix double-tap zoom on touchscreens
 require('electron').webFrame.setVisualZoomLevelLimits(1, 1);
+
+// Resize terminal with window
+window.onresize = () => {
+    window.term[window.currentTerm].fit();
+}

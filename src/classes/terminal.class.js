@@ -89,6 +89,9 @@ class Terminal {
                         return;
                 }
             });
+            this.resendCWD = () => {
+                this.oncwdchange(this.cwd || null);
+            };
 
             let sockHost = opts.host || "127.0.0.1";
             let sockPort = this.port;
@@ -108,7 +111,12 @@ class Terminal {
                     }
                 }, 200);
             };
-            this.socket.onerror = (e) => {throw JSON.stringify(e)};
+            this.socket.onerror = e => {throw JSON.stringify(e)};
+            this.socket.onclose = e => {
+                if (this.onclose) {
+                    this.onclose(e);
+                }
+            };
 
             let parent = document.getElementById(opts.parentId);
             parent.addEventListener("wheel", e => {
@@ -149,7 +157,7 @@ class Terminal {
             this.fit = () => {
                 this.term.fit();
                 setTimeout(() => {
-                    this.resize(this.term.cols+1, this.term.rows);
+                    this.resize(this.term.cols+1, this.term.rows-1);
                 }, 50);
             };
 
@@ -183,10 +191,6 @@ class Terminal {
                 didCopy: false
             };
 
-            window.onresize = () => {
-                window.term.fit();
-            }
-
         } else if (opts.role === "server") {
 
             this.Pty = require("node-pty");
@@ -196,6 +200,7 @@ class Terminal {
             this.renderer = null;
             this.port = opts.port || 3000;
 
+            this._closed = false;
             this.onclosed = () => {};
             this.onopened = () => {};
             this.onresize = () => {};
@@ -244,10 +249,12 @@ class Terminal {
                             this.renderer.send("terminal_channel-"+this.port, "New cwd", cwd);
                         }
                     }).catch(e => {
-                        console.log("Error while tracking TTY working directory: ", e);
-                        this._disableCWDtracking = true;
-                        if (this.renderer) {
-                            this.renderer.send("terminal_channel-"+this.port, "Fallback cwd", opts.cwd || process.env.PWD);
+                        if (!this._closed) {
+                            console.log("Error while tracking TTY working directory: ", e);
+                            this._disableCWDtracking = true;
+                            if (this.renderer) {
+                                this.renderer.send("terminal_channel-"+this.port, "Fallback cwd", opts.cwd || process.env.PWD);
+                            }
                         }
                     });
                 }
@@ -262,6 +269,7 @@ class Terminal {
             });
 
             this.tty.on("exit", (code, signal) => {
+                this._closed = true;
                 this.onclosed(code, signal);
             });
 
@@ -317,6 +325,7 @@ class Terminal {
 
             this.close = () => {
                 this.tty.kill();
+                this._closed = true;
             };
         } else {
             throw "Unknown purpose";

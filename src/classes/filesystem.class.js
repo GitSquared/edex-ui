@@ -55,8 +55,11 @@ class FilesystemDisplay {
             <h2 id="fs_disp_error">CANNOT ACCESS CURRENT WORKING DIRECTORY</h2>`;
         };
 
-        window.term.oncwdchange = (cwd) => {
+        window.term[window.currentTerm].oncwdchange = (cwd) => {
             if (cwd) {
+                if (this._fsWatcher) {
+                    this._fsWatcher.close();
+                }
                 if (cwd.startsWith("FALLBACK |-- ")) {
                     this.readFS(cwd.slice(13));
                     this._noTracking = true;
@@ -210,9 +213,9 @@ class FilesystemDisplay {
                     hidden = " hidden";
                 }
 
-                let cmd = `window.term.write('\\'${e.name}'\\')`;
+                let cmd = `window.term[window.currentTerm].write('\\'${e.name}'\\')`;
                 if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
-                    cmd = `window.term.writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
+                    cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
                 }
 
                 if (e.type === "up" && this._noTracking) {
@@ -229,7 +232,7 @@ class FilesystemDisplay {
                     cmd = `window.remakeKeyboard('${e.name.slice(0, -5)}')`;
                 }
                 if (e.type === "edex-settings" && process.env.editor) {
-                    cmd = `window.term.writelr('${process.env.editor} \\'${e.name.slice(0, -5)}\\'')`;
+                    cmd = `window.term[window.currentTerm].writelr('${process.env.editor} \\'${e.name.slice(0, -5)}\\'')`;
                 }
 
                 let icon = "";

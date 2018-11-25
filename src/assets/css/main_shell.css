@@ -4,11 +4,14 @@ section#main_shell {
     padding: 0.74vh;
     border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
     border-radius: 0.278vh;
-    transition: width .5s cubic-bezier(0.4, 0, 1, 1), height .5s cubic-bezier(0.4, 0, 1, 1);
-}
 
-section#main_shell.greeting {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
+
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1), height .5s cubic-bezier(0.4, 0, 1, 1);
 }
 
 h1#main_shell_greeting {
@@ -35,11 +38,63 @@ section#main_shell > h3.title > p {
     width: 49.8%;
 }
 
-section#main_shell pre {
+ul#main_shell_tabs {
+    margin: 0;
+    margin-top: -0.70vh;
+    margin-left: -0.74vh;
+    padding: 0;
+    width: calc(100% + 1.48vh);
+    display: flex;
+    box-sizing: border-box;
+    border-bottom: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    border-top-left-radius: 0.278vh;
+    border-top-right-radius: 0.278vh;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+ul#main_shell_tabs > li {
+    cursor: pointer;
+    display: block;
+    font-family: var(--font_main);
+    font-weight: normal;
+    width: 100%;
+    padding-top: 0.7vh;
+    padding-bottom: 0.4vh;
+    text-align: center;
+    box-sizing: border-box;
+
+    background: var(--color_light_black);
+}
+ul#main_shell_tabs > li:not(:first-child) {
+    border-left: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+}
+
+ul#main_shell_tabs > li.active {
+    background: rgb(var(--color_r), var(--color_g), var(--color_b));
+    color: var(--color_light_black);
+    font-weight: bold;
+}
+
+div#main_shell_innercontainer, div#main_shell_innercontainer pre {
     height: 100%;
     width: 100%;
     margin: 0vh;
     overflow: hidden;
+}
+
+div#main_shell_innercontainer pre {
+    z-index: -999;
+    opacity: 0;
+    position: absolute;
+}
+
+div#main_shell_innercontainer pre.active {
+    z-index: inherit;
+    opacity: 1;
 }
 
 .terminal .xterm-viewport {
