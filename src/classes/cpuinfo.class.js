@@ -40,7 +40,7 @@ class Cpuinfo {
                 <div>
                     <div>
                         <h1>${(process.platform === "win32") ? "CORES" : "TEMP"}<br>
-                        <i id="mod_cpuinfo_temp">${(process.platform === "win32") ? "XX" : "--°C"}</i></h1>
+                        <i id="mod_cpuinfo_temp">${(process.platform === "win32") ? data.cores : "--°C"}</i></h1>
                     </div>
                     <div>
                         <h1>MIN<br>
