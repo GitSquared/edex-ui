@@ -427,7 +427,7 @@ window.focusShellTab = (number) => {
                 };
 
                 window.term[number].onprocesschange = p => {
-                    document.getElementById("shell_tab"+number).innerText = `#${number} - ${p}`;
+                    document.getElementById("shell_tab"+number).innerText = `#${number+1} - ${p}`;
                 };
 
                 document.getElementById("shell_tab"+number).innerText = "::"+port;
@@ -441,12 +441,53 @@ window.focusShellTab = (number) => {
 
 // Global keyboard shortcuts
 const globalShortcut = electron.remote.globalShortcut;
+globalShortcut.unregisterAll();
+
+// Switch tabs
+// Next
 globalShortcut.register("CommandOrControl+Tab", () => {
-    if (window.currentTerm <= 3) {
+    console.log("next");
+    if (window.term[window.currentTerm+1]) {
         window.focusShellTab(window.currentTerm+1);
+    } else if (window.term[window.currentTerm+2]) {
+        window.focusShellTab(window.currentTerm+2);
+    } else if (window.term[window.currentTerm+3]) {
+        window.focusShellTab(window.currentTerm+3);
+    } else if (window.term[window.currentTerm+4]) {
+        window.focusShellTab(window.currentTerm+4);
     } else {
         window.focusShellTab(0);
     }
+});
+// Previous
+globalShortcut.register("CommandOrControl+Shift+Tab", () => {
+    if (window.term[window.currentTerm-1]) {
+        window.focusShellTab(window.currentTerm-1);
+    } else if (window.term[window.currentTerm-2]) {
+        window.focusShellTab(window.currentTerm-2);
+    } else if (window.term[window.currentTerm-3]) {
+        window.focusShellTab(window.currentTerm-3);
+    } else if (window.term[window.currentTerm-4]) {
+        window.focusShellTab(window.currentTerm-4);
+    } else if (window.term[4]){
+        window.focusShellTab(4);
+    }
+});
+// By tab number
+globalShortcut.register("CommandOrControl+1", () => {
+    window.focusShellTab(0);
+});
+globalShortcut.register("CommandOrControl+2", () => {
+    window.focusShellTab(1);
+});
+globalShortcut.register("CommandOrControl+3", () => {
+    window.focusShellTab(2);
+});
+globalShortcut.register("CommandOrControl+4", () => {
+    window.focusShellTab(3);
+});
+globalShortcut.register("CommandOrControl+5", () => {
+    window.focusShellTab(4);
 });
 
 

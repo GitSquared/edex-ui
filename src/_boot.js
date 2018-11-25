@@ -163,12 +163,6 @@ app.on('ready', () => {
     };
     tty.ondisconnected = () => {
         signale.error("Lost connection to frontend");
-        Object.keys(extraTtys).forEach(key => {
-            if (extraTtys[key] !== null) {
-                extraTtys[key].close();
-                extraTtys[key] = null;
-            }
-        });
         signale.watch("Waiting for frontend connection...");
     };
 
@@ -232,6 +226,7 @@ app.on('ready', () => {
             term.ondisconnected = () => {
                 term.onclosed = () => {};
                 term.close();
+                term.wss.close();
                 extraTtys[term.port] = null;
                 delete term;
             };
