@@ -89,12 +89,25 @@ div#main_shell_innercontainer, div#main_shell_innercontainer pre {
 div#main_shell_innercontainer pre {
     z-index: -999;
     opacity: 0;
-    position: absolute;
+    position: relative;
 }
 
 div#main_shell_innercontainer pre.active {
     z-index: inherit;
     opacity: 1;
+}
+
+div#main_shell_innercontainer pre#terminal1 {
+    top: -100%;
+}
+div#main_shell_innercontainer pre#terminal2 {
+    top: -200%;
+}
+div#main_shell_innercontainer pre#terminal3 {
+    top: -300%;
+}
+div#main_shell_innercontainer pre#terminal4 {
+    top: -400%;
 }
 
 .terminal .xterm-viewport {

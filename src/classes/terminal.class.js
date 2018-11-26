@@ -162,7 +162,7 @@ class Terminal {
             this.fit = () => {
                 this.term.fit();
                 setTimeout(() => {
-                    this.resize(this.term.cols+1, this.term.rows-1);
+                    this.resize(this.term.cols+1, this.term.rows+1);
                 }, 50);
             };
 
