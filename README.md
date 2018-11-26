@@ -56,6 +56,7 @@ Yes.
 - [BoingBoing article](https://boingboing.net/2018/11/23/simulacrum-sf.html) - Apparently i'm a "French hacker" lol
 - [OReilly 4 short links](https://www.oreilly.com/ideas/four-short-links-23-november-2018)
 - [Hackaday](https://hackaday.com/2018/11/23/look-like-a-movie-hacker/)
+- [Developpez.com (another french link)](https://www.developpez.com/actu/234808/Une-application-de-bureau-ressemble-a-une-interface-d-ordinateur-de-science-fiction-inspiree-des-effets-du-film-TRON-Legacy/)
 
 
 ## Useful commands for the nerds
