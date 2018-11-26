@@ -318,9 +318,8 @@ initGreeter = () => {
 };
 
 window.themeChanger = (theme) => {
-    window.focusShellTab(0);
     for (let i = 1; i <= 4; i++) {
-        if (typeof window.term[i] !== undefined) {
+        if (typeof window.term[i] === "object") {
             window.term[i].socket.close();
             delete window.term[i];
             document.getElementById("shell_tab"+i).innerText = "EMPTY";
