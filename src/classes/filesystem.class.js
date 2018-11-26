@@ -55,17 +55,25 @@ class FilesystemDisplay {
             <h2 id="fs_disp_error">CANNOT ACCESS CURRENT WORKING DIRECTORY</h2>`;
         };
 
-        window.term.oncwdchange = (cwd) => {
-            if (cwd) {
-                if (cwd.startsWith("FALLBACK |-- ")) {
-                    this.readFS(cwd.slice(13));
-                    this._noTracking = true;
-                } else {
-                    this.readFS(cwd);
-                    this.watchFS(cwd);
+        this.followTab = () => {
+            let num = window.currentTerm;
+
+            window.term[num].oncwdchange = (cwd) => {
+                if (cwd && window.currentTerm === num) {
+                    if (this._fsWatcher) {
+                        this._fsWatcher.close();
+                    }
+                    if (cwd.startsWith("FALLBACK |-- ")) {
+                        this.readFS(cwd.slice(13));
+                        this._noTracking = true;
+                    } else {
+                        this.readFS(cwd);
+                        this.watchFS(cwd);
+                    }
                 }
-            }
+            };
         };
+        this.followTab();
 
         this.watchFS = (dir) => {
             if (this._fsWatcher) {
@@ -82,7 +90,14 @@ class FilesystemDisplay {
             fs.readdir(tcwd, (err, content) => {
                 if (err !== null) {
                     console.warn(err);
-                    this.setFailedState();
+                    if (this._noTracking === true && this.dirpath) { // #262
+                        this.setFailedState();
+                        setTimeout(() => {
+                            this.readFS(this.dirpath);
+                        }, 1000);
+                    } else {
+                        this.setFailedState();
+                    }
                 } else {
                     this.cwd = [];
                     this._tmp = {
@@ -109,7 +124,7 @@ class FilesystemDisplay {
 
                                 i++;
                                 if (i === content.length) {
-                                    if (tcwd !== "/") {
+                                    if (tcwd !== "/" && tcwd !== "\\") {
                                         this.cwd.push({
                                             name: "..",
                                             type: "up"
@@ -203,9 +218,9 @@ class FilesystemDisplay {
                     hidden = " hidden";
                 }
 
-                let cmd = `window.term.write('${e.name}')`;
+                let cmd = `window.term[window.currentTerm].write('\\'${e.name}'\\')`;
                 if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
-                    cmd = `window.term.writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
+                    cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
                 }
 
                 if (e.type === "up" && this._noTracking) {
@@ -222,7 +237,7 @@ class FilesystemDisplay {
                     cmd = `window.remakeKeyboard('${e.name.slice(0, -5)}')`;
                 }
                 if (e.type === "edex-settings" && process.env.editor) {
-                    cmd = `window.term.writelr('${process.env.editor} \\'${e.name.slice(0, -5)}\\'')`;
+                    cmd = `window.term[window.currentTerm].writelr('${process.env.editor} \\'${e.name.slice(0, -5)}\\'')`;
                 }
 
                 let icon = "";
@@ -265,14 +280,14 @@ class FilesystemDisplay {
                             </div>`;
             });
             this.filesContainer.innerHTML = filesDOM;
-            
+
             // See #226
             if (!isNaN(this.fsBlock.use)) {
                 this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
                 this.space_bar.bar.value = Math.round(this.fsBlock.use);
             } else if (!isNaN((this.fsBlock.size / this.fsBlock.used) * 100)) {
                 let usage = Math.round((this.fsBlock.size / this.fsBlock.used) * 100);
-                
+
                 this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${usage}%</strong>`;
                 this.space_bar.bar.value = usage;
             } else {

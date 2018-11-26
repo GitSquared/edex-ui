@@ -3,7 +3,20 @@ class Sysinfo {
         if (!parentId) throw "Missing parameters";
 
         this.si = require("systeminformation");
-
+        
+        // See #255
+        let os;
+        switch (require("os").platform()) {
+            case "darwin":
+                os = "macOS";
+                break;
+            case "win32":
+                os = "win";
+                break;
+            default:
+                os = require("os").platform();
+        }
+        
         // Create DOM
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_sysinfo">
@@ -17,7 +30,7 @@ class Sysinfo {
             </div>
             <div>
                 <h1>TYPE</h1>
-                <h2>${require("os").platform().toUpperCase()}</h2>
+                <h2>${os}</h2>
             </div>
             <div>
                 <h1>POWER</h1>
@@ -33,7 +46,7 @@ class Sysinfo {
         this.updateBattery();
         this.batteryUpdater = setInterval(() => {
             this.updateBattery();
-        }, 60000);
+        }, 3000);
     }
     updateDate() {
         let time = new Date();

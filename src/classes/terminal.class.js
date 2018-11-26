@@ -85,10 +85,18 @@ class Terminal {
                         this.cwd = "FALLBACK |-- "+args[1];
                         this.oncwdchange(this.cwd);
                         break;
+                    case "New process":
+                        if (this.onprocesschange) {
+                            this.onprocesschange(args[1]);
+                        }
+                        break;
                     default:
                         return;
                 }
             });
+            this.resendCWD = () => {
+                this.oncwdchange(this.cwd || null);
+            };
 
             let sockHost = opts.host || "127.0.0.1";
             let sockPort = this.port;
@@ -108,7 +116,12 @@ class Terminal {
                     }
                 }, 200);
             };
-            this.socket.onerror = (e) => {throw JSON.stringify(e)};
+            this.socket.onerror = e => {throw JSON.stringify(e)};
+            this.socket.onclose = e => {
+                if (this.onclose) {
+                    this.onclose(e);
+                }
+            };
 
             let parent = document.getElementById(opts.parentId);
             parent.addEventListener("wheel", e => {
@@ -149,7 +162,7 @@ class Terminal {
             this.fit = () => {
                 this.term.fit();
                 setTimeout(() => {
-                    this.resize(this.term.cols+1, this.term.rows);
+                    this.resize(this.term.cols+1, this.term.rows+1);
                 }, 50);
             };
 
@@ -192,6 +205,7 @@ class Terminal {
             this.renderer = null;
             this.port = opts.port || 3000;
 
+            this._closed = false;
             this.onclosed = () => {};
             this.onopened = () => {};
             this.onresize = () => {};
@@ -230,6 +244,7 @@ class Terminal {
                 });
             };
             this._nextTickUpdateTtyCWD = false;
+            this._nextTickUpdateProcess = false;
             this._tick = setInterval(() => {
                 if (this._nextTickUpdateTtyCWD && this._disableCWDtracking === false) {
                     this._nextTickUpdateTtyCWD = false;
@@ -240,16 +255,23 @@ class Terminal {
                             this.renderer.send("terminal_channel-"+this.port, "New cwd", cwd);
                         }
                     }).catch(e => {
-                        console.log("Error while tracking TTY working directory: ", e);
-                        this._disableCWDtracking = true;
-                        if (this.renderer) {
-                            this.renderer.send("terminal_channel-"+this.port, "Fallback cwd", opts.cwd || process.env.PWD);
+                        if (!this._closed) {
+                            console.log("Error while tracking TTY working directory: ", e);
+                            this._disableCWDtracking = true;
+                            if (this.renderer) {
+                                this.renderer.send("terminal_channel-"+this.port, "Fallback cwd", opts.cwd || process.env.PWD);
+                            }
                         }
                     });
                 }
+
+                if (this.renderer && this._nextTickUpdateProcess) {
+                    this.renderer.send("terminal_channel-"+this.port, "New process", this.tty._file);
+                    this._nextTickUpdateProcess = false;
+                }
             }, 1000);
 
-            this.tty = this.Pty.spawn(opts.shell || "bash", [], {
+            this.tty = this.Pty.spawn(opts.shell || "bash", opts.params || [], {
                 name: "xterm-color",
                 cols: 80,
                 rows: 24,
@@ -258,6 +280,7 @@ class Terminal {
             });
 
             this.tty.on("exit", (code, signal) => {
+                this._closed = true;
                 this.onclosed(code, signal);
             });
 
@@ -303,6 +326,7 @@ class Terminal {
                 });
                 this.tty.on("data", (data) => {
                     this._nextTickUpdateTtyCWD = true;
+                    this._nextTickUpdateProcess = true;
                     try {
                         ws.send(data);
                     } catch (e) {
@@ -310,6 +334,11 @@ class Terminal {
                     }
                 });
             });
+
+            this.close = () => {
+                this.tty.kill();
+                this._closed = true;
+            };
         } else {
             throw "Unknown purpose";
         }

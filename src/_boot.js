@@ -5,7 +5,14 @@ process.on("uncaughtException", e => {
     signale.fatal(e);
     dialog.showErrorBox("eEDEX-UI failed to launch", e.message || "Cannot retrieve error message.");
     if (tty) {
-        tty.tty.kill();
+        tty.close();
+    }
+    if (extraTtys) {
+        Object.keys(extraTtys).forEach(key => {
+            if (extraTtys[key] !== null) {
+                extraTtys[key].close();
+            }
+        });
     }
 });
 
@@ -26,7 +33,7 @@ ipc.on("log", (e, type, content) => {
     signale[type](content);
 });
 
-var win, tty;
+var win, tty, extraTtys;
 const settingsFile = path.join(electron.app.getPath("userData"), "settings.json");
 const themesDir = path.join(electron.app.getPath("userData"), "themes");
 const innerThemesDir = path.join(__dirname, "assets/themes");
@@ -80,7 +87,14 @@ fs.readdirSync(innerFontsDir).forEach((e) => {
 
 function createWindow(settings) {
     signale.info("Creating window...");
-    let {x, y, width, height} = electron.screen.getPrimaryDisplay().bounds;
+
+    let display;
+    if (!isNaN(settings.monitor)) {
+        display = electron.screen.getAllDisplays()[settings.monitor] || electron.screen.getPrimaryDisplay();
+    } else {
+        display = electron.screen.getPrimaryDisplay();
+    }
+    let {x, y, width, height} = display.bounds;
     width++; height++;
     win = new BrowserWindow({
         title: "eDEX-UI",
@@ -129,7 +143,8 @@ app.on('ready', () => {
     signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
         role: "server",
-        shell: settings.shell,
+        shell: settings.shell.split(" ")[0],
+        params: settings.shell.split(" ").splice(1),
         cwd: settings.cwd,
         port: settings.port || 3000
     });
@@ -165,6 +180,61 @@ app.on('ready', () => {
     });
 
     createWindow(settings);
+
+    // Support for more terminals, used for creating tabs (currently limited to 4 extra terms)
+    extraTtys = {};
+    let basePort = settings.port || 3000;
+    basePort = Number(basePort) + 2;
+
+    for (let i = 0; i < 4; i++) {
+        extraTtys[basePort+i] = null;
+    }
+
+    ipc.on("ttyspawn", (e, arg) => {
+        let port = null;
+        Object.keys(extraTtys).forEach(key => {
+            if (extraTtys[key] === null && port === null) {
+                extraTtys[key] = {};
+                port = key;
+            }
+        });
+
+        if (port === null) {
+            signale.error("TTY spawn denied (Reason: exceeded max TTYs number)");
+            e.sender.send("ttyspawn-reply", "ERROR: max number of ttys reached");
+        } else {
+            signale.pending(`Creating new TTY process on port ${port}`);
+            let term = new Terminal({
+                role: "server",
+                shell: settings.shell.split(" ")[0],
+                params: settings.shell.split(" ").splice(1),
+                cwd: tty.tty._cwd || settings.cwd,
+                port: port
+            });
+            signale.success(`New terminal back-end initialized at ${port}`);
+            term.onclosed = (code, signal) => {
+                term.ondisconnected = () => {};
+                term.wss.close();
+                signale.complete(`TTY exited at ${port}`, code, signal);
+                extraTtys[term.port] = null;
+                delete term;
+            };
+            term.onopened = () => {
+                signale.success(`TTY ${port} connected to frontend`);
+            };
+            term.onresized = () => {};
+            term.ondisconnected = () => {
+                term.onclosed = () => {};
+                term.close();
+                term.wss.close();
+                extraTtys[term.port] = null;
+                delete term;
+            };
+
+            extraTtys[port] = term;
+            e.sender.send("ttyspawn-reply", "SUCCESS: "+port);
+        }
+    });
 });
 
 app.on('web-contents-created', (e, contents) => {
@@ -185,6 +255,11 @@ app.on('window-all-closed', () => {
 });
 
 app.on('before-quit', () => {
-    tty.tty.kill();
+    tty.close();
+    Object.keys(extraTtys).forEach(key => {
+        if (extraTtys[key] !== null) {
+            extraTtys[key].close();
+        }
+    });
     signale.complete("Shutting down...");
 });

@@ -1,7 +1,7 @@
 {
   "name": "edex-ui",
   "productName": "eDEX-UI",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "A science fiction desktop running everywhere. Awesome.",
   "keywords": [
     "desktop",
@@ -26,7 +26,8 @@
     "postbuild-linux": "rm -R prebuild-src",
     "postbuild-darwin": "rm -R prebuild-src",
     "postbuild-windows": "rmdir /S /Q prebuild-src",
-    "snyk-protect": "snyk protect"
+    "snyk-protect": "snyk protect",
+    "test": "rsync -a --info=progress2 src prebuild-src --exclude node_modules && node prebuild-minify.js && rm -R prebuild-src"
   },
   "repository": {
     "type": "git",
@@ -107,8 +108,8 @@
     "electron-rebuild": "1.8.2",
     "node-abi": "2.5.0",
     "node-json-minify": "1.0.0",
-    "snyk": "^1.108.2",
-    "uglify-es": "3.3.10"
+    "snyk": "^1.110.2",
+    "uglify-es": "3.3.9"
   },
   "snyk": true
 }
