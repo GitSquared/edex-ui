@@ -401,7 +401,7 @@ window.focusShellTab = (number) => {
         window.term[number].resendCWD();
 
         window.fsDisp.followTab();
-    } else if (number > 0 && number <= 4 && window.term[number] !== null) {
+    } else if (number > 0 && number <= 4 && window.term[number] !== null && typeof window.term[number] !== "object") {
         window.term[number] = null;
 
         document.getElementById("shell_tab"+number).innerText = "LOADING...";
