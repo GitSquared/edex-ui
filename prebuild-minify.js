@@ -80,3 +80,4 @@ const recursiveMinify = (dirPath) => {
 };
 
 recursiveMinify(path.join(__dirname, "prebuild-src"));
+modif
