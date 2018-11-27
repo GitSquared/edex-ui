@@ -13,7 +13,7 @@ class LocationGlobe {
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_globe">
             <div id="mod_globe_innercontainer">
-                <h1>WORLD VIEW<i class="mod_globe_location">GLOBAL NETWORK MAP</i></h1>
+                <h1>WORLD VIEW<i>GLOBAL NETWORK MAP</i></h1>
                 <h2>ENDPOINT LAT/LON<i class="mod_globe_headerInfo">0.0000, 0.0000</i></h2>
                 <div id="mod_globe_canvas_placeholder"></div>
             </div>
@@ -138,14 +138,13 @@ class LocationGlobe {
     }
     updateLoc() {
         try {
-            let lang = window.settings.lang;
-            let geo = window.mods.netstat.ipinfo.geo;
-            let newgeo = geo.location;
+            let newgeo = window.mods.netstat.ipinfo.geo.location;
             newgeo.latitude = Math.round(newgeo.latitude*10000)/10000;
             newgeo.longitude = Math.round(newgeo.longitude*10000)/10000;
 
             if (newgeo.latitude !== this.lastgeo.latitude || newgeo.longitude !== this.lastgeo.longitude) {
                 document.querySelector("i.mod_globe_headerInfo").innerText = `${newgeo.latitude}, ${newgeo.longitude}`;
+
                 this.globe.pins.forEach(pin => {
                     pin.remove();
                 });
@@ -162,8 +161,6 @@ class LocationGlobe {
             }
 
             this.lastgeo = newgeo;
-            document.querySelector("i.mod_globe_location").innerText = `${geo.country.names[lang]}`;
-            document.querySelector("i.mod_globe_location").innerText +=`,${geo.city.names[lang]}`
         } catch(e) {
             document.querySelector("i.mod_globe_headerInfo").innerText = "UNKNOWN";
         }

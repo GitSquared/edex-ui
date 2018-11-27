@@ -89,7 +89,7 @@ class Netstat {
                     });
                 }
 
-                this.si.inetLatency(window.settings.pingAddr, (data) => {
+                this.si.inetLatency(window.settings.pingAddr || "1.1.1.1", (data) => {
                     let ping;
                     if (data === -1) {
                         ping = "--ms";
