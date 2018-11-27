@@ -15,10 +15,10 @@ class ClipboardButtons {
         this.parent.append(this._element);
 
         document.querySelector("div#mod_clipboardButtons_inner > div:nth-child(2)").addEventListener("click", e => {
-            window.term.clipboard.copy();
+            window.term[window.currentTerm].clipboard.copy();
         });
         document.querySelector("div#mod_clipboardButtons_inner > div:last-child").addEventListener("click", e => {
-            window.term.clipboard.paste();
+            window.term[window.currentTerm].clipboard.paste();
         });
     }
 }
