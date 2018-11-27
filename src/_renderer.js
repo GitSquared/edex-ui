@@ -91,6 +91,12 @@ let i = 0;
 displayLine();
 
 function displayLine() {
+    function isArchUser() {
+        return require("os").platform() === "linux"
+                && fs.existsSync("/etc/os-release")
+                && fs.readFileSync("/etc/os-release").toString().includes("archlinux");
+    }
+
     if (log[i] === undefined) {
         setTimeout(resumeInit, 300);
         return;
@@ -112,6 +118,11 @@ function displayLine() {
             setTimeout(displayLine, 300);
             break;
         case i > 42 && i < 82:
+            setTimeout(displayLine, 25);
+            break;
+        case i === 83:
+            if (isArchUser())
+                bootScreen.innerHTML += "btw i use arch<br/>";
             setTimeout(displayLine, 25);
             break;
         case i >= log.length-2 && i < log.length:
