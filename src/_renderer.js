@@ -453,10 +453,14 @@ window.focusShellTab = (number) => {
 const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
 
+// Open inspector
+globalShortcut.register("CommandOrControl+Shift+i", () => {
+    electron.remote.getCurrentWindow().webContents.toggleDevTools();
+});
+
 // Switch tabs
 // Next
 globalShortcut.register("CommandOrControl+Tab", () => {
-    console.log("next");
     if (window.term[window.currentTerm+1]) {
         window.focusShellTab(window.currentTerm+1);
     } else if (window.term[window.currentTerm+2]) {
