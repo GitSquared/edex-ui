@@ -36,6 +36,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# JetBrains IDE project folder (e.g. WebStorm)
+.idea
+
 settings.json
 dist
 prebuild-src
