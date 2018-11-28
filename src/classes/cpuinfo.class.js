@@ -148,7 +148,7 @@ class Cpuinfo {
     updateCPUtemp() {
         this.si.cpuTemperature((data) => {
             try {
-                document.getElementById("mod_cpuinfo_temp").innerText = `${data.main}°C`;
+                document.getElementById("mod_cpuinfo_temp").innerText = `${data.max}°C`;
             } catch(e) {
                 // See above notice
             }
