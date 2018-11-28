@@ -36,6 +36,13 @@ const settingsFile = path.join(settingsDir, "settings.json");
 // Load config
 window.settings = require(settingsFile);
 
+// Load CLI parameters
+if (electron.remote.process.argv.includes("--nointro")) {
+    window.settings.nointro = true;
+} else {
+    window.settings.nointro = false;
+}
+
 // Load UI theme
 window._loadTheme = (theme) => {
 
@@ -83,14 +90,35 @@ window._loadTheme = (theme) => {
 
 _loadTheme(require(path.join(themesDir, settings.theme+".json")));
 
-// Startup boot log
-let resumeInit, initUI, initMods, initGreeter;
-let bootScreen = document.getElementById("boot_screen");
-let log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
-let i = 0;
-displayLine();
+function initGraphicalErrorHandling() {
+    window.edexErrorsModals = [];
+    window.onerror = (msg, path, line, col, error) => {
+        let errorModal = new Modal({
+            type: "error",
+            title: error,
+            message: `${msg}<br/>        at ${path}  ${line}:${col}`
+        });
+        window.edexErrorsModals.push(errorModal);
 
+        ipc.send("log", "error", `${error}: ${msg}`);
+        ipc.send("log", "debug", `at ${path} ${line}:${col}`);
+    };
+}
+
+if (!window.settings.nointro) {
+    let i = 0;
+    displayLine();
+} else {
+    initGraphicalErrorHandling();
+    document.getElementById("boot_screen").remove();
+    initUI();
+}
+
+// Startup boot log
 function displayLine() {
+    let bootScreen = document.getElementById("boot_screen");
+    let log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
+
     function isArchUser() {
         return require("os").platform() === "linux"
                 && fs.existsSync("/etc/os-release")
@@ -134,7 +162,7 @@ function displayLine() {
 }
 
 // Show "logo" and background grid
-resumeInit = () => {
+function resumeInit() {
     bootScreen.innerHTML = "";
     setTimeout(() => {
         document.body.setAttribute("class", "");
@@ -155,28 +183,17 @@ resumeInit = () => {
                 title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
                 setTimeout(() => {
                     // Initiate graphical error display
-                    window.edexErrorsModals = [];
-                    window.onerror = (msg, path, line, col, error) => {
-                        let errorModal = new Modal({
-                            type: "error",
-                            title: error,
-                            message: `${msg}<br/>        at ${path}  ${line}:${col}`
-                        });
-                        window.edexErrorsModals.push(errorModal);
-
-                        ipc.send("log", "error", `${error}: ${msg}`);
-                        ipc.send("log", "debug", `at ${path} ${line}:${col}`);
-                    };
+                    initGraphicalErrorHandling();
                     document.getElementById("boot_screen").remove();
                     initUI();
                 }, 1200);
             }, 600);
         }, 300);
     }, 400);
-};
+}
 
 // Create the UI's html structure and initialize the terminal client and the keyboard
-initUI = () => {
+function initUI() {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
@@ -223,10 +240,10 @@ initUI = () => {
             }, 700);
         }, 500);
     }, 10);
-};
+}
 
 // Create the "mods" in each column
-initMods = () => {
+function initMods() {
     window.mods = {};
 
     // Left column
@@ -263,9 +280,9 @@ initMods = () => {
             i++;
         }
     }, 500);
-};
+}
 
-initGreeter = () => {
+function initGreeter() {
     let shellContainer = document.getElementById("main_shell");
     let greeter = document.getElementById("main_shell_greeting");
 
@@ -326,7 +343,7 @@ initGreeter = () => {
             }, 500);
         }, 1100);
     });
-};
+}
 
 window.themeChanger = (theme) => {
     for (let i = 1; i <= 4; i++) {
