@@ -161,8 +161,23 @@ class Terminal {
 
             this.fit = () => {
                 this.term.fit();
+
+                // Apply custom fixes based on screen ratio, see #302
+                let w = screen.width;
+                let h = screen.height;
+                let x = 1;
+                let y = 0;
+
+                function gcd(a, b) {
+                    return (b == 0) ? a : gcd(b, a%b);
+                }
+                let d = gcd(w, h);
+                let ratio = `${w/d}:${h/d}`;
+
+                if (ratio === "16:9") y = 1;
+
                 setTimeout(() => {
-                    this.resize(this.term.cols+1, this.term.rows+1);
+                    this.resize(this.term.cols+x, this.term.rows+y);
                 }, 50);
             };
 
