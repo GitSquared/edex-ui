@@ -1,5 +1,4 @@
 Welcome to eDEX-UI!
-eDEX Kernel Version 1.0.0: Tue Oct 11 20:56:35 PDT 2011; root:xnu-1699.22.73~1/RELEASE_X86_64
 vm_page_bootstrap: 987323 free pages and 53061 wired pages
 kext submap [0xffffff7f8072e000 - 0xffffff8000000000], kernel text [0xffffff8000200000 - 0xffffff800072e000]
 zone leak detection enabled

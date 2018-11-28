@@ -105,8 +105,8 @@ function initGraphicalErrorHandling() {
     };
 }
 
+let i = 0;
 if (!window.settings.nointro) {
-    let i = 0;
     displayLine();
 } else {
     initGraphicalErrorHandling();
@@ -133,6 +133,8 @@ function displayLine() {
     i++;
 
     switch(true) {
+        case i === 2:
+            bootScreen.innerHTML += `eDEX-UI Kernel version ${electron.remote.app.getVersion()} boot at ${Date().toString()}; root:xnu-1699.22.73~1/RELEASE_X86_64`;
         case i === 4:
             setTimeout(displayLine, 500);
             break;
@@ -163,6 +165,7 @@ function displayLine() {
 
 // Show "logo" and background grid
 function resumeInit() {
+    let bootScreen = document.getElementById("boot_screen");
     bootScreen.innerHTML = "";
     setTimeout(() => {
         document.body.setAttribute("class", "");
