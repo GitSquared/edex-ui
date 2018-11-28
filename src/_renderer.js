@@ -272,7 +272,9 @@ initGreeter = () => {
 
     require("systeminformation").users()
         .then((userlist) => {
-            childProcess.exec(`say Welcome back, ${userlist[0].user}`);
+            if (process.platform === 'darwin') {
+                childProcess.exec(`say Welcome back, ${userlist[0].user}`);
+            }
             greeter.innerHTML += `Welcome back, <em>${userlist[0].user}</em>`;
         })
         .catch(() => {
