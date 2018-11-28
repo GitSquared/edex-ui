@@ -25,6 +25,7 @@ window.onerror = (msg, path, line, col, error) => {
 const path = require("path");
 const fs = require("fs");
 const electron = require("electron");
+const childProcess = require('child_process');
 const ipc = electron.ipcRenderer;
 
 const settingsDir = electron.remote.app.getPath("userData");
@@ -271,6 +272,7 @@ initGreeter = () => {
 
     require("systeminformation").users()
         .then((userlist) => {
+            childProcess.exec(`say Welcome back, ${userlist[0].user}`);
             greeter.innerHTML += `Welcome back, <em>${userlist[0].user}</em>`;
         })
         .catch(() => {
