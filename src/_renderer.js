@@ -94,7 +94,7 @@ function displayLine() {
     function isArchUser() {
         return require("os").platform() === "linux"
                 && fs.existsSync("/etc/os-release")
-                && fs.readFileSync("/etc/os-release").toString().includes("archlinux");
+                && fs.readFileSync("/etc/os-release").toString().includes("arch");
     }
 
     if (log[i] === undefined) {
