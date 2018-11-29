@@ -1,11 +1,52 @@
 /* Support for other screen ratios than 16:9 */
 @media (aspect-ratio: 16/10) {
+    section#filesystem > h3.title {
+        width: 43.5vw;
+    }
+
+    div.keyboard_key {
+        height: 2.5vw;
+        min-width: 2.5vw;
+    }
     div.keyboard_row:last-child {
-        left: 1.1vh;
+        left: 0.8vh;
+    }
+    div.keyboard_row:last-child div {
+        white-space: nowrap;
+    }
+    div.keyboard_row:last-child div:first-child {
+        width: 6.5vh;
+        min-width: 6.5vh;
+    }
+    div.keyboard_row:last-child div#keyboard_spacebar {
+        width: 45vh;
+        min-width: 45vh;
     }
     div.keyboard_row#row_2 > div.keyboard_enter {
-        top: -0.7vh;
+        top: -0.9vh;
         right: -0.9vh;
+    }
+
+    /* See #317 */
+    section.mod_column {
+        width: 17.5%;
+    }
+    div#mod_toplist i {
+        font-size: 1.10vh;
+    }
+    table#mod_toplist_table {
+        padding-left: 0.2vh;
+    }
+    div#mod_toplist::after {
+        right: -15.6vw;
+    }
+
+    div#mod_netstat_innercontainer {
+        font-size: 1vh;
+    }
+
+    div#mod_conninfo canvas {
+        height: 10vh;
     }
 }
 
