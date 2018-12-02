@@ -83,8 +83,8 @@ class LocationGlobe {
                         try {
                             let json = JSON.parse(rawData);
                             if (json.geo) {
-                                let lat = Number(json.geo.location.latitude);
-                                let lon = Number(json.geo.location.longitude);
+                                let lat = Number(json.geo.latitude);
+                                let lon = Number(json.geo.longitude);
 
                                 window.mods.globe.conns.push({
                                     ip,
@@ -138,7 +138,7 @@ class LocationGlobe {
     }
     updateLoc() {
         try {
-            let newgeo = window.mods.netstat.ipinfo.geo.location;
+            let newgeo = window.mods.netstat.ipinfo.geo;
             newgeo.latitude = Math.round(newgeo.latitude*10000)/10000;
             newgeo.longitude = Math.round(newgeo.longitude*10000)/10000;
 
