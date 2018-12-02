@@ -70,7 +70,7 @@ class Netstat {
                             try {
                                 this.ipinfo = JSON.parse(rawData);
 
-                                if (this.ipinfo.api_version !== "2.0.0") console.warn("Warning: ipinfo API version might not be compatible");
+                                if (!this.ipinfo.api_version.startsWith("3")) console.warn("Warning: ipinfo API version might not be compatible");
 
                                 delete this.ipinfo.api_version;
                                 delete this.ipinfo.time;
