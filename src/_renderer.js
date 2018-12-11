@@ -341,6 +341,8 @@ function initGreeter() {
                     setTimeout(() => {
                         document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
                         window.updateCheck = new UpdateChecker();
+
+                        window.term[window.currentTerm].fit();
                     }, 300);
                 }, 100);
             }, 500);
