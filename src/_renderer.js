@@ -245,9 +245,38 @@ function initUI() {
     }, 10);
 }
 
+// A proxy function used to add multithreading to systeminformation calls - see backend process manager @ _multithread.js
+function initSystemInformationProxy() {
+    const nanoid = require("nanoid/non-secure");
+
+    window.si = new Proxy({}, {
+        apply: () => {throw new Error("Cannot use sysinfo proxy directly as a function")},
+        set: () => {throw new Error("Cannot set a property on the sysinfo proxy")},
+        get: (target, prop, receiver) => {
+            return function(...args) {
+                let callback = (typeof args[0] === "function") ? true : false;
+
+                return new Promise((resolve, reject) => {
+                    let id = nanoid();
+                    ipc.once("systeminformation-reply-"+id, (e, res) => {
+                        if (callback) {
+                            callback(res);
+                        }
+                        resolve(res);
+                    });
+                    ipc.send("systeminformation-call", prop, id, ...args);
+                });
+            };
+        }
+    });
+}
+
 // Create the "mods" in each column
 function initMods() {
     window.mods = {};
+
+    initSystemInformationProxy();
+
 
     // Left column
     window.mods.clock = new Clock("mod_column_left");
@@ -549,4 +578,4 @@ require('electron').webFrame.setVisualZoomLevelLimits(1, 1);
 // Resize terminal with window
 window.onresize = () => {
     window.term[window.currentTerm].fit();
-}
+};

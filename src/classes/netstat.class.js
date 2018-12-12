@@ -2,8 +2,6 @@ class Netstat {
     constructor(parentId) {
         if (!parentId) throw "Missing parameters";
 
-        this.si = require("systeminformation");
-
         // Create DOM
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_netstat">
@@ -38,10 +36,10 @@ class Netstat {
         this.updateInfo();
         this.infoUpdater = setInterval(() => {
             this.updateInfo();
-        }, 1000);
+        }, 2000);
     }
     updateInfo() {
-        this.si.networkInterfaces((data) => {
+        window.si.networkInterfaces().then((data) => {
             let offline = false;
 
             // Find the first external network networkInterface
@@ -89,7 +87,7 @@ class Netstat {
                     });
                 }
 
-                this.si.inetLatency(window.settings.pingAddr || "1.1.1.1", (data) => {
+                window.si.inetLatency(window.settings.pingAddr || "1.1.1.1").then(data => {
                     let ping;
                     if (data === -1) {
                         ping = "--ms";

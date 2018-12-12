@@ -3,7 +3,6 @@ class LocationGlobe {
         if (!parentId) throw "Missing parameters";
 
         const path = require("path");
-        this.si = require("systeminformation");
 
         this._geodata = require(path.join(__dirname, "assets/misc/grid.json"));
         require(path.join(__dirname, "assets/vendor/encom-globe.js"));
@@ -167,7 +166,7 @@ class LocationGlobe {
     }
     updateConns() {
         if (!window.mods.globe.globe) return false;
-        this.si.networkConnections().then(conns => {
+        window.si.networkConnections().then(conns => {
             let newconns = [];
             conns.forEach(conn => {
                 let ip = conn.peeraddress;

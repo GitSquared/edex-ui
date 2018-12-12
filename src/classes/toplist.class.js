@@ -2,8 +2,6 @@ class Toplist {
     constructor(parentId) {
         if (!parentId) throw "Missing parameters";
 
-        this.si = require("systeminformation");
-
         // Create DOM
         this.parent = document.getElementById(parentId);
         this._element = document.createElement("div");
@@ -19,7 +17,7 @@ class Toplist {
         }, 5000);
     }
     updateList() {
-        this.si.processes().then(data => {
+        window.si.processes().then(data => {
             let list = data.list.sort((a, b) => {
                 return ((b.pcpu-a.pcpu)*100 + b.pmem-a.pmem);
             }).splice(0, 5);

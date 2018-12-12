@@ -25,6 +25,7 @@
   "dependencies": {
     "clipboardy": "1.2.3",
     "color": "3.1.0",
+    "nanoid": "2.0.0",
     "node-pty": "0.7.8",
     "pretty-bytes": "5.1.0",
     "signale": "1.3.0",

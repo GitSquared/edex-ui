@@ -2,8 +2,6 @@ class Conninfo {
     constructor(parentId) {
         if (!parentId) throw "Missing parameters";
 
-        this.si = require("systeminformation");
-
         // Create DOM
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_conninfo">
@@ -63,7 +61,7 @@ class Conninfo {
         }, 1000);
     }
     updateInfo() {
-        this.si.networkInterfaces((data) => {
+        window.si.networkInterfaces().then((data) => {
             let net = data[0];
             let netID = 0;
             while (net.internal === true) {
@@ -84,7 +82,7 @@ class Conninfo {
                 return;
             } else {
                 document.querySelector("div#mod_conninfo").setAttribute("class", "");
-                this.si.networkStats(net.iface, (data) => {
+                window.si.networkStats(net.iface).then(data => {
 
                     let max0 = this.series[0].maxValue;
                     let max1 = -this.series[1].minValue;

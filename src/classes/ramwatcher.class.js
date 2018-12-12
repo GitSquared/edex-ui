@@ -2,8 +2,6 @@ class RAMwatcher {
     constructor(parentId) {
         if (!parentId) throw "Missing parameters";
 
-        this.si = require("systeminformation");
-
         // Create DOM
         this.parent = document.getElementById(parentId);
         let modExtContainer = document.createElement("div");
@@ -32,7 +30,7 @@ class RAMwatcher {
         }, 1500);
     }
     updateInfo() {
-        this.si.mem((data) => {
+        window.si.mem().then((data) => {
             let total = data.free+data.used;
             let free = data.free;
             let available = data.used-data.active;

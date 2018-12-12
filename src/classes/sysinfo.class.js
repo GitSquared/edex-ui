@@ -2,8 +2,6 @@ class Sysinfo {
     constructor(parentId) {
         if (!parentId) throw "Missing parameters";
 
-        this.si = require("systeminformation");
-        
         // See #255
         let os;
         switch (require("os").platform()) {
@@ -16,7 +14,7 @@ class Sysinfo {
             default:
                 os = require("os").platform();
         }
-        
+
         // Create DOM
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_sysinfo">
@@ -119,7 +117,7 @@ class Sysinfo {
         document.querySelector("#mod_sysinfo > div:nth-child(2) > h2").innerHTML = uptime.days+":"+uptime.hours+":"+uptime.minutes;
     }
     updateBattery() {
-        this.si.battery(bat => {
+        window.si.battery().then(bat => {
             let indicator = document.querySelector("#mod_sysinfo > div:last-child > h2");
             if (bat.hasbattery) {
                 if (bat.ischarging) {

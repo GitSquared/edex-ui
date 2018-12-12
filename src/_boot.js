@@ -179,6 +179,10 @@ app.on('ready', () => {
         }
     });
 
+    // Support for multithreaded systeminformation calls
+    signale.pending("Starting multithreaded calls controller...");
+    require("./_multithread.js");
+
     createWindow(settings);
 
     // Support for more terminals, used for creating tabs (currently limited to 4 extra terms)

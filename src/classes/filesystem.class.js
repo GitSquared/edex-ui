@@ -4,7 +4,6 @@ class FilesystemDisplay {
 
         const fs = require("fs");
         const path = require("path");
-        const si = require("systeminformation");
         this.cwd = [];
         this.iconcolor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;
         this.icons = {
@@ -185,7 +184,7 @@ class FilesystemDisplay {
                                         });
                                     });
 
-                                    si.fsSize(d => {
+                                    window.si.fsSize().then(d => {
                                         d.forEach(fsBlock => {
                                             if (tcwd.startsWith(fsBlock.mount)) {
                                                 this.fsBlock = fsBlock;
