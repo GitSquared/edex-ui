@@ -35,10 +35,8 @@ class Keyboard {
                 }
 
                 Object.keys(keyObj).forEach((property) => {
-                    let i = 1;
-                    while(i <= ctrlseq.length) {
+                    for (let i = 1; i < ctrlseq.length; i++) {
                         keyObj[property] = keyObj[property].replace("~~~CTRLSEQ"+i+"~~~", ctrlseq[i]);
-                        i++;
                     }
                     if (property.endsWith("cmd")) {
                         key.dataset[property] = keyObj[property];
