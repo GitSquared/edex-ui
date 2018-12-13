@@ -549,4 +549,4 @@ require('electron').webFrame.setVisualZoomLevelLimits(1, 1);
 // Resize terminal with window
 window.onresize = () => {
     window.term[window.currentTerm].fit();
-}
+};
