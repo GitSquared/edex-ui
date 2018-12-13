@@ -54,9 +54,13 @@ if (cluster.isMaster) {
 
     cluster.on("message", (worker, msg) => {
         msg = JSON.parse(msg);
-        if (queue[msg.id]) {
-            queue[msg.id].send("systeminformation-reply-"+msg.id, msg.res);
-            delete queue[msg.id];
+        try {
+            if (!queue[msg.id].isDestroyed()) {
+                queue[msg.id].send("systeminformation-reply-"+msg.id, msg.res);
+                delete queue[msg.id];
+            }
+        } catch(e) {
+            // Window has been closed, ignore.
         }
     });
 } else if (cluster.isWorker) {
