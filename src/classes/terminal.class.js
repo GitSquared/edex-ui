@@ -107,14 +107,7 @@ class Terminal {
                 this.fit();
                 setTimeout(() => {
                     this.fit();
-                    if (process.platform === "win32") {
-                        // Force Powershell to print a prompt
-                        setTimeout(() => {
-                            this.write("n");
-                            this.write("\b");
-                        }, 1000);
-                    }
-                }, 200);
+                }, 1200);
             };
             this.socket.onerror = e => {throw JSON.stringify(e)};
             this.socket.onclose = e => {
