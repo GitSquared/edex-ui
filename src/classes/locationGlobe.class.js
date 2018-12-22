@@ -54,7 +54,9 @@ class LocationGlobe {
                     window.mods.globe.globe.tick();
                 }
                 if (window.mods.globe._animate) {
-                    requestAnimationFrame(window.mods.globe._animate);
+                    setTimeout(() => {
+                        requestAnimationFrame(window.mods.globe._animate);
+                    }, 1000 / 30);
                 }
             };
             this.globe.init(window.theme.colors.light_black, () => {
