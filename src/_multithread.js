@@ -23,14 +23,19 @@ if (cluster.isMaster) {
 
     signale.success("Multithreaded controller ready");
 
+    var lastID = 0;
+
     function dispatch(type, id, arg) {
-        let selectedID = Math.floor(Math.random() * Math.floor(numCPUs - 1));
+        let selectedID = lastID+1;
+        if (selectedID > numCPUs-1) selectedID = 0;
 
         cluster.workers[workers[selectedID]].send(JSON.stringify({
             id,
             type,
             arg
         }));
+
+        lastID = selectedID;
     }
 
     var queue = {};
