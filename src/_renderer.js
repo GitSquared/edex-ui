@@ -509,6 +509,26 @@ globalShortcut.register("CommandOrControl+Shift+i", () => {
     electron.remote.getCurrentWindow().webContents.toggleDevTools();
 });
 
+// Copy and paste shortcuts
+
+if (process.platform === "darwin") {
+    // See #342, we have an actual available key on macOS to do this
+    globalShortcut.register("Command+C", () => {
+        window.term[window.currentTerm].clipboard.copy();
+    });
+    globalShortcut.register("Command+V", () => {
+        window.term[window.currentTerm].clipboard.paste();
+    });
+} else {
+    // Use Ctrl+shift on other OSs
+    globalShortcut.register("Ctrl+Shift+C", () => {
+        window.term[window.currentTerm].clipboard.copy();
+    });
+    globalShortcut.register("Ctrl+Shift+V", () => {
+        window.term[window.currentTerm].clipboard.paste();
+    });
+}
+
 // Switch tabs
 // Next
 globalShortcut.register("CommandOrControl+Tab", () => {
