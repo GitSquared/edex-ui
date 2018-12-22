@@ -146,6 +146,7 @@ app.on('ready', () => {
         shell: settings.shell.split(" ")[0],
         params: settings.shell.split(" ").splice(1),
         cwd: settings.cwd,
+        env: settings.env,
         port: settings.port || 3000
     });
     signale.success(`Terminal back-end initialized!`);

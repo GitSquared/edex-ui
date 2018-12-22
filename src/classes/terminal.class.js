@@ -284,7 +284,7 @@ class Terminal {
                 cols: 80,
                 rows: 24,
                 cwd: opts.cwd || process.env.PWD,
-                env: process.env
+                env: opts.env || process.env
             });
 
             this.tty.on("exit", (code, signal) => {
