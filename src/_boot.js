@@ -55,7 +55,8 @@ if (!fs.existsSync(settingsFile)) {
         shell: (process.platform === "win32") ? "powershell.exe" : "bash",
         cwd: electron.app.getPath("userData"),
         keyboard: "en-US",
-        theme: "tron"
+        theme: "tron",
+        audio: false
     }));
 }
 

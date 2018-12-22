@@ -804,7 +804,7 @@ class Keyboard {
                 container.dataset.isNextBar = "false";
             }
             if (container.dataset.isNextBreve === "true") {
-                cmd = addBar(cmd);
+                cmd = addBreve(cmd);
                 container.dataset.isNextBreve = "false";
             }
             if (container.dataset.isNextTilde === "true") {
@@ -918,6 +918,8 @@ class Keyboard {
 
                         // Keep focus on the terminal
                         window.term[window.currentTerm].term.focus();
+
+                        window.audioManager.beep2.play();
                         e.preventDefault();
                     };
                     key.onmouseup = () => {
@@ -957,6 +959,8 @@ class Keyboard {
 
                         // Keep focus on the terminal
                         window.term[window.currentTerm].term.focus();
+
+                        window.audioManager.beep3.play();
                         e.preventDefault();
                     };
                     key.onmouseup = (e) => {
@@ -1034,6 +1038,7 @@ class Keyboard {
             } else {
                 key.setAttribute("class", "keyboard_key active");
             }
+            window.audioManager.beep3.play();
         };
 
         document.onkeyup = (e) => {
@@ -1053,6 +1058,10 @@ class Keyboard {
                 setTimeout(() => {
                     key.setAttribute("class", "keyboard_key");
                 }, 100);
+            }
+
+            if (e.key === "Enter") {
+                window.audioManager.beep2.play();
             }
         };
     }

@@ -25,6 +25,7 @@
   "dependencies": {
     "clipboardy": "1.2.3",
     "color": "3.1.0",
+    "howler": "2.1.1",
     "nanoid": "2.0.0",
     "node-pty": "0.8.0",
     "pretty-bytes": "5.1.0",

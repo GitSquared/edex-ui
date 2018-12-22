@@ -105,6 +105,9 @@ function initGraphicalErrorHandling() {
     };
 }
 
+// Init audio
+window.audioManager = new AudioManager();
+
 let i = 0;
 if (!window.settings.nointro) {
     displayLine();
@@ -117,7 +120,7 @@ if (!window.settings.nointro) {
 // Startup boot log
 function displayLine() {
     let bootScreen = document.getElementById("boot_screen");
-    let log = fs.readFileSync(path.join(__dirname, 'assets/misc/boot_log.txt')).toString().split('\n');
+    let log = fs.readFileSync(path.join(__dirname, "assets", "misc", "boot_log.txt")).toString().split('\n');
 
     function isArchUser() {
         return require("os").platform() === "linux"
@@ -128,6 +131,12 @@ function displayLine() {
     if (log[i] === undefined) {
         setTimeout(resumeInit, 300);
         return;
+    }
+
+    if (log[i] === "Boot Complete") {
+        window.audioManager.beep2.play();
+    } else {
+        window.audioManager.beep1.play();
     }
     bootScreen.innerHTML += log[i]+"<br/>";
     i++;
@@ -176,6 +185,7 @@ function resumeInit() {
             }, 400);
         }, 200);
 
+        window.audioManager.beep4.play();
         bootScreen.setAttribute("class", "center");
         bootScreen.innerHTML = "<h1>eDEX-UI</h1>";
         let title = document.querySelector("section > h1");
@@ -183,6 +193,7 @@ function resumeInit() {
         setTimeout(() => {
             title.setAttribute("style", `background-color: rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});border-bottom: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
             setTimeout(() => {
+                window.audioManager.intro.play();
                 title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
                 setTimeout(() => {
                     // Initiate graphical error display

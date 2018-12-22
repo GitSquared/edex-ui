@@ -115,6 +115,9 @@ class Terminal {
                     this.onclose(e);
                 }
             };
+            this.socket.addEventListener("message", () => {
+                window.audioManager.beep1.play();
+            });
 
             let parent = document.getElementById(opts.parentId);
             parent.addEventListener("wheel", e => {

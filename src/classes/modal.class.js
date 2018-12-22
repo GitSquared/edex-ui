@@ -46,6 +46,7 @@ class Modal {
         this.close = () => {
             let modalElement = document.getElementById("modal_"+this.id);
             modalElement.setAttribute("class", "modal_popup "+this.type+" blink");
+            window.audioManager.dismiss.play();
             setTimeout(() => {
                 modalElement.remove();
             }, 100);
@@ -55,7 +56,20 @@ class Modal {
         tmp.innerHTML = DOMstring;
         let element = tmp.firstChild;
 
-
+        switch(this.type) {
+            case "error":
+                window.audioManager.alarm.play();
+                setTimeout(() => {
+                    window.audioManager.alarm.play();
+                }, 300);
+                break;
+            case "warning":
+                window.audioManager.alarm.play();
+                break;
+            default:
+                window.audioManager.beep2.play();
+                break;
+        }
         window.modals[this.id] = this;
         document.body.appendChild(element);
         return this.id;
