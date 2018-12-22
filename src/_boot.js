@@ -113,6 +113,7 @@ function createWindow(settings) {
             devTools: true,
             backgroundThrottling: false,
             webSecurity: true,
+            nodeIntegration: true,
             allowRunningInsecureContent: false,
             experimentalFeatures: settings.experimentalFeatures || false
         }
@@ -214,6 +215,7 @@ app.on('ready', () => {
                 shell: settings.shell.split(" ")[0],
                 params: settings.shell.split(" ").splice(1),
                 cwd: tty.tty._cwd || settings.cwd,
+                env: settings.env,
                 port: port
             });
             signale.success(`New terminal back-end initialized at ${port}`);
