@@ -517,6 +517,7 @@ globalShortcut.unregisterAll();
 
 // Open inspector
 globalShortcut.register("CommandOrControl+Shift+i", () => {
+    if (!document.hasFocus()) return;
     electron.remote.getCurrentWindow().webContents.toggleDevTools();
 });
 
@@ -525,17 +526,21 @@ globalShortcut.register("CommandOrControl+Shift+i", () => {
 if (process.platform === "darwin") {
     // See #342, we have an actual available key on macOS to do this
     globalShortcut.register("Command+C", () => {
+        if (!document.hasFocus()) return;
         window.term[window.currentTerm].clipboard.copy();
     });
     globalShortcut.register("Command+V", () => {
+        if (!document.hasFocus()) return;
         window.term[window.currentTerm].clipboard.paste();
     });
 } else {
     // Use Ctrl+shift on other OSs
     globalShortcut.register("Ctrl+Shift+C", () => {
+        if (!document.hasFocus()) return;
         window.term[window.currentTerm].clipboard.copy();
     });
     globalShortcut.register("Ctrl+Shift+V", () => {
+        if (!document.hasFocus()) return;
         window.term[window.currentTerm].clipboard.paste();
     });
 }
@@ -543,6 +548,7 @@ if (process.platform === "darwin") {
 // Switch tabs
 // Next
 globalShortcut.register("CommandOrControl+Tab", () => {
+    if (!document.hasFocus()) return;
     if (window.term[window.currentTerm+1]) {
         window.focusShellTab(window.currentTerm+1);
     } else if (window.term[window.currentTerm+2]) {
@@ -557,6 +563,7 @@ globalShortcut.register("CommandOrControl+Tab", () => {
 });
 // Previous
 globalShortcut.register("CommandOrControl+Shift+Tab", () => {
+    if (!document.hasFocus()) return;
     if (window.term[window.currentTerm-1]) {
         window.focusShellTab(window.currentTerm-1);
     } else if (window.term[window.currentTerm-2]) {
@@ -571,18 +578,23 @@ globalShortcut.register("CommandOrControl+Shift+Tab", () => {
 });
 // By tab number
 globalShortcut.register("CommandOrControl+1", () => {
+    if (!document.hasFocus()) return;
     window.focusShellTab(0);
 });
 globalShortcut.register("CommandOrControl+2", () => {
+    if (!document.hasFocus()) return;
     window.focusShellTab(1);
 });
 globalShortcut.register("CommandOrControl+3", () => {
+    if (!document.hasFocus()) return;
     window.focusShellTab(2);
 });
 globalShortcut.register("CommandOrControl+4", () => {
+    if (!document.hasFocus()) return;
     window.focusShellTab(3);
 });
 globalShortcut.register("CommandOrControl+5", () => {
+    if (!document.hasFocus()) return;
     window.focusShellTab(4);
 });
 
