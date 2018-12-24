@@ -14,6 +14,7 @@ process.on("uncaughtException", e => {
             }
         });
     }
+    process.exit(1);
 });
 
 signale.start(`Starting eDEX-UI v${app.getVersion()}`);
@@ -141,6 +142,8 @@ app.on('ready', () => {
     signale.pending(`Loading settings file...`);
     let settings = require(settingsFile);
     signale.success(`Settings loaded!`);
+
+    if (!require("fs").existsSync(settings.cwd)) throw new Error("Configured cwd path does not exist.");
 
     signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
