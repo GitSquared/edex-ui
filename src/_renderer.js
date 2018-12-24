@@ -516,11 +516,6 @@ const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
 
 function registerKeyboardShortcuts() {
-    // Emergency close
-    globalShortcut.register("Alt+F4", () => {
-        electron.remote.app.quit();
-    });
-
     // Open inspector
     globalShortcut.register("CommandOrControl+Shift+i", () => {
         electron.remote.getCurrentWindow().webContents.toggleDevTools();
@@ -604,7 +599,7 @@ window.addEventListener("blur", () => {
 });
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
-window.onkeydown = e => {
+window.addEventListener("keydown", e => {
     if (e.key === "Alt") {
         e.preventDefault();
     }
@@ -617,7 +612,14 @@ window.onkeydown = e => {
     if (e.code === "KeyA" && e.ctrlKey) {
         e.preventDefault();
     }
-};
+});
+
+// Fix #265
+window.addEventListener("keyup", e => {
+    if (e.key === "F4" && e.altKey === true) {
+        electron.remote.app.quit();
+    }
+});
 
 // Fix double-tap zoom on touchscreens
 require('electron').webFrame.setVisualZoomLevelLimits(1, 1);
