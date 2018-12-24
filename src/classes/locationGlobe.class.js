@@ -15,6 +15,7 @@ class LocationGlobe {
                 <h1>WORLD VIEW<i>GLOBAL NETWORK MAP</i></h1>
                 <h2>ENDPOINT LAT/LON<i class="mod_globe_headerInfo">0.0000, 0.0000</i></h2>
                 <div id="mod_globe_canvas_placeholder"></div>
+                <h3>OFFLINE</h3>
             </div>
         </div>`;
 
@@ -143,36 +144,58 @@ class LocationGlobe {
         }, 4000);
     }
     updateLoc() {
-        try {
-            let newgeo = window.mods.netstat.ipinfo.geo;
-            newgeo.latitude = Math.round(newgeo.latitude*10000)/10000;
-            newgeo.longitude = Math.round(newgeo.longitude*10000)/10000;
+        if (window.mods.netstat.offline) {
+            document.querySelector("div#mod_globe").setAttribute("class", "offline");
+            document.querySelector("i.mod_globe_headerInfo").innerText = "(OFFLINE)";
 
-            if (newgeo.latitude !== this.lastgeo.latitude || newgeo.longitude !== this.lastgeo.longitude) {
-                document.querySelector("i.mod_globe_headerInfo").innerText = `${newgeo.latitude}, ${newgeo.longitude}`;
+            this.globe.pins.forEach(pin => {
+                pin.remove();
+            });
+            this.globe.pins = [];
+            this.globe.markers.forEach(marker => {
+                marker.remove();
+            });
+            this.globe.markers = [];
 
-                this.globe.pins.forEach(pin => {
-                    pin.remove();
-                });
-                this.globe.pins = [];
-                this.globe.markers.forEach(marker => {
-                    marker.remove();
-                });
-                this.globe.markers = [];
+            this.conns = [];
+            this.lastgeo = {
+                latitude: 0,
+                longitude: 0
+            };
+        } else {
+            try {
+                let newgeo = window.mods.netstat.ipinfo.geo;
+                newgeo.latitude = Math.round(newgeo.latitude*10000)/10000;
+                newgeo.longitude = Math.round(newgeo.longitude*10000)/10000;
 
-                this.conns = [];
+                if (newgeo.latitude !== this.lastgeo.latitude || newgeo.longitude !== this.lastgeo.longitude) {
+                    document.querySelector("i.mod_globe_headerInfo").innerText = `${newgeo.latitude}, ${newgeo.longitude}`;
 
-                this._locPin = this.globe.addPin(newgeo.latitude, newgeo.longitude, "", 1.2);
-                this._locMarker = this.globe.addMarker(newgeo.latitude, newgeo.longitude, "", false, 1.2);
+                    this.globe.pins.forEach(pin => {
+                        pin.remove();
+                    });
+                    this.globe.pins = [];
+                    this.globe.markers.forEach(marker => {
+                        marker.remove();
+                    });
+                    this.globe.markers = [];
+
+                    this.conns = [];
+
+                    this._locPin = this.globe.addPin(newgeo.latitude, newgeo.longitude, "", 1.2);
+                    this._locMarker = this.globe.addMarker(newgeo.latitude, newgeo.longitude, "", false, 1.2);
+                }
+
+                this.lastgeo = newgeo;
+                document.querySelector("div#mod_globe").setAttribute("class", "");
+            } catch(e) {
+                document.querySelector("i.mod_globe_headerInfo").innerText = "UNKNOWN";
             }
-
-            this.lastgeo = newgeo;
-        } catch(e) {
-            document.querySelector("i.mod_globe_headerInfo").innerText = "UNKNOWN";
         }
     }
     updateConns() {
         if (!window.mods.globe.globe) return false;
+        if (window.mods.netstat.offline) return false;
         window.si.networkConnections().then(conns => {
             let newconns = [];
             conns.forEach(conn => {

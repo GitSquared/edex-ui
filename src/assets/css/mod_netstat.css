@@ -34,11 +34,25 @@ div#mod_netstat_inner > h1:first-child {
     padding-left: 2%;
 }
 
+div#mod_netstat_inner > h1:first-child > i {
+    font-style: normal;
+    font-size: 1.20vh;
+    opacity: 0.5;
+    text-align: right;
+    display: inline-block;
+    position: relative;
+    bottom: 1.6vh;
+    right: 0.3vw;
+    width: 100%;
+}
+
 div#mod_netstat_innercontainer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr;
     grid-gap: 0.46vh;
+    position: relative;
+    top: -1.5vh;
 }
 
 div#mod_netstat_innercontainer div {

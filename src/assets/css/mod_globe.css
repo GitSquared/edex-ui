@@ -76,3 +76,18 @@ div#mod_globe_canvas_placeholder {
     margin: 0px;
     margin-top: -1.5vh;
 }
+
+div#mod_globe h3 {
+    position: absolute;
+    font-size: 2vh;
+    z-index: 15;
+    opacity: 0;
+}
+
+div#mod_globe.offline canvas {
+    opacity: 0.3;
+}
+
+div#mod_globe.offline h3 {
+    opacity: 1;
+}

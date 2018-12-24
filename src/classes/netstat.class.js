@@ -6,7 +6,7 @@ class Netstat {
         this.parent = document.getElementById(parentId);
         this.parent.innerHTML += `<div id="mod_netstat">
             <div id="mod_netstat_inner">
-                <h1>NETWORK STATUS</h1>
+                <h1>NETWORK STATUS<i id="mod_netstat_iname"></i></h1>
                 <div id="mod_netstat_innercontainer">
                     <div>
                         <h1>STATE</h1>
@@ -26,6 +26,7 @@ class Netstat {
 
         this.offline = false;
         this.lastconn = {_ended: true};
+        this.iface = null;
 
         this._httpsAgent = new require("https").Agent({
             keepAlive: false,
@@ -49,8 +50,17 @@ class Netstat {
                 netID++;
                 if (data[netID]) {
                     net = data[netID];
+                    this.iface = net.iface;
+                    document.getElementById("mod_netstat_iname").innerText = "Interface: "+net.iface;
                 } else {
                     // No external connection!
+                    this.iface = null;
+                    document.getElementById("mod_netstat_iname").innerText = "Interface: (offline)";
+
+                    this.offline = true;
+                    document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "OFFLINE";
+                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = "--.--.--.--";
+                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = "--ms";
                     break;
                 }
             }

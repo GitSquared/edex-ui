@@ -61,44 +61,31 @@ class Conninfo {
         }, 1000);
     }
     updateInfo() {
-        window.si.networkInterfaces().then((data) => {
-            let net = data[0];
-            let netID = 0;
-            while (net.internal === true) {
-                netID++;
-                if (data[netID] !== undefined) {
-                    net = data[netID];
-                } else {
-                    break;
+        let time = new Date().getTime();
+
+        if (window.mods.netstat.offline || window.mods.netstat.iface === null) {
+            this.series[0].append(time, 0);
+            this.series[1].append(time, 0);
+            document.querySelector("div#mod_conninfo").setAttribute("class", "offline");
+            return;
+        } else {
+            document.querySelector("div#mod_conninfo").setAttribute("class", "");
+            window.si.networkStats(window.mods.netstat.iface).then(data => {
+
+                let max0 = this.series[0].maxValue;
+                let max1 = -this.series[1].minValue;
+                if (max0 > max1) {
+                    this.series[1].minValue = -max0;
+                } else if (max1 > max0) {
+                    this.series[0].maxValue = max1;
                 }
-            }
 
-            let time = new Date().getTime();
+                this.series[0].append(time, data.tx_sec/125000);
+                this.series[1].append(time, -data.rx_sec/125000);
 
-            if (window.mods.netstat.offline) {
-                this.series[0].append(time, 0);
-                this.series[1].append(time, 0);
-                document.querySelector("div#mod_conninfo").setAttribute("class", "offline");
-                return;
-            } else {
-                document.querySelector("div#mod_conninfo").setAttribute("class", "");
-                window.si.networkStats(net.iface).then(data => {
-
-                    let max0 = this.series[0].maxValue;
-                    let max1 = -this.series[1].minValue;
-                    if (max0 > max1) {
-                        this.series[1].minValue = -max0;
-                    } else if (max1 > max0) {
-                        this.series[0].maxValue = max1;
-                    }
-
-                    this.series[0].append(time, data.tx_sec/125000);
-                    this.series[1].append(time, -data.rx_sec/125000);
-
-                    this.total.innerText = `${this._pb(data.tx)} OUT, ${this._pb(data.rx)} IN`.toUpperCase();
-                });
-            }
-        });
+                this.total.innerText = `${this._pb(data.tx)} OUT, ${this._pb(data.rx)} IN`.toUpperCase();
+            });
+        }
     }
 }
 
