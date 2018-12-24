@@ -1029,7 +1029,6 @@ class Keyboard {
             }
         };
         container.addEventListener("touchend", dropKeyTouchHandler);
-        container.addEventListener("touchmove", dropKeyTouchHandler);
         container.addEventListener("touchcancel", dropKeyTouchHandler);
 
         // Bind actual keyboard actions to on-screen animations (for use without a touchscreen)
