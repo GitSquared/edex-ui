@@ -105,9 +105,6 @@ class Terminal {
             this.socket.onopen = () => {
                 this.term.attach(this.socket);
                 this.fit();
-                setTimeout(() => {
-                    this.fit();
-                }, 1200);
             };
             this.socket.onerror = e => {throw JSON.stringify(e)};
             this.socket.onclose = e => {
@@ -117,6 +114,9 @@ class Terminal {
             };
             this.socket.addEventListener("message", () => {
                 window.audioManager.beep1.play();
+                if (Date.now() - this.lastRefit > 10000) {
+                    this.fit();
+                }
             });
 
             let parent = document.getElementById(opts.parentId);
@@ -148,15 +148,12 @@ class Terminal {
                     let win = require("electron").remote.BrowserWindow.getFocusedWindow();
                     let bool = (win.isFullScreen() ? false : true);
                     win.setFullScreen(bool);
-
-                    setTimeout(() => {
-                        this.fit();
-                    }, 700);
                 }
             });
 
             this.fit = () => {
-                this.term.fit();
+                this.lastRefit = Date.now();
+                let {cols, rows} = this.term.proposeGeometry();
 
                 // Apply custom fixes based on screen ratio, see #302
                 let w = screen.width;
@@ -172,9 +169,12 @@ class Terminal {
 
                 if (ratio === "16:9") y = 1;
 
-                setTimeout(() => {
-                    this.resize(this.term.cols+x, this.term.rows+y);
-                }, 50);
+                cols = cols+x;
+                rows = rows+y;
+
+                if (this.term.cols !== cols || this.term.rows !== rows) {
+                    this.resize(cols, rows);
+                }
             };
 
             this.resize = (cols, rows) => {
