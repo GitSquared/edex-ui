@@ -516,6 +516,11 @@ const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
 
 function registerKeyboardShortcuts() {
+    // Emergency close
+    globalShortcut.register("Alt+F4", () => {
+        electron.remote.app.quit();
+    });
+
     // Open inspector
     globalShortcut.register("CommandOrControl+Shift+i", () => {
         electron.remote.getCurrentWindow().webContents.toggleDevTools();
