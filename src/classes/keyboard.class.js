@@ -995,6 +995,40 @@ class Keyboard {
             });
         });
 
+        // Tactile multi-touch support (#100)
+        container.addEventListener("touchstart", e => {
+            e.preventDefault();
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                let key = e.changedTouches[i].target.offsetParent;
+                if (key.getAttribute("class").startsWith("keyboard_key")) {
+                    key.setAttribute("class", key.getAttribute("class")+" active");
+                    key.onmousedown({preventDefault: () => {return true}});
+                } else {
+                    key = e.changedTouches[i].target;
+                    if (key.getAttribute("class").startsWith("keyboard_key")) {
+                        key.setAttribute("class", key.getAttribute("class")+" active");
+                        key.onmousedown({preventDefault: () => {return true}});
+                    }
+                }
+            }
+        });
+        container.addEventListener("touchend", e => {
+            e.preventDefault();
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                let key = e.changedTouches[i].target.offsetParent;
+                if (key.getAttribute("class").startsWith("keyboard_key")) {
+                    key.setAttribute("class", key.getAttribute("class").replace("active", ""));
+                    key.onmouseup({preventDefault: () => {return true}});
+                } else {
+                    key = e.changedTouches[i].target;
+                    if (key.getAttribute("class").startsWith("keyboard_key")) {
+                        key.setAttribute("class", key.getAttribute("class").replace("active", ""));
+                        key.onmouseup({preventDefault: () => {return true}});
+                    }
+                }
+            }
+        });
+
         // Bind actual keyboard actions to on-screen animations (for use without a touchscreen)
         let findKey = (e) => {
             // Fix incorrect querySelector error
