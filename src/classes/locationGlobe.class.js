@@ -55,7 +55,12 @@ class LocationGlobe {
                 }
                 if (window.mods.globe._animate) {
                     setTimeout(() => {
-                        requestAnimationFrame(window.mods.globe._animate);
+                        try {
+                            requestAnimationFrame(window.mods.globe._animate);
+                        } catch(e) {
+                            // We probably got caught in a theme change. Print it out but everything should keep running fine.
+                            console.warn(e);
+                        }
                     }, 1000 / 30);
                 }
             };
