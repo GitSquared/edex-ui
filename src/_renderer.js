@@ -50,20 +50,19 @@ window._loadTheme = (theme) => {
         document.querySelector("style.theming").remove();
     }
 
-    document.querySelector("head").innerHTML += `<style class="theming">
-    @font-face {
-        font-family: "${theme.cssvars.font_main}";
-        src: url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}") format("woff2");
-    }
-    @font-face {
-        font-family: "${theme.cssvars.font_main_light}";
-        src: url("${path.join(fontsDir, theme.cssvars.font_main_light.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}") format("woff2");
-    }
-    @font-face {
-        font-family: "${theme.terminal.fontFamily}";
-        src: url("${path.join(fontsDir, theme.terminal.fontFamily.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}") format("woff2");
-    }
+    // Load fonts
+    let mainFont = new FontFace(theme.cssvars.font_main, `url("${path.join(fontsDir, theme.cssvars.font_main.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}")`);
+    let lightFont = new FontFace(theme.cssvars.font_main_light, `url("${path.join(fontsDir, theme.cssvars.font_main_light.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}")`);
+    let termFont = new FontFace(theme.terminal.fontFamily, `url("${path.join(fontsDir, theme.terminal.fontFamily.toLowerCase().replace(/ /g, '_')+'.woff2').replace(/\\/g, '/')}")`);
 
+    document.fonts.add(mainFont);
+    document.fonts.load("12px "+theme.cssvars.font_main);
+    document.fonts.add(lightFont);
+    document.fonts.load("12px "+theme.cssvars.font_main_light);
+    document.fonts.add(termFont);
+    document.fonts.load("12px "+theme.terminal.fontFamily);
+
+    document.querySelector("head").innerHTML += `<style class="theming">
     :root {
         --font_main: "${theme.cssvars.font_main}";
         --font_main_light: "${theme.cssvars.font_main_light}";
@@ -114,7 +113,22 @@ if (!window.settings.nointro) {
 } else {
     initGraphicalErrorHandling();
     document.getElementById("boot_screen").remove();
-    initUI();
+    document.body.setAttribute("class", "");
+    if (document.readyState !== "complete" || document.fonts.status !== "loaded") {
+        document.addEventListener("readystatechange", () => {
+            if (document.readyState === "complete") {
+                if (document.fonts.status === "loaded") {
+                    initUI();
+                } else {
+                    document.fonts.onloadingdone = () => {
+                        if (document.fonts.status === "loaded") initUI();
+                    };
+                }
+            }
+        });
+    } else {
+        initUI();
+    }
 }
 
 // Startup boot log
@@ -198,8 +212,26 @@ function resumeInit() {
                 setTimeout(() => {
                     // Initiate graphical error display
                     initGraphicalErrorHandling();
-                    document.getElementById("boot_screen").remove();
-                    initUI();
+                    if (document.readyState !== "complete" || document.fonts.status !== "loaded") {
+                        document.addEventListener("readystatechange", () => {
+                            if (document.readyState === "complete") {
+                                if (document.fonts.status === "loaded") {
+                                    document.getElementById("boot_screen").remove();
+                                    initUI();
+                                } else {
+                                    document.fonts.onloadingdone = () => {
+                                        if (document.fonts.status === "loaded") {
+                                            document.getElementById("boot_screen").remove();
+                                            initUI();
+                                        }
+                                    };
+                                }
+                            }
+                        });
+                    } else {
+                        document.getElementById("boot_screen").remove();
+                        initUI();
+                    }
                 }, 1200);
             }, 600);
         }, 300);
