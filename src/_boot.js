@@ -246,6 +246,22 @@ app.on('ready', () => {
             e.sender.send("ttyspawn-reply", "SUCCESS: "+port);
         }
     });
+
+    // Backend support for theme and keyboard hotswitch
+    let themeOverride = null;
+    let kbOverride = null;
+    ipc.on("getThemeOverride", (e, arg) => {
+        e.sender.send("getThemeOverride", themeOverride);
+    });
+    ipc.on("getKbOverride", (e, arg) => {
+        e.sender.send("getKbOverride", kbOverride);
+    });
+    ipc.on("setThemeOverride", (e, arg) => {
+        themeOverride = arg;
+    });
+    ipc.on("setKbOverride", (e, arg) => {
+        kbOverride = arg;
+    });
 });
 
 app.on('web-contents-created', (e, contents) => {

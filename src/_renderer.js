@@ -43,6 +43,26 @@ if (electron.remote.process.argv.includes("--nointro")) {
     window.settings.nointro = false;
 }
 
+// Retrieve theme override (hotswitch)
+ipc.once("getThemeOverride", (e, theme) => {
+    if (theme !== null) {
+        window.settings.theme = theme;
+        window.settings.nointro = true;
+        _loadTheme(require(path.join(themesDir, window.settings.theme+".json")));
+    } else {
+        _loadTheme(require(path.join(themesDir, window.settings.theme+".json")));
+    }
+});
+ipc.send("getThemeOverride");
+// Same for keyboard override/hotswitch
+ipc.once("getKbOverride", (e, layout) => {
+    if (layout !== null) {
+        window.settings.keyboard = layout;
+        window.settings.nointro = true;
+    }
+});
+ipc.send("getKbOverride");
+
 // Load UI theme
 window._loadTheme = (theme) => {
 
@@ -86,8 +106,6 @@ window._loadTheme = (theme) => {
     window.theme.g = theme.colors.g;
     window.theme.b = theme.colors.b;
 };
-
-_loadTheme(require(path.join(themesDir, settings.theme+".json")));
 
 function initGraphicalErrorHandling() {
     window.edexErrorsModals = [];
@@ -421,55 +439,10 @@ function initGreeter() {
 }
 
 window.themeChanger = (theme) => {
-    for (let i = 1; i <= 4; i++) {
-        if (typeof window.term[i] === "object") {
-            window.term[i].socket.close();
-            delete window.term[i];
-            document.getElementById("shell_tab"+i).innerText = "EMPTY";
-            document.getElementById("terminal"+i).innerHTML = "";
-        }
-    }
-
-    let src = path.join(themesDir, theme+".json" || settings.theme+".json");
-    // Always get fresh theme files
-    delete require.cache[src];
-
-    window.mods.globe.globe.destroy();
-    window.removeEventListener("resize", window.mods.globe.resizeHandler);
-
-    window._loadTheme(require(src));
-    for (let i; i < 99999; i++) {
-        clearInterval(i);
-    }
-    window.term[window.currentTerm].socket.close();
-    delete window.term[window.currentTerm];
-    delete window.mods;
-    delete window.fsDisp;
-
-    document.getElementById("terminal0").innerHTML = "";
-    document.querySelectorAll(".mod_column").forEach((e) => {
-        e.setAttribute("class", "mod_column");
-    });
-    document.querySelectorAll(".mod_column > div").forEach(e => {e.remove()});
-    document.querySelectorAll("div.smoothie-chart-tooltip").forEach(e => {e.remove()});
-
-    window.term = {
-        0: new Terminal({
-            role: "client",
-            parentId: "terminal0",
-            port: window.settings.port || 3000
-        })
-    };
-    window.currentTerm = 0;
-    window.term[0].onprocesschange = p => {
-        document.getElementById("shell_tab0").innerText = "MAIN - "+p;
-    };
-
-
-    initMods();
-    window.fsDisp = new FilesystemDisplay({
-        parentId: "filesystem"
-    });
+    ipc.send("setThemeOverride", theme);
+    setTimeout(() => {
+        window.location.reload(true);
+    }, 100);
 };
 
 window.remakeKeyboard = (layout) => {
@@ -478,6 +451,7 @@ window.remakeKeyboard = (layout) => {
         layout: path.join(keyboardsDir, layout+".json" || settings.keyboard+".json"),
         container: "keyboard"
     });
+    ipc.send("setKbOverride", layout);
 };
 
 window.focusShellTab = (number) => {
