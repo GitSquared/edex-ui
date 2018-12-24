@@ -1012,7 +1012,7 @@ class Keyboard {
                 }
             }
         });
-        container.addEventListener("touchend", e => {
+        let dropKeyTouchHandler = e => {
             e.preventDefault();
             for (let i = 0; i < e.changedTouches.length; i++) {
                 let key = e.changedTouches[i].target.offsetParent;
@@ -1027,7 +1027,10 @@ class Keyboard {
                     }
                 }
             }
-        });
+        };
+        container.addEventListener("touchend", dropKeyTouchHandler);
+        container.addEventListener("touchmove", dropKeyTouchHandler);
+        container.addEventListener("touchcancel", dropKeyTouchHandler);
 
         // Bind actual keyboard actions to on-screen animations (for use without a touchscreen)
         let findKey = (e) => {
