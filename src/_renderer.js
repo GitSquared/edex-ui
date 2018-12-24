@@ -515,89 +515,88 @@ window.focusShellTab = (number) => {
 const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
 
-// Open inspector
-globalShortcut.register("CommandOrControl+Shift+i", () => {
-    if (!document.hasFocus()) return;
-    electron.remote.getCurrentWindow().webContents.toggleDevTools();
-});
+function registerKeyboardShortcuts() {
+    // Open inspector
+    globalShortcut.register("CommandOrControl+Shift+i", () => {
+        electron.remote.getCurrentWindow().webContents.toggleDevTools();
+    });
 
-// Copy and paste shortcuts
+    // Copy and paste shortcuts
 
-if (process.platform === "darwin") {
-    // See #342, we have an actual available key on macOS to do this
-    globalShortcut.register("Command+C", () => {
-        if (!document.hasFocus()) return;
-        window.term[window.currentTerm].clipboard.copy();
+    if (process.platform === "darwin") {
+        // See #342, we have an actual available key on macOS to do this
+        globalShortcut.register("Command+C", () => {
+            window.term[window.currentTerm].clipboard.copy();
+        });
+        globalShortcut.register("Command+V", () => {
+            window.term[window.currentTerm].clipboard.paste();
+        });
+    } else {
+        // Use Ctrl+shift on other OSs
+        globalShortcut.register("Ctrl+Shift+C", () => {
+            window.term[window.currentTerm].clipboard.copy();
+        });
+        globalShortcut.register("Ctrl+Shift+V", () => {
+            window.term[window.currentTerm].clipboard.paste();
+        });
+    }
+
+    // Switch tabs
+    // Next
+    globalShortcut.register("CommandOrControl+Tab", () => {
+        if (window.term[window.currentTerm+1]) {
+            window.focusShellTab(window.currentTerm+1);
+        } else if (window.term[window.currentTerm+2]) {
+            window.focusShellTab(window.currentTerm+2);
+        } else if (window.term[window.currentTerm+3]) {
+            window.focusShellTab(window.currentTerm+3);
+        } else if (window.term[window.currentTerm+4]) {
+            window.focusShellTab(window.currentTerm+4);
+        } else {
+            window.focusShellTab(0);
+        }
     });
-    globalShortcut.register("Command+V", () => {
-        if (!document.hasFocus()) return;
-        window.term[window.currentTerm].clipboard.paste();
+    // Previous
+    globalShortcut.register("CommandOrControl+Shift+Tab", () => {
+        if (window.term[window.currentTerm-1]) {
+            window.focusShellTab(window.currentTerm-1);
+        } else if (window.term[window.currentTerm-2]) {
+            window.focusShellTab(window.currentTerm-2);
+        } else if (window.term[window.currentTerm-3]) {
+            window.focusShellTab(window.currentTerm-3);
+        } else if (window.term[window.currentTerm-4]) {
+            window.focusShellTab(window.currentTerm-4);
+        } else if (window.term[4]){
+            window.focusShellTab(4);
+        }
     });
-} else {
-    // Use Ctrl+shift on other OSs
-    globalShortcut.register("Ctrl+Shift+C", () => {
-        if (!document.hasFocus()) return;
-        window.term[window.currentTerm].clipboard.copy();
+    // By tab number
+    globalShortcut.register("CommandOrControl+1", () => {
+        window.focusShellTab(0);
     });
-    globalShortcut.register("Ctrl+Shift+V", () => {
-        if (!document.hasFocus()) return;
-        window.term[window.currentTerm].clipboard.paste();
+    globalShortcut.register("CommandOrControl+2", () => {
+        window.focusShellTab(1);
+    });
+    globalShortcut.register("CommandOrControl+3", () => {
+        window.focusShellTab(2);
+    });
+    globalShortcut.register("CommandOrControl+4", () => {
+        window.focusShellTab(3);
+    });
+    globalShortcut.register("CommandOrControl+5", () => {
+        window.focusShellTab(4);
     });
 }
+registerKeyboardShortcuts();
 
-// Switch tabs
-// Next
-globalShortcut.register("CommandOrControl+Tab", () => {
-    if (!document.hasFocus()) return;
-    if (window.term[window.currentTerm+1]) {
-        window.focusShellTab(window.currentTerm+1);
-    } else if (window.term[window.currentTerm+2]) {
-        window.focusShellTab(window.currentTerm+2);
-    } else if (window.term[window.currentTerm+3]) {
-        window.focusShellTab(window.currentTerm+3);
-    } else if (window.term[window.currentTerm+4]) {
-        window.focusShellTab(window.currentTerm+4);
-    } else {
-        window.focusShellTab(0);
-    }
-});
-// Previous
-globalShortcut.register("CommandOrControl+Shift+Tab", () => {
-    if (!document.hasFocus()) return;
-    if (window.term[window.currentTerm-1]) {
-        window.focusShellTab(window.currentTerm-1);
-    } else if (window.term[window.currentTerm-2]) {
-        window.focusShellTab(window.currentTerm-2);
-    } else if (window.term[window.currentTerm-3]) {
-        window.focusShellTab(window.currentTerm-3);
-    } else if (window.term[window.currentTerm-4]) {
-        window.focusShellTab(window.currentTerm-4);
-    } else if (window.term[4]){
-        window.focusShellTab(4);
-    }
-});
-// By tab number
-globalShortcut.register("CommandOrControl+1", () => {
-    if (!document.hasFocus()) return;
-    window.focusShellTab(0);
-});
-globalShortcut.register("CommandOrControl+2", () => {
-    if (!document.hasFocus()) return;
-    window.focusShellTab(1);
-});
-globalShortcut.register("CommandOrControl+3", () => {
-    if (!document.hasFocus()) return;
-    window.focusShellTab(2);
-});
-globalShortcut.register("CommandOrControl+4", () => {
-    if (!document.hasFocus()) return;
-    window.focusShellTab(3);
-});
-globalShortcut.register("CommandOrControl+5", () => {
-    if (!document.hasFocus()) return;
-    window.focusShellTab(4);
+// See #361
+window.addEventListener("focus", () => {
+    registerKeyboardShortcuts();
 });
 
+window.addEventListener("blur", () => {
+    globalShortcut.unregisterAll();
+});
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 window.onkeydown = e => {
