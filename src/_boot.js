@@ -62,7 +62,8 @@ if (!fs.existsSync(settingsFile)) {
         cwd: electron.app.getPath("userData"),
         keyboard: "en-US",
         theme: "tron",
-        audio: false
+        audio: true,
+        extraAudio: false
     }, 4));
 }
 

@@ -8,6 +8,8 @@ class Clock {
             <h1 id="mod_clock_text"><span>?</span><span>?</span><span>:</span><span>?</span><span>?</span><span>:</span><span>?</span><span>?</span></h1>
         </div>`;
 
+        this.lastTime = new Date();
+
         this.updateClock();
         this.updater = setInterval(() => {
             this.updateClock();
@@ -16,6 +18,11 @@ class Clock {
     updateClock() {
         let time = new Date();
         let array = [time.getHours(), time.getMinutes(), time.getSeconds()];
+
+        if (this.lastTime.getMinutes() !== array[1]) {
+            window.audioManager.beep5.play();
+        }
+
         array.forEach((e, i) => {
             if (e.toString().length !== 2) {
                 array[i] = "0"+e;
@@ -29,6 +36,7 @@ class Clock {
             else clockString += "<span>"+e+"</span>";
         });
         document.getElementById("mod_clock_text").innerHTML = clockString;
+        this.lastTime = time;
     }
 }
 

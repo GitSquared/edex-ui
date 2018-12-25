@@ -67,7 +67,7 @@ class Modal {
                 window.audioManager.alarm.play();
                 break;
             default:
-                window.audioManager.beep2.play();
+                window.audioManager.info.play();
                 break;
         }
         window.modals[this.id] = this;

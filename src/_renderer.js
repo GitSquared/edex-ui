@@ -270,6 +270,7 @@ function initUI() {
     </section>`;
 
     setTimeout(() => {
+        window.audioManager.scan.play();
         document.getElementById("main_shell").setAttribute("style", "height:0%;margin-bottom:30vh;");
         setTimeout(() => {
             document.getElementById("main_shell").setAttribute("style", "margin-bottom: 30vh;");
@@ -455,8 +456,8 @@ window.remakeKeyboard = (layout) => {
 };
 
 window.focusShellTab = (number) => {
-    window.audioManager.beep3.play();
-    
+    window.audioManager.beep2.play();
+
     if (number !== window.currentTerm && window.term[number]) {
         window.currentTerm = number;
 
