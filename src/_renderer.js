@@ -455,6 +455,8 @@ window.remakeKeyboard = (layout) => {
 };
 
 window.focusShellTab = (number) => {
+    window.audioManager.beep3.play();
+    
     if (number !== window.currentTerm && window.term[number]) {
         window.currentTerm = number;
 
