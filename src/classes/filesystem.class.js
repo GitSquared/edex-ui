@@ -7,11 +7,15 @@ class FilesystemDisplay {
         this.cwd = [];
         this.iconcolor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;
         this.icons = {
+            showDisks: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 15.9994,19.9981L 19.9994,19.9981L 19.9994,15.9981L 15.9994,15.9981M 15.9994,13.9981L 19.9994,13.9981L 19.9994,9.99807L 15.9994,9.99807M 9.99938,7.99807L 13.9994,7.99807L 13.9994,3.99807L 9.99938,3.99807M 15.9994,7.99807L 19.9994,7.99807L 19.9994,3.99807L 15.9994,3.99807M 9.99938,13.9981L 13.9994,13.9981L 13.9994,9.99807L 9.99938,9.99807M 3.99938,13.9981L 7.99938,13.9981L 7.99938,9.99807L 3.99938,9.99807M 3.99938,19.9981L 7.99938,19.9981L 7.99938,15.9981L 3.99938,15.9981M 9.99938,19.9981L 13.9994,19.9981L 13.9994,15.9981L 9.99938,15.9981M 3.99938,7.99807L 7.99938,7.99807L 7.99938,3.99807L 3.99938,3.99807L 3.99938,7.99807 Z "/>`,
             up: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 22,4L 14,4L 12,2L 6,2C 4.9,2 4.01,2.9 4.01,4L 4,16C 4,17.1 4.9,18 6,18L 22,18C 23.1,18 24,17.1 24,16L 24,6C 24,4.9 23.1,4 22,4 Z M 2,6L -2.98023e-008,6L -2.98023e-008,11L 0.0100021,11L -2.98023e-008,20C -2.98023e-008,21.1 0.900001,22 2,22L 20,22L 20,20L 2,20L 2,6 Z "/>`,
             dir: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 9.99936,3.99807L 3.99936,3.99807C 2.89436,3.99807 2.00936,4.89406 2.00936,5.99807L 1.99936,17.9981C 1.99936,19.1021 2.89436,19.9981 3.99936,19.9981L 19.9994,19.9981C 21.1029,19.9981 21.9994,19.1021 21.9994,17.9981L 21.9994,7.99807C 21.9994,6.89406 21.1029,5.99807 19.9994,5.99807L 11.9994,5.99807L 9.99936,3.99807 Z "/>`,
             symlink: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 15.9995,5.99817L 12.9995,5.99817L 12.9995,7.89813L 15.9995,7.89813C 18.2635,7.89813 20.0995,9.73413 20.0995,11.9982C 20.0995,14.2621 18.2635,16.0981 15.9995,16.0981L 12.9995,16.0981L 12.9995,17.9982L 15.9995,17.9982C 19.3145,17.9982 21.9995,15.3121 21.9995,11.9982C 21.9995,8.68414 19.3145,5.99817 15.9995,5.99817 Z M 3.89948,11.9982C 3.89948,9.73413 5.7355,7.89813 7.99948,7.89813L 10.9995,7.89813L 10.9995,5.99817L 7.99948,5.99817C 4.68649,5.99817 1.99948,8.68414 1.99948,11.9982C 1.99948,15.3121 4.68649,17.9982 7.99948,17.9982L 10.9995,17.9982L 10.9995,16.0981L 7.99948,16.0981C 5.7355,16.0981 3.89948,14.2621 3.89948,11.9982 Z M 7.99948,12.9982L 15.9995,12.9982L 15.9995,10.9982L 7.99948,10.9982L 7.99948,12.9982 Z "/>`,
             file: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 12.9994,8.99807L 12.9994,3.49807L 18.4994,8.99807M 5.99939,1.99807C 4.89438,1.99807 4.0094,2.89406 4.0094,3.99807L 3.99939,19.9981C 3.99939,21.1021 4.88538,21.9981 5.98938,21.9981L 17.9994,21.9981C 19.1034,21.9981 19.9994,21.1021 19.9994,19.9981L 19.9994,7.99807L 13.9994,1.99807L 5.99939,1.99807 Z "/>`,
             other: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 11,18L 13,18L 13,16L 11,16L 11,18 Z M 12,6C 9.79,6 8,7.79 8,10L 10,10C 10,8.9 10.9,8 12,8C 13.1,8 14,8.9 14,10C 14,12 11,11.75 11,15L 13,15C 13,12.75 16,12.5 16,10C 16,7.79 14.21,6 12,6 Z M 5,3L 19,3C 20.1046,3 21,3.89543 21,5L 21,19C 21,20.1046 20.1046,21 19,21L 5,21C 3.89543,21 3,20.1046 3,19L 3,5C 3,3.89543 3.89543,3 5,3 Z "/>`,
+            disk: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-linejoin="round" d="M 6,2L 18,2C 19.1046,2 20,2.89543 20,4L 20,20C 20,21.1046 19.1046,22 18,22L 6,22C 4.89543,22 4,21.1046 4,20L 4,4C 4,2.89543 4.89543,2 6,2 Z M 12,4.00001C 8.68629,4.00001 5.99999,6.6863 5.99999,10C 5.99999,13.3137 8.68629,16 12.1022,15.9992L 11.2221,13.7674C 10.946,13.2891 11.1099,12.6775 11.5882,12.4013L 12.4542,11.9013C 12.9325,11.6252 13.5441,11.7891 13.8202,12.2674L 15.7446,14.6884C 17.1194,13.5889 18,11.8973 18,10C 18,6.6863 15.3137,4.00001 12,4.00001 Z M 12,9.00001C 12.5523,9.00001 13,9.44773 13,10C 13,10.5523 12.5523,11 12,11C 11.4477,11 11,10.5523 11,10C 11,9.44773 11.4477,9.00001 12,9.00001 Z M 7,18C 6.44771,18 6,18.4477 6,19C 6,19.5523 6.44771,20 7,20C 7.55228,20 8,19.5523 8,19C 8,18.4477 7.55228,18 7,18 Z M 12.0882,13.2674L 14.5757,19.5759L 17.1738,18.0759L 12.9542,12.7674L 12.0882,13.2674 Z "/>`,
+            rom: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 11.9975,13.9987C 10.8938,13.9987 10,13.1 10,11.9975C 10,10.8938 10.8938,10 11.9975,10C 13.105,10 13.9987,10.8938 13.9987,11.9975C 13.9987,13.1 13.105,13.9987 11.9975,13.9987 Z M 11.9975,3.99875C 7.5825,3.99875 3.99875,7.5775 3.99875,11.9975C 3.99875,16.4162 7.5825,20 11.9975,20C 16.4163,20 20,16.4162 20,11.9975C 20,7.5775 16.4163,3.99875 11.9975,3.99875 Z "/>`,
+            usb: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 14.9994,6.99807L 14.9994,10.9981L 15.9994,10.9981L 15.9994,12.9981L 12.9994,12.9981L 12.9994,4.99807L 14.9994,4.99807L 11.9994,0.998068L 8.9994,4.99807L 10.9994,4.99807L 10.9994,12.9981L 7.9994,12.9981L 7.9994,10.9281C 8.7034,10.5611 9.1994,9.84707 9.1994,8.99807C 9.1994,7.78307 8.2144,6.79807 6.9994,6.79807C 5.7844,6.79807 4.7994,7.78307 4.7994,8.99807C 4.7994,9.84707 5.2954,10.5611 5.9994,10.9281L 5.9994,12.9981C 5.9994,14.1031 6.8934,14.9981 7.9994,14.9981L 10.9994,14.9981L 10.9994,18.0491C 10.2894,18.4141 9.7994,19.1451 9.7994,19.9981C 9.7994,21.2131 10.7844,22.1981 11.9994,22.1981C 13.2144,22.1981 14.1994,21.2131 14.1994,19.9981C 14.1994,19.1451 13.7084,18.4141 12.9994,18.0491L 12.9994,14.9981L 15.9994,14.9981C 17.1044,14.9981 17.9994,14.1031 17.9994,12.9981L 17.9994,10.9981L 18.9994,10.9981L 18.9994,6.99807L 14.9994,6.99807 Z "/>`,
             edex: {
                 theme: `<path fill="${this.iconcolor}" fill-opacity="1" stroke-width="0.2" stroke-linejoin="round" d="M 17.9994,3.99805L 17.9994,2.99805C 17.9994,2.44604 17.5514,1.99805 16.9994,1.99805L 4.9994,1.99805C 4.4474,1.99805 3.9994,2.44604 3.9994,2.99805L 3.9994,6.99805C 3.9994,7.55005 4.4474,7.99805 4.9994,7.99805L 16.9994,7.99805C 17.5514,7.99805 17.9994,7.55005 17.9994,6.99805L 17.9994,5.99805L 18.9994,5.99805L 18.9994,9.99805L 8.9994,9.99805L 8.9994,20.998C 8.9994,21.55 9.4474,21.998 9.9994,21.998L 11.9994,21.998C 12.5514,21.998 12.9994,21.55 12.9994,20.998L 12.9994,11.998L 20.9994,11.998L 20.9994,3.99805L 17.9994,3.99805 Z "/>`,
                 themesDir: `<path fill="${this.iconcolor}" stroke-linejoin="round" d="m9.9994 3.9981h-6c-1.105 0-1.99 0.896-1.99 2l-0.01 12c0 1.104 0.895 2 2 2h16c1.104 0 2-0.896 2-2v-9.9999c0-1.104-0.896-2-2-2h-8l-1.9996-2z" stroke-width=".2"/><path stroke-linejoin="round" d="m18.8 9.3628v-0.43111c0-0.23797-0.19314-0.43111-0.43111-0.43111h-5.173c-0.23797 0-0.43111 0.19313-0.43111 0.43111v1.7244c0 0.23797 0.19314 0.43111 0.43111 0.43111h5.1733c0.23797 0 0.43111-0.19314 0.43111-0.43111v-0.43111h0.43111v1.7244h-4.3111v4.7422c0 0.23797 0.19314 0.43111 0.43111 0.43111h0.86221c0.23797 0 0.43111-0.19314 0.43111-0.43111v-3.879h3.449v-3.4492z" stroke-width=".086221" fill="${window.theme.colors.light_black}"/>`,
@@ -27,6 +31,7 @@ class FilesystemDisplay {
             <div id="fs_disp_container">
             </div>
             <div id="fs_space_bar">
+                <h1>EXIT DISPLAY</h1>
                 <h3>Calculating available space...</h3><progress value="100" max="100"></progress>
             </div>`;
         this.filesContainer = document.getElementById("fs_disp_container");
@@ -123,9 +128,14 @@ class FilesystemDisplay {
 
                                 i++;
                                 if (i === content.length) {
+                                    this.cwd.push({
+                                        name: "Show disks",
+                                        type: "showDisks"
+                                    });
+
                                     if (tcwd !== "/" && tcwd !== "\\") {
                                         this.cwd.push({
-                                            name: "..",
+                                            name: "Go up",
                                             type: "up"
                                         });
                                     }
@@ -192,7 +202,7 @@ class FilesystemDisplay {
                                         });
 
                                         this.dirpath = tcwd;
-                                        this.render();
+                                        this.render(this.cwd);
                                     });
                                 }
                             }
@@ -202,16 +212,40 @@ class FilesystemDisplay {
             });
         };
 
-        this.render = () => {
+        this.readDevices = () => {
+            if (this.failed === true) return false;
+            window.si.blockDevices().then(blocks => {
+                let devices = [];
+                blocks.forEach(block => {
+                    if (fs.existsSync(block.mount)) {
+                        let type = (block.type === "rom") ? "rom" : "disk";
+                        if (block.removable && block.type !== "rom") {
+                            type = "usb";
+                        }
+
+                        devices.push({
+                            name: (block.label !== "") ? `${block.label} (${block.name})` : `${block.mount} (${block.name})`,
+                            type,
+                            path: block.mount
+                        });
+                    }
+                });
+
+                this.render(devices);
+            });
+        };
+
+        this.render = (blockList) => {
             if (this.failed === true) return false;
 
             document.getElementById("fs_disp_title_dir").innerText = this.dirpath;
+            this.filesContainer.setAttribute("class", "");
             if (this._noTracking) {
                 document.querySelector("section#filesystem > h3.title > p:first-of-type").innerText = "FILESYSTEM - TRACKING FAILED, RUNNING DETACHED FROM TTY";
             }
 
             let filesDOM = ``;
-            this.cwd.forEach(e => {
+            blockList.forEach(e => {
                 let hidden = "";
                 if (e.name.startsWith(".")) {
                     hidden = " hidden";
@@ -222,11 +256,30 @@ class FilesystemDisplay {
                     cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
                 }
 
+                if (e.type === "up") {
+                    cmd = `window.term[window.currentTerm].writelr('cd ..')`;
+                }
+
                 if (e.type === "up" && this._noTracking) {
                     cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..').replace(/\\/g, '\\\\')}')`;
                 }
                 if ((e.type === "dir" || e.type.endsWith("Dir")) && this._noTracking) {
                     cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name).replace(/\\/g, '\\\\')}')`;
+                }
+
+                if (e.type === "showDisks") {
+                    cmd = `window.fsDisp.readDevices()`;
+                }
+
+                if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
+                    let extraSwitch = (process.platform === "win32") ? " /D" : "";
+                    cmd = `window.term[window.currentTerm].writelr('cd${extraSwitch} \\'${e.path.replace("\\", "\\\\")}\\'')`;
+
+                    document.getElementById("fs_disp_title_dir").innerText = "Showing available block devices";
+                    this.filesContainer.setAttribute("class", "disks");
+                }
+                if ((e.type === "disk" || e.type === "rom" || e.type === "usb") && this._noTracking) {
+                    cmd = `window.fsDisp.readFS('${e.path.replace(/\\/g, '\\\\')}')`;
                 }
 
                 if (e.type === "edex-theme") {
@@ -241,6 +294,9 @@ class FilesystemDisplay {
 
                 let icon = "";
                 switch(e.type) {
+                    case "showDisks":
+                        icon = this.icons.showDisks;
+                        break;
                     case "up":
                         icon = this.icons.up;
                         break;
@@ -252,6 +308,15 @@ class FilesystemDisplay {
                         break;
                     case "file":
                         icon = this.icons.file;
+                        break;
+                    case "disk":
+                        icon = this.icons.disk;
+                        break;
+                    case "rom":
+                        icon = this.icons.rom;
+                        break;
+                    case "usb":
+                        icon = this.icons.usb;
                         break;
                     case "edex-theme":
                         icon = this.icons.edex.theme;
@@ -280,18 +345,27 @@ class FilesystemDisplay {
             });
             this.filesContainer.innerHTML = filesDOM;
 
-            // See #226
-            if (!isNaN(this.fsBlock.use)) {
-                this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
-                this.space_bar.bar.value = Math.round(this.fsBlock.use);
-            } else if (!isNaN((this.fsBlock.size / this.fsBlock.used) * 100)) {
-                let usage = Math.round((this.fsBlock.size / this.fsBlock.used) * 100);
-
-                this.space_bar.text.innerHTML = `Mount <strong>${this.fsBlock.mount}</strong> used <strong>${usage}%</strong>`;
-                this.space_bar.bar.value = usage;
+            if (this.filesContainer.getAttribute("class").endsWith("disks")) {
+                document.getElementById("fs_space_bar").setAttribute("onclick", "window.fsDisp.render(window.fsDisp.cwd)");
             } else {
-                this.space_bar.text.innerHTML = "Could not calculate mountpoint usage.";
-                this.space_bar.bar.value = 100;
+                document.getElementById("fs_space_bar").setAttribute("onclick", "");
+
+                let splitter = (process.platform === "win32") ? "\\" : "/";
+                let displayMount = (this.fsBlock.mount.length < 18) ? this.fsBlock.mount : "..."+splitter+this.fsBlock.mount.split(splitter).pop();
+
+                // See #226
+                if (!isNaN(this.fsBlock.use)) {
+                    this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
+                    this.space_bar.bar.value = Math.round(this.fsBlock.use);
+                } else if (!isNaN((this.fsBlock.size / this.fsBlock.used) * 100)) {
+                    let usage = Math.round((this.fsBlock.size / this.fsBlock.used) * 100);
+
+                    this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> used <strong>${usage}%</strong>`;
+                    this.space_bar.bar.value = usage;
+                } else {
+                    this.space_bar.text.innerHTML = "Could not calculate mountpoint usage.";
+                    this.space_bar.bar.value = 100;
+                }
             }
         };
     }

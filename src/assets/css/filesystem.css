@@ -30,6 +30,7 @@ div#fs_disp_container {
     grid-template-columns: repeat(auto-fill, minmax(8.5vh, 1fr));
     grid-auto-rows: 8.5vh;
     grid-gap: 1vh;
+    box-sizing: border-box;
 }
 
 div#fs_disp_container > * {
@@ -76,8 +77,21 @@ div#fs_disp_container > * > h3 {
     overflow: hidden;
 }
 
-div.fs_disp_up > svg {
+div#fs_disp_container.disks {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 0.4vh double rgba(var(--color_r), var(--color_g), var(--color_b), 0.8);
+}
+div#fs_disp_container.disks > * {
+    width: auto;
+    max-width: 8vw;
+}
+
+div.fs_disp_showDisks > svg, div.fs_disp_up > svg {
     width: 4vh !important;
+    margin-bottom: 0.5vh;
+    margin-top: 0.5vh;
 }
 
 div.fs_disp_file > h3 {
@@ -95,6 +109,33 @@ div#fs_space_bar {
     position: relative;
     top: 1.5vh;
     left: .15vw;
+}
+
+div#fs_space_bar > h1 {
+    display: none;
+
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.1);
+    height: 3.2vh;
+    width: 100%;
+    position: relative;
+    bottom: .7vh;
+    left: .3vh;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    border-radius: 2px;
+    font-family: var(--font_main);
+    font-weight: bold;
+    font-size: 1.5vh;
+    cursor: pointer;
+}
+
+div#fs_disp_container.disks+div#fs_space_bar > h1 {
+    display: flex;
+}
+div#fs_disp_container.disks+div#fs_space_bar > *:not(h1) {
+    display: none;
 }
 
 div#fs_space_bar > h3 {
