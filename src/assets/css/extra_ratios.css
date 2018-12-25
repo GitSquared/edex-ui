@@ -85,3 +85,121 @@
         height: 8vh;
     }
 }
+
+@media (aspect-ratio: 5/4) {
+    section#filesystem {
+        display: none;
+    }
+
+    div.keyboard_row#row_1 > div.keyboard_enter {
+        height: 4.9vh;
+        left: 0.1vh
+    }
+    section#keyboard div.keyboard_key {
+        margin: 0vh 1vh;
+    }
+    section#keyboard div.keyboard_key#keyboard_spacebar {
+        min-width: 36vw;
+        width: 36vw;
+    }
+    div.keyboard_key > *:not(h1) {
+        font-size: 1.2vh;
+    }
+    div.keyboard_key > h2 {
+        top: 0.1vh;
+        left: 0.1vh;
+    }
+    div.keyboard_key > h3 {
+        bottom: 0.1vh;
+        right: 0.1vh;
+    }
+
+    div#mod_clock h1 > * {
+        margin: 0vh -0.1vh;
+    }
+
+    div#mod_sysinfo h1 {
+        font-size: 1vh;
+    }
+    div#mod_sysinfo h2 {
+        font-size: 1.1vh;
+    }
+
+    div#mod_cpuinfo_innercontainer > h1:first-child > i {
+        font-size: 0.8vh;
+    }
+    div#mod_cpuinfo h1 {
+        font-size: 1.1vh;
+    }
+    div#mod_cpuinfo i {
+        font-size: 1vh;
+    }
+
+    div#mod_ramwatcher_inner > h1:first-child > i {
+        font-size: 0.8vh;
+    }
+
+    div#mod_toplist i {
+        opacity: 0;
+    }
+    table#mod_toplist_table td {
+        font-size: 1.1vh;
+    }
+    table#mod_toplist_table td:nth-child(2) {
+        min-width: 4vw;
+        max-width: 4vw;
+    }
+
+    div#mod_netstat_inner > h1:first-child > i {
+        opacity: 0;
+    }
+    div#mod_netstat_innercontainer {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "state ping"
+                             "ip ip";
+    }
+    div#mod_netstat_innercontainer div:nth-child(1) {
+        grid-area: state;
+    }
+    div#mod_netstat_innercontainer div:nth-child(2) {
+        grid-area: ip;
+        border-top: 2px solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.2);
+    }
+    div#mod_netstat_innercontainer div:nth-child(2) > * {
+        position: relative;
+        top: 1vh;
+    }
+    div#mod_netstat_innercontainer div:nth-child(3) {
+        grid-area: ping;
+    }
+    div#mod_netstat_innercontainer div {
+        align-items: center;
+    }
+
+    div#mod_globe_innercontainer > h1 > i {
+        opacity: 0
+    }
+    div#mod_globe_innercontainer > h2 {
+        font-size: 0.9vh;
+        color: rgba(0,0,0,0);
+    }
+    div#mod_globe_innercontainer > h2 > i {
+        font-size: 1.1vh;
+        color: rgb(var(--color_r), var(--color_g), var(--color_b));
+        text-align: left;
+    }
+
+    div#mod_conninfo_innercontainer > h1 > i {
+        opacity: 0;
+    }
+    div#mod_conninfo_innercontainer > h2 {
+        font-size: 0.9vh;
+        color: rgba(0,0,0,0);
+    }
+    div#mod_conninfo_innercontainer > h2 > i {
+        font-size: 1.1vh;
+        color: rgb(var(--color_r), var(--color_g), var(--color_b));
+        text-align: left;
+    }
+}
