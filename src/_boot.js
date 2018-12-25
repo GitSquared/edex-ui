@@ -43,6 +43,11 @@ const innerKblayoutsDir = path.join(__dirname, "assets/kb_layouts");
 const fontsDir = path.join(electron.app.getPath("userData"), "fonts");
 const innerFontsDir = path.join(__dirname, "assets/fonts");
 
+// Unset proxy env variables to avoid connection problems on the internal websockets
+// See #222
+if (process.env.http_proxy) delete process.env.http_proxy;
+if (process.env.https_proxy) delete process.env.https_proxy;
+
 // Fix userData folder not setup on Windows
 try {
     fs.mkdirSync(electron.app.getPath("userData"));
