@@ -24,8 +24,8 @@ const recursiveMinify = (dirPath) => {
             let filePath = dirPath + '/' + files[i];
             if (fs.statSync(filePath).isFile()) {
 
-                // Grid.json is a massive file that's already pre-minified. Do not process.
-                if (filePath.endsWith("grid.json")) return;
+                // Do not process grid.json because it's heavy and pre-minified, and themes and keyboard files to leave them in a human-readable state
+                if (filePath.endsWith(".json")) return;
 
                 switch (filePath.split(".").pop()) {
                     case "js":

@@ -58,7 +58,7 @@ if (!fs.existsSync(settingsFile)) {
         keyboard: "en-US",
         theme: "tron",
         audio: false
-    }));
+    }, 4));
 }
 
 // Copy default themes & keyboard layouts & fonts
