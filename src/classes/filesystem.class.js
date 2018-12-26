@@ -368,5 +368,13 @@ class FilesystemDisplay {
                 }
             }
         };
+
+        // Automatically start indexing supposed beginning CWD
+        // See #365
+        this.readFS(window.settings.cwd);
     }
 }
+
+module.exports = {
+    FilesystemDisplay
+};
