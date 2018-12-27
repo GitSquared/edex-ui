@@ -151,13 +151,19 @@ app.on('ready', () => {
 
     if (!require("fs").existsSync(settings.cwd)) throw new Error("Configured cwd path does not exist.");
 
+    // See #366
+    if (process.platform === "darwin") {
+        const shellEnv = require("shell-env");
+        let customEnv = shellEnv.sync();
+    }
+
     signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
         role: "server",
         shell: settings.shell.split(" ")[0],
         params: settings.shell.split(" ").splice(1),
         cwd: settings.cwd,
-        env: settings.env,
+        env: customEnv || settings.env,
         port: settings.port || 3000
     });
     signale.success(`Terminal back-end initialized!`);
