@@ -11,7 +11,7 @@
 {"name":";","cmd":";","shift_name":":","shift_cmd":":"},
 {"name":"[","cmd":"[","shift_name":"{","shift_cmd":"{","ctrl_cmd":"~~~CTRLSEQ1~~~"},
 {"name":"]","cmd":"]","shift_name":"}","shift_cmd":"}","ctrl_cmd":"~~~CTRLSEQ3~~~"},{"name":"ENTER","cmd":"\r"}],
-"row_2":[{"name":"CAPS","cmd":"ESCAPED|-- CAPSLCK: ON","shift_cmd":"ESCAPED|-- CAPSLCK: OFF"},
+"row_2":[{"name":"BACK","cmd":"\b","shift_name":"DELETE","shift_cmd":"~~~CTRLSEQ1~~~[3~"},
 {"name":"A","cmd":"a","shift_cmd":"A","ctrl_cmd":"~~~CTRLSEQ13~~~","alt_cmd":"~~~CTRLSEQ1~~~a"},
 {"name":"R","cmd":"r","shift_cmd":"R","ctrl_cmd":"~~~CTRLSEQ8~~~","alt_cmd":"~~~CTRLSEQ1~~~r"},
 {"name":"S","cmd":"s","shift_cmd":"S","ctrl_cmd":"~~~CTRLSEQ14~~~","alt_cmd":"~~~CTRLSEQ1~~~s"},
