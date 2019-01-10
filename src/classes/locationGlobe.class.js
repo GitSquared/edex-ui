@@ -87,23 +87,11 @@ class LocationGlobe {
                         rawData += chunk;
                     });
                     res.on("end", () => {
-                        try {
-                            let json = JSON.parse(rawData);
-                            if (json.geo) {
-                                let lat = Number(json.geo.latitude);
-                                let lon = Number(json.geo.longitude);
-
-                                window.mods.globe.conns.push({
-                                    ip,
-                                    pin: window.mods.globe.globe.addPin(lat, lon, "", 1.2),
-                                    // marker: window.mods.globe.globe.addMarker(lat, lon, "", window.mods.globe._locMarker, 1, "transparent")
-                                });
-                            }
-                        } catch(e) {
+                        this.parseResponse(rawData, ip).catch(() => {
                             let electron = require("electron");
                             electron.ipcRenderer.send("log", "note", "LocationGlobe: Error parsing data from ipinfo.now.sh");
                             electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
-                        }
+                        })
                     });
                 }).on("error", (e) => {
                     // Drop it
@@ -142,6 +130,19 @@ class LocationGlobe {
                 this.updateConns();
             }, 3000);
         }, 4000);
+    }
+
+    async parseResponse(rawData, ip) {
+        const json = JSON.parse(rawData);
+        if (json.geo) {
+            const lat = Number(json.geo.latitude);
+            const lon = Number(json.geo.longitude);
+
+            window.mods.globe.conns.push({
+                ip,
+                pin: window.mods.globe.globe.addPin(lat, lon, "", 1.2),
+            });
+        }
     }
 
     addRandomConnectedPoints() {
