@@ -194,7 +194,7 @@ class LocationGlobe {
             document.querySelector("i.mod_globe_headerInfo").innerText = `${newgeo.latitude}, ${newgeo.longitude}`;
             this.removePins();
             this.removeMarkers();
-            this.addRandomConnectedPoints();
+            //this.addRandomConnectedPoints();
             this.conns = [];
 
             this._locPin = this.globe.addPin(newgeo.latitude, newgeo.longitude, "", 1.2);
