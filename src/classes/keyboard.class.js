@@ -6,6 +6,14 @@ class Keyboard {
         const layout = JSON.parse(require("fs").readFileSync(opts.layout, {encoding: "utf-8"}));
         const container = document.getElementById(opts.container);
 
+        this.linkedToTerm = true;
+        this.detach = () => {
+            this.linkedToTerm = false;
+        };
+        this.attach = () => {
+            this.linkedToTerm = true;
+        };
+
         // Set default keyboard properties
         container.dataset.isShiftOn = false;
         container.dataset.isCapsLckOn = false;
@@ -886,13 +894,42 @@ class Keyboard {
                         break;
                 }
             } else if (cmd === "\n") {
-                window.term[window.currentTerm].writelr("");
-            } else if (cmd === ctrlseq[19] && window.term[window.currentTerm].term.hasSelection()) {
+                if (window.keyboard.linkedToTerm) {
+                    window.term[window.currentTerm].writelr("");
+                } else {
+                    // Do nothing, return not accepted in inputs
+                }
+            } else if (cmd === ctrlseq[19] && window.keyboard.linkedToTerm && window.term[window.currentTerm].term.hasSelection()) {
                 window.term[window.currentTerm].clipboard.copy();
-            } else if (cmd === ctrlseq[20] && window.term[window.currentTerm].clipboard.didCopy) {
+            } else if (cmd === ctrlseq[20] && window.keyboard.linkedToTerm && window.term[window.currentTerm].clipboard.didCopy) {
                 window.term[window.currentTerm].clipboard.paste();
             } else {
-                window.term[window.currentTerm].write(cmd);
+                if (window.keyboard.linkedToTerm) {
+                    window.term[window.currentTerm].write(cmd);
+                } else {
+                    if (typeof document.activeElement.value !== "undefined") {
+                        switch(cmd) {
+                            case "":
+                                document.activeElement.value = document.activeElement.value.slice(0, -1);
+                                break;
+                            case "OD":
+                                document.activeElement.selectionStart--;
+                                document.activeElement.selectionEnd = document.activeElement.selectionStart;
+                                break;
+                            case "OC":
+                                document.activeElement.selectionEnd++;
+                                document.activeElement.selectionStart = document.activeElement.selectionEnd;
+                                break;
+                            default:
+                                if (ctrlseq.indexOf(cmd.slice(0, 1)) !== -1) {
+                                    // Prevent trying to write other control sequences
+                                } else {
+                                    document.activeElement.value = document.activeElement.value+cmd;
+                                }
+                        }
+                    }
+                    document.activeElement.focus();
+                }
             }
         };
 
@@ -917,7 +954,7 @@ class Keyboard {
                         });
 
                         // Keep focus on the terminal
-                        window.term[window.currentTerm].term.focus();
+                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
 
                         window.audioManager.beep2.play();
                         e.preventDefault();
@@ -958,7 +995,7 @@ class Keyboard {
                         pressKey(key);
 
                         // Keep focus on the terminal
-                        window.term[window.currentTerm].term.focus();
+                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
 
                         window.audioManager.beep3.play();
                         e.preventDefault();
