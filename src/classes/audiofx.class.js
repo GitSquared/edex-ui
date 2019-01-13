@@ -30,7 +30,7 @@ class AudioManager {
             Howler.volume(0.0);
         }
 
-        if (window.settings.extraAudio === true) {
+        if (window.settings.audio === true && window.settings.extraAudio === true) {
             this.beep5 = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "beep5.wav")]
             });
