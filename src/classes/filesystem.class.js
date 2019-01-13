@@ -235,7 +235,7 @@ class FilesystemDisplay {
             });
         };
 
-        this.render = (blockList) => {
+        this.render = async blockList => {
             if (this.failed === true) return false;
 
             document.getElementById("fs_disp_title_dir").innerText = this.dirpath;
@@ -338,7 +338,7 @@ class FilesystemDisplay {
                         break;
                 }
 
-                filesDOM += `<div class="fs_disp_${e.type}${hidden}" onclick="${cmd}">
+                filesDOM += `<div class="fs_disp_${e.type}${hidden} animationWait" onclick="${cmd}">
                                 <svg viewBox="0 0 24.00 24.00">${icon}</svg>
                                 <h3>${e.name}</h3>
                             </div>`;
@@ -366,6 +366,19 @@ class FilesystemDisplay {
                     this.space_bar.text.innerHTML = "Could not calculate mountpoint usage.";
                     this.space_bar.bar.value = 100;
                 }
+            }
+
+            function delay(ms) {
+                return new Promise((resolve, reject) => {
+                    setTimeout(resolve, ms);
+                });
+            }
+            // Render animation
+            let id = 0;
+            while (this.filesContainer.childNodes[id]) {
+                this.filesContainer.childNodes[id].setAttribute("class", this.filesContainer.childNodes[id].getAttribute("class").replace(" animationWait", ""));
+                await delay(50);
+                id++;
             }
         };
 

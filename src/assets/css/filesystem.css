@@ -43,6 +43,12 @@ div#fs_disp_container > * {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    opacity: 1;
+    transition: opacity .2s linear;
+}
+
+div#fs_disp_container > *.animationWait {
+    opacity: 0 !important;
 }
 
 div#fs_disp_container > *:active {
