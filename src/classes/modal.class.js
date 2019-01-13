@@ -83,6 +83,69 @@ class Modal {
         }
         window.modals[this.id] = this;
         document.body.appendChild(element);
+
+        // Allow dragging the modal around
+        let draggedModal = document.getElementById(`modal_${this.id}`);
+        let dragTarget = document.querySelector(`div#modal_${this.id} > h1:first-child`);
+
+        draggedModal.zindex = draggedModal.getAttribute("style");
+
+        let rect = draggedModal.getBoundingClientRect();
+        draggedModal.posX = rect.left;
+        draggedModal.posY = rect.top;
+
+        // Mouse
+        function modalMousedownHandler(e) {
+            draggedModal.lastMouseX = e.clientX;
+            draggedModal.lastMouseY = e.clientY;
+
+            draggedModal.setAttribute("style", `${draggedModal.zindex}background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);left: ${draggedModal.posX}px;top: ${draggedModal.posY}px;`);
+
+            window.addEventListener("mousemove", modalMousemoveHandler);
+            window.addEventListener("mouseup", modalMouseupHandler);
+        }
+        function modalMousemoveHandler(e) {
+            draggedModal.posX = draggedModal.posX + (e.clientX - draggedModal.lastMouseX);
+            draggedModal.posY = draggedModal.posY + (e.clientY - draggedModal.lastMouseY);
+            draggedModal.lastMouseX = e.clientX;
+            draggedModal.lastMouseY = e.clientY;
+
+            draggedModal.setAttribute("style", `${draggedModal.zindex}background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);left: ${draggedModal.posX}px;top: ${draggedModal.posY}px;`);
+        }
+        function modalMouseupHandler(e) {
+            window.removeEventListener("mousemove", modalMousemoveHandler);
+            draggedModal.setAttribute("style", `${draggedModal.zindex}left: ${draggedModal.posX}px;top: ${draggedModal.posY}px;`);
+
+            window.removeEventListener("mouseup", modalMouseupHandler);
+        }
+        dragTarget.addEventListener("mousedown", modalMousedownHandler);
+
+        // Touch
+        function modalTouchstartHandler(e) {
+            draggedModal.lastMouseX = e.changedTouches[0].clientX;
+            draggedModal.lastMouseY = e.changedTouches[0].clientY;
+
+            draggedModal.setAttribute("style", `${draggedModal.zindex}background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);left: ${draggedModal.posX}px;top: ${draggedModal.posY}px;`);
+
+            window.addEventListener("touchmove", modalTouchmoveHandler);
+            window.addEventListener("touchend", modalTouchendHandler);
+        }
+        function modalTouchmoveHandler(e) {
+            draggedModal.posX = draggedModal.posX + (e.changedTouches[0].clientX - draggedModal.lastMouseX);
+            draggedModal.posY = draggedModal.posY + (e.changedTouches[0].clientY - draggedModal.lastMouseY);
+            draggedModal.lastMouseX = e.clientX;
+            draggedModal.lastMouseY = e.clientY;
+
+            draggedModal.setAttribute("style", `${draggedModal.zindex}background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);left: ${draggedModal.posX}px;top: ${draggedModal.posY}px;`);
+        }
+        function modalTouchendHandler(e) {
+            window.removeEventListener("touchmove", modalTouchmoveHandler);
+            draggedModal.setAttribute("style", `${draggedModal.zindex}left: ${draggedModal.posX}px;top: ${draggedModal.posY}px;`);
+
+            window.removeEventListener("touchend", modalTouchendHandler);
+        }
+        dragTarget.addEventListener("touchstart", modalTouchstartHandler);
+
         return this.id;
     }
 }

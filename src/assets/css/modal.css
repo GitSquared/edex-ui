@@ -1,5 +1,5 @@
 div.modal_popup {
-    position: fixed;
+    position: absolute;
     min-width: 30vw;
     background: var(--color_light_black);
     border-color: rgb(var(--color_r), var(--color_g), var(--color_b));;
@@ -31,6 +31,8 @@ div.modal_popup.blink {
 }
 
 div.modal_popup > h1 {
+    width: 100%;
+    cursor: move;
     font-size: 4vh;
     margin: 0vh;
     margin-bottom: 2vh;
