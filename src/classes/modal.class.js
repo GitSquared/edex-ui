@@ -133,8 +133,8 @@ class Modal {
         function modalTouchmoveHandler(e) {
             draggedModal.posX = draggedModal.posX + (e.changedTouches[0].clientX - draggedModal.lastMouseX);
             draggedModal.posY = draggedModal.posY + (e.changedTouches[0].clientY - draggedModal.lastMouseY);
-            draggedModal.lastMouseX = e.clientX;
-            draggedModal.lastMouseY = e.clientY;
+            draggedModal.lastMouseX = e.changedTouches[0].clientX;
+            draggedModal.lastMouseY = e.changedTouches[0].clientY;
 
             draggedModal.setAttribute("style", `${draggedModal.zindex}background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);left: ${draggedModal.posX}px;top: ${draggedModal.posY}px;`);
         }
