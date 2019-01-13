@@ -43,27 +43,43 @@ class Netstat {
         window.si.networkInterfaces().then((data) => {
             let offline = false;
 
-            // Find the first external network networkInterface
             let net = data[0];
             let netID = 0;
-            while (net.internal === true) {
-                netID++;
-                if (data[netID]) {
-                    net = data[netID];
-                    this.iface = net.iface;
-                    document.getElementById("mod_netstat_iname").innerText = "Interface: "+net.iface;
-                } else {
-                    // No external connection!
-                    this.iface = null;
-                    document.getElementById("mod_netstat_iname").innerText = "Interface: (offline)";
 
-                    this.offline = true;
-                    document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "OFFLINE";
-                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = "--.--.--.--";
-                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = "--ms";
-                    break;
+            if (typeof window.settings.iface === "string") {
+                while (net.iface !== window.settings.iface) {
+                    netID++;
+                    if (data[netID]) {
+                        net = data[netID];
+                    } else {
+                        // No detected interface has the custom iface name, fallback to automatic detection on next loop
+                        window.settings.iface = false;
+                        return false;
+                    }
+                }
+            } else {
+                // Find the first external, IPv4 connected networkInterface that has a MAC address set
+
+                while (net.internal === true || net.ip4 === "" || net.mac === "") {
+                    netID++;
+                    if (data[netID]) {
+                        net = data[netID];
+                    } else {
+                        // No external connection!
+                        this.iface = null;
+                        document.getElementById("mod_netstat_iname").innerText = "Interface: (offline)";
+
+                        this.offline = true;
+                        document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "OFFLINE";
+                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = "--.--.--.--";
+                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = "--ms";
+                        break;
+                    }
                 }
             }
+
+            this.iface = net.iface;
+            document.getElementById("mod_netstat_iname").innerText = "Interface: "+net.iface;
 
             if (net.ip4 === "127.0.0.1") {
                 offline = true;
