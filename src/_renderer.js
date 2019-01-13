@@ -664,6 +664,9 @@ window.openSettings = () => {
     }, () => {
         // Link the keyboard back to the terminal
         window.keyboard.attach();
+
+        // Focus back on the term
+        window.term[window.currentTerm].term.focus();
     });
 };
 
