@@ -424,6 +424,7 @@ function initGreeter() {
                     window.onmouseup = (e) => {
                         window.term[window.currentTerm].term.focus();
                     };
+                    window.term[0].term.writeln("\033[1m"+`Welcome to eDEX-UI v${electron.remote.app.getVersion()} - Electron v${process.versions.electron}`+"\033[0m");
 
                     window.fsDisp = new FilesystemDisplay({
                         parentId: "filesystem"
