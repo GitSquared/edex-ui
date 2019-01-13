@@ -36,6 +36,12 @@ div.modal_popup > h1 {
     margin-bottom: 2vh;
 }
 
+div.modal_popup > h1 i {
+    font-size: 2.3vh;
+    opacity: 0.6;
+    font-style: normal;
+}
+
 div.modal_popup > h5 {
     font-size: 2vh;
     font-weight: normal;
@@ -73,4 +79,59 @@ div.modal_popup button {
     border-bottom-right-radius: 0vh;
     padding-bottom: 0.7vh;
     cursor: pointer;
+}
+
+div.modal_popup button:hover {
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5)
+}
+
+/* Settings editor modal */
+table#settingsEditor, table#settingsEditor th, table#settingsEditor td {
+    border: 0.15vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    border-collapse: collapse;
+}
+
+table#settingsEditor th, table#settingsEditor td {
+    padding: 0.3vh;
+}
+
+table#settingsEditor th {
+    font-size: 2vh;
+}
+
+table#settingsEditor td {
+    font-size: 1.7vh;
+}
+
+table#settingsEditor td input {
+    width: 100%;
+    background: var(--color_light_black);
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    border: 0.15vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    padding: 0.4vh 0.2vh;
+    font-size: 1.4vh;
+    box-sizing: border-box;
+}
+
+table#settingsEditor td input:active, table#settingsEditor td input:focus {
+    outline: none !important;
+    background: rgb(var(--color_r), var(--color_g), var(--color_b));
+    color: var(--color_light_black);
+}
+
+table#settingsEditor td select {
+    cursor: pointer;
+    width: 100%;
+    background: var(--color_light_black);
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    border: 0.15vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    padding: 0.4vh;
+    font-size: 1.4vh;
+}
+
+h6#settingsEditorStatus {
+    margin: 0;
+    margin-top: 1vh;
+    font-size: 1.5vh;
+    font-style: italic;
 }

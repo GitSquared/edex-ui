@@ -422,7 +422,7 @@ function initGreeter() {
                     };
                     // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
                     window.onmouseup = (e) => {
-                        window.term[window.currentTerm].term.focus();
+                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
                     };
                     window.term[0].term.writeln("\033[1m"+`Welcome to eDEX-UI v${electron.remote.app.getVersion()} - Electron v${process.versions.electron}`+"\033[0m");
 
@@ -515,6 +515,184 @@ window.focusShellTab = (number) => {
     }
 };
 
+// Settings editor
+window.openSettings = () => {
+    // Build lists of available keyboards, themes, monitors
+    let keyboards, themes, monitors;
+    fs.readdirSync(keyboardsDir).forEach(kb => {
+        if (!kb.endsWith(".json")) return;
+        kb = kb.replace(".json", "");
+        if (kb === window.settings.keyboard) return;
+        keyboards += `<option>${kb}</option>`;
+    });
+    fs.readdirSync(themesDir).forEach(th => {
+        if (!th.endsWith(".json")) return;
+        th = th.replace(".json", "");
+        if (th === window.settings.theme) return;
+        themes += `<option>${th}</option>`;
+    });
+    for (let i = 0; i < electron.remote.screen.getAllDisplays().length; i++) {
+        if (i !== window.settings.monitor) monitors += `<option>${i}</option>`;
+    }
+
+    // Unlink the tactile keyboard from the terminal emulator to allow filling in the settings fields
+    window.keyboard.detach();
+
+    new Modal({
+        type: "custom",
+        title: `Settings <i>(v${electron.remote.app.getVersion()})</i>`,
+        html: `<table id="settingsEditor">
+                    <tr>
+                        <th>Key</th>
+                        <th>Description</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>shell</td>
+                        <td>The program to run as a terminal emulator</td>
+                        <td><input type="text" id="settingsEditor-shell" value="${window.settings.shell}"></td>
+                    </tr>
+                    <tr>
+                        <td>cwd</td>
+                        <td>Working Directory to start in</td>
+                        <td><input type="text" id="settingsEditor-cwd" value="${window.settings.cwd}"></td>
+                    </tr>
+                    <tr>
+                        <td>env</td>
+                        <td>Custom shell environment override</td>
+                        <td><input type="text" id="settingsEditor-env" value="${window.settings.env}"></td>
+                    </tr>
+                    <tr>
+                        <td>keyboard</td>
+                        <td>On-screen keyboard layout code</td>
+                        <td><select id="settingsEditor-keyboard">
+                            <option>${window.settings.keyboard}</option>
+                            ${keyboards}
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>theme</td>
+                        <td>Name of the theme to load</td>
+                        <td><select id="settingsEditor-theme">
+                            <option>${window.settings.theme}</option>
+                            ${themes}
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>audio</td>
+                        <td>Activate audio sound effects</td>
+                        <td><select id="settingsEditor-audio">
+                            <option>${window.settings.audio}</option>
+                            <option>${!window.settings.audio}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>extraAudio</td>
+                        <td>Enable extra audio FX (requires audio: true)</td>
+                        <td><select id="settingsEditor-extraAudio">
+                            <option>${window.settings.extraAudio}</option>
+                            <option>${!window.settings.extraAudio}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>port</td>
+                        <td>Local port to use for UI-shell connection</td>
+                        <td><input type="number" id="settingsEditor-port" value="${window.settings.port}"></td>
+                    </tr>
+                    <tr>
+                        <td>pingAddr</td>
+                        <td>IPv4 address to test Internet connectivity</td>
+                        <td><input type="text" id="settingsEditor-pingAddr" value="${window.settings.pingAddr || "1.1.1.1"}"></td>
+                    </tr>
+                    <tr>
+                        <td>monitor</td>
+                        <td>Which monitor to spawn the UI in (defaults to primary display)</td>
+                        <td><select id="settingsEditor-monitor">
+                            ${(typeof window.settings.monitor !== "undefined") ? "<option>"+window.settings.monitor+"</option>" : ""}
+                            ${monitors}
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>nointro</td>
+                        <td>Skip the intro boot log and logo</td>
+                        <td><select id="settingsEditor-nointro">
+                            <option>${window.settings.nointro}</option>
+                            <option>${!window.settings.nointro}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>iface</td>
+                        <td>Override the interface used for network monitoring</td>
+                        <td><input type="text" id="settingsEditor-iface" value="${window.settings.iface}"></td>
+                    </tr>
+                    <tr>
+                        <td>allowWindowed</td>
+                        <td>Allow using F11 key to set the UI in windowed mode</td>
+                        <td><select id="settingsEditor-allowWindowed">
+                            <option>${window.settings.allowWindowed}</option>
+                            <option>${!window.settings.allowWindowed}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>excludeSelfFromToplist</td>
+                        <td>Exclude eDEX from top processes monitoring</td>
+                        <td><select id="settingsEditor-excludeSelfFromToplist">
+                            <option>${window.settings.excludeSelfFromToplist}</option>
+                            <option>${!window.settings.excludeSelfFromToplist}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>experimentalFeatures</td>
+                        <td>Toggle Chrome's experimental web features (DANGEROUS)</td>
+                        <td><select id="settingsEditor-experimentalFeatures">
+                            <option>${window.settings.experimentalFeatures}</option>
+                            <option>${!window.settings.experimentalFeatures}</option>
+                        </select></td>
+                    </tr>
+                </table>
+                <h6 id="settingsEditorStatus">Loaded values from memory</h6>
+                <br>`,
+        buttons: [
+            {label: "Open in External Editor", action:`electron.shell.openExternal('file://${settingsFile}')`},
+            {label: "Save to Disk", action: "window.writeSettingsFile()"},
+            {label: "Reload UI", action: "window.location.reload(true);"},
+            {label: "Restart eDEX", action: "electron.remote.app.relaunch();electron.remote.app.quit();"}
+        ]
+    }, () => {
+        // Link the keyboard back to the terminal
+        window.keyboard.attach();
+    });
+};
+
+window.writeSettingsFile = () => {
+    window.settings = {
+        shell: document.getElementById("settingsEditor-shell").value || window.settings.shell,
+        cwd: document.getElementById("settingsEditor-cwd").value || window.settings.cwd,
+        env: document.getElementById("settingsEditor-env").value || window.settings.env,
+        keyboard: document.getElementById("settingsEditor-keyboard").value || window.settings.keyboard,
+        theme: document.getElementById("settingsEditor-theme").value || window.settings.theme,
+        audio: Boolean(document.getElementById("settingsEditor-audio").value) || window.settings.audio,
+        extraAudio: Boolean(document.getElementById("settingsEditor-extraAudio").value) || window.settings.extraAudio,
+        pingAddr: document.getElementById("settingsEditor-pingAddr").value || window.settings.pingAddr,
+        port: Number(document.getElementById("settingsEditor-port").value) || window.settings.port,
+        monitor: Number(document.getElementById("settingsEditor-monitor").value) || window.settings.monitor,
+        nointro: Boolean(document.getElementById("settingsEditor-nointro").value) || window.settings.nointro,
+        iface: document.getElementById("settingsEditor-iface").value || window.settings.iface,
+        allowWindowed: Boolean(document.getElementById("settingsEditor-allowWindowed").value) || window.settings.allowWindowed,
+        excludeSelfFromToplist: Boolean(document.getElementById("settingsEditor-excludeSelfFromToplist").value) || window.settings.excludeSelfFromToplist,
+        experimentalFeatures: Boolean(document.getElementById("settingsEditor-experimentalFeatures").value) || window.settings.experimentalFeatures
+    };
+
+    Object.keys(window.settings).forEach(key => {
+        if (window.settings[key] === "undefined") {
+            delete window.settings[key];
+        }
+    });
+
+    fs.writeFileSync(settingsFile, JSON.stringify(window.settings, "", 4));
+    document.getElementById("settingsEditorStatus").innerText = "New values written to settings.json file at "+new Date().toTimeString();
+};
+
 // Global keyboard shortcuts
 const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
@@ -523,6 +701,13 @@ function registerKeyboardShortcuts() {
     // Open inspector
     globalShortcut.register("CommandOrControl+Shift+i", () => {
         electron.remote.getCurrentWindow().webContents.toggleDevTools();
+    });
+
+    // Open settings
+    globalShortcut.register("CommandOrControl+Shift+s", () => {
+        if (!document.getElementById("settingsEditor")) {
+            window.openSettings();
+        }
     });
 
     // Copy and paste shortcuts

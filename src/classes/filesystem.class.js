@@ -288,8 +288,8 @@ class FilesystemDisplay {
                 if (e.type === "edex-kblayout") {
                     cmd = `window.remakeKeyboard('${e.name.slice(0, -5)}')`;
                 }
-                if (e.type === "edex-settings" && process.env.editor) {
-                    cmd = `window.term[window.currentTerm].writelr('${process.env.editor} \\'${e.name.slice(0, -5)}\\'')`;
+                if (e.type === "edex-settings") {
+                    cmd = `window.openSettings()`;
                 }
 
                 let icon = "";
@@ -384,7 +384,7 @@ class FilesystemDisplay {
 
         // Automatically start indexing supposed beginning CWD
         // See #365
-        this.readFS(window.settings.cwd);
+        this.readFS(window.term[window.currentTerm].cwd || window.settings.cwd);
     }
 }
 
