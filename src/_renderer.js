@@ -125,6 +125,9 @@ function initGraphicalErrorHandling() {
 // Init audio
 window.audioManager = new AudioManager();
 
+// See #223
+electron.remote.app.focus();
+
 let i = 0;
 if (!window.settings.nointro) {
     displayLine();
