@@ -666,21 +666,21 @@ window.openSettings = () => {
 
 window.writeSettingsFile = () => {
     window.settings = {
-        shell: document.getElementById("settingsEditor-shell").value || window.settings.shell,
-        cwd: document.getElementById("settingsEditor-cwd").value || window.settings.cwd,
-        env: document.getElementById("settingsEditor-env").value || window.settings.env,
-        keyboard: document.getElementById("settingsEditor-keyboard").value || window.settings.keyboard,
-        theme: document.getElementById("settingsEditor-theme").value || window.settings.theme,
-        audio: Boolean(document.getElementById("settingsEditor-audio").value) || window.settings.audio,
-        extraAudio: Boolean(document.getElementById("settingsEditor-extraAudio").value) || window.settings.extraAudio,
-        pingAddr: document.getElementById("settingsEditor-pingAddr").value || window.settings.pingAddr,
-        port: Number(document.getElementById("settingsEditor-port").value) || window.settings.port,
-        monitor: Number(document.getElementById("settingsEditor-monitor").value) || window.settings.monitor,
-        nointro: Boolean(document.getElementById("settingsEditor-nointro").value) || window.settings.nointro,
-        iface: document.getElementById("settingsEditor-iface").value || window.settings.iface,
-        allowWindowed: Boolean(document.getElementById("settingsEditor-allowWindowed").value) || window.settings.allowWindowed,
-        excludeSelfFromToplist: Boolean(document.getElementById("settingsEditor-excludeSelfFromToplist").value) || window.settings.excludeSelfFromToplist,
-        experimentalFeatures: Boolean(document.getElementById("settingsEditor-experimentalFeatures").value) || window.settings.experimentalFeatures
+        shell: document.getElementById("settingsEditor-shell").value,
+        cwd: document.getElementById("settingsEditor-cwd").value,
+        env: document.getElementById("settingsEditor-env").value,
+        keyboard: document.getElementById("settingsEditor-keyboard").value,
+        theme: document.getElementById("settingsEditor-theme").value,
+        audio: (document.getElementById("settingsEditor-audio").value === "true"),
+        extraAudio: (document.getElementById("settingsEditor-extraAudio").value === "true"),
+        pingAddr: document.getElementById("settingsEditor-pingAddr").value,
+        port: Number(document.getElementById("settingsEditor-port").value),
+        monitor: Number(document.getElementById("settingsEditor-monitor").value),
+        nointro: (document.getElementById("settingsEditor-nointro").value === "true"),
+        iface: document.getElementById("settingsEditor-iface").value,
+        allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
+        excludeSelfFromToplist: (document.getElementById("settingsEditor-excludeSelfFromToplist").value === "true"),
+        experimentalFeatures: (document.getElementById("settingsEditor-experimentalFeatures").value === "true")
     };
 
     Object.keys(window.settings).forEach(key => {
