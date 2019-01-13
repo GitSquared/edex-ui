@@ -9,26 +9,26 @@ Download | Linux & macOS | Windows | Dependencies | Build system | Source
 -------- | ------------- | ------- | ------------ | ------------ | ------
 [![Release Badge](https://badgen.net/github/release/GitSquared/edex-ui)](https://github.com/GitSquared/edex-ui/releases) | [![Build Status](https://travis-ci.org/GitSquared/edex-ui.svg?branch=master)](https://travis-ci.org/GitSquared/edex-ui) | [![Build status](https://ci.appveyor.com/api/projects/status/leb069bro8gwocu7/branch/master?svg=true)](https://ci.appveyor.com/project/GitSquared/edex-ui/branch/master) | [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=GitSquared/edex-ui)](https://dependabot.com) | [![Known Vulnerabilities](https://snyk.io/test/github/GitSquared/edex-ui/badge.svg?targetFile=package.json)](https://snyk.io/test/github/GitSquared/edex-ui?targetFile=package.json) | [![Known Vulnerabilities](https://snyk.io/test/github/GitSquared/edex-ui/badge.svg?targetFile=src%2Fpackage.json)](https://snyk.io/test/github/GitSquared/edex-ui?targetFile=src%2Fpackage.json)
 
-Download 1.1.2: [for Windows](https://github.com/GitSquared/edex-ui/releases/download/v1.1.2/eDEX-UI.Windows.Installer.exe) | [for macOS](https://github.com/GitSquared/edex-ui/releases/download/v1.1.2/eDEX-UI.MacOS.Image.dmg) | [for Linux x32](https://github.com/GitSquared/edex-ui/releases/download/v1.1.2/eDEX-UI.Linux.i386.AppImage) | [for Linux x64](https://github.com/GitSquared/edex-ui/releases/download/v1.1.2/eDEX-UI.Linux.x86_64.AppImage)
+Download 2.0.0: [for Windows](https://github.com/GitSquared/edex-ui/releases/download/v2.0.0/eDEX-UI.Windows.Installer.exe) | [for macOS](https://github.com/GitSquared/edex-ui/releases/download/v2.0.0/eDEX-UI.MacOS.Image.dmg) | [for Linux x32](https://github.com/GitSquared/edex-ui/releases/download/v2.0.0/eDEX-UI.Linux.i386.AppImage) | [for Linux x64](https://github.com/GitSquared/edex-ui/releases/download/v2.0.0/eDEX-UI.Linux.x86_64.AppImage)
 
 eDEX-UI is a fullscreen desktop application resembling a sci-fi computer interface, heavily inspired from [DEX-UI](https://github.com/seenaburns/dex-ui) and the [TRON Legacy movie effects](https://web.archive.org/web/20170511000410/http://jtnimoy.com/blogs/projects/14881671). It runs the shell of your choice in a real terminal, and displays live information about your system. It was made to be used on large touchscreens but will work nicely on a regular desktop computer or perhaps a tablet PC or one of those funky 360° laptops with touchscreens.
 
 I had no ideas for a name so i took DEX-UI and added a "e" for Electron. Deal with it.
 
-([Official ArchLinux AUR package](https://aur.archlinux.org/packages/edex-ui/) maintained by [@JesusCrie](https://github.com/JesusCrie))
+([Official ArchLinux AUR package](https://aur.archlinux.org/packages/edex-ui/) maintained with the help of [@JesusCrie](https://github.com/JesusCrie))
 
 ## Screenshots
 ![Default screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
 
-_([neofetch](https://github.com/dylanaraps/neofetch) on eDEX-UI 1.0 with the default "tron" theme & QWERTY keyboard)_
+_([neofetch](https://github.com/dylanaraps/neofetch) on eDEX-UI 2.0 with the default "tron" theme & QWERTY keyboard)_
 
-![Blade screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_blade.png)
+![Nord screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_nord.png)
 
-_([browsh](https://github.com/browsh-org/browsh) showing the results of a DuckDuckGo image search on eDEX-UI 1.0 with the "blade" theme & AZERTY keyboard)_
+_(Graphical settings editor on eDEX-UI 2.0 with the "nord" colorful theme)_
 
 ![Disrupted screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_disrupted.png)
 
-_([fx](https://github.com/antonmedv/fx) showing the results of a [ipapi](https://github.com/GitSquared/ipapi) query on eDEX-UI 1.0 with the experimental "tron-disrupted" theme, and the French AZERTY keyboard)_
+_([fx](https://github.com/antonmedv/fx) showing the results of a [ipapi](https://github.com/GitSquared/ipapi) query on eDEX-UI 2.0 with the experimental "tron-disrupted" theme, and the user-contributed DVORAK keyboard)_
 
 ## Q&A
 #### What OS can this thing run on?
