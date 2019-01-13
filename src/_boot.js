@@ -20,6 +20,13 @@ process.on("uncaughtException", e => {
 signale.start(`Starting eDEX-UI v${app.getVersion()}`);
 signale.info(`With Node ${process.versions.node} and Electron ${process.versions.electron}`);
 signale.info(`Renderer is Chrome ${process.versions.chrome}`);
+
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+    signale.fatal("Error: Another instance of eDEX is already running. Cannot proceed.");
+    app.exit(1);
+}
+
 signale.time("Startup");
 
 const electron = require("electron");
