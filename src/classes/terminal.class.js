@@ -165,9 +165,8 @@ class Terminal {
                     return (b == 0) ? a : gcd(b, a%b);
                 }
                 let d = gcd(w, h);
-                let ratio = `${w/d}:${h/d}`;
 
-                if (ratio === "16:9") y = 1;
+                if (d === 120) y = 1;
 
                 cols = cols+x;
                 rows = rows+y;
