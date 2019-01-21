@@ -81,7 +81,7 @@ class LocationGlobe {
             // Connections
             this.conns = [];
             this.addConn = ip => {
-                require("https").get({host: "ipinfo.now.sh", port: 443, path: "/"+ip, agent: false}, (res) => {
+                require("https").get({host: "ipinfo.now.sh", port: 443, path: "/"+ip, localAddress: window.mods.netstat.internalIPv4, agent: false}, (res) => {
                     let rawData = "";
                     res.on("data", (chunk) => {
                         rawData += chunk;

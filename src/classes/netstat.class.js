@@ -79,13 +79,14 @@ class Netstat {
             }
 
             this.iface = net.iface;
+            this.internalIPv4 = net.ip4;
             document.getElementById("mod_netstat_iname").innerText = "Interface: "+net.iface;
 
             if (net.ip4 === "127.0.0.1") {
                 offline = true;
             } else {
                 if (this.lastconn._ended) {
-                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", agent: this._httpsAgent}, (res) => {
+                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", localAddress: net.ip4, agent: this._httpsAgent}, (res) => {
                         let rawData = "";
                         res.on("data", (chunk) => {
                             rawData += chunk;
