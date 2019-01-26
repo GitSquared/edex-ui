@@ -112,10 +112,20 @@ class Terminal {
                     this.onclose(e);
                 }
             };
-            this.socket.addEventListener("message", () => {
+            this.socket.addEventListener("message", e => {
                 window.audioManager.beep1.play();
                 if (Date.now() - this.lastRefit > 10000) {
                     this.fit();
+                }
+
+                // See #397
+                if (!window.settings.experimentalGlobeFeatures) return;
+                let ips = e.data.match(/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/g);
+                if (ips !== null && ips.length >= 1) {
+                    ips = ips.filter((val, index, self) => { return self.indexOf(val) === index; });
+                    ips.forEach(ip => {
+                        window.mods.globe.addTemporaryConnectedMarker(ip);
+                    });
                 }
             });
 

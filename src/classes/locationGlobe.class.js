@@ -145,11 +145,42 @@ class LocationGlobe {
         }
     }
 
-    addRandomConnectedPoints() {
+    addRandomConnectedMarkers() {
         const randomLat = this.getRandomInRange(40, 90, 3);
         const randomLong = this.getRandomInRange(-180, 0, 3);
         this.globe.addMarker(randomLat, randomLong, '');
         this.globe.addMarker(randomLat - 20, randomLong + 150, '', true);
+    }
+    addTemporaryConnectedMarker(ip) {
+        require("https").get({host: "ipinfo.now.sh", port: 443, path: "/"+ip, localAddress: window.mods.netstat.internalIPv4, agent: false}, (res) => {
+            let rawData = "";
+            res.on("data", (chunk) => {
+                rawData += chunk;
+            });
+            res.on("end", () => {
+                let json;
+                try {
+                    json = JSON.parse(rawData);
+                } catch(e) {
+                    return;
+                }
+                if (json.geo) {
+                    const lat = Number(json.geo.latitude);
+                    const lon = Number(json.geo.longitude);
+
+                    window.mods.globe.conns.push({
+                        ip,
+                        pin: window.mods.globe.globe.addPin(lat, lon, "", 1.2)
+                    });
+                    let mark = window.mods.globe.globe.addMarker(lat, lon, '', true);
+                    setTimeout(() => {
+                        mark.remove();
+                    }, 3000);
+                }
+            });
+        }).on("error", (e) => {
+            // Drop it
+        });
     }
     removeMarkers() {
         this.globe.markers.forEach(marker => { marker.remove(); });

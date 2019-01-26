@@ -645,6 +645,14 @@ window.openSettings = () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>experimentalGlobeFeatures</td>
+                        <td>Toggle experimental features for the network globe</td>
+                        <td><select id="settingsEditor-experimentalGlobeFeatures">
+                            <option>${window.settings.experimentalGlobeFeatures}</option>
+                            <option>${!window.settings.experimentalGlobeFeatures}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>experimentalFeatures</td>
                         <td>Toggle Chrome's experimental web features (DANGEROUS)</td>
                         <td><select id="settingsEditor-experimentalFeatures">
@@ -686,6 +694,7 @@ window.writeSettingsFile = () => {
         iface: document.getElementById("settingsEditor-iface").value,
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
         excludeSelfFromToplist: (document.getElementById("settingsEditor-excludeSelfFromToplist").value === "true"),
+        experimentalGlobeFeatures: (document.getElementById("settingsEditor-experimentalGlobeFeatures").value === "true"),
         experimentalFeatures: (document.getElementById("settingsEditor-experimentalFeatures").value === "true")
     };
 
