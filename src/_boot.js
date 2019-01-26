@@ -70,7 +70,14 @@ if (!fs.existsSync(settingsFile)) {
         keyboard: "en-US",
         theme: "tron",
         audio: true,
-        extraAudio: false
+        extraAudio: false,
+        pingAddr: "1.1.1.1",
+        port: 3000,
+        nointro: false,
+        allowWindowed: false,
+        excludeSelfFromToplist: false,
+        experimentalGlobeFeatures: false,
+        experimentalFeatures: false
     }, 4));
 }
 
