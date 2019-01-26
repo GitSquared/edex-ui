@@ -384,7 +384,11 @@ class FilesystemDisplay {
 
         // Automatically start indexing supposed beginning CWD
         // See #365
-        this.readFS(window.term[window.currentTerm].cwd || window.settings.cwd);
+        // ...except if we're hot-reloading, in which case this can mess up the rendering
+        // See #392
+        if (window.performance.navigation.type === 0) {
+            this.readFS(window.term[window.currentTerm].cwd || window.settings.cwd);
+        }
     }
 }
 
