@@ -519,9 +519,9 @@ window.focusShellTab = (number) => {
 };
 
 // Settings editor
-window.openSettings = () => {
+window.openSettings = async () => {
     // Build lists of available keyboards, themes, monitors
-    let keyboards, themes, monitors;
+    let keyboards, themes, monitors, ifaces;
     fs.readdirSync(keyboardsDir).forEach(kb => {
         if (!kb.endsWith(".json")) return;
         kb = kb.replace(".json", "");
@@ -537,6 +537,10 @@ window.openSettings = () => {
     for (let i = 0; i < electron.remote.screen.getAllDisplays().length; i++) {
         if (i !== window.settings.monitor) monitors += `<option>${i}</option>`;
     }
+    let nets = await window.si.networkInterfaces();
+    nets.forEach(net => {
+        if (net.iface !== window.mods.netstat.iface) ifaces += `<option>${net.iface}</option>`;
+    });
 
     // Unlink the tactile keyboard from the terminal emulator to allow filling in the settings fields
     window.keyboard.detach();
@@ -626,7 +630,10 @@ window.openSettings = () => {
                     <tr>
                         <td>iface</td>
                         <td>Override the interface used for network monitoring</td>
-                        <td><input type="text" id="settingsEditor-iface" value="${window.settings.iface}"></td>
+                        <td><select id="settingsEditor-iface">
+                            <option>${window.mods.netstat.iface}</option>
+                            ${ifaces}
+                        </select></td>
                     </tr>
                     <tr>
                         <td>allowWindowed</td>
