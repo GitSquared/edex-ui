@@ -37,7 +37,7 @@ const settingsFile = path.join(settingsDir, "settings.json");
 window.settings = require(settingsFile);
 
 // Load CLI parameters
-if (electron.remote.process.argv.includes("--nointro")) {
+if (electron.remote.process.argv.includes("--nointro") || window.settings.nointro) {
     window.settings.nointro = true;
 } else {
     window.settings.nointro = false;
