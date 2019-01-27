@@ -1102,6 +1102,8 @@ class Keyboard {
         };
 
         document.onkeydown = (e) => {
+            // See #330
+            if (e.getModifierState("AltGraph")) return;
             let key = findKey(e);
             if (key === null) return;
             if (key.length) {
@@ -1115,6 +1117,8 @@ class Keyboard {
         };
 
         document.onkeyup = (e) => {
+            // See #330
+            if (e.getModifierState("AltGraph")) return;
             let key = findKey(e);
             if (key === null) return;
             if (key.length) {
