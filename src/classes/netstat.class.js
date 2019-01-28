@@ -25,7 +25,7 @@ class Netstat {
         </div>`;
 
         this.offline = false;
-        this.lastconn = {_ended: true};
+        this.lastconn = {finished: true};
         this.iface = null;
 
         this._httpsAgent = new require("https").Agent({
@@ -85,7 +85,7 @@ class Netstat {
             if (net.ip4 === "127.0.0.1") {
                 offline = true;
             } else {
-                if (this.lastconn._ended) {
+                if (this.lastconn.finished) {
                     this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", localAddress: net.ip4, agent: this._httpsAgent}, (res) => {
                         let rawData = "";
                         res.on("data", (chunk) => {
