@@ -52,6 +52,25 @@ class FilesystemDisplay {
             }
         }, 1000);
 
+        this._asyncFSwrapper = new Proxy(fs, {
+            get: function(fs, prop) {
+                if (prop in fs) {
+                    return function(...args) {
+                        return new Promise((resolve, reject) => {
+                            fs[prop](...args, (err, d) => {
+                                if (typeof err !== "undefined" && err !== null) reject(err);
+                                if (typeof d !== "undefined") resolve(d);
+                                if (typeof d === "undefined" && typeof err === "undefined") resolve();
+                            });
+                        });
+                    }
+                }
+            },
+            set: function() {
+                return false;
+            }
+        });
+
         this.setFailedState = () => {
             this.failed = true;
             container.innerHTML = `
@@ -88,151 +107,152 @@ class FilesystemDisplay {
             });
         };
 
-        this.readFS = (dir) => {
+        this.readFS = async dir => {
             if (this.failed === true) return false;
             let tcwd = dir;
-            fs.readdir(tcwd, (err, content) => {
-                if (err !== null) {
-                    console.warn(err);
-                    if (this._noTracking === true && this.dirpath) { // #262
-                        this.setFailedState();
-                        setTimeout(() => {
-                            this.readFS(this.dirpath);
-                        }, 1000);
-                    } else {
-                        this.setFailedState();
-                    }
+            let content = await this._asyncFSwrapper.readdir(tcwd).catch(err => {
+                console.warn(err);
+                if (this._noTracking === true && this.dirpath) { // #262
+                    this.setFailedState();
+                    setTimeout(() => {
+                        this.readFS(this.dirpath);
+                    }, 1000);
                 } else {
-                    this.cwd = [];
-                    this._tmp = {
-                        dirs: [],
-                        symlinks: [],
-                        files: [],
-                        others: []
-                    };
-                    let i = 0;
-                    content.forEach(file => {
-                        fs.lstat(path.join(tcwd, file), (err, fstat) => {
-                            if (err !== null) {
-                                this.setFailedState();
-                            } else {
-                                if (fstat.isDirectory()) {
-                                    this._tmp.dirs.push(file);
-                                } else if (fstat.isSymbolicLink()) {
-                                    this._tmp.symlinks.push(file);
-                                } else if (fstat.isFile()) {
-                                    this._tmp.files.push(file);
-                                } else {
-                                    this._tmp.others.push(file);
-                                }
+                    this.setFailedState();
+                }
+            });
 
-                                i++;
-                                if (i === content.length) {
-                                    this.cwd.push({
-                                        name: "Show disks",
-                                        type: "showDisks"
-                                    });
+            this.cwd = [];
 
-                                    if (tcwd !== "/" && tcwd !== "\\") {
-                                        this.cwd.push({
-                                            name: "Go up",
-                                            type: "up"
-                                        });
-                                    }
+            await new Promise((resolve, reject) => {
+                if (content.length === 0) resolve();
 
-                                    this._tmp.dirs.forEach(e => {
-                                        if (tcwd === settingsDir && e === "themes") {
-                                            this.cwd.push({
-                                                name: window._escapeHtml(e),
-                                                type: "edex-themesDir"
-                                            });
-                                        } else if (tcwd === settingsDir && e === "keyboards") {
-                                            this.cwd.push({
-                                                name: window._escapeHtml(e),
-                                                type: "edex-kblayoutsDir"
-                                            });
-                                        } else {
-                                            this.cwd.push({
-                                                name: window._escapeHtml(e),
-                                                type: "dir"
-                                            });
-                                        }
-                                    });
-                                    this._tmp.symlinks.forEach(e => {
-                                        this.cwd.push({
-                                            name: window._escapeHtml(e),
-                                            type: "symlink"
-                                        });
-                                    });
-                                    this._tmp.files.forEach(e => {
-                                        if (tcwd === themesDir && e.endsWith(".json")) {
-                                            this.cwd.push({
-                                                name: window._escapeHtml(e),
-                                                type: "edex-theme"
-                                            });
-                                        } else if (tcwd === keyboardsDir && e.endsWith(".json")) {
-                                            this.cwd.push({
-                                                name: window._escapeHtml(e),
-                                                type: "edex-kblayout"
-                                            });
-                                        } else if (tcwd === settingsDir && e === "settings.json") {
-                                            this.cwd.push({
-                                                name: window._escapeHtml(e),
-                                                type: "edex-settings"
-                                            });
-                                        } else {
-                                            this.cwd.push({
-                                                name: window._escapeHtml(e),
-                                                type: "file"
-                                            });
-                                        }
-                                    });
-                                    this._tmp.others.forEach(e => {
-                                        this.cwd.push({
-                                            name: window._escapeHtml(e),
-                                            type: "other"
-                                        });
-                                    });
+                content.forEach(async (file, i) => {
+                    let fstat = await this._asyncFSwrapper.lstat(path.join(tcwd, file)).catch(reject);
 
-                                    window.si.fsSize().then(d => {
-                                        d.forEach(fsBlock => {
-                                            if (tcwd.startsWith(fsBlock.mount)) {
-                                                this.fsBlock = fsBlock;
-                                            }
-                                        });
-
-                                        this.dirpath = tcwd;
-                                        this.render(this.cwd);
-                                    });
-                                }
-                            }
+                    if (fstat.isDirectory()) {
+                        if (tcwd === settingsDir && file === "themes") {
+                            this.cwd.push({
+                                name: window._escapeHtml(file),
+                                type: "edex-themesDir",
+                                category: "dir"
+                            });
+                        } else if (tcwd === settingsDir && file === "keyboards") {
+                            this.cwd.push({
+                                name: window._escapeHtml(file),
+                                type: "edex-kblayoutsDir",
+                                category: "dir"
+                            });
+                        } else {
+                            this.cwd.push({
+                                name: window._escapeHtml(file),
+                                type: "dir",
+                                category: "dir"
+                            });
+                        }
+                    } else if (fstat.isSymbolicLink()) {
+                        this.cwd.push({
+                            name: window._escapeHtml(file),
+                            type: "symlink",
+                            category: "symlink"
                         });
+                    } else if (fstat.isFile()) {
+                        if (tcwd === themesDir && file.endsWith(".json")) {
+                            this.cwd.push({
+                                name: window._escapeHtml(file),
+                                type: "edex-theme",
+                                category: "file"
+                            });
+                        } else if (tcwd === keyboardsDir && file.endsWith(".json")) {
+                            this.cwd.push({
+                                name: window._escapeHtml(file),
+                                type: "edex-kblayout",
+                                category: "file"
+                            });
+                        } else if (tcwd === settingsDir && file === "settings.json") {
+                            this.cwd.push({
+                                name: window._escapeHtml(file),
+                                type: "edex-settings",
+                                category: "file"
+                            });
+                        } else {
+                            this.cwd.push({
+                                name: window._escapeHtml(file),
+                                type: "file",
+                                category: "file"
+                            });
+                        }
+                    } else {
+                        this.cwd.push({
+                            name: window._escapeHtml(file),
+                            type: "other",
+                            category: "other"
+                        });
+                    }
+
+                    if (i === content.length-1) resolve();
+                });
+            }).catch(() => { this.setFailedState() });
+
+            if (this.failed) return false;
+
+            let ordering = {
+                dir: 0,
+                symlink: 1,
+                file: 2,
+                other: 3
+            };
+
+            this.cwd.sort((a, b) => {
+                return (ordering[a.category] - ordering[b.category] || a.name.localeCompare(b.name));
+            });
+
+            this.cwd.splice(0, 0, {
+                name: "Show disks",
+                type: "showDisks"
+            });
+
+            if (tcwd !== "/" && tcwd !== "\\") {
+                this.cwd.splice(1, 0, {
+                    name: "Go up",
+                    type: "up"
+                });
+            }
+
+            let d = await window.si.fsSize().catch(() => {
+                this.setFailedState();
+            });
+            d.forEach(fsBlock => {
+                if (tcwd.startsWith(fsBlock.mount)) {
+                    this.fsBlock = fsBlock;
+                }
+            });
+
+            this.dirpath = tcwd;
+            this.render(this.cwd);
+        };
+
+        this.readDevices = async () => {
+            if (this.failed === true) return false;
+
+            let blocks = await window.si.blockDevices();
+            let devices = [];
+            blocks.forEach(block => {
+                if (fs.existsSync(block.mount)) {
+                    let type = (block.type === "rom") ? "rom" : "disk";
+                    if (block.removable && block.type !== "rom") {
+                        type = "usb";
+                    }
+
+                    devices.push({
+                        name: (block.label !== "") ? `${block.label} (${block.name})` : `${block.mount} (${block.name})`,
+                        type,
+                        path: block.mount
                     });
                 }
             });
-        };
 
-        this.readDevices = () => {
-            if (this.failed === true) return false;
-            window.si.blockDevices().then(blocks => {
-                let devices = [];
-                blocks.forEach(block => {
-                    if (fs.existsSync(block.mount)) {
-                        let type = (block.type === "rom") ? "rom" : "disk";
-                        if (block.removable && block.type !== "rom") {
-                            type = "usb";
-                        }
-
-                        devices.push({
-                            name: (block.label !== "") ? `${block.label} (${block.name})` : `${block.mount} (${block.name})`,
-                            type,
-                            path: block.mount
-                        });
-                    }
-                });
-
-                this.render(devices);
-            });
+            this.render(devices);
         };
 
         this.render = async blockList => {
