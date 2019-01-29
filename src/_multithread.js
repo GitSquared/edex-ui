@@ -45,7 +45,7 @@ if (cluster.isMaster) {
             return;
         }
 
-        if (args.length > 1 || cluster.workers.length === 0) {
+        if (args.length > 1 || cluster.workers.length <= 0) {
             si[type](...args).then(res => {
                 if (e.sender) {
                     e.sender.send("systeminformation-reply-"+id, res);
