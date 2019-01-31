@@ -33,6 +33,7 @@
     "signale": "1.3.0",
     "smoothie": "1.35.0",
     "systeminformation": "3.54.0",
+    "osx-temperature-sensor": "1.0.3",
     "tail": "2.0.2",
     "ws": "6.1.3",
     "xterm": "3.10.1"
