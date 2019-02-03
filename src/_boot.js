@@ -256,7 +256,7 @@ app.on('ready', () => {
                 term.wss.close();
                 signale.complete(`TTY exited at ${port}`, code, signal);
                 extraTtys[term.port] = null;
-                delete term;
+                term = null;
             };
             term.onopened = () => {
                 signale.success(`TTY ${port} connected to frontend`);
@@ -267,7 +267,7 @@ app.on('ready', () => {
                 term.close();
                 term.wss.close();
                 extraTtys[term.port] = null;
-                delete term;
+                term = null;
             };
 
             extraTtys[port] = term;

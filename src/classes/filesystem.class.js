@@ -273,7 +273,7 @@ class FilesystemDisplay {
 
                 let cmd = `window.term[window.currentTerm].write('\\'${e.name}\\'')`;
                 if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
-                    cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace("\\", "\\\\")}\\'')`;
+                    cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace(/\\/g, "\\\\")}\\'')`;
                 }
 
                 if (e.type === "up") {
@@ -293,7 +293,7 @@ class FilesystemDisplay {
 
                 if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
                     let extraSwitch = (process.platform === "win32") ? " /D" : "";
-                    cmd = `window.term[window.currentTerm].writelr('cd${extraSwitch} \\'${e.path.replace("\\", "\\\\")}\\'')`;
+                    cmd = `window.term[window.currentTerm].writelr('cd${extraSwitch} \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
 
                     document.getElementById("fs_disp_title_dir").innerText = "Showing available block devices";
                     this.filesContainer.setAttribute("class", "disks");
