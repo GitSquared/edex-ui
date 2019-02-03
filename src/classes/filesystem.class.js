@@ -81,7 +81,7 @@ class FilesystemDisplay {
         this.followTab = () => {
             let num = window.currentTerm;
 
-            window.term[num].oncwdchange = (cwd) => {
+            window.term[num].oncwdchange = cwd => {
                 if (cwd && window.currentTerm === num) {
                     if (this._fsWatcher) {
                         this._fsWatcher.close();
@@ -98,7 +98,7 @@ class FilesystemDisplay {
         };
         this.followTab();
 
-        this.watchFS = (dir) => {
+        this.watchFS = dir => {
             if (this._fsWatcher) {
                 this._fsWatcher.close();
             }
@@ -387,7 +387,7 @@ class FilesystemDisplay {
                     this.space_bar.bar.value = 100;
                 }
             }
-            
+
             // Render animation
             let id = 0;
             while (this.filesContainer.childNodes[id]) {

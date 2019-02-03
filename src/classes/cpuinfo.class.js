@@ -14,7 +14,7 @@ class Cpuinfo {
 
         this.series = [];
         this.charts = [];
-        window.si.cpu().then((data) => {
+        window.si.cpu().then(data => {
             let divide = Math.floor(data.cores/2);
             this.divide = divide;
 
@@ -118,7 +118,7 @@ class Cpuinfo {
         });
     }
     updateCPUload() {
-        window.si.currentLoad().then((data) => {
+        window.si.currentLoad().then(data => {
             let average = [[], []];
 
             if (!data.cpus) return; // Prevent memleak in rare case where systeminformation takes extra time to retrieve CPU info (see github issue #216)
@@ -144,7 +144,7 @@ class Cpuinfo {
         });
     }
     updateCPUtemp() {
-        window.si.cpuTemperature().then((data) => {
+        window.si.cpuTemperature().then(data => {
             try {
                 document.getElementById("mod_cpuinfo_temp").innerText = `${data.max}°C`;
             } catch(e) {
@@ -153,7 +153,7 @@ class Cpuinfo {
         });
     }
     updateCPUspeed() {
-        window.si.cpuCurrentspeed().then((data) => {
+        window.si.cpuCurrentspeed().then(data => {
             try {
                 document.getElementById("mod_cpuinfo_speed_min").innerText = `${data.min}GHz`;
                 document.getElementById("mod_cpuinfo_speed_max").innerText = `${data.max}GHz`;
@@ -163,7 +163,7 @@ class Cpuinfo {
         });
     }
     updateCPUtasks() {
-        window.si.processes().then((data) => {
+        window.si.processes().then(data => {
             try {
                 document.getElementById("mod_cpuinfo_tasks").innerText = `${data.all}`;
             } catch(e) {

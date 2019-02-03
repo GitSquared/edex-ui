@@ -30,7 +30,7 @@ class RAMwatcher {
         }, 1500);
     }
     updateInfo() {
-        window.si.mem().then((data) => {
+        window.si.mem().then(data => {
             let total = data.free+data.used;
             let free = data.free;
             let available = data.used-data.active;
@@ -46,17 +46,17 @@ class RAMwatcher {
             available = Math.round((440*available)/total);
 
             // Update grid
-            this.points.slice(0, active).forEach((domPoint) => {
+            this.points.slice(0, active).forEach(domPoint => {
                 if (domPoint.attributes.class.value !== "mod_ramwatcher_point active") {
                     domPoint.setAttribute("class", "mod_ramwatcher_point active");
                 }
             });
-            this.points.slice(active, available).forEach((domPoint) => {
+            this.points.slice(active, available).forEach(domPoint => {
                 if (domPoint.attributes.class.value !== "mod_ramwatcher_point available") {
                     domPoint.setAttribute("class", "mod_ramwatcher_point available");
                 }
             });
-            this.points.slice(available, this.points.length).forEach((domPoint) => {
+            this.points.slice(available, this.points.length).forEach(domPoint => {
                 if (domPoint.attributes.class.value !== "mod_ramwatcher_point free") {
                     domPoint.setAttribute("class", "mod_ramwatcher_point free");
                 }

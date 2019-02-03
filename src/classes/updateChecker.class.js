@@ -6,7 +6,7 @@ class UpdateChecker {
 
         this._failed = false;
         this._willfail = false;
-        this._fail = (e) => {
+        this._fail = e => {
             this._failed = true;
             electron.ipcRenderer.send("log", "note", "UpdateChecker: Could not fetch latest release from GitHub's API.");
             electron.ipcRenderer.send("log", "debug", `Error: ${e}`);

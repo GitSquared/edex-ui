@@ -81,9 +81,9 @@ class LocationGlobe {
             // Connections
             this.conns = [];
             this.addConn = ip => {
-                require("https").get({host: "ipinfo.now.sh", port: 443, path: "/"+ip, localAddress: window.mods.netstat.internalIPv4, agent: false}, (res) => {
+                require("https").get({host: "ipinfo.now.sh", port: 443, path: "/"+ip, localAddress: window.mods.netstat.internalIPv4, agent: false}, res => {
                     let rawData = "";
-                    res.on("data", (chunk) => {
+                    res.on("data", chunk => {
                         rawData += chunk;
                     });
                     res.on("end", () => {
@@ -93,7 +93,7 @@ class LocationGlobe {
                             electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
                         })
                     });
-                }).on("error", (e) => {
+                }).on("error", e => {
                     // Drop it
                 });
             };
@@ -152,9 +152,9 @@ class LocationGlobe {
         this.globe.addMarker(randomLat - 20, randomLong + 150, '', true);
     }
     addTemporaryConnectedMarker(ip) {
-        require("https").get({host: "ipinfo.now.sh", port: 443, path: "/"+ip, localAddress: window.mods.netstat.internalIPv4, agent: false}, (res) => {
+        require("https").get({host: "ipinfo.now.sh", port: 443, path: "/"+ip, localAddress: window.mods.netstat.internalIPv4, agent: false}, res => {
             let rawData = "";
-            res.on("data", (chunk) => {
+            res.on("data", chunk => {
                 rawData += chunk;
             });
             res.on("end", () => {
@@ -178,7 +178,7 @@ class LocationGlobe {
                     }, 3000);
                 }
             });
-        }).on("error", (e) => {
+        }).on("error", e => {
             // Drop it
         });
     }

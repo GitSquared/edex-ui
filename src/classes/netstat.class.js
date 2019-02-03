@@ -40,7 +40,7 @@ class Netstat {
         }, 2000);
     }
     updateInfo() {
-        window.si.networkInterfaces().then((data) => {
+        window.si.networkInterfaces().then(data => {
             let offline = false;
 
             let net = data[0];
@@ -86,9 +86,9 @@ class Netstat {
                 offline = true;
             } else {
                 if (this.lastconn.finished) {
-                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", localAddress: net.ip4, agent: this._httpsAgent}, (res) => {
+                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", localAddress: net.ip4, agent: this._httpsAgent}, res => {
                         let rawData = "";
-                        res.on("data", (chunk) => {
+                        res.on("data", chunk => {
                             rawData += chunk;
                         });
                         res.on("end", () => {
@@ -109,7 +109,7 @@ class Netstat {
                                 electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
                             }
                         });
-                    }).on("error", (e) => {
+                    }).on("error", e => {
                         // Drop it
                     });
                 }

@@ -232,7 +232,7 @@ class Terminal {
             this.ondisconnected = () => {};
 
             this._disableCWDtracking = false;
-            this._getTtyCWD = (tty) => {
+            this._getTtyCWD = tty => {
                 return new Promise((resolve, reject) => {
                     let pid = tty._pid;
                     switch(require("os").type()) {
@@ -307,7 +307,7 @@ class Terminal {
             this.wss = new this.Websocket({
                 port: this.port,
                 clientTracking: true,
-                verifyClient: (info) => {
+                verifyClient: info => {
                     if (this.wss.clients.length >= 1) {
                         return false;
                     } else {
@@ -336,15 +336,15 @@ class Terminal {
                         return;
                 }
             });
-            this.wss.on("connection", (ws) => {
+            this.wss.on("connection", ws => {
                 this.onopened();
                 ws.on("close", (code, reason) => {
                     this.ondisconnected(code, reason);
                 });
-                ws.on("message", (msg) => {
+                ws.on("message", msg => {
                     this.tty.write(msg);
                 });
-                this.tty.on("data", (data) => {
+                this.tty.on("data", data => {
                     this._nextTickUpdateTtyCWD = true;
                     this._nextTickUpdateProcess = true;
                     try {

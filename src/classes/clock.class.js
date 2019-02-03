@@ -31,7 +31,7 @@ class Clock {
         let clockString = `${array[0]}:${array[1]}:${array[2]}`;
         array = clockString.match(/.{1}/g);
         clockString = "";
-        array.forEach((e) => {
+        array.forEach(e => {
             if (e === ":") clockString += "<em>"+e+"</em>";
             else clockString += "<span>"+e+"</span>";
         });

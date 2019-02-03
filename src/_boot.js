@@ -87,7 +87,7 @@ try {
 } catch(e) {
     // Folder already exists
 }
-fs.readdirSync(innerThemesDir).forEach((e) => {
+fs.readdirSync(innerThemesDir).forEach(e => {
     fs.writeFileSync(path.join(themesDir, e), fs.readFileSync(path.join(innerThemesDir, e), {encoding:"utf-8"}));
 });
 try {
@@ -95,7 +95,7 @@ try {
 } catch(e) {
     // Folder already exists
 }
-fs.readdirSync(innerKblayoutsDir).forEach((e) => {
+fs.readdirSync(innerKblayoutsDir).forEach(e => {
     fs.writeFileSync(path.join(kblayoutsDir, e), fs.readFileSync(path.join(innerKblayoutsDir, e), {encoding:"utf-8"}));
 });
 try {
@@ -103,7 +103,7 @@ try {
 } catch(e) {
     // Folder already exists
 }
-fs.readdirSync(innerFontsDir).forEach((e) => {
+fs.readdirSync(innerFontsDir).forEach(e => {
     fs.writeFileSync(path.join(fontsDir, e), fs.readFileSync(path.join(innerFontsDir, e)));
 });
 
