@@ -47,7 +47,7 @@ _([fx](https://github.com/antonmedv/fx) showing the results of a [ipapi](https:/
 #### Where can I find download links?
 Click on the little badges under the eDEX logo at the top of this page, or go to the [Releases](https://github.com/GitSquared/edex-ui/releases) tab.
 #### I have a problem!
-Search through the [Issues](https://github.com/GitSquared/edex-ui/issues) to see if yours as already been reported. If you're confident it hasn't been reported yet, feel free to open up a new one. If you see your issue and it's been closed, it probably means that the fix for it will ship in the next version, and you'll have to wait a bit.
+Search through the [Issues](https://github.com/GitSquared/edex-ui/issues) to see if yours has already been reported. If you're confident it hasn't been reported yet, feel free to open up a new one. If you see your issue and it's been closed, it probably means that the fix for it will ship in the next version, and you'll have to wait a bit.
 #### Can you disable the keyboard/the filesystem display?
 You can't disable them (yet) but you can hide them. See the `tron-notype` theme.Thank you for supporting 🎉 SAILLARD Gabriel
 #### Are PRs welcome?
@@ -68,12 +68,12 @@ Thanks!
 - [Korben article (in french)](https://korben.info/une-interface-futuriste-pour-vos-ecrans-tactiles.html)
 - [Hacker News](https://news.ycombinator.com/item?id=18509828)
 - [This tweet that made me smile](https://twitter.com/mikemaccana/status/1065615451940667396)
-- [BoingBoing article](https://boingboing.net/2018/11/23/simulacrum-sf.html) - Apparently i'm a "French hacker" lol
+- [BoingBoing article](https://boingboing.net/2018/11/23/simulacrum-sf.html) - Apparently i'm a "French hacker"
 - [OReilly 4 short links](https://www.oreilly.com/ideas/four-short-links-23-november-2018)
 - [Hackaday](https://hackaday.com/2018/11/23/look-like-a-movie-hacker/)
 - [Developpez.com (another french link)](https://www.developpez.com/actu/234808/Une-application-de-bureau-ressemble-a-une-interface-d-ordinateur-de-science-fiction-inspiree-des-effets-du-film-TRON-Legacy/)
 - [GitHub Blog's Release Radar November 2018](https://blog.github.com/2018-12-21-release-radar-november-2018/)
-- [opensource.com Productive Tools for 2019](https://opensource.com/article/19/1/productivity-tool-edex-ui)Thank you for supporting 🎉 SAILLARD Gabriel
+- [opensource.com Productive Tools for 2019](https://opensource.com/article/19/1/productivity-tool-edex-ui)
 
 
 ## Useful commands for the nerds
