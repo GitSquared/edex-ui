@@ -156,13 +156,13 @@ function initSystemInformationProxy() {
         set: () => {throw new Error("Cannot set a property on the sysinfo proxy")},
         get: (target, prop, receiver) => {
             return function(...args) {
-                let callback = (typeof args[0] === "function") ? true : false;
+                let callback = (typeof args[args.length - 1] === "function") ? true : false;
 
                 return new Promise((resolve, reject) => {
                     let id = nanoid();
                     ipc.once("systeminformation-reply-"+id, (e, res) => {
                         if (callback) {
-                            callback(res);
+                            args[args.length - 1](res);
                         }
                         resolve(res);
                     });
