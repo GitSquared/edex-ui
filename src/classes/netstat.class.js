@@ -60,7 +60,7 @@ class Netstat {
             } else {
                 // Find the first external, IPv4 connected networkInterface that has a MAC address set
 
-                while (net.internal === true || net.ip4 === "" || net.mac === "") {
+                while (net.operstate !== "up" || net.internal === true || net.ip4 === "" || net.mac === "") {
                     netID++;
                     if (data[netID]) {
                         net = data[netID];
