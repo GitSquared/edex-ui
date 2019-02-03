@@ -22,9 +22,9 @@ class Keyboard {
         container.dataset.isFnOn = false;
 
         // Parse keymap and create DOM
-        Object.keys(layout).forEach((row) => {
+        Object.keys(layout).forEach(row => {
             container.innerHTML += `<div class="keyboard_row" id="`+row+`"></div>`;
-            layout[row].forEach((keyObj) => {
+            layout[row].forEach(keyObj => {
                 let key = document.createElement("div");
                 key.setAttribute("class", "keyboard_key");
 
@@ -42,7 +42,7 @@ class Keyboard {
                         <h1>${keyObj.name || ""}</h1>`;
                 }
 
-                Object.keys(keyObj).forEach((property) => {
+                Object.keys(keyObj).forEach(property => {
                     for (let i = 1; i < ctrlseq.length; i++) {
                         keyObj[property] = keyObj[property].replace("~~~CTRLSEQ"+i+"~~~", ctrlseq[i]);
                     }
@@ -55,133 +55,494 @@ class Keyboard {
             });
         });
 
-        // Helper functions for latin diacritics
-        let addCircum = (char) => {
-            switch(char) {
-                case "a":
-                    return "â";
-                case "A":
-                    return "Â";
-                case "z":
-                    return "ẑ";
-                case "Z":
-                    return "Ẑ";
-                case "e":
-                    return "ê";
-                case "E":
-                    return "Ê";
-                case "y":
-                    return "ŷ";
-                case "Y":
-                    return "Ŷ";
-                case "u":
-                    return "û";
-                case "U":
-                    return "Û";
-                case "i":
-                    return "î";
-                case "I":
-                    return "Î";
-                case "o":
-                    return "ô";
-                case "O":
-                    return "Ô";
-                case "s":
-                    return "ŝ";
-                case "S":
-                    return "Ŝ";
-                case "g":
-                    return "ĝ";
-                case "G":
-                    return "Ĝ";
-                case "h":
-                    return "ĥ";
-                case "H":
-                    return "Ĥ";
-                case "j":
-                    return "ĵ";
-                case "J":
-                    return "Ĵ";
-                case "w":
-                    return "ŵ";
-                case "W":
-                    return "Ŵ";
-                case "c":
-                    return "ĉ";
-                case "C":
-                    return "Ĉ";
-                // the circumflex can also be used for superscript numbers
-                case "1":
-                    return "¹";
-                case "2":
-                    return "²";
-                case "3":
-                    return "³";
-                case "4":
-                    return "⁴";
-                case "5":
-                    return "⁵";
-                case "6":
-                    return "⁶";
-                case "7":
-                    return "⁷";
-                case "8":
-                    return "⁸";
-                case "9":
-                    return "⁹";
-                case "0":
-                    return "⁰";
-                default:
-                    return char;
+        container.childNodes.forEach(row => {
+            row.childNodes.forEach(key => {
+
+                let enterElements = document.querySelectorAll(".keyboard_enter");
+
+                if (key.attributes["class"].value.endsWith("keyboard_enter")) {
+                    // The enter key is divided in two dom elements, so we bind their animations here
+
+                    key.onmousedown = e => {
+                        this.pressKey(key);
+                        key.holdTimeout = setTimeout(() => {
+                            key.holdInterval = setInterval(() => {
+                                this.pressKey(key);
+                            }, 70);
+                        }, 400);
+
+                        enterElements.forEach(key => {
+                            key.setAttribute("class", "keyboard_key active keyboard_enter");
+                        });
+
+                        // Keep focus on the terminal
+                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
+
+                        window.audioManager.beep2.play();
+                        e.preventDefault();
+                    };
+                    key.onmouseup = () => {
+                        clearTimeout(key.holdTimeout);
+                        clearInterval(key.holdInterval);
+
+                        enterElements.forEach(key => {
+                            key.setAttribute("class", "keyboard_key blink keyboard_enter");
+                        });
+                        setTimeout(() => {
+                            enterElements.forEach(key => {
+                                key.setAttribute("class", "keyboard_key keyboard_enter");
+                            });
+                        }, 100);
+                    };
+                } else {
+                    key.onmousedown = e => {
+                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
+                            let cmd = key.dataset.cmd.substr(11);
+                            if (cmd.startsWith("CTRL")) {
+                                container.dataset.isCtrlOn = "true";
+                            }
+                            if (cmd.startsWith("SHIFT")) {
+                                container.dataset.isShiftOn = "true";
+                            }
+                            if (cmd.startsWith("ALT")) {
+                                container.dataset.isAltOn = "true";
+                            }
+                        } else {
+                            key.holdTimeout = setTimeout(() => {
+                                key.holdInterval = setInterval(() => {
+                                    this.pressKey(key);
+                                }, 70);
+                            }, 400);
+                        }
+                        this.pressKey(key);
+
+                        // Keep focus on the terminal
+                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
+
+                        window.audioManager.beep3.play();
+                        e.preventDefault();
+                    };
+                    key.onmouseup = e => {
+                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
+                            let cmd = key.dataset.cmd.substr(11);
+                            if (cmd.startsWith("CTRL")) {
+                                container.dataset.isCtrlOn = "false";
+                            }
+                            if (cmd.startsWith("SHIFT")) {
+                                container.dataset.isShiftOn = "false";
+                            }
+                            if (cmd.startsWith("ALT")) {
+                                container.dataset.isAltOn = "false";
+                            }
+                        } else {
+                            clearTimeout(key.holdTimeout);
+                            clearInterval(key.holdInterval);
+                        }
+
+                        key.setAttribute("class", "keyboard_key blink");
+                        setTimeout(() => {
+                            key.setAttribute("class", "keyboard_key");
+                        }, 100);
+                    };
+                }
+
+                // See #229
+                key.onmouseleave = () => {
+                    clearTimeout(key.holdTimeout);
+                    clearInterval(key.holdInterval);
+                };
+            });
+        });
+
+        // Tactile multi-touch support (#100)
+        container.addEventListener("touchstart", e => {
+            e.preventDefault();
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                let key = e.changedTouches[i].target.offsetParent;
+                if (key.getAttribute("class").startsWith("keyboard_key")) {
+                    key.setAttribute("class", key.getAttribute("class")+" active");
+                    key.onmousedown({preventDefault: () => {return true}});
+                } else {
+                    key = e.changedTouches[i].target;
+                    if (key.getAttribute("class").startsWith("keyboard_key")) {
+                        key.setAttribute("class", key.getAttribute("class")+" active");
+                        key.onmousedown({preventDefault: () => {return true}});
+                    }
+                }
+            }
+        });
+        let dropKeyTouchHandler = e => {
+            e.preventDefault();
+            for (let i = 0; i < e.changedTouches.length; i++) {
+                let key = e.changedTouches[i].target.offsetParent;
+                if (key.getAttribute("class").startsWith("keyboard_key")) {
+                    key.setAttribute("class", key.getAttribute("class").replace("active", ""));
+                    key.onmouseup({preventDefault: () => {return true}});
+                } else {
+                    key = e.changedTouches[i].target;
+                    if (key.getAttribute("class").startsWith("keyboard_key")) {
+                        key.setAttribute("class", key.getAttribute("class").replace("active", ""));
+                        key.onmouseup({preventDefault: () => {return true}});
+                    }
+                }
             }
         };
-        let addTrema = (char) => {
-            switch(char) {
-                case "a":
-                    return "ä";
-                case "A":
-                    return "Ä";
-                case "e":
-                    return "ë";
-                case "E":
-                    return "Ë";
-                case "t":
-                    return "ẗ";
-                // My keyboard says no uppercase ẗ
-                case "y":
-                    return "ÿ";
-                case "Y":
-                    return "Ÿ";
-                case "u":
-                    return "ü";
-                case "U":
-                    return "Ü";
-                case "i":
-                    return "ï";
-                case "I":
-                    return "Ï";
-                case "o":
-                    return "ö";
-                case "O":
-                    return "Ö";
-                case "h":
-                    return "ḧ";
-                case "H":
-                    return "Ḧ";
-                case "w":
-                    return "ẅ";
-                case "W":
-                    return "Ẅ";
-                case "x":
-                    return "ẍ";
-                case "X":
-                    return "Ẍ";
-                default:
-                    return char;
+        container.addEventListener("touchend", dropKeyTouchHandler);
+        container.addEventListener("touchcancel", dropKeyTouchHandler);
+
+        // Bind actual keyboard actions to on-screen animations (for use without a touchscreen)
+        let findKey = e => {
+            // Fix incorrect querySelector error
+            let physkey;
+            (e.key === "\"") ? physkey = `\\"` : physkey = e.key;
+
+            // Find basic keys (typically letters, upper and lower-case)
+            let key = document.querySelector('div.keyboard_key[data-cmd="'+physkey+'"]');
+            if (key === null) key = document.querySelector('div.keyboard_key[data-shift_cmd="'+physkey+'"]');
+
+            // Find special keys (shift, control, arrows, etc.)
+            if (key === null && e.code === "ShiftLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- SHIFT: LEFT"]');
+            if (key === null && e.code === "ShiftRight") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- SHIFT: RIGHT"]');
+            if (key === null && e.code === "ControlLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CTRL: LEFT"]');
+            if (key === null && e.code === "ControlRight") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CTRL: RIGHT"]');
+            if (key === null && e.code === "AltLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- FN: ON"]');
+            if (key === null && e.code === "AltRight") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- ALT: RIGHT"]');
+            if (key === null && e.code === "CapsLock") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CAPSLCK: ON"]');
+            if (key === null && e.code === "Escape") key = document.querySelector('div.keyboard_key[data-cmd=""]');
+            if (key === null && e.code === "Backspace") key = document.querySelector('div.keyboard_key[data-cmd=""]');
+            if (key === null && e.code === "ArrowUp") key = document.querySelector('div.keyboard_key[data-cmd="OA"]');
+            if (key === null && e.code === "ArrowLeft") key = document.querySelector('div.keyboard_key[data-cmd="OD"]');
+            if (key === null && e.code === "ArrowDown") key = document.querySelector('div.keyboard_key[data-cmd="OB"]');
+            if (key === null && e.code === "ArrowRight") key = document.querySelector('div.keyboard_key[data-cmd="OC"]');
+            if (key === null && e.code === "Enter") key = document.querySelectorAll('div.keyboard_key.keyboard_enter');
+
+            // Find "rare" keys (ctrl and alt symbols)
+            if (key === null) key = document.querySelector('div.keyboard_key[data-ctrl_cmd="'+e.key+'"]');
+            if (key === null) key = document.querySelector('div.keyboard_key[data-alt_cmd="'+e.key+'"]');
+
+            return key;
+        };
+
+        document.onkeydown = e => {
+            // See #330
+            if (e.getModifierState("AltGraph")) return;
+            let key = findKey(e);
+            if (key === null) return;
+            if (key.length) {
+                key.forEach(enterElement => {
+                    enterElement.setAttribute("class", "keyboard_key active keyboard_enter");
+                });
+            } else {
+                key.setAttribute("class", "keyboard_key active");
+            }
+            window.audioManager.beep3.play();
+        };
+
+        document.onkeyup = e => {
+            // See #330
+            if (e.key !== "AltGraph" && e.getModifierState("AltGraph")) return;
+            let key = findKey(e);
+            if (key === null) return;
+            if (key.length) {
+                key.forEach(enterElement => {
+                    enterElement.setAttribute("class", "keyboard_key blink keyboard_enter");
+                });
+                setTimeout(() => {
+                    key.forEach(enterElement => {
+                        enterElement.setAttribute("class", "keyboard_key keyboard_enter");
+                    });
+                }, 100);
+            } else {
+                key.setAttribute("class", "keyboard_key blink");
+                setTimeout(() => {
+                    key.setAttribute("class", "keyboard_key");
+                }, 100);
+            }
+
+            if (e.key === "Enter") {
+                window.audioManager.beep2.play();
             }
         };
-        let addAcute = (char) => {
-            switch(char) {
+    }
+    pressKey(key) {
+        let cmd = key.dataset.cmd || "";
+        if (container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;
+        if (container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
+        if (container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
+        if (container.dataset.isAltOn === "true" && container.dataset.isShiftOn === "true" && key.dataset.altshift_cmd) cmd = key.dataset.altshift_cmd;
+        if (container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
+
+        if (container.dataset.isNextCircum === "true") {
+            cmd = this.addCircum(cmd);
+            container.dataset.isNextCircum = "false";
+        }
+        if (container.dataset.isNextTrema === "true") {
+            cmd = this.addTrema(cmd);
+            container.dataset.isNextTrema = "false";
+        }
+        if (container.dataset.isNextAcute === "true") {
+            cmd = this.addAcute(cmd);
+            container.dataset.isNextAcute = "false";
+        }
+        if (container.dataset.isNextGrave === "true") {
+            cmd = this.addGrave(cmd);
+            container.dataset.isNextGrave = "false";
+        }
+        if (container.dataset.isNextCaron === "true") {
+            cmd = this.addCaron(cmd);
+            container.dataset.isNextCaron = "false";
+        }
+        if (container.dataset.isNextBar === "true") {
+            cmd = this.addBar(cmd);
+            container.dataset.isNextBar = "false";
+        }
+        if (container.dataset.isNextBreve === "true") {
+            cmd = this.addBreve(cmd);
+            container.dataset.isNextBreve = "false";
+        }
+        if (container.dataset.isNextTilde === "true") {
+            cmd = this.addTilde(cmd);
+            container.dataset.isNextTilde = "false";
+        }
+        if (container.dataset.isNextMacron === "true") {
+            cmd = this.addMacron(cmd);
+            container.dataset.isNextMacron = "false";
+        }
+        if (container.dataset.isNextCedilla === "true") {
+            cmd = this.addCedilla(cmd);
+            container.dataset.isNextCedilla = "true";
+        }
+        if (container.dataset.isNextOverring === "true") {
+            cmd = this.addOverring(cmd);
+            container.dataset.isNextOverring = "false";
+        }
+        if (container.dataset.isNextGreek === "true") {
+            cmd = this.toGreek(cmd);
+            container.dataset.isNextGreek = "false";
+        }
+        if (container.dataset.isNextIotasub === "true") {
+            cmd = this.addIotasub(cmd);
+            container.dataset.isNextIotasub = "false";
+        }
+
+
+        if (cmd.startsWith("ESCAPED|-- ")) {
+            cmd = cmd.substr(11);
+            switch(cmd) {
+                case "CAPSLCK: ON":
+                    container.dataset.isCapsLckOn = "true";
+                    break;
+                case "CAPSLCK: OFF":
+                    container.dataset.isCapsLckOn = "false";
+                    break;
+                case "FN: ON":
+                    container.dataset.isFnOn = "true";
+                    break;
+                case "FN: OFF":
+                    container.dataset.isFnOn = "false";
+                    break;
+                case "CIRCUM":
+                    container.dataset.isNextCircum = "true";
+                    break;
+                case "TREMA":
+                    container.dataset.isNextTrema = "true";
+                    break;
+                case "ACUTE":
+                    container.dataset.isNextAcute = "true";
+                    break;
+                case "GRAVE":
+                    container.dataset.isNextGrave = "true";
+                    break;
+                case "CARON":
+                    container.dataset.isNextCaron = "true";
+                    break;
+                case "BAR":
+                    container.dataset.isNextBar = "true";
+                    break;
+                case "BREVE":
+                    container.dataset.isNextBreve = "true";
+                    break;
+                case "MACRON":
+                    container.dataset.isNextMacron = "true";
+                    break;
+                case "CEDILLA":
+                    container.dataset.isNextCedilla = "true";
+                    break;
+                case "OVERRING":
+                    container.dataset.isNextOverring = "true";
+                    break;
+                case "GREEK":
+                    container.dataset.isNextGreek = "true";
+                    break;
+                case "IOTASUB":
+                    container.dataset.isNextIotasub = "true";
+                    break;
+            }
+        } else if (cmd === "\n") {
+            if (window.keyboard.linkedToTerm) {
+                window.term[window.currentTerm].writelr("");
+            } else {
+                // Do nothing, return not accepted in inputs
+            }
+        } else if (cmd === ctrlseq[19] && window.keyboard.linkedToTerm && window.term[window.currentTerm].term.hasSelection()) {
+            window.term[window.currentTerm].clipboard.copy();
+        } else if (cmd === ctrlseq[20] && window.keyboard.linkedToTerm && window.term[window.currentTerm].clipboard.didCopy) {
+            window.term[window.currentTerm].clipboard.paste();
+        } else {
+            if (window.keyboard.linkedToTerm) {
+                window.term[window.currentTerm].write(cmd);
+            } else {
+                if (typeof document.activeElement.value !== "undefined") {
+                    switch(cmd) {
+                        case "":
+                            document.activeElement.value = document.activeElement.value.slice(0, -1);
+                            break;
+                        case "OD":
+                            document.activeElement.selectionStart--;
+                            document.activeElement.selectionEnd = document.activeElement.selectionStart;
+                            break;
+                        case "OC":
+                            document.activeElement.selectionEnd++;
+                            document.activeElement.selectionStart = document.activeElement.selectionEnd;
+                            break;
+                        default:
+                            if (ctrlseq.indexOf(cmd.slice(0, 1)) !== -1) {
+                                // Prevent trying to write other control sequences
+                            } else {
+                                document.activeElement.value = document.activeElement.value+cmd;
+                            }
+                    }
+                }
+                document.activeElement.focus();
+            }
+        }
+    }
+    addCircum(char) {
+        switch(char) {
+            case "a":
+                return "â";
+            case "A":
+                return "Â";
+            case "z":
+                return "ẑ";
+            case "Z":
+                return "Ẑ";
+            case "e":
+                return "ê";
+            case "E":
+                return "Ê";
+            case "y":
+                return "ŷ";
+            case "Y":
+                return "Ŷ";
+            case "u":
+                return "û";
+            case "U":
+                return "Û";
+            case "i":
+                return "î";
+            case "I":
+                return "Î";
+            case "o":
+                return "ô";
+            case "O":
+                return "Ô";
+            case "s":
+                return "ŝ";
+            case "S":
+                return "Ŝ";
+            case "g":
+                return "ĝ";
+            case "G":
+                return "Ĝ";
+            case "h":
+                return "ĥ";
+            case "H":
+                return "Ĥ";
+            case "j":
+                return "ĵ";
+            case "J":
+                return "Ĵ";
+            case "w":
+                return "ŵ";
+            case "W":
+                return "Ŵ";
+            case "c":
+                return "ĉ";
+            case "C":
+                return "Ĉ";
+            // the circumflex can also be used for superscript numbers
+            case "1":
+                return "¹";
+            case "2":
+                return "²";
+            case "3":
+                return "³";
+            case "4":
+                return "⁴";
+            case "5":
+                return "⁵";
+            case "6":
+                return "⁶";
+            case "7":
+                return "⁷";
+            case "8":
+                return "⁸";
+            case "9":
+                return "⁹";
+            case "0":
+                return "⁰";
+            default:
+                return char;
+        }
+    }
+    addTrema(char) {
+        switch(char) {
+            case "a":
+                return "ä";
+            case "A":
+                return "Ä";
+            case "e":
+                return "ë";
+            case "E":
+                return "Ë";
+            case "t":
+                return "ẗ";
+            // My keyboard says no uppercase ẗ
+            case "y":
+                return "ÿ";
+            case "Y":
+                return "Ÿ";
+            case "u":
+                return "ü";
+            case "U":
+                return "Ü";
+            case "i":
+                return "ï";
+            case "I":
+                return "Ï";
+            case "o":
+                return "ö";
+            case "O":
+                return "Ö";
+            case "h":
+                return "ḧ";
+            case "H":
+                return "Ḧ";
+            case "w":
+                return "ẅ";
+            case "W":
+                return "Ẅ";
+            case "x":
+                return "ẍ";
+            case "X":
+                return "Ẍ";
+            default:
+                return char;
+        }
+    }
+    addAcute(char) {
+        switch(char) {
             case "a":
                 return "á";
             case "A":
@@ -268,10 +629,10 @@ class Keyboard {
                 return "Ḉ";
             default:
                 return char;
-            }
-        };
-        let addGrave = (char) => {
-            switch (char) {
+        }
+    }
+    addGrave(char) {
+        switch (char) {
             case "a":
                 return "à";
             case "A":
@@ -318,10 +679,10 @@ class Keyboard {
                 return "Ề";
             default:
                 return char;
-            }
-        };
-        let addCaron = (char) => {
-            switch (char) {
+        }
+    }
+    addCaron(char) {
+        switch (char) {
             case "a":
                 return "ǎ";
             case "A":
@@ -388,7 +749,7 @@ class Keyboard {
                 return "ž";
             case "Z":
                 return "Ž";
-                // caron can also be used for subscript numbers
+            // caron can also be used for subscript numbers
             case "1":
                 return "₁";
             case "2":
@@ -411,10 +772,10 @@ class Keyboard {
                 return "₀";
             default:
                 return char;
-            }
-        };
-        let addBar = (char) => {
-            switch (char) {
+        }
+    }
+    addBar(char) {
+        switch (char) {
             case "a":
                 return "ⱥ";
             case "A":
@@ -485,10 +846,10 @@ class Keyboard {
                 return "Ƶ";
             default:
                 return char;
-            }
-        };
-        let addBreve = (char) => {
-            switch (char) {
+        }
+    }
+    addBreve(char) {
+        switch (char) {
             case "a":
                 return "ă";
             case "A":
@@ -519,10 +880,10 @@ class Keyboard {
                 return "Ằ";
             default:
                 return char;
-            }
-        };
-        let addTilde = (char) => {
-            switch (char) {
+        }
+    }
+    addTilde(char) {
+        switch (char) {
             case "a":
                 return "ã";
             case "A":
@@ -561,10 +922,10 @@ class Keyboard {
                 return "Ễ";
             default:
                 return char;
-            }
-        };
-        let addMacron = (char) => {
-            switch (char) {
+        }
+    }
+    addMacron(char) {
+        switch (char) {
             case "a":
                 return "ā";
             case "A":
@@ -603,10 +964,10 @@ class Keyboard {
                 return "Ḕ";
             default:
                 return char;
-            }
-        };
-        let addCedilla = (char) => {
-            switch (char) {
+        }
+    }
+    addCedilla(char) {
+        switch (char) {
             case "c":
                 return "ç";
             case "C":
@@ -653,10 +1014,10 @@ class Keyboard {
                 return "Ţ";
             default:
                 return char;
-            }
-        };
-        let addOverring = (char) => {
-            switch (char) {
+        }
+    }
+    addOverring(char) {
+        switch (char) {
             case "a":
                 return "å";
             case "A":
@@ -671,10 +1032,10 @@ class Keyboard {
                 return "ẙ"; // same for capital y with overring
             default:
                 return char;
-            }
-        };
-        let toGreek = (char) => {
-            switch (char) {
+        }
+    }
+    toGreek(char) {
+        switch (char) {
             case "b":
                 return "β";
             case "p":
@@ -749,10 +1110,10 @@ class Keyboard {
                 return "Φ";
             default:
                 return char;
-            }
-        };
-        let addIotasub = (char) => {
-            switch (char) {
+        }
+    }
+    addIotasub(char) {
+        switch (char) {
             case "o":
                 return "ǫ";
             case "O":
@@ -775,372 +1136,7 @@ class Keyboard {
                 return "Ę";
             default:
                 return char;
-            }
-        };
-
-        // Apply click (and/or touch) handler functions (write to socket and animations)
-        let pressKey = (key) => {
-            let cmd = key.dataset.cmd || "";
-            if (container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;
-            if (container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
-            if (container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
-            if (container.dataset.isAltOn === "true" && container.dataset.isShiftOn === "true" && key.dataset.altshift_cmd) cmd = key.dataset.altshift_cmd;
-            if (container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
-
-            if (container.dataset.isNextCircum === "true") {
-                cmd = addCircum(cmd);
-                container.dataset.isNextCircum = "false";
-            }
-            if (container.dataset.isNextTrema === "true") {
-                cmd = addTrema(cmd);
-                container.dataset.isNextTrema = "false";
-            }
-            if (container.dataset.isNextAcute === "true") {
-                cmd = addAcute(cmd);
-                container.dataset.isNextAcute = "false";
-            }
-            if (container.dataset.isNextGrave === "true") {
-                cmd = addGrave(cmd);
-                container.dataset.isNextGrave = "false";
-            }
-            if (container.dataset.isNextCaron === "true") {
-                cmd = addCaron(cmd);
-                container.dataset.isNextCaron = "false";
-            }
-            if (container.dataset.isNextBar === "true") {
-                cmd = addBar(cmd);
-                container.dataset.isNextBar = "false";
-            }
-            if (container.dataset.isNextBreve === "true") {
-                cmd = addBreve(cmd);
-                container.dataset.isNextBreve = "false";
-            }
-            if (container.dataset.isNextTilde === "true") {
-                cmd = addTilde(cmd);
-                container.dataset.isNextTilde = "false";
-            }
-            if (container.dataset.isNextMacron === "true") {
-                cmd = addMacron(cmd);
-                container.dataset.isNextMacron = "false";
-            }
-            if (container.dataset.isNextCedilla === "true") {
-                cmd = addCedilla(cmd);
-                container.dataset.isNextCedilla = "true";
-            }
-            if (container.dataset.isNextOverring === "true") {
-                cmd = addOverring(cmd);
-                container.dataset.isNextOverring = "false";
-            }
-            if (container.dataset.isNextGreek === "true") {
-                cmd = toGreek(cmd);
-                container.dataset.isNextGreek = "false";
-            }
-            if (container.dataset.isNextIotasub === "true") {
-                cmd = addIotasub(cmd);
-                container.dataset.isNextIotasub = "false";
-            }
-
-
-            if (cmd.startsWith("ESCAPED|-- ")) {
-                cmd = cmd.substr(11);
-                switch(cmd) {
-                    case "CAPSLCK: ON":
-                        container.dataset.isCapsLckOn = "true";
-                        break;
-                    case "CAPSLCK: OFF":
-                        container.dataset.isCapsLckOn = "false";
-                        break;
-                    case "FN: ON":
-                        container.dataset.isFnOn = "true";
-                        break;
-                    case "FN: OFF":
-                        container.dataset.isFnOn = "false";
-                        break;
-                    case "CIRCUM":
-                        container.dataset.isNextCircum = "true";
-                        break;
-                    case "TREMA":
-                        container.dataset.isNextTrema = "true";
-                        break;
-                    case "ACUTE":
-                        container.dataset.isNextAcute = "true";
-                        break;
-                    case "GRAVE":
-                        container.dataset.isNextGrave = "true";
-                        break;
-                    case "CARON":
-                        container.dataset.isNextCaron = "true";
-                        break;
-                    case "BAR":
-                        container.dataset.isNextBar = "true";
-                        break;
-                    case "BREVE":
-                        container.dataset.isNextBreve = "true";
-                        break;
-                    case "MACRON":
-                        container.dataset.isNextMacron = "true";
-                        break;
-                    case "CEDILLA":
-                        container.dataset.isNextCedilla = "true";
-                        break;
-                    case "OVERRING":
-                        container.dataset.isNextOverring = "true";
-                        break;
-                    case "GREEK":
-                        container.dataset.isNextGreek = "true";
-                        break;
-                    case "IOTASUB":
-                        container.dataset.isNextIotasub = "true";
-                        break;
-                }
-            } else if (cmd === "\n") {
-                if (window.keyboard.linkedToTerm) {
-                    window.term[window.currentTerm].writelr("");
-                } else {
-                    // Do nothing, return not accepted in inputs
-                }
-            } else if (cmd === ctrlseq[19] && window.keyboard.linkedToTerm && window.term[window.currentTerm].term.hasSelection()) {
-                window.term[window.currentTerm].clipboard.copy();
-            } else if (cmd === ctrlseq[20] && window.keyboard.linkedToTerm && window.term[window.currentTerm].clipboard.didCopy) {
-                window.term[window.currentTerm].clipboard.paste();
-            } else {
-                if (window.keyboard.linkedToTerm) {
-                    window.term[window.currentTerm].write(cmd);
-                } else {
-                    if (typeof document.activeElement.value !== "undefined") {
-                        switch(cmd) {
-                            case "":
-                                document.activeElement.value = document.activeElement.value.slice(0, -1);
-                                break;
-                            case "OD":
-                                document.activeElement.selectionStart--;
-                                document.activeElement.selectionEnd = document.activeElement.selectionStart;
-                                break;
-                            case "OC":
-                                document.activeElement.selectionEnd++;
-                                document.activeElement.selectionStart = document.activeElement.selectionEnd;
-                                break;
-                            default:
-                                if (ctrlseq.indexOf(cmd.slice(0, 1)) !== -1) {
-                                    // Prevent trying to write other control sequences
-                                } else {
-                                    document.activeElement.value = document.activeElement.value+cmd;
-                                }
-                        }
-                    }
-                    document.activeElement.focus();
-                }
-            }
-        };
-
-        container.childNodes.forEach((row) => {
-            row.childNodes.forEach((key) => {
-
-                let enterElements = document.querySelectorAll(".keyboard_enter");
-
-                if (key.attributes["class"].value.endsWith("keyboard_enter")) {
-                    // The enter key is divided in two dom elements, so we bind their animations here
-
-                    key.onmousedown = (e) => {
-                        pressKey(key);
-                        key.holdTimeout = setTimeout(() => {
-                            key.holdInterval = setInterval(() => {
-                                pressKey(key);
-                            }, 70);
-                        }, 400);
-
-                        enterElements.forEach((key) => {
-                            key.setAttribute("class", "keyboard_key active keyboard_enter");
-                        });
-
-                        // Keep focus on the terminal
-                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
-
-                        window.audioManager.beep2.play();
-                        e.preventDefault();
-                    };
-                    key.onmouseup = () => {
-                        clearTimeout(key.holdTimeout);
-                        clearInterval(key.holdInterval);
-
-                        enterElements.forEach((key) => {
-                            key.setAttribute("class", "keyboard_key blink keyboard_enter");
-                        });
-                        setTimeout(() => {
-                            enterElements.forEach((key) => {
-                                key.setAttribute("class", "keyboard_key keyboard_enter");
-                            });
-                        }, 100);
-                    };
-                } else {
-                    key.onmousedown = (e) => {
-                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
-                            let cmd = key.dataset.cmd.substr(11);
-                            if (cmd.startsWith("CTRL")) {
-                                container.dataset.isCtrlOn = "true";
-                            }
-                            if (cmd.startsWith("SHIFT")) {
-                                container.dataset.isShiftOn = "true";
-                            }
-                            if (cmd.startsWith("ALT")) {
-                                container.dataset.isAltOn = "true";
-                            }
-                        } else {
-                            key.holdTimeout = setTimeout(() => {
-                                key.holdInterval = setInterval(() => {
-                                    pressKey(key);
-                                }, 70);
-                            }, 400);
-                        }
-                        pressKey(key);
-
-                        // Keep focus on the terminal
-                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
-
-                        window.audioManager.beep3.play();
-                        e.preventDefault();
-                    };
-                    key.onmouseup = (e) => {
-                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
-                            let cmd = key.dataset.cmd.substr(11);
-                            if (cmd.startsWith("CTRL")) {
-                                container.dataset.isCtrlOn = "false";
-                            }
-                            if (cmd.startsWith("SHIFT")) {
-                                container.dataset.isShiftOn = "false";
-                            }
-                            if (cmd.startsWith("ALT")) {
-                                container.dataset.isAltOn = "false";
-                            }
-                        } else {
-                            clearTimeout(key.holdTimeout);
-                            clearInterval(key.holdInterval);
-                        }
-
-                        key.setAttribute("class", "keyboard_key blink");
-                        setTimeout(() => {
-                            key.setAttribute("class", "keyboard_key");
-                        }, 100);
-                    };
-                }
-
-                // See #229
-                key.onmouseleave = () => {
-                    clearTimeout(key.holdTimeout);
-                    clearInterval(key.holdInterval);
-                };
-            });
-        });
-
-        // Tactile multi-touch support (#100)
-        container.addEventListener("touchstart", e => {
-            e.preventDefault();
-            for (let i = 0; i < e.changedTouches.length; i++) {
-                let key = e.changedTouches[i].target.offsetParent;
-                if (key.getAttribute("class").startsWith("keyboard_key")) {
-                    key.setAttribute("class", key.getAttribute("class")+" active");
-                    key.onmousedown({preventDefault: () => {return true}});
-                } else {
-                    key = e.changedTouches[i].target;
-                    if (key.getAttribute("class").startsWith("keyboard_key")) {
-                        key.setAttribute("class", key.getAttribute("class")+" active");
-                        key.onmousedown({preventDefault: () => {return true}});
-                    }
-                }
-            }
-        });
-        let dropKeyTouchHandler = e => {
-            e.preventDefault();
-            for (let i = 0; i < e.changedTouches.length; i++) {
-                let key = e.changedTouches[i].target.offsetParent;
-                if (key.getAttribute("class").startsWith("keyboard_key")) {
-                    key.setAttribute("class", key.getAttribute("class").replace("active", ""));
-                    key.onmouseup({preventDefault: () => {return true}});
-                } else {
-                    key = e.changedTouches[i].target;
-                    if (key.getAttribute("class").startsWith("keyboard_key")) {
-                        key.setAttribute("class", key.getAttribute("class").replace("active", ""));
-                        key.onmouseup({preventDefault: () => {return true}});
-                    }
-                }
-            }
-        };
-        container.addEventListener("touchend", dropKeyTouchHandler);
-        container.addEventListener("touchcancel", dropKeyTouchHandler);
-
-        // Bind actual keyboard actions to on-screen animations (for use without a touchscreen)
-        let findKey = (e) => {
-            // Fix incorrect querySelector error
-            let physkey;
-            (e.key === "\"") ? physkey = `\\"` : physkey = e.key;
-
-            // Find basic keys (typically letters, upper and lower-case)
-            let key = document.querySelector('div.keyboard_key[data-cmd="'+physkey+'"]');
-            if (key === null) key = document.querySelector('div.keyboard_key[data-shift_cmd="'+physkey+'"]');
-
-            // Find special keys (shift, control, arrows, etc.)
-            if (key === null && e.code === "ShiftLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- SHIFT: LEFT"]');
-            if (key === null && e.code === "ShiftRight") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- SHIFT: RIGHT"]');
-            if (key === null && e.code === "ControlLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CTRL: LEFT"]');
-            if (key === null && e.code === "ControlRight") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CTRL: RIGHT"]');
-            if (key === null && e.code === "AltLeft") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- FN: ON"]');
-            if (key === null && e.code === "AltRight") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- ALT: RIGHT"]');
-            if (key === null && e.code === "CapsLock") key = document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CAPSLCK: ON"]');
-            if (key === null && e.code === "Escape") key = document.querySelector('div.keyboard_key[data-cmd=""]');
-            if (key === null && e.code === "Backspace") key = document.querySelector('div.keyboard_key[data-cmd=""]');
-            if (key === null && e.code === "ArrowUp") key = document.querySelector('div.keyboard_key[data-cmd="OA"]');
-            if (key === null && e.code === "ArrowLeft") key = document.querySelector('div.keyboard_key[data-cmd="OD"]');
-            if (key === null && e.code === "ArrowDown") key = document.querySelector('div.keyboard_key[data-cmd="OB"]');
-            if (key === null && e.code === "ArrowRight") key = document.querySelector('div.keyboard_key[data-cmd="OC"]');
-            if (key === null && e.code === "Enter") key = document.querySelectorAll('div.keyboard_key.keyboard_enter');
-
-            // Find "rare" keys (ctrl and alt symbols)
-            if (key === null) key = document.querySelector('div.keyboard_key[data-ctrl_cmd="'+e.key+'"]');
-            if (key === null) key = document.querySelector('div.keyboard_key[data-alt_cmd="'+e.key+'"]');
-
-            return key;
-        };
-
-        document.onkeydown = (e) => {
-            // See #330
-            if (e.getModifierState("AltGraph")) return;
-            let key = findKey(e);
-            if (key === null) return;
-            if (key.length) {
-                key.forEach((enterElement) => {
-                    enterElement.setAttribute("class", "keyboard_key active keyboard_enter");
-                });
-            } else {
-                key.setAttribute("class", "keyboard_key active");
-            }
-            window.audioManager.beep3.play();
-        };
-
-        document.onkeyup = (e) => {
-            // See #330
-            if (e.key !== "AltGraph" && e.getModifierState("AltGraph")) return;
-            let key = findKey(e);
-            if (key === null) return;
-            if (key.length) {
-                key.forEach((enterElement) => {
-                    enterElement.setAttribute("class", "keyboard_key blink keyboard_enter");
-                });
-                setTimeout(() => {
-                    key.forEach((enterElement) => {
-                        enterElement.setAttribute("class", "keyboard_key keyboard_enter");
-                    });
-                }, 100);
-            } else {
-                key.setAttribute("class", "keyboard_key blink");
-                setTimeout(() => {
-                    key.setAttribute("class", "keyboard_key");
-                }, 100);
-            }
-
-            if (e.key === "Enter") {
-                window.audioManager.beep2.play();
-            }
-        };
+        }
     }
 }
 

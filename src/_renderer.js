@@ -69,7 +69,7 @@ ipc.once("getKbOverride", (e, layout) => {
 ipc.send("getKbOverride");
 
 // Load UI theme
-window._loadTheme = (theme) => {
+window._loadTheme = theme => {
 
     if (document.querySelector("style.theming")) {
         document.querySelector("style.theming").remove();
@@ -370,7 +370,7 @@ async function initUI() {
     window.mods.conninfo = new Conninfo("mod_column_right");
 
     // Fade-in animations
-    document.querySelectorAll(".mod_column").forEach((e) => {
+    document.querySelectorAll(".mod_column").forEach(e => {
         e.setAttribute("class", "mod_column activated");
     });
     let i = 0;
@@ -421,7 +421,7 @@ async function initUI() {
         document.getElementById("shell_tab0").innerText = "MAIN - "+p;
     };
     // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
-    window.onmouseup = (e) => {
+    window.onmouseup = e => {
         if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
     };
     window.term[0].term.writeln("\033[1m"+`Welcome to eDEX-UI v${electron.remote.app.getVersion()} - Electron v${process.versions.electron}`+"\033[0m");
