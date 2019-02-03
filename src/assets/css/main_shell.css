@@ -11,7 +11,7 @@ section#main_shell {
     justify-content: flex-start;
     overflow: hidden;
 
-    transition: width .5s cubic-bezier(0.4, 0, 1, 1), height .5s cubic-bezier(0.4, 0, 1, 1);
+    transition: width .5s cubic-bezier(0.85, 0.5, 0.85, 0.5), height .5s cubic-bezier(0.85, 0.5, 0.85, 0.5);
 }
 
 h1#main_shell_greeting {
