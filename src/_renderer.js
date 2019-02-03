@@ -3,7 +3,7 @@ window.eval = global.eval = function () {
     throw new Error("eval() is disabled for security reasons.");
 };
 // Security helper :)
-window._escapeHtml = (text) => {
+window._escapeHtml = text => {
     let map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -13,8 +13,13 @@ window._escapeHtml = (text) => {
     };
     return text.replace(/[&<>"']/g, m => {return map[m];});
 };
-window._purifyCSS = (str) => {
+window._purifyCSS = str => {
     return str.replace(/[<]/g, "");
+};
+window._delay = ms => {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms);
+    });
 };
 
 // Initiate basic error handling
@@ -122,6 +127,52 @@ function initGraphicalErrorHandling() {
     };
 }
 
+function waitForFonts() {
+    return new Promise(resolve => {
+        if (document.readyState !== "complete" || document.fonts.status !== "loaded") {
+            document.addEventListener("readystatechange", () => {
+                if (document.readyState === "complete") {
+                    if (document.fonts.status === "loaded") {
+                        resolve();
+                    } else {
+                        document.fonts.onloadingdone = () => {
+                            if (document.fonts.status === "loaded") resolve();
+                        };
+                    }
+                }
+            });
+        } else {
+            resolve();
+        }
+    });
+}
+
+// A proxy function used to add multithreading to systeminformation calls - see backend process manager @ _multithread.js
+function initSystemInformationProxy() {
+    const nanoid = require("nanoid/non-secure");
+
+    window.si = new Proxy({}, {
+        apply: () => {throw new Error("Cannot use sysinfo proxy directly as a function")},
+        set: () => {throw new Error("Cannot set a property on the sysinfo proxy")},
+        get: (target, prop, receiver) => {
+            return function(...args) {
+                let callback = (typeof args[0] === "function") ? true : false;
+
+                return new Promise((resolve, reject) => {
+                    let id = nanoid();
+                    ipc.once("systeminformation-reply-"+id, (e, res) => {
+                        if (callback) {
+                            callback(res);
+                        }
+                        resolve(res);
+                    });
+                    ipc.send("systeminformation-call", prop, id, ...args);
+                });
+            };
+        }
+    });
+}
+
 // Init audio
 window.audioManager = new AudioManager();
 
@@ -133,23 +184,10 @@ if (!window.settings.nointro) {
     displayLine();
 } else {
     initGraphicalErrorHandling();
+    initSystemInformationProxy();
     document.getElementById("boot_screen").remove();
     document.body.setAttribute("class", "");
-    if (document.readyState !== "complete" || document.fonts.status !== "loaded") {
-        document.addEventListener("readystatechange", () => {
-            if (document.readyState === "complete") {
-                if (document.fonts.status === "loaded") {
-                    initUI();
-                } else {
-                    document.fonts.onloadingdone = () => {
-                        if (document.fonts.status === "loaded") initUI();
-                    };
-                }
-            }
-        });
-    } else {
-        initUI();
-    }
+    waitForFonts().then(initUI);
 }
 
 // Startup boot log
@@ -163,8 +201,8 @@ function displayLine() {
                 && fs.readFileSync("/etc/os-release").toString().includes("arch");
     }
 
-    if (log[i] === undefined) {
-        setTimeout(resumeInit, 300);
+    if (typeof log[i] === "undefined") {
+        setTimeout(displayTitleScreen, 300);
         return;
     }
 
@@ -208,59 +246,44 @@ function displayLine() {
 }
 
 // Show "logo" and background grid
-function resumeInit() {
+async function displayTitleScreen() {
     let bootScreen = document.getElementById("boot_screen");
     bootScreen.innerHTML = "";
-    setTimeout(() => {
-        document.body.setAttribute("class", "");
-        setTimeout(() => {
-            document.body.setAttribute("class", "solidBackground");
-            setTimeout(() => {
-                document.body.setAttribute("class", "");
-            }, 400);
-        }, 200);
 
-        window.audioManager.beep4.play();
-        bootScreen.setAttribute("class", "center");
-        bootScreen.innerHTML = "<h1>eDEX-UI</h1>";
-        let title = document.querySelector("section > h1");
+    await _delay(400);
 
-        setTimeout(() => {
-            title.setAttribute("style", `background-color: rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});border-bottom: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
-            setTimeout(() => {
-                window.audioManager.intro.play();
-                title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
-                setTimeout(() => {
-                    // Initiate graphical error display
-                    initGraphicalErrorHandling();
-                    if (document.readyState !== "complete" || document.fonts.status !== "loaded") {
-                        document.addEventListener("readystatechange", () => {
-                            if (document.readyState === "complete") {
-                                if (document.fonts.status === "loaded") {
-                                    document.getElementById("boot_screen").remove();
-                                    initUI();
-                                } else {
-                                    document.fonts.onloadingdone = () => {
-                                        if (document.fonts.status === "loaded") {
-                                            document.getElementById("boot_screen").remove();
-                                            initUI();
-                                        }
-                                    };
-                                }
-                            }
-                        });
-                    } else {
-                        document.getElementById("boot_screen").remove();
-                        initUI();
-                    }
-                }, 1200);
-            }, 600);
-        }, 300);
-    }, 400);
+    window.audioManager.beep4.play();
+    document.body.setAttribute("class", "");
+    bootScreen.setAttribute("class", "center");
+    bootScreen.innerHTML = "<h1>eDEX-UI</h1>";
+    let title = document.querySelector("section > h1");
+
+    await _delay(200);
+
+    document.body.setAttribute("class", "solidBackground");
+
+    await _delay(100);
+
+    title.setAttribute("style", `background-color: rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});border-bottom: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
+
+    await _delay(400);
+
+    window.audioManager.intro.play();
+    document.body.setAttribute("class", "");
+    title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
+
+    await _delay(1000);
+
+    initGraphicalErrorHandling();
+    initSystemInformationProxy();
+    waitForFonts().then(() => {
+        bootScreen.remove();
+        initUI();
+    });
 }
 
 // Create the UI's html structure and initialize the terminal client and the keyboard
-function initUI() {
+async function initUI() {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
@@ -272,76 +295,66 @@ function initUI() {
         <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
     </section>`;
 
-    setTimeout(() => {
-        window.audioManager.scan.play();
-        document.getElementById("main_shell").setAttribute("style", "height:0%;margin-bottom:30vh;");
-        setTimeout(() => {
-            document.getElementById("main_shell").setAttribute("style", "margin-bottom: 30vh;");
-            document.querySelector("#main_shell > h3.title").setAttribute("style", "");
-            setTimeout(() => {
-                document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
-                document.body.innerHTML += `
-                <section id="filesystem" style="width: 0px;">
-                </section>
-                <section id="keyboard" style="opacity:0;">
-                </section>`;
-                window.keyboard = new Keyboard({
-                    layout: path.join(keyboardsDir, settings.keyboard+".json"),
-                    container: "keyboard"
-                });
-                setTimeout(() => {
-                    document.getElementById("main_shell").setAttribute("style", "");
-                    setTimeout(() => {
-                        initGreeter();
-                        document.getElementById("filesystem").setAttribute("style", "");
-                        document.getElementById("keyboard").setAttribute("style", "");
-                        document.getElementById("keyboard").setAttribute("class", "animation_state_1");
-                        setTimeout(() => {
-                            document.getElementById("keyboard").setAttribute("class", "animation_state_1 animation_state_2");
-                            setTimeout(() => {
-                                document.getElementById("keyboard").setAttribute("class", "");
-                                initMods();
-                            }, 1100);
-                        }, 100);
-                    }, 270);
-                }, 10);
-            }, 700);
-        }, 500);
-    }, 10);
-}
+    await _delay(10);
 
-// A proxy function used to add multithreading to systeminformation calls - see backend process manager @ _multithread.js
-function initSystemInformationProxy() {
-    const nanoid = require("nanoid/non-secure");
+    window.audioManager.scan.play();
+    document.getElementById("main_shell").setAttribute("style", "height:0%;margin-bottom:30vh;");
 
-    window.si = new Proxy({}, {
-        apply: () => {throw new Error("Cannot use sysinfo proxy directly as a function")},
-        set: () => {throw new Error("Cannot set a property on the sysinfo proxy")},
-        get: (target, prop, receiver) => {
-            return function(...args) {
-                let callback = (typeof args[0] === "function") ? true : false;
+    await _delay(500);
 
-                return new Promise((resolve, reject) => {
-                    let id = nanoid();
-                    ipc.once("systeminformation-reply-"+id, (e, res) => {
-                        if (callback) {
-                            callback(res);
-                        }
-                        resolve(res);
-                    });
-                    ipc.send("systeminformation-call", prop, id, ...args);
-                });
-            };
-        }
+    document.getElementById("main_shell").setAttribute("style", "margin-bottom: 30vh;");
+    document.querySelector("#main_shell > h3.title").setAttribute("style", "");
+
+    await _delay(700);
+
+    document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
+    document.body.innerHTML += `
+    <section id="filesystem" style="width: 0px;">
+    </section>
+    <section id="keyboard" style="opacity:0;">
+    </section>`;
+    window.keyboard = new Keyboard({
+        layout: path.join(keyboardsDir, settings.keyboard+".json"),
+        container: "keyboard"
     });
-}
 
-// Create the "mods" in each column
-function initMods() {
+    await _delay(10);
+
+    document.getElementById("main_shell").setAttribute("style", "");
+
+    await _delay(270);
+
+    let greeter = document.getElementById("main_shell_greeting");
+
+    window.si.users().then(userlist => {
+            greeter.innerHTML += `Welcome back, <em>${userlist[0].user}</em>`;
+    }).catch(() => {
+        greeter.innerHTML += "Welcome back";
+    });
+    greeter.setAttribute("style", "opacity: 1;");
+
+    document.getElementById("filesystem").setAttribute("style", "");
+    document.getElementById("keyboard").setAttribute("style", "");
+    document.getElementById("keyboard").setAttribute("class", "animation_state_1");
+
+    await _delay(100);
+
+    document.getElementById("keyboard").setAttribute("class", "animation_state_1 animation_state_2");
+
+    await _delay(1000);
+
+    greeter.setAttribute("style", "opacity: 0;");
+
+    await _delay(100);
+
+    document.getElementById("keyboard").setAttribute("class", "");
+
+    await _delay(400);
+
+    greeter.remove();
+
+    // Initialize modules
     window.mods = {};
-
-    initSystemInformationProxy();
-
 
     // Left column
     window.mods.clock = new Clock("mod_column_left");
@@ -360,7 +373,6 @@ function initMods() {
     document.querySelectorAll(".mod_column").forEach((e) => {
         e.setAttribute("class", "mod_column activated");
     });
-
     let i = 0;
     let left = document.querySelectorAll("#mod_column_left > div");
     let right = document.querySelectorAll("#mod_column_right > div");
@@ -377,80 +389,66 @@ function initMods() {
             i++;
         }
     }, 500);
-}
 
-function initGreeter() {
+    await _delay(100);
+
+    // Initialize the terminal
     let shellContainer = document.getElementById("main_shell");
-    let greeter = document.getElementById("main_shell_greeting");
-
-    require("systeminformation").users()
-        .then((userlist) => {
-            greeter.innerHTML += `Welcome back, <em>${userlist[0].user}</em>`;
+    shellContainer.innerHTML += `
+        <ul id="main_shell_tabs">
+            <li id="shell_tab0" onclick="window.focusShellTab(0);" class="active">MAIN SHELL</li>
+            <li id="shell_tab1" onclick="window.focusShellTab(1);">EMPTY</li>
+            <li id="shell_tab2" onclick="window.focusShellTab(2);">EMPTY</li>
+            <li id="shell_tab3" onclick="window.focusShellTab(3);">EMPTY</li>
+            <li id="shell_tab4" onclick="window.focusShellTab(4);">EMPTY</li>
+        </ul>
+        <div id="main_shell_innercontainer">
+            <pre id="terminal0" class="active"></pre>
+            <pre id="terminal1"></pre>
+            <pre id="terminal2"></pre>
+            <pre id="terminal3"></pre>
+            <pre id="terminal4"></pre>
+        </div>`;
+    window.term = {
+        0: new Terminal({
+            role: "client",
+            parentId: "terminal0",
+            port: window.settings.port || 3000
         })
-        .catch(() => {
-            greeter.innerHTML += "Welcome back";
-        })
-    .then(() => {
-        greeter.setAttribute("style", "opacity: 1;");
-        setTimeout(() => {
-            greeter.setAttribute("style", "opacity: 0;");
-            setTimeout(() => {
-                greeter.remove();
-                setTimeout(() => {
-                    shellContainer.innerHTML += `
-                        <ul id="main_shell_tabs">
-                            <li id="shell_tab0" onclick="window.focusShellTab(0);" class="active">MAIN SHELL</li>
-                            <li id="shell_tab1" onclick="window.focusShellTab(1);">EMPTY</li>
-                            <li id="shell_tab2" onclick="window.focusShellTab(2);">EMPTY</li>
-                            <li id="shell_tab3" onclick="window.focusShellTab(3);">EMPTY</li>
-                            <li id="shell_tab4" onclick="window.focusShellTab(4);">EMPTY</li>
-                        </ul>
-                        <div id="main_shell_innercontainer">
-                            <pre id="terminal0" class="active"></pre>
-                            <pre id="terminal1"></pre>
-                            <pre id="terminal2"></pre>
-                            <pre id="terminal3"></pre>
-                            <pre id="terminal4"></pre>
-                        </div>`;
-                    window.term = {
-                        0: new Terminal({
-                            role: "client",
-                            parentId: "terminal0",
-                            port: window.settings.port || 3000
-                        })
-                    };
-                    window.currentTerm = 0;
-                    window.term[0].onprocesschange = p => {
-                        document.getElementById("shell_tab0").innerText = "MAIN - "+p;
-                    };
-                    // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
-                    window.onmouseup = (e) => {
-                        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
-                    };
-                    window.term[0].term.writeln("\033[1m"+`Welcome to eDEX-UI v${electron.remote.app.getVersion()} - Electron v${process.versions.electron}`+"\033[0m");
+    };
+    window.currentTerm = 0;
+    window.term[0].onprocesschange = p => {
+        document.getElementById("shell_tab0").innerText = "MAIN - "+p;
+    };
+    // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
+    window.onmouseup = (e) => {
+        if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
+    };
+    window.term[0].term.writeln("\033[1m"+`Welcome to eDEX-UI v${electron.remote.app.getVersion()} - Electron v${process.versions.electron}`+"\033[0m");
 
-                    window.fsDisp = new FilesystemDisplay({
-                        parentId: "filesystem"
-                    });
+    await _delay(100);
 
-                    setTimeout(() => {
-                        document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
-                        window.updateCheck = new UpdateChecker();
-                    }, 300);
-                }, 100);
-            }, 500);
-        }, 1100);
+    window.fsDisp = new FilesystemDisplay({
+        parentId: "filesystem"
     });
+
+    await _delay(200);
+
+    document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
+
+    await _delay(200);
+
+    window.updateCheck = new UpdateChecker();
 }
 
-window.themeChanger = (theme) => {
+window.themeChanger = theme => {
     ipc.send("setThemeOverride", theme);
     setTimeout(() => {
         window.location.reload(true);
     }, 100);
 };
 
-window.remakeKeyboard = (layout) => {
+window.remakeKeyboard = layout => {
     document.getElementById("keyboard").innerHTML = "";
     window.keyboard = new Keyboard({
         layout: path.join(keyboardsDir, layout+".json" || settings.keyboard+".json"),
@@ -459,7 +457,7 @@ window.remakeKeyboard = (layout) => {
     ipc.send("setKbOverride", layout);
 };
 
-window.focusShellTab = (number) => {
+window.focusShellTab = number => {
     window.audioManager.beep2.play();
 
     if (number !== window.currentTerm && window.term[number]) {
@@ -833,7 +831,7 @@ window.addEventListener("keyup", e => {
 });
 
 // Fix double-tap zoom on touchscreens
-require('electron').webFrame.setVisualZoomLevelLimits(1, 1);
+electron.webFrame.setVisualZoomLevelLimits(1, 1);
 
 // Resize terminal with window
 window.onresize = () => {

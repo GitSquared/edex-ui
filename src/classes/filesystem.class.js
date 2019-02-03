@@ -387,17 +387,12 @@ class FilesystemDisplay {
                     this.space_bar.bar.value = 100;
                 }
             }
-
-            function delay(ms) {
-                return new Promise((resolve, reject) => {
-                    setTimeout(resolve, ms);
-                });
-            }
+            
             // Render animation
             let id = 0;
             while (this.filesContainer.childNodes[id]) {
                 this.filesContainer.childNodes[id].setAttribute("class", this.filesContainer.childNodes[id].getAttribute("class").replace(" animationWait", ""));
-                await delay(50);
+                await _delay(50);
                 id++;
             }
         };
