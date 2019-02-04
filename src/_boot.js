@@ -69,6 +69,7 @@ if (!fs.existsSync(settingsFile)) {
         cwd: electron.app.getPath("userData"),
         keyboard: "en-US",
         theme: "tron",
+        termFontSize: 15,
         audio: true,
         extraAudio: false,
         pingAddr: "1.1.1.1",

@@ -40,7 +40,7 @@ class Terminal {
                 cursorStyle: window.theme.terminal.cursorStyle || "block",
                 allowTransparency: window.theme.terminal.allowTransparency || false,
                 fontFamily: window.theme.terminal.fontFamily || "Fira Mono",
-                fontSize: window.theme.terminal.fontSize || 15,
+                fontSize: window.theme.terminal.fontSize || window.settings.termFontSize || 15,
                 fontWeight: window.theme.terminal.fontWeight || "normal",
                 fontWeightBold: window.theme.terminal.fontWeightBold || "bold",
                 letterSpacing: window.theme.terminal.letterSpacing || 0,

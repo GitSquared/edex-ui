@@ -584,6 +584,11 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>termFontSize</td>
+                        <td>Size of the terminal text in pixels</td>
+                        <td><input type="number" id="settingsEditor-termFontSize" value="${window.settings.termFontSize}"></td>
+                    </tr>
+                    <tr>
                         <td>audio</td>
                         <td>Activate audio sound effects</td>
                         <td><select id="settingsEditor-audio">
@@ -690,6 +695,7 @@ window.writeSettingsFile = () => {
         env: document.getElementById("settingsEditor-env").value,
         keyboard: document.getElementById("settingsEditor-keyboard").value,
         theme: document.getElementById("settingsEditor-theme").value,
+        termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
         extraAudio: (document.getElementById("settingsEditor-extraAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
