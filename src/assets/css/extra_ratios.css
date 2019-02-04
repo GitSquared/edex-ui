@@ -86,7 +86,7 @@
     }
 }
 
-@media (aspect-ratio: 5/4) {
+@media (aspect-ratio: 5/4), (aspect-ratio: 4/3) {
     section#filesystem {
         display: none;
     }

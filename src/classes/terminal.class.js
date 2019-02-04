@@ -177,6 +177,7 @@ class Terminal {
                 let d = gcd(w, h);
 
                 if (d === 120) y = 1;
+                if (d === 256) x = 2;
 
                 cols = cols+x;
                 rows = rows+y;
