@@ -2,9 +2,9 @@ class Keyboard {
     constructor(opts) {
         if (!opts.layout || !opts.container) throw "Missing options";
 
-        const ctrlseq = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
         const layout = JSON.parse(require("fs").readFileSync(opts.layout, {encoding: "utf-8"}));
-        const container = document.getElementById(opts.container);
+        this.ctrlseq = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
+        this.container = document.getElementById(opts.container);
 
         this.linkedToTerm = true;
         this.detach = () => {
@@ -15,15 +15,15 @@ class Keyboard {
         };
 
         // Set default keyboard properties
-        container.dataset.isShiftOn = false;
-        container.dataset.isCapsLckOn = false;
-        container.dataset.isAltOn = false;
-        container.dataset.isCtrlOn = false;
-        container.dataset.isFnOn = false;
+        this.container.dataset.isShiftOn = false;
+        this.container.dataset.isCapsLckOn = false;
+        this.container.dataset.isAltOn = false;
+        this.container.dataset.isCtrlOn = false;
+        this.container.dataset.isFnOn = false;
 
         // Parse keymap and create DOM
         Object.keys(layout).forEach(row => {
-            container.innerHTML += `<div class="keyboard_row" id="`+row+`"></div>`;
+            this.container.innerHTML += `<div class="keyboard_row" id="`+row+`"></div>`;
             layout[row].forEach(keyObj => {
                 let key = document.createElement("div");
                 key.setAttribute("class", "keyboard_key");
@@ -43,8 +43,8 @@ class Keyboard {
                 }
 
                 Object.keys(keyObj).forEach(property => {
-                    for (let i = 1; i < ctrlseq.length; i++) {
-                        keyObj[property] = keyObj[property].replace("~~~CTRLSEQ"+i+"~~~", ctrlseq[i]);
+                    for (let i = 1; i < this.ctrlseq.length; i++) {
+                        keyObj[property] = keyObj[property].replace("~~~CTRLSEQ"+i+"~~~", this.ctrlseq[i]);
                     }
                     if (property.endsWith("cmd")) {
                         key.dataset[property] = keyObj[property];
@@ -55,7 +55,7 @@ class Keyboard {
             });
         });
 
-        container.childNodes.forEach(row => {
+        this.container.childNodes.forEach(row => {
             row.childNodes.forEach(key => {
 
                 let enterElements = document.querySelectorAll(".keyboard_enter");
@@ -99,13 +99,13 @@ class Keyboard {
                         if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
                             let cmd = key.dataset.cmd.substr(11);
                             if (cmd.startsWith("CTRL")) {
-                                container.dataset.isCtrlOn = "true";
+                                this.container.dataset.isCtrlOn = "true";
                             }
                             if (cmd.startsWith("SHIFT")) {
-                                container.dataset.isShiftOn = "true";
+                                this.container.dataset.isShiftOn = "true";
                             }
                             if (cmd.startsWith("ALT")) {
-                                container.dataset.isAltOn = "true";
+                                this.container.dataset.isAltOn = "true";
                             }
                         } else {
                             key.holdTimeout = setTimeout(() => {
@@ -126,13 +126,13 @@ class Keyboard {
                         if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
                             let cmd = key.dataset.cmd.substr(11);
                             if (cmd.startsWith("CTRL")) {
-                                container.dataset.isCtrlOn = "false";
+                                this.container.dataset.isCtrlOn = "false";
                             }
                             if (cmd.startsWith("SHIFT")) {
-                                container.dataset.isShiftOn = "false";
+                                this.container.dataset.isShiftOn = "false";
                             }
                             if (cmd.startsWith("ALT")) {
-                                container.dataset.isAltOn = "false";
+                                this.container.dataset.isAltOn = "false";
                             }
                         } else {
                             clearTimeout(key.holdTimeout);
@@ -155,7 +155,7 @@ class Keyboard {
         });
 
         // Tactile multi-touch support (#100)
-        container.addEventListener("touchstart", e => {
+        this.container.addEventListener("touchstart", e => {
             e.preventDefault();
             for (let i = 0; i < e.changedTouches.length; i++) {
                 let key = e.changedTouches[i].target.offsetParent;
@@ -187,8 +187,8 @@ class Keyboard {
                 }
             }
         };
-        container.addEventListener("touchend", dropKeyTouchHandler);
-        container.addEventListener("touchcancel", dropKeyTouchHandler);
+        this.container.addEventListener("touchend", dropKeyTouchHandler);
+        this.container.addEventListener("touchcancel", dropKeyTouchHandler);
 
         // Bind actual keyboard actions to on-screen animations (for use without a touchscreen)
         let findKey = e => {
@@ -266,63 +266,63 @@ class Keyboard {
     }
     pressKey(key) {
         let cmd = key.dataset.cmd || "";
-        if (container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;
-        if (container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
-        if (container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
-        if (container.dataset.isAltOn === "true" && container.dataset.isShiftOn === "true" && key.dataset.altshift_cmd) cmd = key.dataset.altshift_cmd;
-        if (container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
+        if (this.container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || this.container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;
+        if (this.container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
+        if (this.container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
+        if (this.container.dataset.isAltOn === "true" && this.container.dataset.isShiftOn === "true" && key.dataset.altshift_cmd) cmd = key.dataset.altshift_cmd;
+        if (this.container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
 
-        if (container.dataset.isNextCircum === "true") {
+        if (this.container.dataset.isNextCircum === "true") {
             cmd = this.addCircum(cmd);
-            container.dataset.isNextCircum = "false";
+            this.container.dataset.isNextCircum = "false";
         }
-        if (container.dataset.isNextTrema === "true") {
+        if (this.container.dataset.isNextTrema === "true") {
             cmd = this.addTrema(cmd);
-            container.dataset.isNextTrema = "false";
+            this.container.dataset.isNextTrema = "false";
         }
-        if (container.dataset.isNextAcute === "true") {
+        if (this.container.dataset.isNextAcute === "true") {
             cmd = this.addAcute(cmd);
-            container.dataset.isNextAcute = "false";
+            this.container.dataset.isNextAcute = "false";
         }
-        if (container.dataset.isNextGrave === "true") {
+        if (this.container.dataset.isNextGrave === "true") {
             cmd = this.addGrave(cmd);
-            container.dataset.isNextGrave = "false";
+            this.container.dataset.isNextGrave = "false";
         }
-        if (container.dataset.isNextCaron === "true") {
+        if (this.container.dataset.isNextCaron === "true") {
             cmd = this.addCaron(cmd);
-            container.dataset.isNextCaron = "false";
+            this.container.dataset.isNextCaron = "false";
         }
-        if (container.dataset.isNextBar === "true") {
+        if (this.container.dataset.isNextBar === "true") {
             cmd = this.addBar(cmd);
-            container.dataset.isNextBar = "false";
+            this.container.dataset.isNextBar = "false";
         }
-        if (container.dataset.isNextBreve === "true") {
+        if (this.container.dataset.isNextBreve === "true") {
             cmd = this.addBreve(cmd);
-            container.dataset.isNextBreve = "false";
+            this.container.dataset.isNextBreve = "false";
         }
-        if (container.dataset.isNextTilde === "true") {
+        if (this.container.dataset.isNextTilde === "true") {
             cmd = this.addTilde(cmd);
-            container.dataset.isNextTilde = "false";
+            this.container.dataset.isNextTilde = "false";
         }
-        if (container.dataset.isNextMacron === "true") {
+        if (this.container.dataset.isNextMacron === "true") {
             cmd = this.addMacron(cmd);
-            container.dataset.isNextMacron = "false";
+            this.container.dataset.isNextMacron = "false";
         }
-        if (container.dataset.isNextCedilla === "true") {
+        if (this.container.dataset.isNextCedilla === "true") {
             cmd = this.addCedilla(cmd);
-            container.dataset.isNextCedilla = "true";
+            this.container.dataset.isNextCedilla = "true";
         }
-        if (container.dataset.isNextOverring === "true") {
+        if (this.container.dataset.isNextOverring === "true") {
             cmd = this.addOverring(cmd);
-            container.dataset.isNextOverring = "false";
+            this.container.dataset.isNextOverring = "false";
         }
-        if (container.dataset.isNextGreek === "true") {
+        if (this.container.dataset.isNextGreek === "true") {
             cmd = this.toGreek(cmd);
-            container.dataset.isNextGreek = "false";
+            this.container.dataset.isNextGreek = "false";
         }
-        if (container.dataset.isNextIotasub === "true") {
+        if (this.container.dataset.isNextIotasub === "true") {
             cmd = this.addIotasub(cmd);
-            container.dataset.isNextIotasub = "false";
+            this.container.dataset.isNextIotasub = "false";
         }
 
 
@@ -330,52 +330,52 @@ class Keyboard {
             cmd = cmd.substr(11);
             switch(cmd) {
                 case "CAPSLCK: ON":
-                    container.dataset.isCapsLckOn = "true";
+                    this.container.dataset.isCapsLckOn = "true";
                     break;
                 case "CAPSLCK: OFF":
-                    container.dataset.isCapsLckOn = "false";
+                    this.container.dataset.isCapsLckOn = "false";
                     break;
                 case "FN: ON":
-                    container.dataset.isFnOn = "true";
+                    this.container.dataset.isFnOn = "true";
                     break;
                 case "FN: OFF":
-                    container.dataset.isFnOn = "false";
+                    this.container.dataset.isFnOn = "false";
                     break;
                 case "CIRCUM":
-                    container.dataset.isNextCircum = "true";
+                    this.container.dataset.isNextCircum = "true";
                     break;
                 case "TREMA":
-                    container.dataset.isNextTrema = "true";
+                    this.container.dataset.isNextTrema = "true";
                     break;
                 case "ACUTE":
-                    container.dataset.isNextAcute = "true";
+                    this.container.dataset.isNextAcute = "true";
                     break;
                 case "GRAVE":
-                    container.dataset.isNextGrave = "true";
+                    this.container.dataset.isNextGrave = "true";
                     break;
                 case "CARON":
-                    container.dataset.isNextCaron = "true";
+                    this.container.dataset.isNextCaron = "true";
                     break;
                 case "BAR":
-                    container.dataset.isNextBar = "true";
+                    this.container.dataset.isNextBar = "true";
                     break;
                 case "BREVE":
-                    container.dataset.isNextBreve = "true";
+                    this.container.dataset.isNextBreve = "true";
                     break;
                 case "MACRON":
-                    container.dataset.isNextMacron = "true";
+                    this.container.dataset.isNextMacron = "true";
                     break;
                 case "CEDILLA":
-                    container.dataset.isNextCedilla = "true";
+                    this.container.dataset.isNextCedilla = "true";
                     break;
                 case "OVERRING":
-                    container.dataset.isNextOverring = "true";
+                    this.container.dataset.isNextOverring = "true";
                     break;
                 case "GREEK":
-                    container.dataset.isNextGreek = "true";
+                    this.container.dataset.isNextGreek = "true";
                     break;
                 case "IOTASUB":
-                    container.dataset.isNextIotasub = "true";
+                    this.container.dataset.isNextIotasub = "true";
                     break;
             }
         } else if (cmd === "\n") {
@@ -384,9 +384,9 @@ class Keyboard {
             } else {
                 // Do nothing, return not accepted in inputs
             }
-        } else if (cmd === ctrlseq[19] && window.keyboard.linkedToTerm && window.term[window.currentTerm].term.hasSelection()) {
+        } else if (cmd === this.ctrlseq[19] && window.keyboard.linkedToTerm && window.term[window.currentTerm].term.hasSelection()) {
             window.term[window.currentTerm].clipboard.copy();
-        } else if (cmd === ctrlseq[20] && window.keyboard.linkedToTerm && window.term[window.currentTerm].clipboard.didCopy) {
+        } else if (cmd === this.ctrlseq[20] && window.keyboard.linkedToTerm && window.term[window.currentTerm].clipboard.didCopy) {
             window.term[window.currentTerm].clipboard.paste();
         } else {
             if (window.keyboard.linkedToTerm) {
@@ -406,7 +406,7 @@ class Keyboard {
                             document.activeElement.selectionStart = document.activeElement.selectionEnd;
                             break;
                         default:
-                            if (ctrlseq.indexOf(cmd.slice(0, 1)) !== -1) {
+                            if (this.ctrlseq.indexOf(cmd.slice(0, 1)) !== -1) {
                                 // Prevent trying to write other control sequences
                             } else {
                                 document.activeElement.value = document.activeElement.value+cmd;
