@@ -1,12 +1,15 @@
+language: node_js
+node_js:
+  - node
 os:
   - linux
   - osx
-language: node_js
-node_js:
-    - "8"
-
+  - windows
+matrix:
+  allow_failures:
+    - os: windows
 before_install:
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
 
 before_script:
   - npm install snyk
@@ -16,6 +19,7 @@ before_script:
 script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run build-darwin         ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm run build-linux        ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then npm run build-windows    ; fi
 
 deploy:
   skip_cleanup: true
@@ -26,6 +30,7 @@ deploy:
     - "dist/eDEX-UI Linux (i386).AppImage"
     - "dist/eDEX-UI Linux (x86_64).AppImage"
     - "dist/eDEX-UI MacOS Image.dmg"
+    - "dist/eDEX-UI Windows Installer.exe"
   options:
     draft: true
   on:
