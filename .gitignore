@@ -39,6 +39,6 @@ jspm_packages
 # JetBrains IDE project folder (e.g. WebStorm)
 .idea
 
-settings.json
 dist
 prebuild-src
+file-icons

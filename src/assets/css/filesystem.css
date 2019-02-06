@@ -71,6 +71,12 @@ div#fs_disp_container > * > svg {
     width: 5vh;
 }
 
+/* Add padding around non-edex icons */
+div#fs_disp_container > * > svg:not([viewBox="0 0 24 24"]) {
+    padding: 0.5vh;
+    box-sizing: border-box;
+}
+
 div#fs_disp_container > * > h3 {
     font-size: 1.3vh;
     max-width: 100%;
