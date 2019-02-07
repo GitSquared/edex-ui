@@ -69,7 +69,6 @@ async function recursiveMinify(dirPath) {
                         let out;
                         try {
                             out = JSON.minify(fs.readFileSync(filePath, {encoding:"utf-8"}));
-                            break;
                         } catch(err) {
                             stdout.write(" -  ❌\n\n\n");
                             throw err;
