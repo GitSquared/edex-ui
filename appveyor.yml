@@ -6,9 +6,9 @@ install:
 build_script:
 - cmd: npm install snyk && npm run snyk-protect && npm install && npm install 7zip-bin-win && npm run build-windows
 test: off
-artifacts:
-  - path: "dist\\eDEX-UI Windows Installer.exe"
-    name: Installer
+#artifacts:
+#  - path: "dist\\eDEX-UI Windows Installer.exe"
+#    name: Installer
 deploy:
 - provider: GitHub
   tag: $(appveyor_repo_tag_name)
