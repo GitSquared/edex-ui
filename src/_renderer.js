@@ -309,7 +309,7 @@ async function initUI() {
 
     document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
     document.body.innerHTML += `
-    <section id="filesystem" style="width: 0px;">
+    <section id="filesystem" style="width: 0px;" class="${window.settings.hideDotfiles ? "hideDotfiles" : ""}">
     </section>
     <section id="keyboard" style="opacity:0;">
     </section>`;
@@ -655,6 +655,14 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>hideDotfiles</td>
+                        <td>Hide files and directories starting with a dot in file display</td>
+                        <td><select id="settingsEditor-hideDotfiles">
+                            <option>${window.settings.hideDotfiles}</option>
+                            <option>${!window.settings.hideDotfiles}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>experimentalGlobeFeatures</td>
                         <td>Toggle experimental features for the network globe</td>
                         <td><select id="settingsEditor-experimentalGlobeFeatures">
@@ -705,6 +713,7 @@ window.writeSettingsFile = () => {
         iface: document.getElementById("settingsEditor-iface").value,
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
         excludeSelfFromToplist: (document.getElementById("settingsEditor-excludeSelfFromToplist").value === "true"),
+        hideDotfiles: (document.getElementById("settingsEditor-hideDotfiles").value === "true"),
         experimentalGlobeFeatures: (document.getElementById("settingsEditor-experimentalGlobeFeatures").value === "true"),
         experimentalFeatures: (document.getElementById("settingsEditor-experimentalFeatures").value === "true")
     };
@@ -800,6 +809,11 @@ function registerKeyboardShortcuts() {
     });
     globalShortcut.register("CommandOrControl+5", () => {
         window.focusShellTab(4);
+    });
+
+    // Toggle hiding dotfiles in fsDisp
+    globalShortcut.register("CommandOrControl+Shift+H", () => {
+        window.fsDisp.toggleHidedotfiles();
     });
 }
 registerKeyboardShortcuts();

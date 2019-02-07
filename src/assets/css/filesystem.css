@@ -13,6 +13,10 @@ section#filesystem > h3.title {
     padding-right: 0;
 }
 
+section#filesystem.hideDotfiles > h3.title > p#fs_disp_title_dir::before {
+    content: "dotfiles hidden - ";
+}
+
 h2#fs_disp_error {
     font-weight: bold;
     text-align: center;
@@ -65,6 +69,10 @@ div#fs_disp_container > *:active {
 
 div#fs_disp_container > *.hidden {
     opacity: 0.7;
+}
+
+section#filesystem.hideDotfiles > div#fs_disp_container > *.hidden {
+    display: none;
 }
 
 div#fs_disp_container > * > svg {

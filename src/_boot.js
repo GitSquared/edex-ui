@@ -77,6 +77,7 @@ if (!fs.existsSync(settingsFile)) {
         nointro: false,
         allowWindowed: false,
         excludeSelfFromToplist: false,
+        hideDotfiles: false,
         experimentalGlobeFeatures: false,
         experimentalFeatures: false
     }, 4));

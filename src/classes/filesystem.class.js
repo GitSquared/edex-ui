@@ -118,6 +118,16 @@ class FilesystemDisplay {
             });
         };
 
+        this.toggleHidedotfiles = () => {
+            if (window.settings.hideDotfiles) {
+                container.setAttribute("class", "");
+                window.settings.hideDotfiles = false;
+            } else {
+                container.setAttribute("class", "hideDotfiles");
+                window.settings.hideDotfiles = true;
+            }
+        };
+
         this.readFS = async dir => {
             if (this.failed === true) return false;
             let tcwd = dir;
@@ -141,66 +151,36 @@ class FilesystemDisplay {
                 content.forEach(async (file, i) => {
                     let fstat = await this._asyncFSwrapper.lstat(path.join(tcwd, file)).catch(reject);
 
+                    let e = {
+                        name: window._escapeHtml(file),
+                        type: "other",
+                        category: "other",
+                        hidden: false
+                    };
+
                     if (fstat.isDirectory()) {
-                        if (tcwd === settingsDir && file === "themes") {
-                            this.cwd.push({
-                                name: window._escapeHtml(file),
-                                type: "edex-themesDir",
-                                category: "dir"
-                            });
-                        } else if (tcwd === settingsDir && file === "keyboards") {
-                            this.cwd.push({
-                                name: window._escapeHtml(file),
-                                type: "edex-kblayoutsDir",
-                                category: "dir"
-                            });
-                        } else {
-                            this.cwd.push({
-                                name: window._escapeHtml(file),
-                                type: "dir",
-                                category: "dir"
-                            });
-                        }
-                    } else if (fstat.isSymbolicLink()) {
-                        this.cwd.push({
-                            name: window._escapeHtml(file),
-                            type: "symlink",
-                            category: "symlink"
-                        });
-                    } else if (fstat.isFile()) {
-                        if (tcwd === themesDir && file.endsWith(".json")) {
-                            this.cwd.push({
-                                name: window._escapeHtml(file),
-                                type: "edex-theme",
-                                category: "file"
-                            });
-                        } else if (tcwd === keyboardsDir && file.endsWith(".json")) {
-                            this.cwd.push({
-                                name: window._escapeHtml(file),
-                                type: "edex-kblayout",
-                                category: "file"
-                            });
-                        } else if (tcwd === settingsDir && file === "settings.json") {
-                            this.cwd.push({
-                                name: window._escapeHtml(file),
-                                type: "edex-settings",
-                                category: "file"
-                            });
-                        } else {
-                            this.cwd.push({
-                                name: window._escapeHtml(file),
-                                type: "file",
-                                category: "file"
-                            });
-                        }
-                    } else {
-                        this.cwd.push({
-                            name: window._escapeHtml(file),
-                            type: "other",
-                            category: "other"
-                        });
+                        e.category = "dir";
+                        e.type = "dir";
+                    }
+                    if (e.category === "dir" && tcwd === settingsDir && file === "themes") e.type="edex-themesDir";
+                    if (e.category === "dir" && tcwd === settingsDir && file === "keyboards") e.type = "edex-kblayoutsDir";
+
+                    if (fstat.isSymbolicLink()) {
+                        e.category = "symlink";
+                        e.type = "symlink";
                     }
 
+                    if (fstat.isFile()) {
+                        e.category = "file";
+                        e.type = "file";
+                    }
+                    if (e.category === "file" && tcwd === themesDir && file.endsWith(".json")) e.type = "edex-theme";
+                    if (e.category === "file" && tcwd === keyboardsDir && file.endsWith(".json")) e.type = "edex-kblayout";
+                    if (e.category === "file" && tcwd === settingsDir && file === "settings.json") e.type = "edex-settings";
+
+                    if (file.startsWith(".")) e.hidden = true;
+
+                    this.cwd.push(e);
                     if (i === content.length-1) resolve();
                 });
             }).catch(() => { this.setFailedState() });
@@ -277,10 +257,7 @@ class FilesystemDisplay {
 
             let filesDOM = ``;
             blockList.forEach(e => {
-                let hidden = "";
-                if (e.name.startsWith(".")) {
-                    hidden = " hidden";
-                }
+                let hidden = e.hidden ? " hidden" : "";
 
                 let cmd = `window.term[window.currentTerm].write('\\'${e.name}\\'')`;
                 if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
@@ -403,8 +380,13 @@ class FilesystemDisplay {
             // Render animation
             let id = 0;
             while (this.filesContainer.childNodes[id]) {
-                this.filesContainer.childNodes[id].setAttribute("class", this.filesContainer.childNodes[id].getAttribute("class").replace(" animationWait", ""));
-                await _delay(50);
+                let e = this.filesContainer.childNodes[id];
+                e.setAttribute("class", e.className.replace(" animationWait", ""));
+
+                if (window.settings.hideDotfiles !== true || e.className.indexOf("hidden") === -1) {
+                    await _delay(30);
+                }
+
                 id++;
             }
         };
