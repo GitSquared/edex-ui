@@ -436,6 +436,11 @@ async function initUI() {
 
     document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
 
+    // Resend terminal CWD to fsDisp if we're hot reloading
+    if (window.performance.navigation.type === 1) {
+        window.term[window.currentTerm].resendCWD();
+    }
+
     await _delay(200);
 
     window.updateCheck = new UpdateChecker();
