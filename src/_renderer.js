@@ -739,12 +739,12 @@ globalShortcut.unregisterAll();
 
 function registerKeyboardShortcuts() {
     // Open inspector
-    globalShortcut.register("CommandOrControl+Shift+i", () => {
+    globalShortcut.register("CommandOrControl+Shift+I", () => {
         electron.remote.getCurrentWindow().webContents.toggleDevTools();
     });
 
     // Open settings
-    globalShortcut.register("CommandOrControl+Shift+s", () => {
+    globalShortcut.register("CommandOrControl+Shift+S", () => {
         if (!document.getElementById("settingsEditor")) {
             window.openSettings();
         }
@@ -787,16 +787,17 @@ function registerKeyboardShortcuts() {
     });
     // Previous
     globalShortcut.register("CommandOrControl+Shift+Tab", () => {
-        if (window.term[window.currentTerm-1]) {
-            window.focusShellTab(window.currentTerm-1);
-        } else if (window.term[window.currentTerm-2]) {
-            window.focusShellTab(window.currentTerm-2);
-        } else if (window.term[window.currentTerm-3]) {
-            window.focusShellTab(window.currentTerm-3);
-        } else if (window.term[window.currentTerm-4]) {
-            window.focusShellTab(window.currentTerm-4);
-        } else if (window.term[4]){
-            window.focusShellTab(4);
+        let i = window.currentTerm ? window.currentTerm : 4;
+        if (window.term[i] && i !== window.currentTerm) {
+            window.focusShellTab(i);
+        } else if (window.term[i-1]) {
+            window.focusShellTab(i-1);
+        } else if (window.term[i-2]) {
+            window.focusShellTab(i-2);
+        } else if (window.term[i-3]) {
+            window.focusShellTab(i-3);
+        } else if (window.term[i-3]) {
+            window.focusShellTab(i-3);
         }
     });
     // By tab number

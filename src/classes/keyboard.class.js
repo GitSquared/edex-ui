@@ -384,10 +384,53 @@ class Keyboard {
             } else {
                 // Do nothing, return not accepted in inputs
             }
-        } else if (cmd === this.ctrlseq[19] && window.keyboard.linkedToTerm && window.term[window.currentTerm].term.hasSelection()) {
+        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "C") {
             window.term[window.currentTerm].clipboard.copy();
-        } else if (cmd === this.ctrlseq[20] && window.keyboard.linkedToTerm && window.term[window.currentTerm].clipboard.didCopy) {
+        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "V") {
             window.term[window.currentTerm].clipboard.paste();
+        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "S") {
+            if (!document.getElementById("settingsEditor")) {
+                window.openSettings();
+            }
+        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "I") {
+            electron.remote.getCurrentWindow().webContents.toggleDevTools();
+        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "H") {
+            window.fsDisp.toggleHidedotfiles();
+        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "\t") {
+            let i = window.currentTerm ? window.currentTerm : 4;
+            if (window.term[i] && i !== window.currentTerm) {
+                window.focusShellTab(i);
+            } else if (window.term[i-1]) {
+                window.focusShellTab(i-1);
+            } else if (window.term[i-2]) {
+                window.focusShellTab(i-2);
+            } else if (window.term[i-3]) {
+                window.focusShellTab(i-3);
+            } else if (window.term[i-3]) {
+                window.focusShellTab(i-3);
+            }
+        } else if (this.container.dataset.isCtrlOn && cmd === "\t") {
+            if (window.term[window.currentTerm+1]) {
+                window.focusShellTab(window.currentTerm+1);
+            } else if (window.term[window.currentTerm+2]) {
+                window.focusShellTab(window.currentTerm+2);
+            } else if (window.term[window.currentTerm+3]) {
+                window.focusShellTab(window.currentTerm+3);
+            } else if (window.term[window.currentTerm+4]) {
+                window.focusShellTab(window.currentTerm+4);
+            } else {
+                window.focusShellTab(0);
+            }
+        } else if (this.container.dataset.isCtrlOn && cmd === "1") {
+            window.focusShellTab(0);
+        } else if (this.container.dataset.isCtrlOn && cmd === "2") {
+            window.focusShellTab(1);
+        } else if (this.container.dataset.isCtrlOn && cmd === "3") {
+            window.focusShellTab(2);
+        } else if (this.container.dataset.isCtrlOn && cmd === "4") {
+            window.focusShellTab(3);
+        } else if (this.container.dataset.isCtrlOn && cmd === "5") {
+            window.focusShellTab(4);
         } else {
             if (window.keyboard.linkedToTerm) {
                 window.term[window.currentTerm].write(cmd);
