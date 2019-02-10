@@ -796,8 +796,8 @@ function registerKeyboardShortcuts() {
             window.focusShellTab(i-2);
         } else if (window.term[i-3]) {
             window.focusShellTab(i-3);
-        } else if (window.term[i-3]) {
-            window.focusShellTab(i-3);
+        } else if (window.term[i-4]) {
+            window.focusShellTab(i-4);
         }
     });
     // By tab number

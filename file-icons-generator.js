@@ -162,15 +162,15 @@ Object.keys(atomConfig.directoryIcons).forEach(key => {
     if (Array.isArray(config.match)) {
         config.match.forEach(key => {
             let match = key[0];
-            if (typeof match === "string") match = new RegExp(match.replace(/\./g, "\\.")+"$", "i");
+            if (typeof match === "string") match = new RegExp(match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\./g, "\\.")+"$", "i");
             fileIconsMatchScript += `    if (${match}.test(filename)) { return "${config.icon}"; }\n`;
         });
     } else {
-        if (typeof config.match === "string") config.match = new RegExp(config.match.replace(/\./g, "\\.")+"$", "i");
+        if (typeof config.match === "string") config.match = new RegExp(config.match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\./g, "\\.")+"$", "i");
         fileIconsMatchScript += `    if (${config.match}.test(filename)) { return "${config.icon}"; }\n`;
 
         if (config.alias) {
-            if (typeof config.alias === "string") config.alias = new RegExp(config.alias.replace(/\./g, "\\.")+"$", "i");
+            if (typeof config.alias === "string") config.alias = new RegExp(config.alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\./g, "\\.")+"$", "i");
             fileIconsMatchScript += `    if (${config.alias}.test(filename)) { return "${config.icon}"; }\n`;
         }
     }
@@ -181,15 +181,15 @@ Object.keys(atomConfig.fileIcons).forEach(key => {
     if (Array.isArray(config.match)) {
         config.match.forEach(key => {
             let match = key[0];
-            if (typeof match === "string") match = new RegExp(match.replace(/\./g, "\\.")+"$", "i");
+            if (typeof match === "string") match = new RegExp(match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\./g, "\\.")+"$", "i");
             fileIconsMatchScript += `    if (${match}.test(filename)) { return "${config.icon}"; }\n`;
         });
     } else {
-        if (typeof config.match === "string") config.match = new RegExp(config.match.replace(/\./g, "\\.")+"$", "i");
+        if (typeof config.match === "string") config.match = new RegExp(config.match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\./g, "\\.")+"$", "i");
         fileIconsMatchScript += `    if (${config.match}.test(filename)) { return "${config.icon}"; }\n`;
 
         if (config.alias) {
-            if (typeof config.alias === "string") config.alias = new RegExp(config.alias.replace(/\./g, "\\.")+"$", "i");
+            if (typeof config.alias === "string") config.alias = new RegExp(config.alias.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\./g, "\\.")+"$", "i");
             fileIconsMatchScript += `    if (${config.alias}.test(filename)) { return "${config.icon}"; }\n`;
         }
     }

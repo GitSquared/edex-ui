@@ -406,8 +406,8 @@ class Keyboard {
                 window.focusShellTab(i-2);
             } else if (window.term[i-3]) {
                 window.focusShellTab(i-3);
-            } else if (window.term[i-3]) {
-                window.focusShellTab(i-3);
+            } else if (window.term[i-4]) {
+                window.focusShellTab(i-4);
             }
         } else if (this.container.dataset.isCtrlOn && cmd === "\t") {
             if (window.term[window.currentTerm+1]) {
