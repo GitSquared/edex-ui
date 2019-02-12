@@ -51,7 +51,7 @@ Click on the little badges under the eDEX logo at the top of this page, or go to
 #### I have a problem!
 Search through the [Issues](https://github.com/GitSquared/edex-ui/issues) to see if yours has already been reported. If you're confident it hasn't been reported yet, feel free to open up a new one. If you see your issue and it's been closed, it probably means that the fix for it will ship in the next version, and you'll have to wait a bit.
 #### Can you disable the keyboard/the filesystem display?
-You can't disable them (yet) but you can hide them. See the `tron-notype` theme.Thank you for supporting 🎉 SAILLARD Gabriel
+You can't disable them (yet) but you can hide them. See the `tron-notype` theme.
 #### Are PRs welcome?
 They are!
 #### Is this repo actively maintained?
