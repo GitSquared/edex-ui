@@ -20,7 +20,7 @@ class Toplist {
         window.si.processes().then(data => {
             if (window.settings.excludeSelfFromToplist === true) {
                 data.list = data.list.filter(proc => {
-                    if (proc.name.startsWith("eDEX-UI")) return false;
+                    if (/^eDEX-UI.*/i.test(proc.name)) return false;
                     if (proc.name === "electron" && proc.command.includes("edex-ui")) return false;
                     return true;
                 });
