@@ -59,7 +59,7 @@ They are!
 #### How did you make this?
 Glad you're interested! See #272.
 #### This is so cool.
-Thanks!
+Thanks! If you feel like it, you can [donate a few bucks](https://paypal.me/squaredgaby) to encourage me to build more awesome stuff.
 
 <img width="220" src="https://78.media.tumblr.com/35d4ef4447e0112f776b629bffd99188/tumblr_mk4gf8zvyC1s567uwo1_500.gif" />
 
