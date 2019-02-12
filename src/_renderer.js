@@ -834,7 +834,8 @@ window.addEventListener("blur", () => {
 });
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
-window.addEventListener("keydown", e => {
+document.addEventListener("keydown", e => {
+    console.log(e);
     if (e.key === "Alt") {
         e.preventDefault();
     }
@@ -867,3 +868,31 @@ window.onresize = () => {
         }
     }
 };
+
+// See #413
+window.resizeTimeout = null;
+let electronWin = electron.remote.getCurrentWindow();
+electronWin.on("resize", () => {
+    clearTimeout(window.resizeTimeout);
+    window.resizeTimeout = setTimeout(() => {
+        let win = electron.remote.getCurrentWindow();
+        if (win.isFullScreen()) return false;
+        if (win.isMaximized()) {
+            win.unmaximize();
+            win.setFullScreen(true);
+            return false;
+        }
+
+        let size = win.getSize();
+
+        if (size[0] >= size[1]) {
+            win.setSize(size[0], parseInt(size[0] * 9 / 16));
+        } else {
+            win.setSize(size[1], parseInt(size[1] * 9 / 16));
+        }
+    }, 100);
+});
+
+electronWin.on("leave-full-screen", () => {
+    electron.remote.getCurrentWindow().setSize(960, 540);
+});
