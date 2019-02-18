@@ -105,7 +105,7 @@
   },
   "dependencies": {
     "clean-css": "4.2.1",
-    "electron": "4.0.4",
+    "electron": "4.0.5",
     "electron-builder": "20.38.5",
     "electron-rebuild": "1.8.4",
     "node-abi": "2.7.0",
