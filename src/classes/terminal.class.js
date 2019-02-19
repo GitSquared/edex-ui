@@ -287,7 +287,9 @@ class Terminal {
                 }
 
                 if (this.renderer && this._nextTickUpdateProcess) {
-                    this.renderer.send("terminal_channel-"+this.port, "New process", this.tty._file);
+                    if (this.renderer) {
+                        this.renderer.send("terminal_channel-"+this.port, "New process", this.tty._file);
+                    }
                     this._nextTickUpdateProcess = false;
                 }
             }, 1000);
