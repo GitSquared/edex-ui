@@ -243,14 +243,19 @@ class FilesystemDisplay {
                 }
             });
 
-            this.render(devices);
+            this.render(devices, true);
         };
 
-        this.render = async blockList => {
+        this.render = async (blockList, isDiskView) => {
             if (this.failed === true) return false;
 
-            document.getElementById("fs_disp_title_dir").innerText = this.dirpath;
-            this.filesContainer.setAttribute("class", "");
+            if (isDiskView) {
+                document.getElementById("fs_disp_title_dir").innerText = "Showing available block devices";
+                this.filesContainer.setAttribute("class", "disks");
+            } else {
+                document.getElementById("fs_disp_title_dir").innerText = this.dirpath;
+                this.filesContainer.setAttribute("class", "");
+            }
             if (this._noTracking) {
                 document.querySelector("section#filesystem > h3.title > p:first-of-type").innerText = "FILESYSTEM - TRACKING FAILED, RUNNING DETACHED FROM TTY";
             }
@@ -259,35 +264,33 @@ class FilesystemDisplay {
             blockList.forEach(e => {
                 let hidden = e.hidden ? " hidden" : "";
 
-                let cmd = `window.term[window.currentTerm].write('\\'${this._noTracking ? path.resolve(this.dirpath, e.name) : e.name}\\'')`;
-                if (e.type === "dir" || e.type.endsWith("Dir")) {
-                    cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace(/\\/g, "\\\\")}\\'')`;
-                }
+                let cmd;
 
-                if (e.type === "up") {
-                    cmd = `window.term[window.currentTerm].writelr('cd ..')`;
-                }
-
-                if (e.type === "up" && this._noTracking) {
-                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..').replace(/\\/g, '\\\\')}')`;
-                }
-                if ((e.type === "dir" || e.type.endsWith("Dir")) && this._noTracking) {
-                    cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name).replace(/\\/g, '\\\\')}')`;
+                if (!this._noTracking) {
+                    if (e.type === "dir" || e.type.endsWith("Dir")) {
+                        cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace(/\\/g, "\\\\")}\\'')`;
+                    } else if (e.type === "up") {
+                        cmd = `window.term[window.currentTerm].writelr('cd ..')`;
+                    } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
+                        let extraSwitch = (process.platform === "win32") ? " /D" : "";
+                        cmd = `window.term[window.currentTerm].writelr('cd${extraSwitch} \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
+                    } else {
+                        cmd = `window.term[window.currentTerm].write('\\'${e.name}\\'')`;
+                    }
+                } else {
+                    if (e.type === "dir" || e.type.endsWith("Dir")) {
+                        cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name).replace(/\\/g, '\\\\')}')`;
+                    } else if (e.type === "up") {
+                        cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..').replace(/\\/g, '\\\\')}')`;
+                    } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
+                        cmd = `window.fsDisp.readFS('${e.path.replace(/\\/g, '\\\\')}')`;
+                    } else {
+                        cmd = `window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')`;
+                    }
                 }
 
                 if (e.type === "showDisks") {
                     cmd = `window.fsDisp.readDevices()`;
-                }
-
-                if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
-                    let extraSwitch = (process.platform === "win32") ? " /D" : "";
-                    cmd = `window.term[window.currentTerm].writelr('cd${extraSwitch} \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
-
-                    document.getElementById("fs_disp_title_dir").innerText = "Showing available block devices";
-                    this.filesContainer.setAttribute("class", "disks");
-                }
-                if ((e.type === "disk" || e.type === "rom" || e.type === "usb") && this._noTracking) {
-                    cmd = `window.fsDisp.readFS('${e.path.replace(/\\/g, '\\\\')}')`;
                 }
 
                 if (e.type === "edex-theme") {
