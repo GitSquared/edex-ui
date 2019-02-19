@@ -55,6 +55,7 @@ class FilesystemDisplay {
         this.failed = false;
         this._noTracking = false;
         this._runNextTick = false;
+        this._reading = false;
 
         this._timer = setInterval(() => {
             if (this._runNextTick === true) {
@@ -132,7 +133,8 @@ class FilesystemDisplay {
         };
 
         this.readFS = async dir => {
-            if (this.failed === true) return false;
+            if (this.failed === true || this._reading) return false;
+            this._reading = true;
             let tcwd = dir;
             let content = await this._asyncFSwrapper.readdir(tcwd).catch(err => {
                 console.warn(err);
@@ -224,6 +226,7 @@ class FilesystemDisplay {
 
             this.dirpath = tcwd;
             this.render(this.cwd);
+            this._reading = false;
         };
 
         this.readDevices = async () => {
