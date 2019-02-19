@@ -259,8 +259,8 @@ class FilesystemDisplay {
             blockList.forEach(e => {
                 let hidden = e.hidden ? " hidden" : "";
 
-                let cmd = `window.term[window.currentTerm].write('\\'${e.name}\\'')`;
-                if (e.type === "dir" || e.type === "up" || e.type.endsWith("Dir")) {
+                let cmd = `window.term[window.currentTerm].write('\\'${this._noTracking ? path.resolve(this.dirpath, e.name) : e.name}\\'')`;
+                if (e.type === "dir" || e.type.endsWith("Dir")) {
                     cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace(/\\/g, "\\\\")}\\'')`;
                 }
 
