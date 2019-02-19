@@ -90,6 +90,9 @@ class FilesystemDisplay {
         };
 
         this.followTab = () => {
+            // Don't follow tabs when running in detached mode, see #432
+            if (this._noTracking) return false;
+
             let num = window.currentTerm;
 
             window.term[num].oncwdchange = cwd => {
