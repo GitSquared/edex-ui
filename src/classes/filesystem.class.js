@@ -278,8 +278,11 @@ class FilesystemDisplay {
                     } else if (e.type === "up") {
                         cmd = `window.term[window.currentTerm].writelr('cd ..')`;
                     } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
-                        let extraSwitch = (process.platform === "win32") ? " /D" : "";
-                        cmd = `window.term[window.currentTerm].writelr('cd${extraSwitch} \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
+                        if (process.platform === "win32") {
+                            cmd = `window.term[window.currentTerm].writelr('${e.path.replace(/\\/g, "\\\\")}')`;
+                        } else {
+                            cmd = `window.term[window.currentTerm].writelr('cd \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
+                        }
                     } else {
                         cmd = `window.term[window.currentTerm].write('\\'${e.name}\\'')`;
                     }
