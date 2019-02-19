@@ -65,6 +65,13 @@ function matchIcon(filename) {
     if (/\.(acs|angelscript)$/i.test(filename)) { return "angelscript"; }
     if (/AngelCode$/i.test(filename)) { return "angelscript"; }
     if (/^angular[^.]*\.js$/i.test(filename)) { return "angular"; }
+    if (/\.anme$/i.test(filename)) { return "animestudio"; }
+    if (/\.anime$/i.test(filename)) { return "animestudio"; }
+    if (/\.animeaction$/i.test(filename)) { return "animestudio"; }
+    if (/\.animebrush$/i.test(filename)) { return "animestudio"; }
+    if (/\.animeexport$/i.test(filename)) { return "animestudio"; }
+    if (/\.animeproj$/i.test(filename)) { return "animestudio"; }
+    if (/\.animestyle$/i.test(filename)) { return "animestudio"; }
     if (/(^|\.)ansible(\.ya?ml)?$/i.test(filename)) { return "ansible"; }
     if (/([\\\/])roles\1[^\\\/]+\1(?:tasks|handlers|tests)\1.*\.ya?ml$/i.test(filename)) { return "ansible"; }
     if (/([\\\/])roles\1[^\\\/]+\1(?:defaults|vars|meta)\1.*\.ya?ml$/i.test(filename)) { return "ansible"; }
@@ -118,6 +125,7 @@ function matchIcon(filename) {
     if (/\.py[co]$/i.test(filename)) { return "binary"; }
     if (/\.swp$/i.test(filename)) { return "binary"; }
     if (/^\.rnd$/i.test(filename)) { return "binary"; }
+    if (/\.PLX(COPY)?$/.test(filename)) { return "binary"; }
     if (/\.asy$/i.test(filename)) { return "asymptote"; }
     if (/\.atomproject\.[jc]son$/i.test(filename)) { return "atom"; }
     if (/^\.?atoum(\.[^.]+)*\.php/i.test(filename)) { return "atoum"; }
@@ -213,6 +221,9 @@ function matchIcon(filename) {
     if (/^c\s*sharp$/i.test(filename)) { return "csharp"; }
     if (/\.csx$/i.test(filename)) { return "csscript"; }
     if (/\.cabal$/i.test(filename)) { return "cabal"; }
+    if (/^cabal\.(config|project)$/i.test(filename)) { return "cabal"; }
+    if (/^cabal-ghcjs\.project$/i.test(filename)) { return "cabal"; }
+    if (/^cabal\../i.test(filename)) { return "cabal"; }
     if (/^Caddyfile($|[-.])/i.test(filename)) { return "caddy"; }
     if (/\.caffemodel$/i.test(filename)) { return "caffe"; }
     if (/\.solverstate$/i.test(filename)) { return "caffe"; }
@@ -232,6 +243,7 @@ function matchIcon(filename) {
     if (/^todo.txt$/i.test(filename)) { return "checklist"; }
     if (/\.(todo|taskpaper)$/i.test(filename)) { return "checklist"; }
     if (/^chefignore$|^(Berks|Policy)file(\.lock)?$/i.test(filename)) { return "chef"; }
+    if (/^chocolatey.*\.ps1$/i.test(filename)) { return "chocolatey"; }
     if (/\.ck$/i.test(filename)) { return "chuck"; }
     if (/\.crx$/i.test(filename)) { return "chrome"; }
     if (/^circle\.yml$/i.test(filename)) { return "circleci"; }
@@ -393,8 +405,6 @@ function matchIcon(filename) {
     if (/\.ejson$/i.test(filename)) { return "database"; }
     if (/\.edn$/i.test(filename)) { return "database"; }
     if (/\.eam\.fs$/i.test(filename)) { return "database"; }
-    if (/\.qml$/i.test(filename)) { return "database"; }
-    if (/\.qbs$/i.test(filename)) { return "database"; }
     if (/\.ston$/i.test(filename)) { return "database"; }
     if (/\.ttl$/i.test(filename)) { return "database"; }
     if (/\.schema$/i.test(filename)) { return "database"; }
@@ -775,6 +785,8 @@ function matchIcon(filename) {
     if (/gulpfile\.coffee$/i.test(filename)) { return "gulp"; }
     if (/gulpfile\.babel\.js$/i.test(filename)) { return "gulp"; }
     if (/\.hh$/i.test(filename)) { return "hack"; }
+    if (/\.hhi$/i.test(filename)) { return "hack"; }
+    if (/\.hack$/i.test(filename)) { return "hack"; }
     if (/\.haml$/i.test(filename)) { return "haml"; }
     if (/\.hamlc$/i.test(filename)) { return "haml"; }
     if (/\.haml\.deface$/i.test(filename)) { return "haml"; }
@@ -862,7 +874,6 @@ function matchIcon(filename) {
     if (/\.mng$/i.test(filename)) { return "image"; }
     if (/\.nrrd$/i.test(filename)) { return "image"; }
     if (/\.ora$/i.test(filename)) { return "image"; }
-    if (/\.pbm$/i.test(filename)) { return "image"; }
     if (/\.pcx$/i.test(filename)) { return "image"; }
     if (/\.pict$/i.test(filename)) { return "image"; }
     if (/\.pxr$/i.test(filename)) { return "image"; }
@@ -907,6 +918,7 @@ function matchIcon(filename) {
     if (/\.jsm$/i.test(filename)) { return "js"; }
     if (/\.jss$/i.test(filename)) { return "js"; }
     if (/\.es\d?$/i.test(filename)) { return "js"; }
+    if (/\.cjs$/i.test(filename)) { return "js"; }
     if (/\.mjs$/i.test(filename)) { return "js"; }
     if (/\.sjs$/i.test(filename)) { return "js"; }
     if (/\.ssjs$/i.test(filename)) { return "js"; }
@@ -950,6 +962,7 @@ function matchIcon(filename) {
     if (/^karma\.conf(ig)?\.coffee$/i.test(filename)) { return "karma"; }
     if (/^karma\.conf(ig)?\.ts$/i.test(filename)) { return "karma"; }
     if (/\.ks$/i.test(filename)) { return "kos"; }
+    if (/^keybase\.txt$/i.test(filename)) { return "keybase"; }
     if (/\.keynote$/i.test(filename)) { return "keynote"; }
     if (/\.knt$/i.test(filename)) { return "keynote"; }
     if (/\.kicad_pcb$/i.test(filename)) { return "kicad"; }
@@ -1028,7 +1041,7 @@ function matchIcon(filename) {
     if (/\.mmk$/i.test(filename)) { return "checklist"; }
     if (/\.pri$/i.test(filename)) { return "checklist"; }
     if (/\.mak?o$/i.test(filename)) { return "mako"; }
-    if (/\.(1([bcmstx]|has|in)?|[24568]|3(avl|bsm|cfgadm|in|[cmx]|qt)?|7(d|fs|i|ipp|m|p)?|9[efps]?|chem|eqn|groff|man|mandoc|mdoc|me|mom|nr?|nroff|pic|roff?|tmac|tmac-u|tr|troff)$/i.test(filename)) { return "manpage"; }
+    if (/\.(1([bcmstx]|has|in)?|[24568]|3(avl|bsm|cfgadm|in|[cmx]|perl|pm?|qt)?|7(d|fs|i|ipp|m|p)?|9[efps]?|chem|eqn|groff|man|mandoc|mdoc|me|mom|nr?|nroff|pic|roff?|tmac|tmac-u|tr|troff)$/i.test(filename)) { return "manpage"; }
     if (/\.(rnh|rno|run|runoff)$/i.test(filename)) { return "manpage"; }
     if (/(^|\.)((troff|eqn)rc(-end)?)$/i.test(filename)) { return "manpage"; }
     if (/^tmac\.|^(mmn|mmt|toc\.entries)$/i.test(filename)) { return "manpage"; }
@@ -1163,7 +1176,7 @@ function matchIcon(filename) {
     if (/\.stl$/i.test(filename)) { return "model"; }
     if (/\.u3d$/i.test(filename)) { return "model"; }
     if (/\.(rviz|vcg)$/i.test(filename)) { return "model"; }
-    if (/\.mo$/i.test(filename)) { return "circle"; }
+    if (/\.mo$/i.test(filename)) { return "modelica"; }
     if (/^modernizr([-\.]custom|-\d\.\d+)(\.\d+)?\.js$/i.test(filename)) { return "modernizr"; }
     if (/\.mod$/i.test(filename)) { return "modula2"; }
     if (/\.def$/i.test(filename)) { return "modula2"; }
@@ -1173,6 +1186,12 @@ function matchIcon(filename) {
     if (/\.m3$/i.test(filename)) { return "modula3"; }
     if (/\.mg$/i.test(filename)) { return "modula3"; }
     if (/^m3(makefile|overrides)$/i.test(filename)) { return "modula3"; }
+    if (/\.moho$/i.test(filename)) { return "moho"; }
+    if (/\.mohoaction$/i.test(filename)) { return "moho"; }
+    if (/\.mohobrush$/i.test(filename)) { return "moho"; }
+    if (/\.mohoexport$/i.test(filename)) { return "moho"; }
+    if (/\.mohoproj$/i.test(filename)) { return "moho"; }
+    if (/\.mohostyle$/i.test(filename)) { return "moho"; }
     if (/^moment(-with-locales)?(\.min)?\.js$/i.test(filename)) { return "moment"; }
     if (/^moment-timezone(-with-data)?(-\d{4}-\d{4})?(\.min)?\.js$/i.test(filename)) { return "moment-tz"; }
     if (/\.monkey$/i.test(filename)) { return "monkey"; }
@@ -1206,6 +1225,10 @@ function matchIcon(filename) {
     if (/\.nf$/i.test(filename)) { return "nextflow"; }
     if (/^nextflow\.config$/i.test(filename)) { return "nextflow"; }
     if (/^nestconfig\.json$/i.test(filename)) { return "nestjs"; }
+    if (/\.pbm$/i.test(filename)) { return "image"; }
+    if (/\.pgm$/i.test(filename)) { return "image"; }
+    if (/\.ppm$/i.test(filename)) { return "image"; }
+    if (/\.pnm$/i.test(filename)) { return "image"; }
     if (/^nginx(\.[-\w]+)*\.conf$/i.test(filename)) { return "nginx"; }
     if (/\.nginxconf$/i.test(filename)) { return "nginx"; }
     if (/\.nib$/i.test(filename)) { return "nib"; }
@@ -1278,6 +1301,7 @@ function matchIcon(filename) {
     if (/\.scad$/i.test(filename)) { return "scad"; }
     if (/\.jscad$/i.test(filename)) { return "scad"; }
     if (/\.hlb$/i.test(filename)) { return "openvms"; }
+    if (/\.ovpn$/i.test(filename)) { return "openvpn"; }
     if (/\.org$/i.test(filename)) { return "org"; }
     if (/\.dmg$/i.test(filename)) { return "osx"; }
     if (/\.ox$/i.test(filename)) { return "ox"; }
@@ -1411,6 +1435,9 @@ function matchIcon(filename) {
     if (/\.k$/i.test(filename)) { return "kx"; }
     if (/\.qvw$/i.test(filename)) { return "qlik"; }
     if (/\.qvd$/i.test(filename)) { return "qlik"; }
+    if (/\.qml$/i.test(filename)) { return "qt"; }
+    if (/\.qmlproject$/i.test(filename)) { return "qt"; }
+    if (/\.qbs$/i.test(filename)) { return "qt"; }
     if (/^quasar\.conf\.js$/i.test(filename)) { return "quasar"; }
     if (/\.(r|Rprofile|Rhistory|rsx|rd)$/i.test(filename)) { return "r"; }
     if (/^(Rscript|splus|Rlang)$/i.test(filename)) { return "r"; }
@@ -1747,7 +1774,6 @@ function matchIcon(filename) {
     if (/\.v$/i.test(filename)) { return "verilog"; }
     if (/\.veo$/i.test(filename)) { return "verilog"; }
     if (/\.vhdl$/i.test(filename)) { return "vhdl"; }
-    if (/\.vhd$/i.test(filename)) { return "vhdl"; }
     if (/\.vhf$/i.test(filename)) { return "vhdl"; }
     if (/\.vhi$/i.test(filename)) { return "vhdl"; }
     if (/\.vho$/i.test(filename)) { return "vhdl"; }
@@ -1766,6 +1792,12 @@ function matchIcon(filename) {
     if (/\.(ogm|og[gv])$/i.test(filename)) { return "video"; }
     if (/\.(vim|[gn]?vimrc)$/i.test(filename)) { return "vim"; }
     if (/^[.gn_]?vim(rc|info)$/i.test(filename)) { return "vim"; }
+    if (/\.vmb$/i.test(filename)) { return "vim"; }
+    if (/\.ova$/i.test(filename)) { return "virtualbox"; }
+    if (/\.ovf$/i.test(filename)) { return "virtualbox"; }
+    if (/\.vhd$/i.test(filename)) { return "virtualbox"; }
+    if (/\.vhdx$/i.test(filename)) { return "virtualbox"; }
+    if (/\.vbox_version$/i.test(filename)) { return "virtualbox"; }
     if (/\.vbox(-prev)?$/i.test(filename)) { return "virtualbox"; }
     if (/\.(vba?|fr[mx]|bas)$/i.test(filename)) { return "vs"; }
     if (/\.vbhtml$/i.test(filename)) { return "vs"; }
