@@ -835,7 +835,6 @@ window.addEventListener("blur", () => {
 
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 document.addEventListener("keydown", e => {
-    console.log(e);
     if (e.key === "Alt") {
         e.preventDefault();
     }
