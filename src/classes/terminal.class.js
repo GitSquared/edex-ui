@@ -116,9 +116,16 @@ class Terminal {
                     this.onclose(e);
                 }
             };
+
+            this.lastSoundFX = Date.now();
             this.socket.addEventListener("message", e => {
-                window.audioManager.stdout.play();
-                if (Date.now() - this.lastRefit > 10000) {
+                let d = Date.now();
+
+                if (d - this.lastSoundFX > 30) {
+                    window.audioManager.stdout.play();
+                    this.lastSoundFX = d;
+                }
+                if (d - this.lastRefit > 10000) {
                     this.fit();
                 }
 
