@@ -207,9 +207,9 @@ function displayLine() {
     }
 
     if (log[i] === "Boot Complete") {
-        window.audioManager.beep2.play();
+        window.audioManager.granted.play();
     } else {
-        window.audioManager.beep1.play();
+        window.audioManager.stdout.play();
     }
     bootScreen.innerHTML += log[i]+"<br/>";
     i++;
@@ -248,11 +248,17 @@ function displayLine() {
 // Show "logo" and background grid
 async function displayTitleScreen() {
     let bootScreen = document.getElementById("boot_screen");
+    if (bootScreen === null) {
+        bootScreen = document.createElement("section");
+        bootScreen.setAttribute("id", "boot_screen");
+        bootScreen.setAttribute("style", "z-index: 9999999");
+        document.body.appendChild(bootScreen);
+    }
     bootScreen.innerHTML = "";
+    window.audioManager.theme.play();
 
     await _delay(400);
 
-    window.audioManager.beep4.play();
     document.body.setAttribute("class", "");
     bootScreen.setAttribute("class", "center");
     bootScreen.innerHTML = "<h1>eDEX-UI</h1>";
@@ -266,13 +272,26 @@ async function displayTitleScreen() {
 
     title.setAttribute("style", `background-color: rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});border-bottom: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
 
-    await _delay(400);
+    await _delay(300);
+
+    title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
+
+    await _delay(100);
+
+    title.setAttribute("style", "");
+    title.setAttribute("class", "glitch");
+
+    await _delay(500);
 
     document.body.setAttribute("class", "");
+    title.setAttribute("class", "");
     title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
 
     await _delay(1000);
-
+    if (window.term) {
+        bootScreen.remove();
+        return true;
+    }
     initGraphicalErrorHandling();
     initSystemInformationProxy();
     waitForFonts().then(() => {
@@ -296,6 +315,7 @@ async function initUI() {
 
     await _delay(10);
 
+    window.audioManager.expand.play();
     document.getElementById("main_shell").setAttribute("style", "height:0%;margin-bottom:30vh;");
 
     await _delay(500);
@@ -334,6 +354,7 @@ async function initUI() {
     document.getElementById("filesystem").setAttribute("style", "");
     document.getElementById("keyboard").setAttribute("style", "");
     document.getElementById("keyboard").setAttribute("class", "animation_state_1");
+    window.audioManager.keyboard.play();
 
     await _delay(100);
 
@@ -378,6 +399,7 @@ async function initUI() {
         if (!left[i] && !right[i]) {
             clearInterval(x);
         } else {
+            window.audioManager.panels.play();
             if (left[i]) {
                 left[i].setAttribute("style", "animation-play-state: running;");
             }
@@ -461,7 +483,7 @@ window.remakeKeyboard = layout => {
 };
 
 window.focusShellTab = number => {
-    window.audioManager.beep2.play();
+    window.audioManager.folder.play();
 
     if (number !== window.currentTerm && window.term[number]) {
         window.currentTerm = number;

@@ -67,6 +67,7 @@ class LocationGlobe {
             };
             this.globe.init(window.theme.colors.light_black, () => {
                 this._animate();
+                window.audioManager.scan.play();
             });
 
             // resize handler

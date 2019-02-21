@@ -30,4 +30,77 @@ section#boot_screen h1 {
     padding-right: 2vh;
     padding-left: 1.5vh;
     background-color: transparent;
+
+    opacity: 0;
+    animation-name: fadeInTitle;
+    animation-duration: 300ms;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+section#boot_screen h1.glitch {
+    border: none;
+    color: transparent;
+}
+
+@keyframes fadeInTitle {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+section#boot_screen h1::before {
+    content: "eDEX-UI";
+    display: block;
+    transform: translateY(100%) translateX(-2%);
+    clip-path: polygon(100% 0%, 100% 40%, 0% 40%, 0% 0%);
+    color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.8);
+
+    animation-name: derezzer_top;
+    animation-duration: 50ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-play-state: paused;
+    height: 0px;
+    opacity: 0;
+}
+
+section#boot_screen h1.glitch::before {
+    height: auto;
+    opacity: 1;
+    animation-play-state: running;
+}
+
+@keyframes derezzer_top {
+    from {transform: translateY(100%) translateX(-1%);}
+    to {transform: translateY(100%) translateX(-5%);}
+}
+
+section#boot_screen h1::after {
+    content: "eDEX-UI";
+    display: block;
+    transform: translateY(-100%) translateX(2%);
+    clip-path: polygon(100% 40%, 100% 100%, 0% 100%, 0% 40%);
+    color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.9);
+
+    animation-name: derezzer_bottom;
+    animation-duration: 50ms;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-play-state: paused;
+    height: 0px;
+    opacity: 0;
+}
+
+section#boot_screen h1.glitch::after {
+    height: auto;
+    opacity: 1;
+    animation-play-state: running;
+}
+
+@keyframes derezzer_bottom {
+    from {transform: translateY(-100%) translateX(1%);}
+    to {transform: translateY(-100%) translateX(3%);}
 }

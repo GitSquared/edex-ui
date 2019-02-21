@@ -78,7 +78,7 @@ class Keyboard {
                         // Keep focus on the terminal
                         if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
 
-                        window.audioManager.beep2.play();
+                        window.audioManager.granted.play();
                         e.preventDefault();
                     };
                     key.onmouseup = () => {
@@ -119,7 +119,7 @@ class Keyboard {
                         // Keep focus on the terminal
                         if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
 
-                        window.audioManager.beep3.play();
+                        window.audioManager.stdin.play();
                         e.preventDefault();
                     };
                     key.onmouseup = e => {
@@ -223,7 +223,7 @@ class Keyboard {
             return key;
         };
 
-        document.onkeydown = e => {
+        this.keydownHandler = e => {
             // See #330
             if (e.getModifierState("AltGraph")) return;
             let key = findKey(e);
@@ -235,8 +235,10 @@ class Keyboard {
             } else {
                 key.setAttribute("class", "keyboard_key active");
             }
-            window.audioManager.beep3.play();
+            window.audioManager.stdin.play();
         };
+
+        document.onkeydown = this.keydownHandler;
 
         document.onkeyup = e => {
             // See #330
@@ -260,7 +262,7 @@ class Keyboard {
             }
 
             if (e.key === "Enter") {
-                window.audioManager.beep2.play();
+                window.audioManager.granted.play();
             }
         };
     }

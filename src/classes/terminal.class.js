@@ -72,6 +72,10 @@ class Terminal {
                 }
             });
             this.term.open(document.getElementById(opts.parentId));
+            this.term.attachCustomKeyEventHandler(e => {
+                window.keyboard.keydownHandler(e);
+                return true;
+            });
             this.term.focus();
 
             this.Ipc.send("terminal_channel-"+this.port, "Renderer startup");
@@ -113,7 +117,7 @@ class Terminal {
                 }
             };
             this.socket.addEventListener("message", e => {
-                window.audioManager.beep1.play();
+                window.audioManager.stdout.play();
                 if (Date.now() - this.lastRefit > 10000) {
                     this.fit();
                 }

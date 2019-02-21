@@ -53,7 +53,7 @@ class Modal {
         this.close = () => {
             let modalElement = document.getElementById("modal_"+this.id);
             modalElement.setAttribute("class", "modal_popup "+this.type+" blink");
-            window.audioManager.dismiss.play();
+            window.audioManager.denied.play();
             setTimeout(() => {
                 modalElement.remove();
             }, 100);
@@ -69,10 +69,7 @@ class Modal {
 
         switch(this.type) {
             case "error":
-                window.audioManager.alarm.play();
-                setTimeout(() => {
-                    window.audioManager.alarm.play();
-                }, 300);
+                window.audioManager.error.play();
                 break;
             case "warning":
                 window.audioManager.alarm.play();
