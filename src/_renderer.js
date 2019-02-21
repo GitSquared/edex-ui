@@ -268,7 +268,6 @@ async function displayTitleScreen() {
 
     await _delay(400);
 
-    window.audioManager.intro.play();
     document.body.setAttribute("class", "");
     title.setAttribute("style", `border: 5px solid rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b});`);
 
@@ -297,7 +296,6 @@ async function initUI() {
 
     await _delay(10);
 
-    window.audioManager.scan.play();
     document.getElementById("main_shell").setAttribute("style", "height:0%;margin-bottom:30vh;");
 
     await _delay(500);
@@ -602,14 +600,6 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
-                        <td>extraAudio</td>
-                        <td>Enable extra audio FX (requires audio: true)</td>
-                        <td><select id="settingsEditor-extraAudio">
-                            <option>${window.settings.extraAudio}</option>
-                            <option>${!window.settings.extraAudio}</option>
-                        </select></td>
-                    </tr>
-                    <tr>
                         <td>port</td>
                         <td>Local port to use for UI-shell connection</td>
                         <td><input type="number" id="settingsEditor-port" value="${window.settings.port}"></td>
@@ -710,7 +700,6 @@ window.writeSettingsFile = () => {
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
-        extraAudio: (document.getElementById("settingsEditor-extraAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
         port: Number(document.getElementById("settingsEditor-port").value),
         monitor: Number(document.getElementById("settingsEditor-monitor").value),

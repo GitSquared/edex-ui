@@ -19,10 +19,6 @@ class Clock {
         let time = new Date();
         let array = [time.getHours(), time.getMinutes(), time.getSeconds()];
 
-        if (this.lastTime.getMinutes() !== array[1]) {
-            window.audioManager.beep5.play();
-        }
-
         array.forEach((e, i) => {
             if (e.toString().length !== 2) {
                 array[i] = "0"+e;
