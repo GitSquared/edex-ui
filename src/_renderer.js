@@ -42,17 +42,17 @@ const settingsFile = path.join(settingsDir, "settings.json");
 window.settings = require(settingsFile);
 
 // Load CLI parameters
-if (electron.remote.process.argv.includes("--nointro") || window.settings.nointro) {
-    window.settings.nointro = true;
+if (electron.remote.process.argv.includes("--nointro")) {
+    window.settings.nointroOverride = true;
 } else {
-    window.settings.nointro = false;
+    window.settings.nointroOverride = false;
 }
 
 // Retrieve theme override (hotswitch)
 ipc.once("getThemeOverride", (e, theme) => {
     if (theme !== null) {
         window.settings.theme = theme;
-        window.settings.nointro = true;
+        window.settings.nointroOverride = true;
         _loadTheme(require(path.join(themesDir, window.settings.theme+".json")));
     } else {
         _loadTheme(require(path.join(themesDir, window.settings.theme+".json")));
@@ -63,7 +63,7 @@ ipc.send("getThemeOverride");
 ipc.once("getKbOverride", (e, layout) => {
     if (layout !== null) {
         window.settings.keyboard = layout;
-        window.settings.nointro = true;
+        window.settings.nointroOverride = true;
     }
 });
 ipc.send("getKbOverride");
@@ -180,7 +180,7 @@ window.audioManager = new AudioManager();
 electron.remote.app.focus();
 
 let i = 0;
-if (!window.settings.nointro) {
+if (!window.settings.nointro || window.settings.nointroOverride) {
     displayLine();
 } else {
     initGraphicalErrorHandling();
@@ -641,7 +641,7 @@ window.openSettings = async () => {
                     </tr>
                     <tr>
                         <td>nointro</td>
-                        <td>Skip the intro boot log and logo</td>
+                        <td>Skip the intro boot log and logo${(window.settings.nointroOverride) ? " (Currently overridden by CLI flag)" : ""}</td>
                         <td><select id="settingsEditor-nointro">
                             <option>${window.settings.nointro}</option>
                             <option>${!window.settings.nointro}</option>
