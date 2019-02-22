@@ -3,7 +3,7 @@ const {app, BrowserWindow, dialog, shell} = require("electron");
 
 process.on("uncaughtException", e => {
     signale.fatal(e);
-    dialog.showErrorBox("eEDEX-UI failed to launch", e.message || "Cannot retrieve error message.");
+    dialog.showErrorBox("eDEX-UI crashed", e.message || "Cannot retrieve error message.");
     if (tty) {
         tty.close();
     }
