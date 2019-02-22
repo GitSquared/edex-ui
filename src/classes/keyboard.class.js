@@ -268,12 +268,82 @@ class Keyboard {
     }
     pressKey(key) {
         let cmd = key.dataset.cmd || "";
+
+        // Keyboard shortcuts
+        if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn) {
+            switch(cmd) {
+                case "c":
+                    window.term[window.currentTerm].clipboard.copy();
+                    return true;
+                case "v":
+                    window.term[window.currentTerm].clipboard.paste();
+                    return true;
+                case "s":
+                    if (!document.getElementById("settingsEditor")) {
+                        window.openSettings();
+                    }
+                    return true;
+                case "i":
+                    electron.remote.getCurrentWindow().webContents.toggleDevTools();
+                    return true;
+                case "h":
+                    window.fsDisp.toggleHidedotfiles();
+                    return true;
+                case "\t":
+                    let i = window.currentTerm ? window.currentTerm : 4;
+                    if (window.term[i] && i !== window.currentTerm) {
+                        window.focusShellTab(i);
+                    } else if (window.term[i-1]) {
+                        window.focusShellTab(i-1);
+                    } else if (window.term[i-2]) {
+                        window.focusShellTab(i-2);
+                    } else if (window.term[i-3]) {
+                        window.focusShellTab(i-3);
+                    } else if (window.term[i-4]) {
+                        window.focusShellTab(i-4);
+                    }
+                    return true;
+            }
+        }
+        if (this.container.dataset.isCtrlOn) {
+            switch(cmd) {
+                case "1":
+                    window.focusShellTab(0);
+                    return true;
+                case "2":
+                    window.focusShellTab(1);
+                    return true;
+                case "3":
+                    window.focusShellTab(2);
+                    return true;
+                case "4":
+                    window.focusShellTab(3);
+                    return true;
+                case "5":
+                    window.focusShellTab(4);
+                    return true;
+                case "\t":
+                    if (window.term[window.currentTerm+1]) {
+                        window.focusShellTab(window.currentTerm+1);
+                    } else if (window.term[window.currentTerm+2]) {
+                        window.focusShellTab(window.currentTerm+2);
+                    } else if (window.term[window.currentTerm+3]) {
+                        window.focusShellTab(window.currentTerm+3);
+                    } else if (window.term[window.currentTerm+4]) {
+                        window.focusShellTab(window.currentTerm+4);
+                    } else {
+                        window.focusShellTab(0);
+                    }
+                    return true;
+            }
+        }
+
+        // Modifiers
         if (this.container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || this.container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;
         if (this.container.dataset.isCtrlOn === "true" && key.dataset.ctrl_cmd) cmd = key.dataset.ctrl_cmd;
         if (this.container.dataset.isAltOn === "true" && key.dataset.alt_cmd) cmd = key.dataset.alt_cmd;
         if (this.container.dataset.isAltOn === "true" && this.container.dataset.isShiftOn === "true" && key.dataset.altshift_cmd) cmd = key.dataset.altshift_cmd;
         if (this.container.dataset.isFnOn === "true" && key.dataset.fn_cmd) cmd = key.dataset.fn_cmd;
-
         if (this.container.dataset.isNextCircum === "true") {
             cmd = this.addCircum(cmd);
             this.container.dataset.isNextCircum = "false";
@@ -327,139 +397,97 @@ class Keyboard {
             this.container.dataset.isNextIotasub = "false";
         }
 
-
+        // Escaped commands
         if (cmd.startsWith("ESCAPED|-- ")) {
             cmd = cmd.substr(11);
             switch(cmd) {
                 case "CAPSLCK: ON":
                     this.container.dataset.isCapsLckOn = "true";
-                    break;
+                    return true;
                 case "CAPSLCK: OFF":
                     this.container.dataset.isCapsLckOn = "false";
-                    break;
+                    return true;
                 case "FN: ON":
                     this.container.dataset.isFnOn = "true";
-                    break;
+                    return true;
                 case "FN: OFF":
                     this.container.dataset.isFnOn = "false";
-                    break;
+                    return true;
                 case "CIRCUM":
                     this.container.dataset.isNextCircum = "true";
-                    break;
+                    return true;
                 case "TREMA":
                     this.container.dataset.isNextTrema = "true";
-                    break;
+                    return true;
                 case "ACUTE":
                     this.container.dataset.isNextAcute = "true";
-                    break;
+                    return true;
                 case "GRAVE":
                     this.container.dataset.isNextGrave = "true";
-                    break;
+                    return true;
                 case "CARON":
                     this.container.dataset.isNextCaron = "true";
-                    break;
+                    return true;
                 case "BAR":
                     this.container.dataset.isNextBar = "true";
-                    break;
+                    return true;
                 case "BREVE":
                     this.container.dataset.isNextBreve = "true";
-                    break;
+                    return true;
                 case "MACRON":
                     this.container.dataset.isNextMacron = "true";
-                    break;
+                    return true;
                 case "CEDILLA":
                     this.container.dataset.isNextCedilla = "true";
-                    break;
+                    return true;
                 case "OVERRING":
                     this.container.dataset.isNextOverring = "true";
-                    break;
+                    return true;
                 case "GREEK":
                     this.container.dataset.isNextGreek = "true";
-                    break;
+                    return true;
                 case "IOTASUB":
                     this.container.dataset.isNextIotasub = "true";
-                    break;
+                    return true;
             }
-        } else if (cmd === "\n") {
+        }
+
+
+        if (cmd === "\n") {
             if (window.keyboard.linkedToTerm) {
                 window.term[window.currentTerm].writelr("");
             } else {
                 // Do nothing, return not accepted in inputs
             }
-        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "C") {
-            window.term[window.currentTerm].clipboard.copy();
-        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "V") {
-            window.term[window.currentTerm].clipboard.paste();
-        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "S") {
-            if (!document.getElementById("settingsEditor")) {
-                window.openSettings();
-            }
-        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "I") {
-            electron.remote.getCurrentWindow().webContents.toggleDevTools();
-        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "H") {
-            window.fsDisp.toggleHidedotfiles();
-        } else if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn && cmd === "\t") {
-            let i = window.currentTerm ? window.currentTerm : 4;
-            if (window.term[i] && i !== window.currentTerm) {
-                window.focusShellTab(i);
-            } else if (window.term[i-1]) {
-                window.focusShellTab(i-1);
-            } else if (window.term[i-2]) {
-                window.focusShellTab(i-2);
-            } else if (window.term[i-3]) {
-                window.focusShellTab(i-3);
-            } else if (window.term[i-4]) {
-                window.focusShellTab(i-4);
-            }
-        } else if (this.container.dataset.isCtrlOn && cmd === "\t") {
-            if (window.term[window.currentTerm+1]) {
-                window.focusShellTab(window.currentTerm+1);
-            } else if (window.term[window.currentTerm+2]) {
-                window.focusShellTab(window.currentTerm+2);
-            } else if (window.term[window.currentTerm+3]) {
-                window.focusShellTab(window.currentTerm+3);
-            } else if (window.term[window.currentTerm+4]) {
-                window.focusShellTab(window.currentTerm+4);
-            } else {
-                window.focusShellTab(0);
-            }
-        } else if (this.container.dataset.isCtrlOn && cmd === "1") {
-            window.focusShellTab(0);
-        } else if (this.container.dataset.isCtrlOn && cmd === "2") {
-            window.focusShellTab(1);
-        } else if (this.container.dataset.isCtrlOn && cmd === "3") {
-            window.focusShellTab(2);
-        } else if (this.container.dataset.isCtrlOn && cmd === "4") {
-            window.focusShellTab(3);
-        } else if (this.container.dataset.isCtrlOn && cmd === "5") {
-            window.focusShellTab(4);
+            return true;
+        }
+
+
+        if (window.keyboard.linkedToTerm) {
+            window.term[window.currentTerm].write(cmd);
         } else {
-            if (window.keyboard.linkedToTerm) {
-                window.term[window.currentTerm].write(cmd);
-            } else {
-                if (typeof document.activeElement.value !== "undefined") {
-                    switch(cmd) {
-                        case "":
-                            document.activeElement.value = document.activeElement.value.slice(0, -1);
-                            break;
-                        case "OD":
-                            document.activeElement.selectionStart--;
-                            document.activeElement.selectionEnd = document.activeElement.selectionStart;
-                            break;
-                        case "OC":
-                            document.activeElement.selectionEnd++;
-                            document.activeElement.selectionStart = document.activeElement.selectionEnd;
-                            break;
-                        default:
-                            if (this.ctrlseq.indexOf(cmd.slice(0, 1)) !== -1) {
-                                // Prevent trying to write other control sequences
-                            } else {
-                                document.activeElement.value = document.activeElement.value+cmd;
-                            }
-                    }
+            if (typeof document.activeElement.value !== "undefined") {
+                switch(cmd) {
+                    case "":
+                        document.activeElement.value = document.activeElement.value.slice(0, -1);
+                        break;
+                    case "OD":
+                        document.activeElement.selectionStart--;
+                        document.activeElement.selectionEnd = document.activeElement.selectionStart;
+                        break;
+                    case "OC":
+                        document.activeElement.selectionEnd++;
+                        document.activeElement.selectionStart = document.activeElement.selectionEnd;
+                        break;
+                    default:
+                        if (this.ctrlseq.indexOf(cmd.slice(0, 1)) !== -1) {
+                            // Prevent trying to write other control sequences
+                        } else {
+                            document.activeElement.value = document.activeElement.value+cmd;
+                        }
                 }
-                document.activeElement.focus();
             }
+            document.activeElement.focus();
         }
     }
     addCircum(char) {
