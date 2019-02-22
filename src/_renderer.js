@@ -180,14 +180,14 @@ window.audioManager = new AudioManager();
 electron.remote.app.focus();
 
 let i = 0;
-if (!window.settings.nointro || window.settings.nointroOverride) {
-    displayLine();
-} else {
+if (window.settings.nointro || window.settings.nointroOverride) {
     initGraphicalErrorHandling();
     initSystemInformationProxy();
     document.getElementById("boot_screen").remove();
     document.body.setAttribute("class", "");
     waitForFonts().then(initUI);
+} else {
+    displayLine();
 }
 
 // Startup boot log
