@@ -290,18 +290,22 @@ class Terminal {
                         if (!this._closed) {
                             console.log("Error while tracking TTY working directory: ", e);
                             this._disableCWDtracking = true;
-                            if (this.renderer) {
+                            try {
                                 this.renderer.send("terminal_channel-"+this.port, "Fallback cwd", opts.cwd || process.env.PWD);
+                            } catch(e) {
+                                // renderer closed
                             }
                         }
                     });
                 }
 
                 if (this.renderer && this._nextTickUpdateProcess) {
-                    if (this.renderer) {
-                        this.renderer.send("terminal_channel-"+this.port, "New process", this.tty._file);
-                    }
                     this._nextTickUpdateProcess = false;
+                    try {
+                        this.renderer.send("terminal_channel-"+this.port, "New process", this.tty._file);
+                    } catch(e) {
+                        // renderer closed
+                    }
                 }
             }, 1000);
 
