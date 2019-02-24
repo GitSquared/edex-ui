@@ -1,0 +1,49 @@
+div#mod_hardwareInspector {
+    border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    font-family: var(--font_main_light);
+    letter-spacing: 0.092vh;
+    padding: 0.645vh 0vh;
+    display: flex;
+}
+
+div#mod_hardwareInspector::before {
+    content: "";
+    border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    align-self: flex-start;
+    position: relative;
+    left: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
+}
+
+div#mod_hardwareInspector::after {
+    content: "";
+    border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    position: relative;
+    right: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
+}
+
+div#mod_hardwareInspector_inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+div#mod_hardwareInspector_inner > div {
+    text-align: left;
+}
+
+div#mod_hardwareInspector_inner > div > * {
+    font-size: 1.3vh;
+    line-height: 1.5vh;
+    margin: 0vh;
+}
+
+div#mod_hardwareInspector_inner > div > h2 {
+    opacity: 0.5;
+}
