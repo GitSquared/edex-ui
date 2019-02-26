@@ -110,7 +110,7 @@
     "electron-rebuild": "1.8.4",
     "node-abi": "2.7.1",
     "node-json-minify": "1.0.0",
-    "snyk": "^1.134.0",
+    "snyk": "^1.134.2",
     "uglify-es": "3.3.9"
   },
   "optionalDependencies": {
