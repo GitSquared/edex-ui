@@ -1,7 +1,7 @@
 {
   "name": "edex-ui",
   "productName": "eDEX-UI",
-  "version": "2.1.0-pre",
+  "version": "2.1.0",
   "description": "eDEX-UI sci-fi interface",
   "keywords": [
     "desktop",
