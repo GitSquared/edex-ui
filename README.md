@@ -108,7 +108,9 @@ Resulting binaries and assets will be in the `dist` folder.
 
 #### A note about versioning, branches, and commit messages
 Currently, development is done directly on the `master` branch. The version tag on this branch is the version tag of the next release with the `-pre` suffix (e.g `v2.6.1-pre`), to avoid confusion when both release and source versions are installed on one's system.
+
 I use [gitmoji](https://github.com/carlosuesta/gitmoji-cli) to make my commit messages, but I'm not enforcing this on this repo so commits from PRs and the like might not be formatted that way.
+
 [Dependabot](https://dependabot.com) runs weeekly to check dependencies updates. It is setup to auto-merge most of them as long as the builds checks passes.
 
 ## Credits
