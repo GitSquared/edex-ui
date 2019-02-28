@@ -230,8 +230,8 @@ class Keyboard {
             // See #440
             if (e.code === "ShiftLeft" || e.code === "ShiftRight") this.container.dataset.isShiftOn = true;
             if (e.code === "AltLeft" || e.code === "AltRight") this.container.dataset.isAltOn = true;
-            if (e.code === "CapsLock" && !this.container.dataset.isCapsLckOn) this.container.dataset.isCapsLckOn = true;
-            if (e.code === "CapsLock" && this.container.dataset.isCapsLckOn) this.container.dataset.isCapsLckOn = false;
+            if (e.code === "CapsLock" && !this.container.dataset.isCapsLckOn === "true") this.container.dataset.isCapsLckOn = true;
+            if (e.code === "CapsLock" && this.container.dataset.isCapsLckOn === "true") this.container.dataset.isCapsLckOn = false;
 
             let key = findKey(e);
             if (key === null) return;
@@ -282,7 +282,7 @@ class Keyboard {
         let cmd = key.dataset.cmd || "";
 
         // Keyboard shortcuts
-        if (this.container.dataset.isCtrlOn && this.container.dataset.isShiftOn) {
+        if (this.container.dataset.isCtrlOn === "true" && this.container.dataset.isShiftOn === "true") {
             switch(cmd) {
                 case "c":
                     window.term[window.currentTerm].clipboard.copy();
@@ -317,7 +317,7 @@ class Keyboard {
                     return true;
             }
         }
-        if (this.container.dataset.isCtrlOn) {
+        if (this.container.dataset.isCtrlOn === "true") {
             switch(cmd) {
                 case "1":
                     window.focusShellTab(0);
