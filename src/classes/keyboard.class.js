@@ -113,8 +113,8 @@ class Keyboard {
                                     this.pressKey(key);
                                 }, 70);
                             }, 400);
+                            this.pressKey(key);
                         }
-                        this.pressKey(key);
 
                         // Keep focus on the terminal
                         if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
