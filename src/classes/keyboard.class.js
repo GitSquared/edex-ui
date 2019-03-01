@@ -230,7 +230,7 @@ class Keyboard {
             // See #440
             if (e.code === "ShiftLeft" || e.code === "ShiftRight") this.container.dataset.isShiftOn = true;
             if (e.code === "AltLeft" || e.code === "AltRight") this.container.dataset.isAltOn = true;
-            if (e.code === "CapsLock" && !this.container.dataset.isCapsLckOn === "true") this.container.dataset.isCapsLckOn = true;
+            if (e.code === "CapsLock" && this.container.dataset.isCapsLckOn !== "true") this.container.dataset.isCapsLckOn = true;
             if (e.code === "CapsLock" && this.container.dataset.isCapsLckOn === "true") this.container.dataset.isCapsLckOn = false;
 
             let key = findKey(e);
