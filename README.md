@@ -96,15 +96,14 @@ on Windows:
 - clone the repository
 - `npm run install-windows`
 - `npm start`
+
 #### Building
 Note: Due to native modules, you can only compile binaries for the OS you are compiling from.
-Note²: It is recommended to start building from a fresh clone to prevent the code minifier script from parsing an entire `node_modules` folder.
 
-- make a fresh clone (recommended)
 - `npm install` (NOT `install-linux` or `install-windows`)
 - `npm run build-linux` or `build-windows` or `build-darwin`
 
-Resulting binaries and assets will be in the `dist` folder.
+The script will minify the source code, recompile native dependencies and create distributable assets in the `dist` folder.
 
 #### A note about versioning, branches, and commit messages
 Currently, development is done directly on the `master` branch. The version tag on this branch is the version tag of the next release with the `-pre` suffix (e.g `v2.6.1-pre`), to avoid confusion when both release and source versions are installed on one's system.
