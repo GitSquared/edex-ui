@@ -98,7 +98,7 @@ on Windows:
 - `npm start`
 
 #### Building
-Note: Due to native modules, you can only compile binaries for the OS you are compiling from.
+Note: Due to native modules, you can only build targets for the host OS you are using.
 
 - `npm install` (NOT `install-linux` or `install-windows`)
 - `npm run build-linux` or `build-windows` or `build-darwin`
