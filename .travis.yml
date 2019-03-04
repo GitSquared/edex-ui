@@ -20,7 +20,7 @@ before_script:
   - snyk test
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then fossa init && fossa; fi
   - mkdir prebuild-src
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then cp -R src/ prebuild-src; fi
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then cp -R src/. prebuild-src/; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then xcopy src\\* prebuild-src\\ /E /C /Q /Y; fi
   - node prebuild-minify.js
   - cd prebuild-src
