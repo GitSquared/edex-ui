@@ -10,7 +10,7 @@ matrix:
     - os: windows
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
-  - "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash; fi"
+  - "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash; fi"
 
 before_script:
   - npm install snyk
