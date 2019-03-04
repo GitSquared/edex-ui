@@ -14,16 +14,17 @@ before_install:
 
 before_script:
   - npm install snyk
-  - npm run snyk-protect
   - npm install
+  - snyk auth $SNYK_TOKEN
+  - snyk protect
+  - snyk test
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then fossa init && fossa; fi
 
 script:
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then npm run test             ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then npm run build-darwin         ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm run build-linux        ; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then npm run build-windows    ; fi
-
-after_script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then fossa init && fossa; fi
 
 deploy:
   skip_cleanup: true

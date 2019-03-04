@@ -26,8 +26,7 @@
     "postbuild-linux": "rm -R prebuild-src",
     "postbuild-darwin": "rm -R prebuild-src",
     "postbuild-windows": "rmdir /S /Q prebuild-src",
-    "snyk-protect": "snyk protect",
-    "test": "rsync -a --info=progress2 src prebuild-src --exclude node_modules && node prebuild-minify.js && rm -R prebuild-src",
+    "test": "rsync -a --info=progress2 src prebuild-src --exclude node_modules && node prebuild-minify.js && cd prebuild-src && npm install && snyk test && cd .. && rm -R prebuild-src",
     "init-file-icons": "rm -Rf file-icons && mkdir file-icons && git clone https://github.com/file-icons/atom.git file-icons/atom && git clone https://github.com/FortAwesome/Font-Awesome.git file-icons/font-awesome && git clone https://github.com/file-icons/source.git file-icons/source && git clone https://github.com/file-icons/DevOpicons.git file-icons/devopicons && git clone https://github.com/file-icons/MFixx.git file-icons/mfixx",
     "update-file-icons": "cd file-icons/source && git pull && cd ../devopicons && git pull && cd ../mfixx && git pull && cd ../atom && git pull && cd ../font-awesome && git pull && cd ../.. && node file-icons-generator.js"
   },
@@ -110,11 +109,9 @@
     "electron-rebuild": "1.8.4",
     "node-abi": "2.7.1",
     "node-json-minify": "1.0.0",
-    "snyk": "^1.134.2",
     "uglify-es": "3.3.9"
   },
   "optionalDependencies": {
     "cson-parser": "4.0.2"
-  },
-  "snyk": true
+  }
 }
