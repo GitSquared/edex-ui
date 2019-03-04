@@ -11,7 +11,7 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
   - "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash; fi"
-  - sudo npm install -g snyk
+  - npm install -g snyk
 
 before_script:
   - npm install
