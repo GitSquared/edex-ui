@@ -128,3 +128,9 @@ This project uses a bunch of open-source libraries, frameworks and tools, see [t
 I want to namely thank the developers behind [xterm.js](https://github.com/xtermjs/xterm.js), [systeminformation](https://github.com/sebhildebrandt/systeminformation) and [SmoothieCharts](https://github.com/joewalnes/smoothie).
 
 Huge thanks to [Rob "Arscan" Scanlon](https://github.com/arscan) for making the fantastic [ENCOM Globe](https://github.com/arscan/encom-globe), also inspired by the TRON: Legacy movie, and distributing it freely. His work really puts the icing on the cake.
+
+## Licensing
+
+Licensed under the [GPLv3.0](https://github.com/GitSquared/edex-ui/blob/master/LICENSE).
+
+[![FOSSA Status](https://app.fossa.io/api/projects/custom%2B5687%2Fgithub.com%2FGitSquared%2Fedex-ui.svg?type=large)](https://app.fossa.io/projects/custom%2B5687%2Fgithub.com%2FGitSquared%2Fedex-ui?ref=badge_large)
