@@ -355,7 +355,7 @@ class Terminal {
                 }
             });
             this.wss.on("connection", ws => {
-                this.onopened();
+                this.onopened(this.tty._pid);
                 ws.on("close", (code, reason) => {
                     this.ondisconnected(code, reason);
                 });

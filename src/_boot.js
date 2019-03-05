@@ -259,8 +259,8 @@ app.on('ready', () => {
                 extraTtys[term.port] = null;
                 term = null;
             };
-            term.onopened = () => {
-                signale.success(`TTY ${port} connected to frontend`);
+            term.onopened = pid => {
+                signale.success(`TTY ${port} connected to frontend (process PID ${pid})`);
             };
             term.onresized = () => {};
             term.ondisconnected = () => {
