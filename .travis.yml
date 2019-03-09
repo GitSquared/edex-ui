@@ -9,30 +9,30 @@ matrix:
   allow_failures:
     - os: windows
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi
-  - "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" ]]; then curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash; fi"
-  - npm install -g snyk
+  - 'if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi'
+  - "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" && \"$TRAVIS_PULL_REQUEST\" = \"false\" ]]; then curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash; fi"
+  - 'if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then npm install -g snyk; fi'
 
 before_script:
   - npm install
-  - snyk auth $SNYK_TOKEN
-  - snyk protect
-  - snyk test
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then fossa init && fossa; fi
+  - 'if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then snyk auth $SNYK_TOKEN; fi'
+  - 'if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then snyk protect; fi'
+  - 'if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then snyk test; fi'
+  - 'if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" = "false" ]]; then fossa init && fossa; fi'
   - mkdir prebuild-src
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then cp -R src/. prebuild-src/; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then xcopy src\\* prebuild-src\\ /E /C /Q /Y; fi
+  - 'if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then cp -R src/. prebuild-src/; fi'
+  - 'if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then xcopy src\\* prebuild-src\\ /E /C /Q /Y; fi'
   - node prebuild-minify.js
   - cd prebuild-src
   - npm install
-  - snyk protect
-  - snyk test
+  - 'if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then snyk protect; fi'
+  - 'if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then snyk test; fi'
   - cd ..
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./node_modules/.bin/electron-builder build -l -p never        ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./node_modules/.bin/electron-builder build -m -p never          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then node_modules\\.bin\\electron-builder build -w -p never      ; fi
+  - 'if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./node_modules/.bin/electron-builder build -l -p never        ; fi'
+  - 'if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./node_modules/.bin/electron-builder build -m -p never          ; fi'
+  - 'if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then node_modules\\.bin\\electron-builder build -w -p never      ; fi'
 
 deploy:
   skip_cleanup: true
