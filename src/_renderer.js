@@ -622,6 +622,14 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>disableFeedbackAudio</td>
+                        <td>Disable recurring feedback sound FX (input/output, mostly)</td>
+                        <td><select id="settingsEditor-disableFeedbackAudio">
+                            <option>${window.settings.disableFeedbackAudio}</option>
+                            <option>${!window.settings.disableFeedbackAudio}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>port</td>
                         <td>Local port to use for UI-shell connection</td>
                         <td><input type="number" id="settingsEditor-port" value="${window.settings.port}"></td>
@@ -722,6 +730,7 @@ window.writeSettingsFile = () => {
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
+        disableFeedbackAudio: (document.getElementById("settingsEditor-disableFeedbackAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
         port: Number(document.getElementById("settingsEditor-port").value),
         monitor: Number(document.getElementById("settingsEditor-monitor").value),
