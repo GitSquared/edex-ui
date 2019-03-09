@@ -446,6 +446,9 @@ class Keyboard {
                 case "BREVE":
                     this.container.dataset.isNextBreve = "true";
                     return true;
+                case "TILDE":
+                    this.container.dataset.isNextTilde = "true";
+                    return true;
                 case "MACRON":
                     this.container.dataset.isNextMacron = "true";
                     return true;
