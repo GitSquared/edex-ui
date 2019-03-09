@@ -30,6 +30,8 @@ async function recursiveMinify(dirPath) {
 
                 // Do not process grid.json because it's heavy and pre-minified, and themes and keyboard files to leave them in a human-readable state
                 if (filePath.endsWith(".json") && !filePath.endsWith("icons.json")) return;
+                // See #446
+                if (process.platform === "win32" && filePath.endsWith("file-icons-match.js")) return;
                 await stdout.write(filePath);
 
                 switch (filePath.split(".").pop()) {
