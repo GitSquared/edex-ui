@@ -135,6 +135,7 @@ class FilesystemDisplay {
         this.readFS = async dir => {
             if (this.failed === true || this._reading) return false;
             this._reading = true;
+            if (process.platform === "win32" && dir.endsWith(":")) dir = dir+"\\";
             let tcwd = dir;
             let content = await this._asyncFSwrapper.readdir(tcwd).catch(err => {
                 console.warn(err);
@@ -154,7 +155,11 @@ class FilesystemDisplay {
                 if (content.length === 0) resolve();
 
                 content.forEach(async (file, i) => {
-                    let fstat = await this._asyncFSwrapper.lstat(path.join(tcwd, file)).catch(reject);
+                    let fstat = await this._asyncFSwrapper.lstat(path.join(tcwd, file)).catch(e => {
+                        if (!e.message.includes("EPERM") && !e.message.includes("EBUSY")) {
+                            reject();
+                        }
+                    });
 
                     let e = {
                         name: window._escapeHtml(file),
@@ -163,22 +168,28 @@ class FilesystemDisplay {
                         hidden: false
                     };
 
-                    if (fstat.isDirectory()) {
-                        e.category = "dir";
-                        e.type = "dir";
-                    }
-                    if (e.category === "dir" && tcwd === settingsDir && file === "themes") e.type="edex-themesDir";
-                    if (e.category === "dir" && tcwd === settingsDir && file === "keyboards") e.type = "edex-kblayoutsDir";
+                    if (typeof fstat !== "undefined") {
+                        if (fstat.isDirectory()) {
+                            e.category = "dir";
+                            e.type = "dir";
+                        }
+                        if (e.category === "dir" && tcwd === settingsDir && file === "themes") e.type="edex-themesDir";
+                        if (e.category === "dir" && tcwd === settingsDir && file === "keyboards") e.type = "edex-kblayoutsDir";
 
-                    if (fstat.isSymbolicLink()) {
-                        e.category = "symlink";
-                        e.type = "symlink";
+                        if (fstat.isSymbolicLink()) {
+                            e.category = "symlink";
+                            e.type = "symlink";
+                        }
+
+                        if (fstat.isFile()) {
+                            e.category = "file";
+                            e.type = "file";
+                        }
+                    } else {
+                        e.type = "system";
+                        e.hidden = true;
                     }
 
-                    if (fstat.isFile()) {
-                        e.category = "file";
-                        e.type = "file";
-                    }
                     if (e.category === "file" && tcwd === themesDir && file.endsWith(".json")) e.type = "edex-theme";
                     if (e.category === "file" && tcwd === keyboardsDir && file.endsWith(".json")) e.type = "edex-kblayout";
                     if (e.category === "file" && tcwd === settingsDir && file === "settings.json") e.type = "edex-settings";
@@ -208,7 +219,7 @@ class FilesystemDisplay {
                 type: "showDisks"
             });
 
-            if (tcwd !== "/" && tcwd !== "\\") {
+            if (tcwd !== "/" && /^[A-Z]:\\$/i.test(tcwd) === false) {
                 this.cwd.splice(1, 0, {
                     name: "Go up",
                     type: "up"
@@ -298,6 +309,10 @@ class FilesystemDisplay {
                     }
                 }
 
+                if (e.type === "system") {
+                    cmd = "";
+                }
+
                 if (e.type === "showDisks") {
                     cmd = `window.fsDisp.readDevices()`;
                 }
@@ -339,6 +354,7 @@ class FilesystemDisplay {
                         icon = this.edexIcons.kblayout;
                         break;
                     case "edex-settings":
+                    case "system":
                         icon = this.edexIcons.settings;
                         break;
                     case "edex-themesDir":
