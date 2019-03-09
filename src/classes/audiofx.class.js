@@ -4,22 +4,22 @@ class AudioManager {
         const {Howl, Howler} = require("howler");
 
         if (window.settings.audio === true) {
-          if(window.settings.disableAnnoyingAudio === false) {
-            this.stdout = new Howl({
-                src: [path.join(__dirname, "assets", "audio", "stdout.wav")],
-                volume: 0.4
-            });
-            this.stdin = new Howl({
-                src: [path.join(__dirname, "assets", "audio", "stdin.wav")],
-                volume: 0.4
-            });
-            this.folder = new Howl({
-                src: [path.join(__dirname, "assets", "audio", "folder.wav")]
-            });
-            this.granted = new Howl({
-                src: [path.join(__dirname, "assets", "audio", "granted.wav")]
-            });
-          }
+            if(window.settings.disableFeedbackAudio === false) {
+                this.stdout = new Howl({
+                    src: [path.join(__dirname, "assets", "audio", "stdout.wav")],
+                    volume: 0.4
+                });
+                this.stdin = new Howl({
+                    src: [path.join(__dirname, "assets", "audio", "stdin.wav")],
+                    volume: 0.4
+                });
+                this.folder = new Howl({
+                    src: [path.join(__dirname, "assets", "audio", "folder.wav")]
+                });
+                this.granted = new Howl({
+                    src: [path.join(__dirname, "assets", "audio", "granted.wav")]
+                });
+            }
             this.keyboard = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "keyboard.wav")]
             });

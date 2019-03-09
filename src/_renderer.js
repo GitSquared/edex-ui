@@ -622,11 +622,11 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
-                        <td>disableAnnoyingAudio</td>
-                        <td>Disable annoying sound effects</td>
-                        <td><select id="settingsEditor-disableAnnoyingAudio">
-                            <option>${window.settings.disableAnnoyingAudio}</option>
-                            <option>${!window.settings.disableAnnoyingAudio}</option>
+                        <td>disableFeedbackAudio</td>
+                        <td>Disable recurring feedback sound FX (input/output, mostly)</td>
+                        <td><select id="settingsEditor-disableFeedbackAudio">
+                            <option>${window.settings.disableFeedbackAudio}</option>
+                            <option>${!window.settings.disableFeedbackAudio}</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -730,7 +730,7 @@ window.writeSettingsFile = () => {
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
-        disableAnnoyingAudio: (document.getElementById("settingsEditor-disableAnnoyingAudio").value === "true"),
+        disableFeedbackAudio: (document.getElementById("settingsEditor-disableFeedbackAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
         port: Number(document.getElementById("settingsEditor-port").value),
         monitor: Number(document.getElementById("settingsEditor-monitor").value),
