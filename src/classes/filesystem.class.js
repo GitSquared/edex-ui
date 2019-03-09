@@ -135,6 +135,14 @@ class FilesystemDisplay {
         this.readFS = async dir => {
             if (this.failed === true || this._reading) return false;
             this._reading = true;
+
+            document.getElementById("fs_disp_title_dir").innerText = this.dirpath;
+            this.filesContainer.setAttribute("class", "");
+            this.filesContainer.innerHTML = "";
+            if (this._noTracking) {
+                document.querySelector("section#filesystem > h3.title > p:first-of-type").innerText = "FILESYSTEM - TRACKING FAILED, RUNNING DETACHED FROM TTY";
+            }
+
             if (process.platform === "win32" && dir.endsWith(":")) dir = dir+"\\";
             let tcwd = dir;
             let content = await this._asyncFSwrapper.readdir(tcwd).catch(err => {
@@ -148,6 +156,8 @@ class FilesystemDisplay {
                     this.setFailedState();
                 }
             });
+
+            this.reCalculateDiskUsage(tcwd);
 
             this.cwd = [];
 
@@ -225,15 +235,6 @@ class FilesystemDisplay {
                     type: "up"
                 });
             }
-
-            let d = await window.si.fsSize().catch(() => {
-                this.setFailedState();
-            });
-            d.forEach(fsBlock => {
-                if (tcwd.startsWith(fsBlock.mount)) {
-                    this.fsBlock = fsBlock;
-                }
-            });
 
             this.dirpath = tcwd;
             this.render(this.cwd);
@@ -386,23 +387,6 @@ class FilesystemDisplay {
                 document.getElementById("fs_space_bar").setAttribute("onclick", "window.fsDisp.render(window.fsDisp.cwd)");
             } else {
                 document.getElementById("fs_space_bar").setAttribute("onclick", "");
-
-                let splitter = (process.platform === "win32") ? "\\" : "/";
-                let displayMount = (this.fsBlock.mount.length < 18) ? this.fsBlock.mount : "..."+splitter+this.fsBlock.mount.split(splitter).pop();
-
-                // See #226
-                if (!isNaN(this.fsBlock.use)) {
-                    this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> used <strong>${Math.round(this.fsBlock.use)}%</strong>`;
-                    this.space_bar.bar.value = Math.round(this.fsBlock.use);
-                } else if (!isNaN((this.fsBlock.size / this.fsBlock.used) * 100)) {
-                    let usage = Math.round((this.fsBlock.size / this.fsBlock.used) * 100);
-
-                    this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> used <strong>${usage}%</strong>`;
-                    this.space_bar.bar.value = usage;
-                } else {
-                    this.space_bar.text.innerHTML = "Could not calculate mountpoint usage.";
-                    this.space_bar.bar.value = 100;
-                }
             }
 
             // Render animation
@@ -417,6 +401,45 @@ class FilesystemDisplay {
                 }
 
                 id++;
+            }
+        };
+
+        this.reCalculateDiskUsage = async path => {
+            this.fsBlock = null;
+            this.space_bar.text.innerHTML = "Calculating available space...";
+            this.space_bar.bar.removeAttribute("value");
+
+            window.si.fsSize().catch(() => {
+                this.space_bar.text.innerHTML = "Could not calculate mountpoint usage.";
+                this.space_bar.bar.value = 100;
+            }).then(d => {
+                d.forEach(fsBlock => {
+                    if (path.startsWith(fsBlock.mount)) {
+                        this.fsBlock = fsBlock;
+                    }
+                });
+                this.renderDiskUsage(this.fsBlock);
+            });
+        };
+
+        this.renderDiskUsage = async fsBlock => {
+            if (document.getElementById("fs_space_bar").getAttribute("onclick") !== "" || fsBlock === null) return;
+
+            let splitter = (process.platform === "win32") ? "\\" : "/";
+            let displayMount = (fsBlock.mount.length < 18) ? fsBlock.mount : "..."+splitter+fsBlock.mount.split(splitter).pop();
+
+            // See #226
+            if (!isNaN(fsBlock.use)) {
+                this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> used <strong>${Math.round(fsBlock.use)}%</strong>`;
+                this.space_bar.bar.value = Math.round(fsBlock.use);
+            } else if (!isNaN((fsBlock.size / fsBlock.used) * 100)) {
+                let usage = Math.round((fsBlock.size / fsBlock.used) * 100);
+
+                this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> used <strong>${usage}%</strong>`;
+                this.space_bar.bar.value = usage;
+            } else {
+                this.space_bar.text.innerHTML = "Could not calculate mountpoint usage.";
+                this.space_bar.bar.value = 100;
             }
         };
 

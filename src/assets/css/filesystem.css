@@ -186,6 +186,16 @@ div#fs_space_bar > progress::after {
     background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.8);
 }
 
+div#fs_space_bar > progress:not([value])::after {
+    animation: space_bar_working 1.7s ease-in-out alternate infinite;
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 1);
+}
+
+@keyframes space_bar_working {
+    0% { right: 0%; }
+    100% { right: 70%; }
+}
+
 div#fs_space_bar > progress::-webkit-progress-bar {
     background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.4);
     height: .7vh;
