@@ -4,6 +4,7 @@ class AudioManager {
         const {Howl, Howler} = require("howler");
 
         if (window.settings.audio === true) {
+          if(window.settings.disableAnnoyingAudio === false) {
             this.stdout = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "stdout.wav")],
                 volume: 0.4
@@ -12,26 +13,27 @@ class AudioManager {
                 src: [path.join(__dirname, "assets", "audio", "stdin.wav")],
                 volume: 0.4
             });
+            this.folder = new Howl({
+                src: [path.join(__dirname, "assets", "audio", "folder.wav")]
+            });
+            this.granted = new Howl({
+                src: [path.join(__dirname, "assets", "audio", "granted.wav")]
+            });
+          }
+            this.keyboard = new Howl({
+                src: [path.join(__dirname, "assets", "audio", "keyboard.wav")]
+            });
             this.theme = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "theme.wav")]
             });
             this.expand = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "expand.wav")]
             });
-            this.keyboard = new Howl({
-                src: [path.join(__dirname, "assets", "audio", "keyboard.wav")]
-            });
             this.panels = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "panels.wav")]
             });
             this.scan = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "scan.wav")]
-            });
-            this.folder = new Howl({
-                src: [path.join(__dirname, "assets", "audio", "folder.wav")]
-            });
-            this.granted = new Howl({
-                src: [path.join(__dirname, "assets", "audio", "granted.wav")]
             });
             this.denied = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "denied.wav")]
