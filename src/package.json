@@ -35,7 +35,7 @@
     "systeminformation": "4.0.15",
     "tail": "2.0.2",
     "ws": "6.1.4",
-    "xterm": "3.11.0"
+    "xterm": "3.12.0"
   },
   "optionalDependencies": {
     "osx-temperature-sensor": "1.0.3"
