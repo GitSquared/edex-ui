@@ -53,16 +53,17 @@ Click on the little badges under the eDEX logo at the top of this page, or go to
 Search through the [Issues](https://github.com/GitSquared/edex-ui/issues) to see if yours has already been reported. If you're confident it hasn't been reported yet, feel free to open up a new one. If you see your issue and it's been closed, it probably means that the fix for it will ship in the next version, and you'll have to wait a bit.
 #### Can you disable the keyboard/the filesystem display?
 You can't disable them (yet) but you can hide them. See the `tron-notype` theme.
+#### Why is the file browser saying that "Tracking Failed"? (Windows only)
+On Linux and macOS, eDEX tracks where you're going in your terminal tab to display the content of the current folder on-screen.
+Sadly, this is technically impossible to do on Windows right now, so the file browser reverts back to a "detached" mode. You can still use it to browse files & directories and click on files to input their path in the terminal.
 #### eDEX seems to be pretty stable now. What are you planning to do next?
 I'm not done with this software just yet. I'm actively working on exciting new features that will make eDEX less of a gadget and more of a usable sysadmin tool. Notably, I'm researching remote monitoring, multi-monitor support, and a plug-in system which would externalize the module structure used internally.
-#### Are PRs welcome?
-They are!
 #### Is this repo actively maintained?
 ![Yes.](https://img.shields.io/github/last-commit/GitSquared/edex-ui.svg?style=popout)
 #### How did you make this?
 Glad you're interested! See #272.
 #### This is so cool.
-Thanks! If you feel like it, you can [donate a few bucks](https://paypal.me/squaredgaby) to encourage me to build more awesome stuff.
+Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gaby) to encourage me to build more awesome stuff.
 
 <img width="220" src="https://78.media.tumblr.com/35d4ef4447e0112f776b629bffd99188/tumblr_mk4gf8zvyC1s567uwo1_500.gif" />
 
