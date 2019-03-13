@@ -118,7 +118,7 @@ eDEX-UI's source code was primarily written by me, [Squared](https://github.com/
 
 [PixelyIon](https://github.com/PixelyIon) helped me get started with Windows compatibility and offered some precious advice when I started to work on this project seriously.
 
-[IceWolf](https://soundcloud.com/ice_w0lf) composed the sound effects on v2.1.x and above. He makes really cool stuff, check out his music!
+[IceWolf](https://soundcloud.com/iamicewolf) composed the sound effects on v2.1.x and above. He makes really cool stuff, check out his music!
 
 ## Thanks
 Of course, eDEX would never have existed if I hadn't stumbled upon the amazing work of [Seena](https://github.com/seenaburns) on [r/unixporn](https://reddit.com/r/unixporn).
