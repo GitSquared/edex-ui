@@ -4,9 +4,12 @@ function matchIcon(filename) {
     if (/^\.atom$/.test(filename)) { return "atom"; }
     if (/^\.bzr$/.test(filename)) { return "bazaar"; }
     if (/^bower[-_]components$/.test(filename)) { return "bower"; }
+    if (/^\.cabal$/i.test(filename)) { return "cabal"; }
     if (/\.chef$/.test(filename)) { return "chef"; }
     if (/^\.circleci$/.test(filename)) { return "circleci"; }
+    if (/^\.cpan$/i.test(filename)) { return "cpan"; }
     if (/^CVS$/.test(filename)) { return "cvs"; }
+    if (/\.deno$/i.test(filename)) { return "deno"; }
     if (/^\.docker$/.test(filename)) { return "docker"; }
     if (/^(Dropbox|\.dropbox\.cache)$/.test(filename)) { return "dropbox"; }
     if (/^\.emacs\.d$/.test(filename)) { return "emacs"; }
@@ -22,6 +25,7 @@ function matchIcon(filename) {
     if (/^\.svn$/i.test(filename)) { return "svn"; }
     if (/\.tmBundle$/i.test(filename)) { return "textmate"; }
     if (/\.vagrant$/i.test(filename)) { return "vagrant"; }
+    if (/\.vagrant\.d$/i.test(filename)) { return "vagrant"; }
     if (/^\.vscode$/i.test(filename)) { return "vs"; }
     if (/\.bsl$/i.test(filename)) { return "1c"; }
     if (/\.sdbl$/i.test(filename)) { return "1c"; }
@@ -439,6 +443,7 @@ function matchIcon(filename) {
     if (/\.dia$/i.test(filename)) { return "dia"; }
     if (/\.diff$/i.test(filename)) { return "diff"; }
     if (/udiff$/i.test(filename)) { return "diff"; }
+    if (/\.dig$/i.test(filename)) { return "digdag"; }
     if (/\.zone$/i.test(filename)) { return "earth"; }
     if (/\.arpa$/i.test(filename)) { return "earth"; }
     if (/^CNAME$/.test(filename)) { return "earth"; }
@@ -776,6 +781,7 @@ function matchIcon(filename) {
     if (/\.gv$/i.test(filename)) { return "graphviz"; }
     if (/\.dot$/i.test(filename)) { return "graphviz"; }
     if (/\.(plantuml|[ip]uml|pu)$/i.test(filename)) { return "graphviz"; }
+    if (/\.gvdesign$/i.test(filename)) { return "gvdesign"; }
     if (/\bgridsome\.config\.[jt]s$/i.test(filename)) { return "gridsome"; }
     if (/\.(groovy|grt|gtpl|gsp|gvy)$/i.test(filename)) { return "groovy"; }
     if (/gsp$/i.test(filename)) { return "groovy"; }
@@ -1510,6 +1516,7 @@ function matchIcon(filename) {
     if (/\.sas$/i.test(filename)) { return "sas"; }
     if (/\.scss$/i.test(filename)) { return "sass"; }
     if (/\.sass$/i.test(filename)) { return "sass"; }
+    if (/^\.sassrc(\.js)?$/i.test(filename)) { return "sass"; }
     if (/\.sbt$/i.test(filename)) { return "sbt"; }
     if (/\.(sc|scala)$/i.test(filename)) { return "scala"; }
     if (/\.kojo$/i.test(filename)) { return "scala"; }
