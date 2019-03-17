@@ -251,7 +251,9 @@ class Keyboard {
 
         this.keydownHandler = e => {
             // See #330
-            if (e.getModifierState("AltGraph")) return;
+            if (e.getModifierState("AltGraph") && e.code === "AltRight") {
+                document.querySelector('div.keyboard_key[data-cmd="ESCAPED|-- CTRL: LEFT"]').setAttribute("class", "keyboard_key");
+            }
 
             // See #440
             if (e.code === "ShiftLeft" || e.code === "ShiftRight") this.container.dataset.isShiftOn = true;
