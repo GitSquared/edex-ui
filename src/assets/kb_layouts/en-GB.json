@@ -332,7 +332,7 @@
         "name": "SHIFT",
         "cmd": "ESCAPED|-- SHIFT: RIGHT"
     }, {
-        "name": "⬆",
+        "name": "ESCAPED|-- ICON: ARROW_UP",
         "cmd": "~~~CTRLSEQ1~~~OA"
     }],
     "row_space": [{
@@ -352,13 +352,13 @@
         "name": "CTRL",
         "cmd": "ESCAPED|-- CTRL: RIGHT"
     }, {
-        "name": "⬅",
+        "name": "ESCAPED|-- ICON: ARROW_LEFT",
         "cmd": "~~~CTRLSEQ1~~~OD"
     }, {
-        "name": "⬇",
+        "name": "ESCAPED|-- ICON: ARROW_DOWN",
         "cmd": "~~~CTRLSEQ1~~~OB"
     }, {
-        "name": "➡",
+        "name": "ESCAPED|-- ICON: ARROW_RIGHT",
         "cmd": "~~~CTRLSEQ1~~~OC"
     }]
 }

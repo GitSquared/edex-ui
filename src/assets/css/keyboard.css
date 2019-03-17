@@ -104,6 +104,14 @@ div.keyboard_row:last-child > .keyboard_key:nth-last-child(-n+3) > * {
     font-size: 2.4vh;
 }
 
+div.keyboard_key > svg {
+    width: calc(100% - 1vh);
+    height: calc(100% - 1vh);
+    top: .5vh !important;
+    opacity: 1 !important;
+    fill: rgb(var(--color_r), var(--color_g), var(--color_b));
+}
+
 div.keyboard_key > *:not(h1) {
     margin: 0vh;
     font-size: 1.67vh;
