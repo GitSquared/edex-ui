@@ -453,6 +453,7 @@ function matchIcon(filename) {
     if (/\.eco$/i.test(filename)) { return "docpad"; }
     if (/\.djs$/i.test(filename)) { return "doge"; }
     if (/^dojo\.js$/i.test(filename)) { return "dojo"; }
+    if (/^dosbox(\b|_).*(\.conf|pref\w*)$/i.test(filename)) { return "dosbox"; }
     if (/\.crdownload$/i.test(filename)) { return "download"; }
     if (/^\.?Doxyfile$/i.test(filename)) { return "doxygen"; }
     if (/^dragula(\.min)?\.(js|css)$/i.test(filename)) { return "dragula"; }
