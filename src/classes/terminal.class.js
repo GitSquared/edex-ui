@@ -270,6 +270,35 @@ class Terminal {
                                 }
                             });
                             break;
+                        case "Windows_NT":
+                            const execFile  = require('child_process').execFile;
+                            const path = require('path');
+                            // I dont know how to resolve path so here is the bad way to do that
+                            // if in .asar then go to .asar.unpacked (.exe wont be executed from .asar file)
+                            let exePath = require.resolve('windows-tlist/tlist.exe');
+                            // const asarPath = path.normalize(path.join(exePath, '..', '..', '..'))
+                            // if (asarPath.endsWith(".asar")) {
+                            //     exePath = asarPath + ".unpacked/node_modules/windows-tlist/tlist.exe";
+                            // } else {
+                            //     exePath = require.resolve('windows-tlist/tlist.exe');
+                            // }
+                            execFile(exePath, [`"${pid}"`], (e, stdout, stderr)=> {
+                            // exec('"' + exePath + '" "' + pid + '"', (e, stdout, stderr)=> {
+                                if (e !== null) {
+                                    reject(e);
+                                } else {
+                                    const re = /^\s*CWD\s*:\s*(.*?)\s*$/gim;
+                                    const match = re.exec(stdout);
+                                    if (match && match[1]) {
+                                        console.log(match[1])
+                                        resolve(match[1]);
+                                    } else {
+                                        console.log(stdout)
+                                        reject("No match");
+                                    }
+                                }
+                            });
+                            break;
                         default:
                             reject("Unsupported OS");
                     }
