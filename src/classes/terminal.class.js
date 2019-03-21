@@ -272,7 +272,13 @@ class Terminal {
                             break;
                         case "Windows_NT":
                             // checking cwd using tlist from npm, sadly  for powershell it will always say the starting path
-                            let exePath = require.resolve('windows-tlist/tlist.exe');
+                            let exePath;
+                            // windows-tlist is optional dependency so we must check if it's included
+                            try {
+                                exePath = require.resolve('windows-tlist/tlist.exe');
+                            } catch (e) {
+                                reject("Tlist dependency is not found");
+                            }
                             // must be execFile not exec otherwise will not work in .asar
                             require('child_process').execFile(exePath, [`${pid}`], (e, stdout, stderr)=> {
                                 if (e !== null) {

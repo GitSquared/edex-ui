@@ -34,11 +34,11 @@
     "smoothie": "1.35.0",
     "systeminformation": "4.1.1",
     "tail": "2.0.2",
-    "windows-tlist": "^0.1.3",
     "ws": "6.2.0",
     "xterm": "3.12.0"
   },
   "optionalDependencies": {
-    "osx-temperature-sensor": "1.0.3"
+    "osx-temperature-sensor": "1.0.3",
+    "windows-tlist": "^0.1.3"
   }
 }
