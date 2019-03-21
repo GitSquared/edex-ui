@@ -445,7 +445,7 @@
             "cmd": "~~~CTRLSEQ1~~~OD"
         },
         {
-            "name": "ESCAPED|-- ICON: ARROW_BOTTOM",
+            "name": "ESCAPED|-- ICON: ARROW_DOWN",
             "cmd": "~~~CTRLSEQ1~~~OB"
         },
         {
