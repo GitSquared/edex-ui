@@ -119,10 +119,8 @@ class Netstat {
                     if (data === -1) {
                         ping = "--ms";
                         offline = true;
-                        window.audioManager.pingFailed.play();
                     } else {
                         ping = Math.round(data)+"ms";
-                        window.audioManager.ping.play();
                     }
 
                     this.offline = offline;
