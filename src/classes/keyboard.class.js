@@ -122,7 +122,7 @@ class Keyboard {
                     };
                 } else {
                     key.onmousedown = e => {
-                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
+                        if (/^ESCAPED\|-- (CTRL|SHIFT|ALT)$/.test(key.dataset.cmd)) {
                             let cmd = key.dataset.cmd.substr(11);
                             if (cmd.startsWith("CTRL")) {
                                 this.container.dataset.isCtrlOn = "true";
@@ -149,7 +149,7 @@ class Keyboard {
                         e.preventDefault();
                     };
                     key.onmouseup = e => {
-                        if (key.dataset.cmd.startsWith("ESCAPED|-- ")) {
+                        if (/^ESCAPED\|-- (CTRL|SHIFT|ALT)$/.test(key.dataset.cmd)) {
                             let cmd = key.dataset.cmd.substr(11);
                             if (cmd.startsWith("CTRL")) {
                                 this.container.dataset.isCtrlOn = "false";
