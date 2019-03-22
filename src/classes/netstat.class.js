@@ -40,7 +40,7 @@ class Netstat {
         }, 2000);
     }
     updateInfo() {
-        window.si.networkInterfaces().then(data => {
+        window.si.networkInterfaces().then(async data => {
             let offline = false;
 
             let net = data[0];
@@ -114,26 +114,44 @@ class Netstat {
                     });
                 }
 
-                window.si.inetLatency(window.settings.pingAddr || "1.1.1.1").then(data => {
-                    let ping;
-                    if (data === -1) {
-                        ping = "--ms";
-                        offline = true;
-                    } else {
-                        ping = Math.round(data)+"ms";
-                    }
+                let p = await this.ping(window.settings.pingAddr || "1.1.1.1", 80, net.ip4).catch(() => { offline = true });
 
-                    this.offline = offline;
-                    if (offline) {
-                        document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "OFFLINE";
-                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = "--.--.--.--";
-                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = "--ms";
-                    } else {
-                        document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "ONLINE";
-                        document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = ping;
-                    }
-                });
+                this.offline = offline;
+                if (offline) {
+                    document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "OFFLINE";
+                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = "--.--.--.--";
+                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = "--ms";
+                } else {
+                    document.querySelector("#mod_netstat_innercontainer > div:first-child > h2").innerHTML = "ONLINE";
+                    document.querySelector("#mod_netstat_innercontainer > div:nth-child(3) > h2").innerHTML = Math.round(p)+"ms";
+                }
             }
+        });
+    }
+    ping(target, port, local) {
+        return new Promise((resolve, reject) => {
+            let s = new require("net").Socket();
+            let start = process.hrtime();
+
+            s.connect({
+                port,
+                host: target,
+                localAddress: local,
+                family: 4
+            }, () => {
+                let time_arr = process.hrtime(start);
+                let time = (time_arr[0] * 1e9 + time_arr[1]) / 1e6;
+                resolve(time);
+                s.destroy();
+            });
+            s.on('error', e => {
+                s.destroy();
+                reject(e);
+            });
+            s.setTimeout(1900, function() {
+                s.destroy();
+                reject(new Error("Socket timeout"));
+            });
         });
     }
 }
