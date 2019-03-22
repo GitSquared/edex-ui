@@ -30,15 +30,19 @@ class HardwareInspector {
     }
     updateInfo() {
         window.si.system().then(d => {
-            document.getElementById("mod_hardwareInspector_manufacturer").innerText = this._trimDataString(d.manufacturer);
-            document.getElementById("mod_hardwareInspector_model").innerText = this._trimDataString(d.model);
-        });
-        window.si.chassis().then(d => {
-            document.getElementById("mod_hardwareInspector_chassis").innerText = d.type;
+            window.si.chassis().then(e => {
+                document.getElementById("mod_hardwareInspector_manufacturer").innerText = this._trimDataString(d.manufacturer);
+                document.getElementById("mod_hardwareInspector_model").innerText = this._trimDataString(d.model, d.manufacturer, e.type);
+                document.getElementById("mod_hardwareInspector_chassis").innerText = e.type;
+            });
         });
     }
-    _trimDataString(str) {
-        return str.split(" ").slice(0, 2).join(" ");
+    _trimDataString(str, ...filters) {
+        return str.trim().split(" ").filter(word => {
+            if (typeof filters !== "object") return true;
+
+            return !filters.includes(word);
+        }).slice(0, 2).join(" ");
     }
 }
 
