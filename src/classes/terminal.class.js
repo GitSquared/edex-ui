@@ -259,15 +259,30 @@ class Terminal {
                             });
                             break;
                         case "Darwin":
-                            // OK, the following is quite of a hacky solution
-                            // Each $XX after the $9 in the awk commands provide support for one more space
-                            // character in the path (otherwise it just gets cut)
-                            // There's probably a better way to do this, PRs welcome
-                            require("child_process").exec(`lsof -a -d cwd -p ${pid} | tail -1 | awk '{print $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20}'`, (e, cwd) => {
+                            require("child_process").exec(`lsof -a -d cwd -p ${pid} | tail -1 | awk '{ for (i=9; i<=NF; i++) printf $i }'`, (e, cwd) => {
                                 if (e !== null) {
                                     reject(e);
                                 } else {
                                     resolve(cwd.trim());
+                                }
+                            });
+                            break;
+                        default:
+                            reject("Unsupported OS");
+                    }
+                });
+            };
+            this._getTtyProcess = tty => {
+                return new Promise((resolve, reject) => {
+                    let pid = tty._pid;
+                    switch(require("os").type()) {
+                        case "Linux":
+                        case "Darwin":
+                            require("child_process").exec(`ps -o comm --no-headers --sort=+pid -g ${pid} | tail -1`, (e, proc) => {
+                                if (e !== null) {
+                                    reject(e);
+                                } else {
+                                    resolve(proc.trim());
                                 }
                             });
                             break;
@@ -302,11 +317,22 @@ class Terminal {
 
                 if (this.renderer && this._nextTickUpdateProcess) {
                     this._nextTickUpdateProcess = false;
-                    try {
-                        this.renderer.send("terminal_channel-"+this.port, "New process", this.tty._file);
-                    } catch(e) {
-                        // renderer closed
-                    }
+                    this._getTtyProcess(this.tty).then(process => {
+                        if (this.tty._process === process) return;
+                        this.tty._process = process;
+                        if (this.renderer) {
+                            this.renderer.send("terminal_channel-"+this.port, "New process", process);
+                        }
+                    }).catch(e => {
+                        if (!this._closed) {
+                            console.log("Error while retrieving TTY subprocess: ", e);
+                            try {
+                                this.renderer.send("terminal_channel-"+this.port, "New process", "");
+                            } catch(e) {
+                                // renderer closed
+                            }
+                        }
+                    });
                 }
             }, 1000);
 
