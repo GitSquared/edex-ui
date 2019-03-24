@@ -344,7 +344,11 @@ async function initUI() {
 
     let greeter = document.getElementById("main_shell_greeting");
 
-    greeter.innerHTML += `Welcome back, <em>${require('username').sync()}</em>`;
+    require("username")().then(user => {
+        greeter.innerHTML += `Welcome back, <em>${user}</em>`;
+    }).catch(() => {
+        greeter.innerHTML += "Welcome back";
+    });
     greeter.setAttribute("style", "opacity: 1;");
 
     document.getElementById("filesystem").setAttribute("style", "");
