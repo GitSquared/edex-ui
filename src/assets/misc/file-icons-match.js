@@ -1239,6 +1239,7 @@ function matchIcon(filename) {
     if (/^nginx(\.[-\w]+)*\.conf$/i.test(filename)) { return "nginx"; }
     if (/\.nginxconf$/i.test(filename)) { return "nginx"; }
     if (/\.nib$/i.test(filename)) { return "nib"; }
+    if (/^nightwatch\.conf(ig)?\.js$/i.test(filename)) { return "nightwatch"; }
     if (/\.nim(rod)?$/i.test(filename)) { return "nimrod"; }
     if (/\.ninja$/i.test(filename)) { return "shuriken"; }
     if (/\.ninja\.d$/i.test(filename)) { return "shuriken"; }
