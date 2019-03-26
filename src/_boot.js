@@ -249,7 +249,7 @@ app.on('ready', () => {
                 shell: settings.shell.split(" ")[0],
                 params: settings.shell.split(" ").splice(1),
                 cwd: tty.tty._cwd || settings.cwd,
-                env: settings.env,
+                env: customEnv || settings.env,
                 port: port
             });
             signale.success(`New terminal back-end initialized at ${port}`);
