@@ -29,7 +29,7 @@
     "nanoid": "2.0.1",
     "node-pty": "0.8.1",
     "pretty-bytes": "5.1.0",
-    "shell-env": "2.2.0",
+    "shell-env": "3.0.0",
     "signale": "1.4.0",
     "smoothie": "1.35.0",
     "systeminformation": "4.1.4",
