@@ -149,13 +149,11 @@ function createWindow(settings) {
         slashes: true
     }));
 
-    win.once("ready-to-show", () => {
-        signale.complete("Frontend window is up!");
-        win.show();
-        if (!settings.allowWindowed) {
-            win.setResizable(false);
-        }
-    });
+   	signale.complete("Frontend window created!");
+    win.show();
+    if (!settings.allowWindowed) {
+        win.setResizable(false);
+    }
 
     signale.watch("Waiting for frontend connection...");
 }
