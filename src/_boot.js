@@ -75,6 +75,7 @@ if (!fs.existsSync(settingsFile)) {
         pingAddr: "1.1.1.1",
         port: 3000,
         nointro: false,
+        nocursor: false,
         allowWindowed: false,
         excludeSelfFromToplist: false,
         hideDotfiles: false,
