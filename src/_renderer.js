@@ -47,6 +47,11 @@ if (electron.remote.process.argv.includes("--nointro")) {
 } else {
     window.settings.nointroOverride = false;
 }
+if (electron.remote.process.argv.includes("--nocursor")) {
+    window.settings.nocursorOverride = true;
+} else {
+    window.settings.nocursorOverride = false;
+}
 
 // Retrieve theme override (hotswitch)
 ipc.once("getThemeOverride", (e, theme) => {
@@ -101,6 +106,7 @@ window._loadTheme = theme => {
 
     body {
         font-family: var(--font_main), sans-serif;
+        cursor: ${(window.nocursorOverride || window.settings.nocursor) ? "none" : "default"} !important;
     }
 
     ${window._purifyCSS(theme.injectCSS || "")}
@@ -656,6 +662,14 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>nocursor</td>
+                        <td>Hide the mouse cursor${(window.settings.nocursorOverride) ? " (Currently overridden by CLI flag)" : ""}</td>
+                        <td><select id="settingsEditor-nocursor">
+                            <option>${window.settings.nocursor}</option>
+                            <option>${!window.settings.nocursor}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>iface</td>
                         <td>Override the interface used for network monitoring</td>
                         <td><select id="settingsEditor-iface">
@@ -735,6 +749,7 @@ window.writeSettingsFile = () => {
         port: Number(document.getElementById("settingsEditor-port").value),
         monitor: Number(document.getElementById("settingsEditor-monitor").value),
         nointro: (document.getElementById("settingsEditor-nointro").value === "true"),
+        nocursor: (document.getElementById("settingsEditor-nocursor").value === "true"),
         iface: document.getElementById("settingsEditor-iface").value,
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
         excludeSelfFromToplist: (document.getElementById("settingsEditor-excludeSelfFromToplist").value === "true"),
