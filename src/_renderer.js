@@ -106,8 +106,12 @@ window._loadTheme = theme => {
 
     body {
         font-family: var(--font_main), sans-serif;
-        cursor: ${(window.nocursorOverride || window.settings.nocursor) ? "none" : "default"} !important;
+        cursor: ${(window.settings.nocursorOverride || window.settings.nocursor) ? "none" : "default"} !important;
     }
+
+    * {
+   	   ${(window.settings.nocursorOverride || window.settings.nocursor) ? "cursor: none !important;" : ""}
+	}
 
     ${window._purifyCSS(theme.injectCSS || "")}
     </style>`;
