@@ -1575,6 +1575,7 @@ function matchIcon(filename) {
     if (/\.eskip$/i.test(filename)) { return "anchor"; }
     if (/\.sl$/i.test(filename)) { return "slash"; }
     if (/\.tpl$/i.test(filename)) { return "smarty"; }
+    if (/^snapcraft\.ya?ml$/i.test(filename)) { return "snapcraft"; }
     if (/^snap\.svg([-.]min)?\.js$/i.test(filename)) { return "snapsvg"; }
     if (/\.snort$/i.test(filename)) { return "snort"; }
     if (/\.snyk$/i.test(filename)) { return "snyk"; }
