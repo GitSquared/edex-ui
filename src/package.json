@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
-    "clipboardy": "1.2.3",
+    "clipboardy": "2.0.0",
     "color": "3.1.0",
     "howler": "2.1.1",
     "nanoid": "2.0.1",
