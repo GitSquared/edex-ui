@@ -35,7 +35,7 @@
     "systeminformation": "4.1.4",
     "tail": "2.0.2",
     "ws": "6.2.1",
-    "xterm": "3.12.0",
+    "xterm": "3.12.2",
     "username": "4.1.0"
   },
   "optionalDependencies": {
