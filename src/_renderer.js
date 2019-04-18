@@ -448,7 +448,7 @@ async function initUI() {
     };
     window.currentTerm = 0;
     window.term[0].onprocesschange = p => {
-        document.getElementById("shell_tab0").innerText = "MAIN - "+p;
+        document.getElementById("shell_tab0").innerHTML = `<p>MAIN - ${p}</p>`;
     };
     // Prevent losing hardware keyboard focus on the terminal when using touch keyboard
     window.onmouseup = e => {
