@@ -426,11 +426,11 @@ async function initUI() {
     let shellContainer = document.getElementById("main_shell");
     shellContainer.innerHTML += `
         <ul id="main_shell_tabs">
-            <li id="shell_tab0" onclick="window.focusShellTab(0);" class="active">MAIN SHELL</li>
-            <li id="shell_tab1" onclick="window.focusShellTab(1);">EMPTY</li>
-            <li id="shell_tab2" onclick="window.focusShellTab(2);">EMPTY</li>
-            <li id="shell_tab3" onclick="window.focusShellTab(3);">EMPTY</li>
-            <li id="shell_tab4" onclick="window.focusShellTab(4);">EMPTY</li>
+            <li id="shell_tab0" onclick="window.focusShellTab(0);" class="active"><p>MAIN SHELL</p></li>
+            <li id="shell_tab1" onclick="window.focusShellTab(1);"><p>EMPTY</p></li>
+            <li id="shell_tab2" onclick="window.focusShellTab(2);"><p>EMPTY</p></li>
+            <li id="shell_tab3" onclick="window.focusShellTab(3);"><p>EMPTY</p></li>
+            <li id="shell_tab4" onclick="window.focusShellTab(4);"><p>EMPTY</p></li>
         </ul>
         <div id="main_shell_innercontainer">
             <pre id="terminal0" class="active"></pre>
@@ -516,11 +516,11 @@ window.focusShellTab = number => {
     } else if (number > 0 && number <= 4 && window.term[number] !== null && typeof window.term[number] !== "object") {
         window.term[number] = null;
 
-        document.getElementById("shell_tab"+number).innerText = "LOADING...";
+        document.getElementById("shell_tab"+number).innerHTML = "<p>LOADING...</p>";
         ipc.send("ttyspawn", "true");
         ipc.once("ttyspawn-reply", (e, r) => {
             if (r.startsWith("ERROR")) {
-                document.getElementById("shell_tab"+number).innerText = "ERROR";
+                document.getElementById("shell_tab"+number).innerHTML = "<p>ERROR</p>";
             } else if (r.startsWith("SUCCESS")) {
                 let port = Number(r.substr(9));
 
@@ -532,17 +532,17 @@ window.focusShellTab = number => {
 
                 window.term[number].onclose = e => {
                     delete window.term[number].onprocesschange;
-                    document.getElementById("shell_tab"+number).innerText = "EMPTY";
+                    document.getElementById("shell_tab"+number).innerHTML = "<p>EMPTY</p>";
                     document.getElementById("terminal"+number).innerHTML = "";
                     delete window.term[number];
                     window.focusShellTab(0);
                 };
 
                 window.term[number].onprocesschange = p => {
-                    document.getElementById("shell_tab"+number).innerText = `#${number+1} - ${p}`;
+                    document.getElementById("shell_tab"+number).innerHTML = `<p>#${number+1} - ${p}</p>`;
                 };
 
-                document.getElementById("shell_tab"+number).innerText = "::"+port;
+                document.getElementById("shell_tab"+number).innerHTML = `<p>::${port}</p>`;
                 setTimeout(() => {
                     window.focusShellTab(number);
                 }, 500);

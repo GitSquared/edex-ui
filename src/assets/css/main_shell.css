@@ -69,14 +69,26 @@ ul#main_shell_tabs > li {
 
     background: var(--color_light_black);
 }
+ul#main_shell_tabs > li > p {
+    margin: 0;
+}
 ul#main_shell_tabs > li:not(:first-child) {
     border-left: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    transform: skewX(35deg);
+}
+ul#main_shell_tabs > li:not(:first-child) > p {
+    transform: skewX(-35deg);
 }
 
 ul#main_shell_tabs > li.active {
     background: rgb(var(--color_r), var(--color_g), var(--color_b));
     color: var(--color_light_black);
     font-weight: bold;
+    transform: scale(1.2);
+}
+ul#main_shell_tabs > li:not(:first-child).active {
+    transform: skewX(35deg) scale(1.2);
+    z-index: -1;
 }
 
 div#main_shell_innercontainer, div#main_shell_innercontainer pre {
