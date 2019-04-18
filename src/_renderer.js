@@ -860,6 +860,11 @@ function registerKeyboardShortcuts() {
     globalShortcut.register("CommandOrControl+Shift+H", () => {
         window.fsDisp.toggleHidedotfiles();
     });
+
+    // Hide on-screen keyboard visual feedback (#394)
+    globalShortcut.register("CommandOrControl+Shift+P", () => {
+        window.keyboard.togglePasswordMode();
+    });
 }
 registerKeyboardShortcuts();
 

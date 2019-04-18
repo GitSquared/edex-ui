@@ -7,6 +7,11 @@ section#keyboard {
     top: -0.925vh;
 }
 
+section#keyboard[data-password-mode="true"] {
+    opacity: 0.5 !important;
+    cursor: none !important;
+}
+
 div.keyboard_row {
     display: flex;
     flex-direction: row;
@@ -65,12 +70,12 @@ div.keyboard_key {
     cursor: pointer;
 }
 
-div.keyboard_key:active, div.keyboard_key.active {
+section#keyboard:not([data-password-mode="true"]) div.keyboard_key:active, section#keyboard:not([data-password-mode="true"]) div.keyboard_key.active {
     border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.0);
     background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 1);
 }
 
-div.keyboard_key.blink {
+section#keyboard:not([data-password-mode="true"]) div.keyboard_key.blink {
     animation-name: blink;
     animation-duration: .5s;
     animation-iteration-count: infinite;

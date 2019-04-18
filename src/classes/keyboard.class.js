@@ -21,6 +21,8 @@ class Keyboard {
         this.container.dataset.isCtrlOn = false;
         this.container.dataset.isFnOn = false;
 
+        this.container.dataset.passwordMode = false;
+
         // Parse keymap and create DOM
         Object.keys(layout).forEach(row => {
             this.container.innerHTML += `<div class="keyboard_row" id="`+row+`"></div>`;
@@ -329,6 +331,9 @@ class Keyboard {
                 case "h":
                     window.fsDisp.toggleHidedotfiles();
                     return true;
+                case "p":
+                    window.keyboard.togglePasswordMode();
+                    return true;
                 case "\t":
                     let i = window.currentTerm ? window.currentTerm : 4;
                     if (window.term[i] && i !== window.currentTerm) {
@@ -532,6 +537,12 @@ class Keyboard {
             }
             document.activeElement.focus();
         }
+    }
+    togglePasswordMode() {
+        let d = this.container.dataset.passwordMode;
+        (d === "true") ? d = "false" : d = "true";
+        this.container.dataset.passwordMode = d;
+        return d;
     }
     addCircum(char) {
         switch(char) {
