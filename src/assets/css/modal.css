@@ -84,26 +84,33 @@ div.modal_popup button {
 }
 
 div.modal_popup button:hover {
-    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5)
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
 }
 
-/* Settings editor modal */
-table#settingsEditor, table#settingsEditor th, table#settingsEditor td {
+div.modal_popup table, div.modal_popup table th, div.modal_popup table td {
     border: 0.15vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
     border-collapse: collapse;
 }
 
-table#settingsEditor th, table#settingsEditor td {
+div.modal_popup table th, div.modal_popup table td {
     padding: 0.3vh;
 }
 
-table#settingsEditor th {
+div.modal_popup table th {
     font-size: 2vh;
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.6);
+    color: var(--color_light_black);
 }
 
-table#settingsEditor td {
+div.modal_popup table td {
     font-size: 1.7vh;
 }
+
+div.modal_popup table:not(#settingsEditor) td:first-child {
+    text-align: center;
+}
+
+/* Settings editor modal */
 
 table#settingsEditor td input {
     width: 100%;
@@ -136,4 +143,12 @@ h6#settingsEditorStatus {
     margin-top: 1vh;
     font-size: 1.5vh;
     font-style: italic;
+}
+
+/* Keyboard shortcuts modal */
+
+table#shortcutsHelp td:first-child {
+    word-spacing: .3vh;
+    font-weight: bold;
+    padding: .8vh;
 }

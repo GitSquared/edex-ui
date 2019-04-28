@@ -772,6 +772,62 @@ window.writeSettingsFile = () => {
     document.getElementById("settingsEditorStatus").innerText = "New values written to settings.json file at "+new Date().toTimeString();
 };
 
+// Display available keyboard shortcuts
+window.openShortcutsHelp = () => {
+    new Modal({
+        type: "custom",
+        title: `Available Keyboard Shortcuts <i>(v${electron.remote.app.getVersion()})</i>`,
+        html: `<h5>Using either the on-screen or a physical keyboard, you can use the following shortcuts:</h5>
+                <table id="shortcutsHelp" style="width: 100%;">
+                    <tr>
+                        <th>Trigger</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + C</td>
+                        <td>Copy selected buffer from the terminal.</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + V</td>
+                        <td>Paste system clipboard to the terminal.</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Tab</td>
+                        <td>Switch to the next opened terminal tab (left to right order).</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + Tab</td>
+                        <td>Switch to the previous opened terminal tab (right to left order).</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + [1-5]</td>
+                        <td>Switch to a specific terminal tab, or create it if it hasn't been opened yet.</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + S</td>
+                        <td>Open the settings editor.</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + K</td>
+                        <td>List available keyboard shortcuts.</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + H</td>
+                        <td>Toggle hidden files and directories in the file browser.</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + P</td>
+                        <td>Toggle the on-screen keyboard's "Password Mode", that allows you to safely type<br> sensitive information even if your screen might be recorded (disables visual input feedback).</td>
+                    </tr>
+                    <tr>
+                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + I</td>
+                        <td>Open Chromium Dev Tools (for debugging purposes).</td>
+                    </tr>
+                </table>
+                <br>`
+    });
+};
+
 // Global keyboard shortcuts
 const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
@@ -786,6 +842,13 @@ function registerKeyboardShortcuts() {
     globalShortcut.register("CommandOrControl+Shift+S", () => {
         if (!document.getElementById("settingsEditor")) {
             window.openSettings();
+        }
+    });
+
+    // Open list of keyboard shortcuts
+    globalShortcut.register("CommandOrControl+Shift+K", () => {
+        if (!document.getElementById("shortcutsHelp")) {
+            window.openShortcutsHelp();
         }
     });
 

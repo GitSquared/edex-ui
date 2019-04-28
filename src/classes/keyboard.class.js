@@ -313,6 +313,7 @@ class Keyboard {
 
         // Keyboard shortcuts
         if (this.container.dataset.isCtrlOn === "true" && this.container.dataset.isShiftOn === "true") {
+            console.log(key.dataset);
             switch(cmd) {
                 case "c":
                     window.term[window.currentTerm].clipboard.copy();
@@ -323,6 +324,11 @@ class Keyboard {
                 case "s":
                     if (!document.getElementById("settingsEditor")) {
                         window.openSettings();
+                    }
+                    return true;
+                case "k":
+                    if (!document.getElementById("shortcutsHelp")) {
+                        window.openShortcutsHelp();
                     }
                     return true;
                 case "i":

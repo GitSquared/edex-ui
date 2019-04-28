@@ -30,7 +30,7 @@ class Modal {
             case "custom":
                 classes += " info custom";
                 zindex = 500;
-                buttons = options.buttons;
+                buttons = options.buttons || [];
                 buttons.push({label:"Close", action:"window.modals["+this.id+"].close();"});
                 break;
             default:
