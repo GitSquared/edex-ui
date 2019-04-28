@@ -220,11 +220,8 @@ class Terminal {
                     this.clipboard.didCopy = true;
                 },
                 paste: () => {
-                    this.Ipc.once("clipboard-reply", (e, txt) => {
-                        this.write(txt);
-                        this.clipboard.didCopy = false;
-                    });
-                    this.Ipc.send("clipboard", "read");
+                    this.write(electron.remote.clipboard.readText());
+                    this.clipboard.didCopy = false;
                 },
                 didCopy: false
             };

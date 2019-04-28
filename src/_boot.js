@@ -34,7 +34,6 @@ const ipc = electron.ipcMain;
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
-const clip = require("clipboardy");
 const Terminal = require("./classes/terminal.class.js").Terminal;
 
 ipc.on("log", (e, type, content) => {
@@ -200,19 +199,6 @@ app.on('ready', () => {
         signale.error("Lost connection to frontend");
         signale.watch("Waiting for frontend connection...");
     };
-
-    // Clipboard backend access
-    ipc.on("clipboard", (e, arg) => {
-        switch(arg) {
-            case "read":
-                clip.read().then(text => {
-                    e.sender.send("clipboard-reply", text);
-                });
-                break;
-            default:
-                throw new Error("Illegal clipboard access request");
-        }
-    });
 
     // Support for multithreaded systeminformation calls
     signale.pending("Starting multithreaded calls controller...");
