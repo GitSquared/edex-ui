@@ -105,6 +105,7 @@ class Modal {
         }
         window.modals[this.id] = this;
         document.body.appendChild(element);
+        this.focus();
 
         // Allow dragging the modal around
         let draggedModal = document.getElementById(`modal_${this.id}`);
