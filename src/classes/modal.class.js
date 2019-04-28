@@ -1,15 +1,18 @@
-window.modals = [];
+window.modals = {};
 
 class Modal {
     constructor(options, onclose) {
         if (!options || !options.type) throw "Missing parameters";
 
         this.type = options.type;
-        this.id = window.modals.length;
+        this.id = require("nanoid")();
+        while (typeof window.modals[this.id] !== "undefined") {
+            this.id = require("nanoid")();
+        }
         this.title = options.title || options.type || "Modal window";
         this.message = options.message || "Lorem ipsum dolor sit amet.";
         this.onclose = onclose;
-        let classes = "modal_popup";
+        this.classes = "modal_popup";
         let buttons = [];
         let zindex = 0;
 
@@ -18,29 +21,29 @@ class Modal {
 
         switch(this.type) {
             case "error":
-                classes += " error";
+                this.classes += " error";
                 zindex = 1500;
-                buttons.push({label:"PANIC", action:"window.modals["+this.id+"].close();"}, {label:"RELOAD", action:"window.location.reload(true);"});
+                buttons.push({label:"PANIC", action:"window.modals['"+this.id+"'].close();"}, {label:"RELOAD", action:"window.location.reload(true);"});
                 break;
             case "warning":
-                classes += " warning";
+                this.classes += " warning";
                 zindex = 1000;
-                buttons.push({label:"OK", action:"window.modals["+this.id+"].close();"});
+                buttons.push({label:"OK", action:"window.modals['"+this.id+"'].close();"});
                 break;
             case "custom":
-                classes += " info custom";
+                this.classes += " info custom";
                 zindex = 500;
                 buttons = options.buttons || [];
-                buttons.push({label:"Close", action:"window.modals["+this.id+"].close();"});
+                buttons.push({label:"Close", action:"window.modals['"+this.id+"'].close();"});
                 break;
             default:
-                classes += " info";
+                this.classes += " info";
                 zindex = 500;
-                buttons.push({label:"OK", action:"window.modals["+this.id+"].close();"});
+                buttons.push({label:"OK", action:"window.modals['"+this.id+"'].close();"});
                 break;
         }
 
-        let DOMstring = `<div id="modal_${this.id}" class="${classes}" style="z-index:${zindex+this.id};">
+        let DOMstring = `<div id="modal_${this.id}" class="${this.classes}" style="z-index:${zindex+Object.keys(window.modals).length};">
             <h1>${this.title}</h1>
             ${this.type === "custom" ? options.html : "<h5>"+this.message+"</h5>"}
             <div>`;
@@ -56,6 +59,7 @@ class Modal {
             window.audioManager.denied.play();
             setTimeout(() => {
                 modalElement.remove();
+                delete window.modals[this.id];
             }, 100);
 
             if (typeof this.onclose === "function") {
@@ -63,9 +67,30 @@ class Modal {
             }
         };
 
+        this.focus = () => {
+            let modalElement = document.getElementById("modal_"+this.id);
+            modalElement.setAttribute("class", this.classes+" focus");
+            Object.keys(window.modals).forEach(id => {
+                if (id === this.id) return;
+                window.modals[id].unfocus();
+            });
+        };
+
+        this.unfocus = () => {
+            let modalElement = document.getElementById("modal_"+this.id);
+            modalElement.setAttribute("class", this.classes);
+        };
+
         let tmp = document.createElement("div");
         tmp.innerHTML = DOMstring;
         let element = tmp.firstChild;
+
+        element.addEventListener("mousedown", () => {
+            this.focus();
+        });
+        element.addEventListener("touchstart", () => {
+            this.focus();
+        });
 
         switch(this.type) {
             case "error":

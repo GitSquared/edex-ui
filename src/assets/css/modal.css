@@ -17,6 +17,10 @@ div.modal_popup.error {border-width: 0.7vh; border-style: double;}
 div.modal_popup.warning {border-width: 0.5vh; border-style: solid;}
 div.modal_popup.info {border-width: 0.2vh; border-style: solid;}
 
+div.modal_popup.focus {
+    z-index: 2500 !important;
+}
+
 div.modal_popup.blink {
     border: none;
     animation-name: blink;
