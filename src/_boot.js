@@ -138,6 +138,7 @@ function createWindow(settings) {
             backgroundThrottling: false,
             webSecurity: true,
             nodeIntegration: true,
+            nodeIntegrationInSubFrames: false,
             allowRunningInsecureContent: false,
             experimentalFeatures: settings.experimentalFeatures || false
         }
