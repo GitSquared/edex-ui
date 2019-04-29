@@ -78,3 +78,50 @@ div.mod_ramwatcher_point.available {
 div.mod_ramwatcher_point.active {
     opacity: 1;
 }
+
+div#mod_ramwatcher_swapcontainer {
+    display: grid;
+    grid-template-columns: 15% 65% 20%;
+    padding-left: 0.5vh;
+    margin-bottom: 0.5vh;
+}
+
+div#mod_ramwatcher_swapcontainer h1 {
+    font-size: 1.3vh;
+    line-height: 1.5vh;
+    margin: 0vh;
+    align-self: center;
+}
+
+progress#mod_ramwatcher_swapbar {
+    width: 100%;
+    align-self: center;
+    -webkit-appearance: none;
+    border-right: .1vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.8);
+}
+
+progress#mod_ramwatcher_swapbar::-webkit-progress-bar {
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.4);
+    height: .3vh;
+    position: relative;
+    top: .35vh;
+}
+
+progress#mod_ramwatcher_swapbar::-webkit-progress-value {
+    background: rgb(var(--color_r), var(--color_g), var(--color_b));
+    height: .6vh;
+    transition: width .5s cubic-bezier(0.4, 0, 1, 1);
+    position: relative;
+    bottom: .15vh;
+}
+
+h3#mod_ramwatcher_swaptext {
+    font-style: normal;
+    font-size: 1.3vh;
+    line-height: 1.5vh;
+    opacity: 0.5;
+    margin: 0vh;
+    white-space: nowrap;
+    align-self: center;
+    text-align: right;
+}
