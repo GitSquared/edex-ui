@@ -102,17 +102,17 @@ progress#mod_ramwatcher_swapbar {
 
 progress#mod_ramwatcher_swapbar::-webkit-progress-bar {
     background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.4);
-    height: .3vh;
+    height: .25vh;
     position: relative;
-    top: .35vh;
+    top: .55vh;
 }
 
 progress#mod_ramwatcher_swapbar::-webkit-progress-value {
     background: rgb(var(--color_r), var(--color_g), var(--color_b));
-    height: .6vh;
+    height: .4vh;
     transition: width .5s cubic-bezier(0.4, 0, 1, 1);
     position: relative;
-    bottom: .15vh;
+    bottom: .4vh;
 }
 
 h3#mod_ramwatcher_swaptext {

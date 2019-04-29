@@ -17,7 +17,7 @@ class RAMwatcher {
                 <div id="mod_ramwatcher_swapcontainer">
                     <h1>SWAP</h1>
                     <progress id="mod_ramwatcher_swapbar" max="100" value="0"></progress>
-                    <h3 id="mod_ramwatcher_swaptext">(0.0 GiB)</h3>
+                    <h3 id="mod_ramwatcher_swaptext">0.0 GiB</h3>
                 </div>
         </div>`;
 
@@ -69,7 +69,7 @@ class RAMwatcher {
             document.getElementById("mod_ramwatcher_swapbar").value = usedSwap;
 
             let usedSwapGiB = Math.round((data.swapused/1073742000)*10)/10;
-            document.getElementById("mod_ramwatcher_swaptext").innerText = `(${usedSwapGiB} GiB)`;
+            document.getElementById("mod_ramwatcher_swaptext").innerText = `${usedSwapGiB} GiB`;
         });
     }
     shuffleArray(array) {
