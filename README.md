@@ -27,7 +27,7 @@ It might or might not be a joke taken too seriously.
 
 ## Features
 - Fully featured terminal emulator with tabs, colors, mouse events, and support for `curses` and `curses`-like applications.
-- Real-time system (CPU, RAM, processes) and network (GeoIP, active connections, transfer rates) monitoring.
+- Real-time system (CPU, RAM, swap, processes) and network (GeoIP, active connections, transfer rates) monitoring.
 - Full support for touch-enabled displays, including an on-screen keyboard.
 - Directory viewer that follows the CWD (current working directory) of the terminal.
 - Advanced customization using themes, on-screen keyboard layouts, CSS injections. See the [wiki](https://github.com/GitSquared/edex-ui/wiki) for more info.
@@ -36,15 +36,15 @@ It might or might not be a joke taken too seriously.
 ## Screenshots
 ![Default screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
 
-_([neofetch](https://github.com/dylanaraps/neofetch) on eDEX-UI 2.0 with the default "tron" theme & QWERTY keyboard)_
+_([neofetch](https://github.com/dylanaraps/neofetch) on eDEX-UI 2.2 with the default "tron" theme & QWERTY keyboard)_
 
-![Nord screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_nord.png)
+![Interstellar screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_white.png)
 
-_(Graphical settings editor on eDEX-UI 2.0 with the "nord" colorful theme)_
+_(Graphical settings editor and list of keyboard shortcuts on eDEX-UI 2.2 with the "interstellar" bright theme)_
 
 ![Disrupted screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_disrupted.png)
 
-_([fx](https://github.com/antonmedv/fx) showing the results of a [ipapi](https://github.com/GitSquared/ipapi) query on eDEX-UI 2.0 with the experimental "tron-disrupted" theme, and the user-contributed DVORAK keyboard)_
+_([cmatrix](https://github.com/abishekvashok/cmatrix) on eDEX-UI 2.2 with the experimental "tron-disrupted" theme, and the user-contributed DVORAK keyboard)_
 
 ## Q&A
 #### Where can I find download links?
