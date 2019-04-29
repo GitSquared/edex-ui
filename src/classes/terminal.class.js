@@ -333,8 +333,8 @@ class Terminal {
                 }
             }, 1000);
 
-            this.tty = this.Pty.spawn(opts.shell || "bash", opts.params || [], {
-                name: "xterm-color",
+            this.tty = this.Pty.spawn(opts.shell || "bash", opts.params || ["--login"], {
+                name: "xterm-256color",
                 cols: 80,
                 rows: 24,
                 cwd: opts.cwd || process.env.PWD,

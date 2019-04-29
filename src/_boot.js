@@ -159,20 +159,22 @@ function createWindow(settings) {
     signale.watch("Waiting for frontend connection...");
 }
 
-app.on('ready', () => {
+app.on('ready', async () => {
     signale.pending(`Loading settings file...`);
     let settings = require(settingsFile);
     signale.success(`Settings loaded!`);
 
     if (!require("fs").existsSync(settings.cwd)) throw new Error("Configured cwd path does not exist.");
 
-    let customEnv;
-
     // See #366
-    if (process.platform === "darwin") {
-        const shellEnv = require("shell-env");
-        customEnv = shellEnv.sync();
-    }
+    let cleanEnv = await require("shell-env")(settings.shell).catch(e => { throw e; });
+
+    Object.assign(cleanEnv, process.env, settings.env, {
+        TERM: "xterm-256color",
+        COLORTERM: "truecolor",
+        TERM_PROGRAM: "eDEX-UI",
+        TERM_PROGRAM_VERSION: app.getVersion()
+    });
 
     signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
@@ -180,7 +182,7 @@ app.on('ready', () => {
         shell: settings.shell.split(" ")[0],
         params: settings.shell.split(" ").splice(1),
         cwd: settings.cwd,
-        env: customEnv || settings.env,
+        env: cleanEnv,
         port: settings.port || 3000
     });
     signale.success(`Terminal back-end initialized!`);
@@ -235,7 +237,7 @@ app.on('ready', () => {
                 shell: settings.shell.split(" ")[0],
                 params: settings.shell.split(" ").splice(1),
                 cwd: tty.tty._cwd || settings.cwd,
-                env: customEnv || settings.env,
+                env: cleanEnv,
                 port: port
             });
             signale.success(`New terminal back-end initialized at ${port}`);
