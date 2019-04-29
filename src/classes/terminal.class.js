@@ -27,10 +27,74 @@ class Terminal {
                 this.Ipc.send("terminal_channel-"+this.port, "Resize", cols, rows);
             };
 
+            // Support for custom color filters on the terminal - see #483
+            let doCustomFilter = false;
+
+            // Typechecking condition to ensure that provided filters are valid and prevent code injection
+            if (typeof window.theme.terminal.colorFilter === "object" && window.theme.terminal.colorFilter.length > 0) {
+                doCustomFilter = window.theme.terminal.colorFilter.every((step, i, a) => {
+                    let func = step.slice(0, step.indexOf("("));
+
+                    switch(func) {
+                        case "negate":
+                        case "grayscale":
+                            a[i] = {
+                                func,
+                                arg: []
+                            };
+                            return true;
+                        case "lighten":
+                        case "darken":
+                        case "saturate":
+                        case "desaturate":
+                        case "whiten":
+                        case "blacken":
+                        case "fade":
+                        case "opaquer":
+                        case "rotate":
+                        case "mix":
+                            break;
+                        default:
+                            return false;
+                    }
+
+                    let arg = step.slice(step.indexOf("(")+1, step.indexOf(")"));
+
+                    if (typeof Number(arg) === "number") {
+                        a[i] = {
+                            func,
+                            arg: [Number(arg)]
+                        };
+                        return true;
+                    }
+
+                    return false;
+                });
+            }
+
             let color = require("color");
-            let colorify = (base, target) => {
-                return color(base).grayscale().mix(color(target), 0.3).hex();
-            };
+            let colorify;
+            if (doCustomFilter) {
+                colorify = (base, target) => {
+                    let newColor = color(base);
+                    target = color(target);
+
+                    for (let i = 0; i < window.theme.terminal.colorFilter.length; i++) {
+                        if (window.theme.terminal.colorFilter[i].func === "mix") {
+                            newColor = newColor[window.theme.terminal.colorFilter[i].func](target, ...window.theme.terminal.colorFilter[i].arg);
+                        } else {
+                            newColor = newColor[window.theme.terminal.colorFilter[i].func](...window.theme.terminal.colorFilter[i].arg);
+                        }
+                    }
+
+                    return newColor.hex();
+                };
+            } else {
+                colorify = (base, target) => {
+                    return color(base).grayscale().mix(color(target), 0.3).hex();
+                };
+            }
+
             let themeColor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;
 
             this.term = new this.xTerm({
