@@ -167,7 +167,7 @@ app.on('ready', async () => {
     if (!require("fs").existsSync(settings.cwd)) throw new Error("Configured cwd path does not exist.");
 
     // See #366
-    let cleanEnv = await require("shell-env")(settings.shell).catch(e => { throw e; });
+    let cleanEnv = await require("shell-env")(settings.shell.split(" ")[0]).catch(e => { throw e; });
 
     Object.assign(cleanEnv, process.env, settings.env, {
         TERM: "xterm-256color",
