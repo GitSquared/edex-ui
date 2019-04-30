@@ -320,7 +320,7 @@ class Terminal {
                             });
                             break;
                         case "Darwin":
-                            require("child_process").exec(`lsof -a -d cwd -p ${pid} | tail -1 | awk '{ for (i=9; i<=NF; i++) printf $i }'`, (e, cwd) => {
+                            require("child_process").exec(`lsof -a -d cwd -p ${pid} | tail -1 | awk '{ for (i=9; i<=NF; i++) printf "%s ", $i }'`, (e, cwd) => {
                                 if (e !== null) {
                                     reject(e);
                                 } else {
