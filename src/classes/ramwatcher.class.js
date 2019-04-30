@@ -66,7 +66,7 @@ class RAMwatcher {
 
             // Update swap indicator
             let usedSwap = Math.round((100*data.swapused)/data.swaptotal);
-            document.getElementById("mod_ramwatcher_swapbar").value = usedSwap;
+            document.getElementById("mod_ramwatcher_swapbar").value = usedSwap || 0;
 
             let usedSwapGiB = Math.round((data.swapused/1073742000)*10)/10;
             document.getElementById("mod_ramwatcher_swaptext").innerText = `${usedSwapGiB} GiB`;
