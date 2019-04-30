@@ -100,7 +100,7 @@ class Netstat {
                                 delete this.ipinfo.api_version;
                                 delete this.ipinfo.time;
                                 let ip = this.ipinfo.ip;
-                                document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = ip;
+                                document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = window._escapeHtml(ip);
                             } catch(e) {
                                 console.warn(e);
                                 console.info(rawData.toString());
