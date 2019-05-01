@@ -307,6 +307,13 @@ class Keyboard {
                 window.audioManager.granted.play();
             }
         };
+
+        window.addEventListener("blur", () => {
+        		document.querySelectorAll("div.keyboard_key.active").forEach(key => {
+        				key.setAttribute("class", key.getAttribute("class").replace("active", ""));
+        				key.onmouseup({preventDefault: () => {return true}});
+        		});
+        });
     }
     pressKey(key) {
         let cmd = key.dataset.cmd || "";
