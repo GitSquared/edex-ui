@@ -76,7 +76,7 @@ if (!fs.existsSync(settingsFile)) {
         nointro: false,
         nocursor: false,
         allowWindowed: false,
-        excludeSelfFromToplist: false,
+        excludeThreadsFromToplist: true,
         hideDotfiles: false,
         experimentalGlobeFeatures: false,
         experimentalFeatures: false

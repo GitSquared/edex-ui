@@ -690,11 +690,11 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
-                        <td>excludeSelfFromToplist</td>
-                        <td>Exclude eDEX from top processes monitoring</td>
-                        <td><select id="settingsEditor-excludeSelfFromToplist">
-                            <option>${window.settings.excludeSelfFromToplist}</option>
-                            <option>${!window.settings.excludeSelfFromToplist}</option>
+                        <td>excludeThreadsFromToplist</td>
+                        <td>Display threads in the top processes list</td>
+                        <td><select id="settingsEditor-excludeThreadsFromToplist">
+                            <option>${window.settings.excludeThreadsFromToplist}</option>
+                            <option>${!window.settings.excludeThreadsFromToplist}</option>
                         </select></td>
                     </tr>
                     <tr>
@@ -756,7 +756,7 @@ window.writeSettingsFile = () => {
         nocursor: (document.getElementById("settingsEditor-nocursor").value === "true"),
         iface: document.getElementById("settingsEditor-iface").value,
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
-        excludeSelfFromToplist: (document.getElementById("settingsEditor-excludeSelfFromToplist").value === "true"),
+        excludeThreadsFromToplist: (document.getElementById("settingsEditor-excludeThreadsFromToplist").value === "true"),
         hideDotfiles: (document.getElementById("settingsEditor-hideDotfiles").value === "true"),
         experimentalGlobeFeatures: (document.getElementById("settingsEditor-experimentalGlobeFeatures").value === "true"),
         experimentalFeatures: (document.getElementById("settingsEditor-experimentalFeatures").value === "true")
