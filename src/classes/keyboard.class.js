@@ -279,7 +279,7 @@ class Keyboard {
 
         document.onkeyup = e => {
             // See #330
-            if (e.key !== "AltGraph" && e.getModifierState("AltGraph")) return;
+            if (e.key === "Control" && e.getModifierState("AltGraph")) return;
 
             // See #440
             if (e.code === "ShiftLeft" || e.code === "ShiftRight") this.container.dataset.isShiftOn = false;
