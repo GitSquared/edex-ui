@@ -17,6 +17,7 @@ class Cpuinfo {
         window.si.cpu().then(data => {
             let divide = Math.floor(data.cores/2);
             this.divide = divide;
+            this.coreCount = data.cores;
 
             let cpuName = data.manufacturer+data.brand;
             cpuName = cpuName.substr(0, 30);
