@@ -111,7 +111,7 @@ Currently, development is done directly on the `master` branch. The version tag 
 
 I use [gitmoji](https://github.com/carloscuesta/gitmoji-cli) to make my commit messages, but I'm not enforcing this on this repo so commits from PRs and the like might not be formatted that way.
 
-[Dependabot](https://dependabot.com) runs weeekly to check dependencies updates. It is setup to auto-merge most of them as long as the builds checks passes.
+[Dependabot](https://dependabot.com) runs weekly to check dependencies updates. It is setup to auto-merge most of them as long as the builds checks passes.
 
 ## Credits
 eDEX-UI's source code was primarily written by me, [Squared](https://github.com/GitSquared). If you want to get in touch with me or find other projects I'm involved in, check out [my website](https://squared.codebrew.fr).
