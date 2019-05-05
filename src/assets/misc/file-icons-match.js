@@ -537,6 +537,7 @@ function matchIcon(filename) {
     if (/\.frn$/i.test(filename)) { return "dna"; }
     if (/\.sam$/i.test(filename)) { return "dna"; }
     if (/\.fbx$/i.test(filename)) { return "fbx"; }
+    if (/\.fxl$/i.test(filename)) { return "fexl"; }
     if (/^Icon\r$/.test(filename)) { return "finder"; }
     if (/\.rsrc$/i.test(filename)) { return "finder"; }
     if (/^\._./.test(filename)) { return "finder"; }
@@ -979,6 +980,8 @@ function matchIcon(filename) {
     if (/\.json5$/i.test(filename)) { return "json5"; }
     if (/\.jsonld$/i.test(filename)) { return "jsonld"; }
     if (/\.jq$/i.test(filename)) { return "sql"; }
+    if (/\.jsonnet$/i.test(filename)) { return "jsonnet"; }
+    if (/\.libsonnet$/i.test(filename)) { return "jsonnet"; }
     if (/\.jsx$/i.test(filename)) { return "jsx"; }
     if (/\.jl$/i.test(filename)) { return "julia"; }
     if (/\.jos$/i.test(filename)) { return "junos"; }
@@ -1481,7 +1484,12 @@ function matchIcon(filename) {
     if (/\.raml$/i.test(filename)) { return "raml"; }
     if (/^raphael(\.min|\.no-deps)*\.js$/i.test(filename)) { return "raphael"; }
     if (/\.rsc$/i.test(filename)) { return "rascal"; }
+    if (/^\.rehyperc(\.(js|json|ya?ml))?$/i.test(filename)) { return "remark"; }
     if (/^\.remarkrc(\.(js|json|ya?ml))?$/i.test(filename)) { return "remark"; }
+    if (/^\.retextrc(\.(js|json|ya?ml))?$/i.test(filename)) { return "remark"; }
+    if (/\.rehypeignore$/i.test(filename)) { return "remark"; }
+    if (/\.remarkignore$/i.test(filename)) { return "remark"; }
+    if (/\.retextignore$/i.test(filename)) { return "remark"; }
     if (/\.rdoc$/i.test(filename)) { return "rdoc"; }
     if (/^react(-[^.]*)?\.js$/i.test(filename)) { return "react"; }
     if (/\.react\.js$/i.test(filename)) { return "react"; }
@@ -1557,6 +1565,8 @@ function matchIcon(filename) {
     if (/\.sci$/i.test(filename)) { return "scilab"; }
     if (/\.sce$/i.test(filename)) { return "scilab"; }
     if (/\.tst$/i.test(filename)) { return "scilab"; }
+    if (/\.sb2$/i.test(filename)) { return "scratch"; }
+    if (/\.sb3$/i.test(filename)) { return "scratch"; }
     if (/\.scrutinizer\.yml$/i.test(filename)) { return "scrutinizer"; }
     if (/\.secret$/i.test(filename)) { return "secret"; }
     if (/\.self$/i.test(filename)) { return "self"; }
