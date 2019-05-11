@@ -337,7 +337,7 @@ async function initUI() {
 
     document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
     document.body.innerHTML += `
-    <section id="filesystem" style="width: 0px;" class="${window.settings.hideDotfiles ? "hideDotfiles" : ""}">
+    <section id="filesystem" style="width: 0px;" class="${window.settings.hideDotfiles ? "hideDotfiles" : ""} ${window.settings.fsListView ? "list-view" : ""}">
     </section>
     <section id="keyboard" style="opacity:0;">
     </section>`;
@@ -706,6 +706,14 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>fsListView</td>
+                        <td>Show files in a more detailed list instead of an icon grid</td>
+                        <td><select id="settingsEditor-fsListView">
+                            <option>${window.settings.fsListView}</option>
+                            <option>${!window.settings.fsListView}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>experimentalGlobeFeatures</td>
                         <td>Toggle experimental features for the network globe</td>
                         <td><select id="settingsEditor-experimentalGlobeFeatures">
@@ -758,6 +766,7 @@ window.writeSettingsFile = () => {
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
         excludeThreadsFromToplist: (document.getElementById("settingsEditor-excludeThreadsFromToplist").value === "true"),
         hideDotfiles: (document.getElementById("settingsEditor-hideDotfiles").value === "true"),
+        fsListView: (document.getElementById("settingsEditor-fsListView").value === "true"),
         experimentalGlobeFeatures: (document.getElementById("settingsEditor-experimentalGlobeFeatures").value === "true"),
         experimentalFeatures: (document.getElementById("settingsEditor-experimentalFeatures").value === "true")
     };
@@ -922,6 +931,11 @@ function registerKeyboardShortcuts() {
     // Toggle hiding dotfiles in fsDisp
     globalShortcut.register("Control+Shift+H", () => {
         window.fsDisp.toggleHidedotfiles();
+    });
+
+    // Toggle list view in fsDisp
+    globalShortcut.register("Control+Shift+L", () => {
+        window.fsDisp.toggleListview();
     });
 
     // Hide on-screen keyboard visual feedback (#394)

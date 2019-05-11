@@ -78,6 +78,7 @@ if (!fs.existsSync(settingsFile)) {
         allowWindowed: false,
         excludeThreadsFromToplist: true,
         hideDotfiles: false,
+        fsListView: false,
         experimentalGlobeFeatures: false,
         experimentalFeatures: false
     }, 4));
