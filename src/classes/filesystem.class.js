@@ -97,6 +97,9 @@ class FilesystemDisplay {
             let num = window.currentTerm;
 
             window.term[num].oncwdchange = cwd => {
+                // See #501
+                if (this._noTracking) return false;
+
                 if (cwd && window.currentTerm === num) {
                     if (this._fsWatcher) {
                         this._fsWatcher.close();
