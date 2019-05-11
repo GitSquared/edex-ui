@@ -792,35 +792,35 @@ window.openShortcutsHelp = () => {
                         <td>Paste system clipboard to the terminal.</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Tab</td>
+                        <td>Ctrl + Tab</td>
                         <td>Switch to the next opened terminal tab (left to right order).</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + Tab</td>
+                        <td>Ctrl + Shift + Tab</td>
                         <td>Switch to the previous opened terminal tab (right to left order).</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + [1-5]</td>
+                        <td>Ctrl + [1-5]</td>
                         <td>Switch to a specific terminal tab, or create it if it hasn't been opened yet.</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + S</td>
+                        <td>Ctrl + Shift + S</td>
                         <td>Open the settings editor.</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + K</td>
+                        <td>Ctrl + Shift + K</td>
                         <td>List available keyboard shortcuts.</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + H</td>
+                        <td>Ctrl + Shift + H</td>
                         <td>Toggle hidden files and directories in the file browser.</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + P</td>
+                        <td>Ctrl + Shift + P</td>
                         <td>Toggle the on-screen keyboard's "Password Mode", that allows you to safely type<br> sensitive information even if your screen might be recorded (disables visual input feedback).</td>
                     </tr>
                     <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl"} + Shift + I</td>
+                        <td>Ctrl + Shift + I</td>
                         <td>Open Chromium Dev Tools (for debugging purposes).</td>
                     </tr>
                 </table>
@@ -834,19 +834,19 @@ globalShortcut.unregisterAll();
 
 function registerKeyboardShortcuts() {
     // Open inspector
-    globalShortcut.register("CommandOrControl+Shift+I", () => {
+    globalShortcut.register("Control+Shift+I", () => {
         electron.remote.getCurrentWindow().webContents.toggleDevTools();
     });
 
     // Open settings
-    globalShortcut.register("CommandOrControl+Shift+S", () => {
+    globalShortcut.register("Control+Shift+S", () => {
         if (!document.getElementById("settingsEditor")) {
             window.openSettings();
         }
     });
 
     // Open list of keyboard shortcuts
-    globalShortcut.register("CommandOrControl+Shift+K", () => {
+    globalShortcut.register("Control+Shift+K", () => {
         if (!document.getElementById("shortcutsHelp")) {
             window.openShortcutsHelp();
         }
@@ -874,7 +874,7 @@ function registerKeyboardShortcuts() {
 
     // Switch tabs
     // Next
-    globalShortcut.register("CommandOrControl+Tab", () => {
+    globalShortcut.register("Control+Tab", () => {
         if (window.term[window.currentTerm+1]) {
             window.focusShellTab(window.currentTerm+1);
         } else if (window.term[window.currentTerm+2]) {
@@ -888,7 +888,7 @@ function registerKeyboardShortcuts() {
         }
     });
     // Previous
-    globalShortcut.register("CommandOrControl+Shift+Tab", () => {
+    globalShortcut.register("Control+Shift+Tab", () => {
         let i = window.currentTerm ? window.currentTerm : 4;
         if (window.term[i] && i !== window.currentTerm) {
             window.focusShellTab(i);
@@ -903,29 +903,29 @@ function registerKeyboardShortcuts() {
         }
     });
     // By tab number
-    globalShortcut.register("CommandOrControl+1", () => {
+    globalShortcut.register("Control+1", () => {
         window.focusShellTab(0);
     });
-    globalShortcut.register("CommandOrControl+2", () => {
+    globalShortcut.register("Control+2", () => {
         window.focusShellTab(1);
     });
-    globalShortcut.register("CommandOrControl+3", () => {
+    globalShortcut.register("Control+3", () => {
         window.focusShellTab(2);
     });
-    globalShortcut.register("CommandOrControl+4", () => {
+    globalShortcut.register("Control+4", () => {
         window.focusShellTab(3);
     });
-    globalShortcut.register("CommandOrControl+5", () => {
+    globalShortcut.register("Control+5", () => {
         window.focusShellTab(4);
     });
 
     // Toggle hiding dotfiles in fsDisp
-    globalShortcut.register("CommandOrControl+Shift+H", () => {
+    globalShortcut.register("Control+Shift+H", () => {
         window.fsDisp.toggleHidedotfiles();
     });
 
     // Hide on-screen keyboard visual feedback (#394)
-    globalShortcut.register("CommandOrControl+Shift+P", () => {
+    globalShortcut.register("Control+Shift+P", () => {
         window.keyboard.togglePasswordMode();
     });
 }
