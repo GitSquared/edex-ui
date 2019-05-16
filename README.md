@@ -61,7 +61,7 @@ I'm not done with this software just yet. I'm actively working on exciting new f
 #### Is this repo actively maintained?
 ![Yes.](https://img.shields.io/github/last-commit/GitSquared/edex-ui.svg?style=popout)
 #### How did you make this?
-Glad you're interested! See #272.
+Glad you're interested! See [#272](https://github.com/GitSquared/edex-ui/issues/272).
 #### This is so cool.
 Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gaby) to encourage me to build more awesome stuff.
 
