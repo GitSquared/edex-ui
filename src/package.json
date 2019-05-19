@@ -31,10 +31,10 @@
     "shell-env": "3.0.0",
     "signale": "1.4.0",
     "smoothie": "1.35.0",
-    "systeminformation": "4.1.6",
+    "systeminformation": "4.4.1",
     "tail": "2.0.2",
     "ws": "7.0.0",
-    "xterm": "3.12.2",
+    "xterm": "3.13.0",
     "username": "5.0.0"
   },
   "optionalDependencies": {
