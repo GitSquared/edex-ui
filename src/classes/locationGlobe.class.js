@@ -88,7 +88,7 @@ class LocationGlobe {
                         rawData += chunk;
                     });
                     res.on("end", () => {
-                        this.parseResponse(rawData, ip).catch(() => {
+                        this.parseResponse(rawData, ip).catch(e => {
                             let electron = require("electron");
                             electron.ipcRenderer.send("log", "note", "LocationGlobe: Error parsing data from ipinfo.now.sh");
                             electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
