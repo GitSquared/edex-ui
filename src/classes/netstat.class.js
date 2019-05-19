@@ -86,19 +86,28 @@ class Netstat {
                 offline = true;
             } else {
                 if (this.lastconn.finished) {
-                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", localAddress: net.ip4, agent: this._httpsAgent}, res => {
+                    this.lastconn = require("https").get({host: "freegeoip.app", port: 443, path: "/json/", localAddress: net.ip4, agent: this._httpsAgent}, res => {
                         let rawData = "";
                         res.on("data", chunk => {
                             rawData += chunk;
                         });
                         res.on("end", () => {
                             try {
-                                this.ipinfo = JSON.parse(rawData);
+                                let data = JSON.parse(rawData);
+                                this.ipinfo = {
+                                    ip: data.ip,
+                                    geo: {
+                                        latitude: data.latitude,
+                                        longitude: data.longitude,
+                                        metro_code: data.zip_code,
+                                        time_zone: data.time_zone
+                                    }
+                                };
 
-                                if (!this.ipinfo.api_version.startsWith("3")) console.warn("Warning: ipinfo API version might not be compatible");
+                                // if (!this.ipinfo.api_version.startsWith("3")) console.warn("Warning: ipinfo API version might not be compatible");
 
-                                delete this.ipinfo.api_version;
-                                delete this.ipinfo.time;
+                                // delete this.ipinfo.api_version;
+                                // delete this.ipinfo.time;
                                 let ip = this.ipinfo.ip;
                                 document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = window._escapeHtml(ip);
                             } catch(e) {

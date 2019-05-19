@@ -1,7 +1,7 @@
 {
   "name": "edex-ui",
   "productName": "eDEX-UI",
-  "version": "3.0.0-pre",
+  "version": "2.2.2",
   "description": "eDEX-UI sci-fi interface",
   "keywords": [
     "desktop",
@@ -25,16 +25,16 @@
   "dependencies": {
     "color": "3.1.1",
     "howler": "2.1.2",
-    "nanoid": "2.0.1",
+    "nanoid": "2.0.2",
     "node-pty": "0.8.1",
     "pretty-bytes": "5.2.0",
     "shell-env": "3.0.0",
     "signale": "1.4.0",
     "smoothie": "1.35.0",
-    "systeminformation": "4.4.1",
+    "systeminformation": "4.5.1",
     "tail": "2.0.2",
     "ws": "7.0.0",
-    "xterm": "3.13.0",
+    "xterm": "3.13.1",
     "username": "5.0.0"
   },
   "optionalDependencies": {
