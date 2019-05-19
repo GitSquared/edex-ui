@@ -13,7 +13,7 @@ You can delete this introduction message if you want to.*
 ## Technical information
 **Using version:**
  - [ ] `master` (running from GitHub-published source code, currently `v3.0.0-pre`)
- - [ ] `latest` (latest release, currently `v2.2.1`)
+ - [ ] `latest` (latest release, currently `v2.2.2`)
  - [ ] `vX.X.X` (specify other version)
 
 **Running on:**
