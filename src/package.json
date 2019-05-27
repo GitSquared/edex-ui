@@ -25,7 +25,7 @@
   "dependencies": {
     "color": "3.1.1",
     "howler": "2.1.2",
-    "nanoid": "2.0.2",
+    "nanoid": "2.0.3",
     "node-pty": "0.8.1",
     "pretty-bytes": "5.2.0",
     "shell-env": "3.0.0",
