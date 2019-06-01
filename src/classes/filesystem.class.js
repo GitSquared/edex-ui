@@ -394,17 +394,19 @@ class FilesystemDisplay {
                         type = "eDEX-UI keyboards folder";
                         break;
                     default:
-                        if (e.type === "dir") type = "folder";
                         let iconName = this.fileIconsMatcher(e.name);
                         icon = this.icons[iconName];
                         if (typeof icon === "undefined") {
                             if (e.type === "file") icon = this.icons.file;
                             if (e.type === "dir") {
                                 icon = this.icons.dir;
+                                type = "folder";
                             }
                             if (typeof icon === "undefined") icon = this.icons.other;
-                        } else {
+                        } else if (e.category !== "dir") {
                             type = iconName.replace("icon-", "");
+                        } else {
+                            type = "special folder";
                         }
                         break;
                 }
@@ -417,7 +419,7 @@ class FilesystemDisplay {
                     e.size = "--";
                 }
                 if (typeof e.lastAccessed === "object") {
-                    e.lastAccessed = e.lastAccessed.toString().substr(0, e.lastAccessed.toString().indexOf(" ("));
+                    e.lastAccessed = e.lastAccessed.toLocaleString();
                 } else {
                     e.lastAccessed = "--";
                 }
