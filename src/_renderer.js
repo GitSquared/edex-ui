@@ -942,6 +942,11 @@ function registerKeyboardShortcuts() {
     globalShortcut.register("Control+Shift+P", () => {
         window.keyboard.togglePasswordMode();
     });
+
+    // Hot reload shortcut
+    globalShortcut.register("Control+Shift+F5", () => {
+        window.location.reload(true);
+    });
 }
 registerKeyboardShortcuts();
 
