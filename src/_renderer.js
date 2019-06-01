@@ -832,6 +832,10 @@ window.openShortcutsHelp = () => {
                         <td>Ctrl + Shift + I</td>
                         <td>Open Chromium Dev Tools (for debugging purposes).</td>
                     </tr>
+                    <tr>
+                        <td>Ctrl + Shift + F5</td>
+                        <td>Trigger front-end hot reload.</td>
+                    </tr>
                 </table>
                 <br>`
     });
