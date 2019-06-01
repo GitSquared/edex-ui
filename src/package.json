@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
+    "@wcjiang/whereis": "^1.0.0",
     "color": "3.1.1",
     "howler": "2.1.2",
     "nanoid": "2.0.3",
@@ -33,9 +34,9 @@
     "smoothie": "1.35.0",
     "systeminformation": "4.8.3",
     "tail": "2.0.2",
+    "username": "5.0.0",
     "ws": "7.0.0",
-    "xterm": "3.14.1",
-    "username": "5.0.0"
+    "xterm": "3.14.1"
   },
   "optionalDependencies": {
     "osx-temperature-sensor": "1.0.3"

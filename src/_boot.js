@@ -34,6 +34,7 @@ const ipc = electron.ipcMain;
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
+const whereis = require("@wcjiang/whereis");
 const Terminal = require("./classes/terminal.class.js").Terminal;
 
 ipc.on("log", (e, type, content) => {
@@ -163,6 +164,9 @@ function createWindow(settings) {
 app.on('ready', async () => {
     signale.pending(`Loading settings file...`);
     let settings = require(settingsFile);
+    signale.pending(`Resolving shell path...`);
+    settings.shell = await whereis(settings.shell).catch(e => { throw(e) });
+    signale.info(`Shell found at ${settings.shell}`);
     signale.success(`Settings loaded!`);
 
     if (!require("fs").existsSync(settings.cwd)) throw new Error("Configured cwd path does not exist.");
