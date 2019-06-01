@@ -50,6 +50,7 @@ section > h3.title:first-child > p {
 }
 section > h3.title:first-child > p:last-child {
     text-align: right;
+    white-space: nowrap;
 }
 section > h3.title:first-child::before {
     content: "";
