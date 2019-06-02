@@ -101,6 +101,10 @@ section#filesystem:not(.list-view) > div#fs_disp_container > div > h4 {
     display: none;
 }
 
+div#fs_disp_container.disks > div > h4 {
+	  display: none;
+}
+
 section#filesystem.list-view > div#fs_disp_container {
     grid-template-columns: 1fr;
     grid-auto-rows: 2vh;
