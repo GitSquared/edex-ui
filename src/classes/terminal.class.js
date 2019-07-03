@@ -255,6 +255,8 @@ class Terminal {
                 if (d === 120) y = 1;
                 if (d === 256) x = 2;
 
+                if (window.settings.termFontSize < 15) y = y - 1;
+
                 cols = cols+x;
                 rows = rows+y;
 
