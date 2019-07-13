@@ -272,7 +272,11 @@ class Keyboard {
             } else {
                 key.setAttribute("class", "keyboard_key active");
             }
-            window.audioManager.stdin.play();
+
+            // See #516
+            if (e.repeat === false || (e.repeat === true && !e.code.startsWith('Shift') && !e.code.startsWith('Alt') && !e.code.startsWith('Ctrl') && !e.code.startsWith('Caps'))) {
+                window.audioManager.stdin.play();
+            }
         };
 
         document.onkeydown = this.keydownHandler;
@@ -320,7 +324,6 @@ class Keyboard {
 
         // Keyboard shortcuts
         if (this.container.dataset.isCtrlOn === "true" && this.container.dataset.isShiftOn === "true") {
-            console.log(key.dataset);
             switch(cmd) {
                 case "c":
                     window.term[window.currentTerm].clipboard.copy();
