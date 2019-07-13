@@ -86,6 +86,7 @@ if (!fs.existsSync(settingsFile)) {
 }
 
 // Copy default themes & keyboard layouts & fonts
+signale.pending("Mirroring internal assets...");
 try {
     fs.mkdirSync(themesDir);
 } catch(e) {
@@ -110,6 +111,20 @@ try {
 fs.readdirSync(innerFontsDir).forEach(e => {
     fs.writeFileSync(path.join(fontsDir, e), fs.readFileSync(path.join(innerFontsDir, e)));
 });
+
+// Version history logging
+const versionHistoryPath = path.join(electron.app.getPath("userData"), "versions_log.json");
+var versionHistory = fs.existsSync(versionHistoryPath) ? require(versionHistoryPath) : {};
+var version = app.getVersion();
+if (typeof versionHistory[version] === "undefined") {
+	versionHistory[version] = {
+		firstSeen: Date.now(),
+		lastSeen: Date.now()
+	};
+} else {
+	versionHistory[version].lastSeen = Date.now();
+}
+fs.writeFileSync(versionHistoryPath, JSON.stringify(versionHistory, 0, 2), {encoding:"utf-8"});
 
 function createWindow(settings) {
     signale.info("Creating window...");

@@ -27,6 +27,7 @@ class Netstat {
         this.offline = false;
         this.lastconn = {finished: true};
         this.iface = null;
+        this.failedAttempts = {};
 
         this._httpsAgent = new require("https").Agent({
             keepAlive: false,
@@ -111,6 +112,8 @@ class Netstat {
                                 let ip = this.ipinfo.ip;
                                 document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = window._escapeHtml(ip);
                             } catch(e) {
+                                this.failedAttempts[e] = (this.failedAttempts[e] || 0) + 1;
+                                if (this.failedAttempts[e] > 2) return false;
                                 console.warn(e);
                                 console.info(rawData.toString());
                                 let electron = require("electron");

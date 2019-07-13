@@ -89,6 +89,8 @@ class LocationGlobe {
                     });
                     res.on("end", () => {
                         this.parseResponse(rawData, ip).catch(e => {
+                            window.mods.netstat.failedAttempts[e] = (window.mods.netstat.failedAttemps[e] || 0) + 1;
+                            if (window.mods.netstat.failedAttempts[e] > 2) return false;
                             let electron = require("electron");
                             electron.ipcRenderer.send("log", "note", "LocationGlobe: Error parsing data from ipinfo.now.sh");
                             electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
