@@ -23,7 +23,7 @@ Heavily inspired from the [TRON Legacy movie effects](https://web.archive.org/we
 
 It might or might not be a joke taken too seriously.
 
-*( Jump to: [Screenshots](#screenshots) - [Questions & Answers](#qa) - [Featured In](#featured-in) - [Developer Instructions](#useful-commands-for-the-nerds) - [Credits](#credits) - [Thanks](#thanks) )*
+*( Jump to: [Screenshots](#screenshots) - [Questions & Answers](#qa) - **[Download](#how-do-i-get-it)** - [Featured In](#featured-in) - [Developer Instructions](#useful-commands-for-the-nerds) - [Credits](#credits) )*
 
 ## Features
 - Fully featured terminal emulator with tabs, colors, mouse events, and support for `curses` and `curses`-like applications.
@@ -47,8 +47,10 @@ _(Graphical settings editor and list of keyboard shortcuts on eDEX-UI 2.2 with t
 _([cmatrix](https://github.com/abishekvashok/cmatrix) on eDEX-UI 2.2 with the experimental "tron-disrupted" theme, and the user-contributed DVORAK keyboard)_
 
 ## Q&A
-#### Where can I find download links?
-Click on the little badges under the eDEX logo at the top of this page, or go to the [Releases](https://github.com/GitSquared/edex-ui/releases) tab.
+#### How do I get it?
+Click on the little badges under the eDEX logo at the top of this page, or go to the [Releases](https://github.com/GitSquared/edex-ui/releases) tab, or download it through [one of the available repositories](https://repology.org/project/edex-ui/versions) (Homebrew, AUR...).
+
+Public release binaries are unsigned ([why](https://gaby.dev/posts/code-signing)). On Linux, you will need to `chmod +x` the AppImage file in order to run it.
 #### I have a problem!
 Search through the [Issues](https://github.com/GitSquared/edex-ui/issues) to see if yours has already been reported. If you're confident it hasn't been reported yet, feel free to open up a new one. If you see your issue and it's been closed, it probably means that the fix for it will ship in the next version, and you'll have to wait a bit.
 #### Can you disable the keyboard/the filesystem display?
@@ -84,7 +86,7 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 
 ## Useful commands for the nerds
 
-**IMPORTANT NOTE:** the following instructions are meant **for DEVELOPERS ONLY**. If you're just a casual user please download the precompiled binaries available on the [Releases tab](https://github.com/GitSquared/edex-ui/releases).
+**IMPORTANT NOTE:** the following instructions are meant for running eDEX from the latest unoptimized, unreleased, development version. If you'd like to get stable software instead, refer to [these](#how-do-i-get-it) instructions.
 
 #### Starting from source:
 on *nix systems (You'll need the Xcode command line tools on macOS):
