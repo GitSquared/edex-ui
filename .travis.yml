@@ -1,13 +1,10 @@
 language: node_js
 node_js:
-  - "11.14.0"
+  - "10.16.0"
 os:
   - linux
   - osx
   - windows
-matrix:
-  allow_failures:
-    - os: windows
 before_install:
   - 'if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y libc6-dev-i386 gcc-multilib g++-multilib        ; fi'
   - "if [[ \"$TRAVIS_OS_NAME\" == \"linux\" && \"$TRAVIS_PULL_REQUEST\" = \"false\" ]]; then curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash; fi"
@@ -21,7 +18,7 @@ before_script:
   - 'if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_PULL_REQUEST" = "false" ]]; then fossa init && fossa; fi'
   - mkdir prebuild-src
   - 'if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then cp -R src/. prebuild-src/; fi'
-  - 'if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then xcopy src\\* prebuild-src\\ /E /C /Q /Y; fi'
+  - 'if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then xcopy src prebuild-src //E //C //Q //Y; fi'
   - node prebuild-minify.js
   - cd prebuild-src
   - npm install
