@@ -28,6 +28,7 @@ class Netstat {
         this.lastconn = {finished: true};
         this.iface = null;
         this.failedAttempts = {};
+        this.runsBeforeGeoIPUpdate = 0;
 
         this._httpsAgent = new require("https").Agent({
             keepAlive: false,
@@ -79,6 +80,8 @@ class Netstat {
                 }
             }
 
+            if (net.ip4 !== this.internalIPv4) this.runsBeforeGeoIPUpdate = 0;
+
             this.iface = net.iface;
             this.internalIPv4 = net.ip4;
             document.getElementById("mod_netstat_iname").innerText = "Interface: "+net.iface;
@@ -86,8 +89,8 @@ class Netstat {
             if (net.ip4 === "127.0.0.1") {
                 offline = true;
             } else {
-                if (this.lastconn.finished) {
-                    this.lastconn = require("https").get({host: "freegeoip.app", port: 443, path: "/json/", localAddress: net.ip4, agent: this._httpsAgent}, res => {
+                if (this.runsBeforeGeoIPUpdate === 0 && this.lastconn.finished) {
+                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", localAddress: net.ip4, agent: this._httpsAgent}, res => {
                         let rawData = "";
                         res.on("data", chunk => {
                             rawData += chunk;
@@ -97,20 +100,15 @@ class Netstat {
                                 let data = JSON.parse(rawData);
                                 this.ipinfo = {
                                     ip: data.ip,
-                                    geo: {
-                                        latitude: data.latitude,
-                                        longitude: data.longitude,
-                                        metro_code: data.zip_code,
-                                        time_zone: data.time_zone
-                                    }
+                                    geo: data.geo
                                 };
 
-                                // if (!this.ipinfo.api_version.startsWith("3")) console.warn("Warning: ipinfo API version might not be compatible");
+                                if (!data.api_version.startsWith("4")) console.warn("Warning: ipinfo API version might not be compatible");
 
-                                // delete this.ipinfo.api_version;
-                                // delete this.ipinfo.time;
                                 let ip = this.ipinfo.ip;
                                 document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = window._escapeHtml(ip);
+
+                                this.runsBeforeGeoIPUpdate = 10;
                             } catch(e) {
                                 this.failedAttempts[e] = (this.failedAttempts[e] || 0) + 1;
                                 if (this.failedAttempts[e] > 2) return false;
@@ -124,6 +122,8 @@ class Netstat {
                     }).on("error", e => {
                         // Drop it
                     });
+                } else if (this.runsBeforeGeoIPUpdate !== 0) {
+                    this.runsBeforeGeoIPUpdate = this.runsBeforeGeoIPUpdate - 1;
                 }
 
                 let p = await this.ping(window.settings.pingAddr || "1.1.1.1", 80, net.ip4).catch(() => { offline = true });
