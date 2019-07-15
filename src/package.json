@@ -36,7 +36,7 @@
     "tail": "2.0.2",
     "username": "5.1.0",
     "ws": "7.0.1",
-    "xterm": "3.14.4"
+    "xterm": "3.14.5"
   },
   "optionalDependencies": {
     "osx-temperature-sensor": "1.0.3"
