@@ -28,7 +28,7 @@
     "howler": "2.1.2",
     "nanoid": "2.0.3",
     "node-pty": "0.8.1",
-    "pretty-bytes": "5.2.0",
+    "pretty-bytes": "5.3.0",
     "shell-env": "3.0.0",
     "signale": "1.4.0",
     "smoothie": "1.35.0",
