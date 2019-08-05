@@ -107,7 +107,7 @@
     "electron": "4.2.8",
     "electron-builder": "^21.1.5",
     "electron-rebuild": "1.8.5",
-    "node-abi": "2.9.0",
+    "node-abi": "2.10.0",
     "node-json-minify": "1.0.0",
     "uglify-es": "3.3.9"
   },
