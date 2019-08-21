@@ -1,9 +1,10 @@
 function matchIcon(filename) {
     if (/^APLSource$/.test(filename)) { return "acre"; }
     if (/^\.acre$/.test(filename)) { return "acre"; }
+    if (/\/\.config\/alacritty$/i.test(filename)) { return "alacritty-alt"; }
     if (/\.(app|xcodeproj|xcworkspace)$/i.test(filename)) { return "appstore"; }
     if (/\.artx$/i.test(filename)) { return "arttext"; }
-    if (/^\.atom$/.test(filename)) { return "atom"; }
+    if (/^\.atom(-ci)?$/.test(filename)) { return "atom"; }
     if (/^\.azure-pipelines$/i.test(filename)) { return "azurepipelines"; }
     if (/^\.bzr$/.test(filename)) { return "bazaar"; }
     if (/^bower[-_]components$/.test(filename)) { return "bower"; }
@@ -21,6 +22,7 @@ function matchIcon(filename) {
     if (/\.git$/.test(filename)) { return "git"; }
     if (/^\.github$/.test(filename)) { return "github"; }
     if (/^\.gitlab$/.test(filename)) { return "gitlab"; }
+    if (/^\.nyc[-_]output$/.test(filename)) { return "istanbul"; }
     if (/^\.meteor$/.test(filename)) { return "meteor"; }
     if (/^\.hg$/.test(filename)) { return "hg"; }
     if (/^node_modules$/.test(filename)) { return "node"; }
@@ -59,9 +61,11 @@ function matchIcon(filename) {
     if (/\.prproj$/i.test(filename)) { return "premiere"; }
     if (/\.prel$/i.test(filename)) { return "premiere"; }
     if (/\.psq$/i.test(filename)) { return "premiere"; }
+    if (/\.affect$/i.test(filename)) { return "affectscript"; }
     if (/\.afdesign$/i.test(filename)) { return "affinity"; }
     if (/\.afphoto$/i.test(filename)) { return "affinity"; }
     if (/\.afpub$/i.test(filename)) { return "affinity"; }
+    if (/^\.?alacritty\.ya?ml$/i.test(filename)) { return "alacritty"; }
     if (/\.alexrc$/i.test(filename)) { return "alex"; }
     if (/\.alexignore$/i.test(filename)) { return "alex"; }
     if (/\.als$/i.test(filename)) { return "alloy"; }
@@ -168,6 +172,9 @@ function matchIcon(filename) {
     if (/\.nawk$/i.test(filename)) { return "terminal"; }
     if (/\.auk$/i.test(filename)) { return "terminal"; }
     if (/^azure-pipelines\.ya?ml$/i.test(filename)) { return "azurepipelines"; }
+    if (/\.bnf$/i.test(filename)) { return "bnf"; }
+    if (/\.abnf$/i.test(filename)) { return "bnf"; }
+    if (/\.ebnf$/i.test(filename)) { return "bnf"; }
     if (/\.(babelrc|babelrc\.js|languagebabel|babel)$/i.test(filename)) { return "babel"; }
     if (/babel(\.[\w\-]+)*\.conf(ig)?\./i.test(filename)) { return "babel"; }
     if (/\.babelignore$/i.test(filename)) { return "babel"; }
@@ -185,6 +192,7 @@ function matchIcon(filename) {
     if (/\.bbx$/i.test(filename)) { return "bibtex"; }
     if (/\.bib$/i.test(filename)) { return "bibtex"; }
     if (/\.bst$/i.test(filename)) { return "bibtex"; }
+    if (/\.biml$/i.test(filename)) { return "biml"; }
     if (/^\.bintray\.json$/i.test(filename)) { return "bintray"; }
     if (/\.bison$/i.test(filename)) { return "gnu"; }
     if (/^bitbucket-pipelines\.ya?ml$/i.test(filename)) { return "bitbucket"; }
@@ -421,7 +429,9 @@ function matchIcon(filename) {
     if (/\.s[kl]im$/i.test(filename)) { return "dashboard"; }
     if (/\.cpuprofile$/i.test(filename)) { return "dashboard"; }
     if (/\.cloc$/i.test(filename)) { return "dashboard"; }
+    if (/\.aff$/i.test(filename)) { return "database"; }
     if (/\.cson$/i.test(filename)) { return "database"; }
+    if (/\.dict?$/i.test(filename)) { return "database"; }
     if (/\.hson$/i.test(filename)) { return "database"; }
     if (/\.http$/i.test(filename)) { return "database"; }
     if (/\.ndjson$/i.test(filename)) { return "database"; }
@@ -438,6 +448,7 @@ function matchIcon(filename) {
     if (/\.ston$/i.test(filename)) { return "database"; }
     if (/\.ttl$/i.test(filename)) { return "database"; }
     if (/\.schema$/i.test(filename)) { return "database"; }
+    if (/\.sy$/i.test(filename)) { return "database"; }
     if (/\.syntax$/i.test(filename)) { return "database"; }
     if (/\.webmanifest$/i.test(filename)) { return "database"; }
     if (/\.snip(pets?)?$/i.test(filename)) { return "database"; }
@@ -648,7 +659,6 @@ function matchIcon(filename) {
     if (/^Settings\.StyleCop$/.test(filename)) { return "code"; }
     if (/\.4th$/i.test(filename)) { return "code"; }
     if (/\.adm[lx]$/i.test(filename)) { return "code"; }
-    if (/\.abnf$/i.test(filename)) { return "code"; }
     if (/\.aepx$/i.test(filename)) { return "code"; }
     if (/\.agda$/i.test(filename)) { return "code"; }
     if (/\.appxmanifest$/i.test(filename)) { return "code"; }
@@ -658,7 +668,6 @@ function matchIcon(filename) {
     if (/\.bc$/i.test(filename)) { return "code"; }
     if (/\.befunge$/i.test(filename)) { return "code"; }
     if (/\.bmx$/i.test(filename)) { return "code"; }
-    if (/\.bnf$/i.test(filename)) { return "code"; }
     if (/\.brs$/i.test(filename)) { return "code"; }
     if (/\.capnp$/i.test(filename)) { return "code"; }
     if (/\.ccxml$/i.test(filename)) { return "code"; }
@@ -678,7 +687,6 @@ function matchIcon(filename) {
     if (/\.dtd$/i.test(filename)) { return "code"; }
     if (/\.dyl$/i.test(filename)) { return "code"; }
     if (/\.dylan$/i.test(filename)) { return "code"; }
-    if (/\.ebnf$/i.test(filename)) { return "code"; }
     if (/\.ecl$/i.test(filename)) { return "code"; }
     if (/\.eclxml$/i.test(filename)) { return "code"; }
     if (/\.fcgi$/i.test(filename)) { return "code"; }
@@ -902,6 +910,7 @@ function matchIcon(filename) {
     if (/\.fits?$/i.test(filename)) { return "image"; }
     if (/\.flif$/i.test(filename)) { return "image"; }
     if (/\.fts$/i.test(filename)) { return "image"; }
+    if (/\.(gsrc|gr(emli)?n)$/i.test(filename)) { return "image"; }
     if (/\.hdp$/i.test(filename)) { return "image"; }
     if (/\.hdr$/i.test(filename)) { return "image"; }
     if (/\.heic$/i.test(filename)) { return "image"; }
@@ -949,6 +958,8 @@ function matchIcon(filename) {
     if (/\.thy$/i.test(filename)) { return "isabelle"; }
     if (/^ROOT$/.test(filename)) { return "isabelle"; }
     if (/^\.nycrc(\.json)?$/i.test(filename)) { return "istanbul"; }
+    if (/^\.nycrc\.ya?ml$/i.test(filename)) { return "istanbul"; }
+    if (/^nyc\.config\.js$/i.test(filename)) { return "istanbul"; }
     if (/\.ijs$/i.test(filename)) { return "j"; }
     if (/\.jade$/i.test(filename)) { return "jade"; }
     if (/^Jakefile$/.test(filename)) { return "jake"; }
@@ -1196,6 +1207,9 @@ function matchIcon(filename) {
     if (/\.vs[st][mx]?$/i.test(filename)) { return "visio"; }
     if (/^mcmod\.info$/i.test(filename)) { return "minecraft"; }
     if (/\.mcfunction$/i.test(filename)) { return "minecraft"; }
+    if (/\.mclevel$/i.test(filename)) { return "minecraft"; }
+    if (/\.mcpack$/i.test(filename)) { return "minecraft"; }
+    if (/\.mcworld$/i.test(filename)) { return "minecraft"; }
     if (/^pack\.mcmeta$/i.test(filename)) { return "minecraft"; }
     if (/\.png\.mcmeta$/.test(filename)) { return "minecraft"; }
     if (/\.mzn$/i.test(filename)) { return "minizinc"; }
@@ -1300,6 +1314,9 @@ function matchIcon(filename) {
     if (/^(package\.json|\.npmignore|\.?npmrc|npm-debug\.log|npm-shrinkwrap\.json|package-lock\.json)$/i.test(filename)) { return "npm"; }
     if (/\.nsi$/i.test(filename)) { return "nsis"; }
     if (/\.nsh$/i.test(filename)) { return "nsis"; }
+    if (/^\.nsrirc(\.(json|(config\.)?js|ya?ml))?$/i.test(filename)) { return "nsri"; }
+    if (/^\.nsriignore(\.(json|(config\.)?js|ya?ml))?$/i.test(filename)) { return "nsri"; }
+    if (/\.integrity\.json$/i.test(filename)) { return "nsri-alt"; }
     if (/\.nu$/i.test(filename)) { return "recycle"; }
     if (/^Nukefile$/.test(filename)) { return "recycle"; }
     if (/\.nuspec$/i.test(filename)) { return "nuget"; }
@@ -1407,6 +1424,7 @@ function matchIcon(filename) {
     if (/^Pipfile(\.lock)?$/i.test(filename)) { return "pipenv"; }
     if (/\.pike$/i.test(filename)) { return "pike"; }
     if (/\.pmod$/i.test(filename)) { return "pike"; }
+    if (/\.pine$/i.test(filename)) { return "pinescript"; }
     if (/^platformio\.ini$/i.test(filename)) { return "platformio"; }
     if (/\.(pls|pck|pks|plb|plsql|pkb)$/i.test(filename)) { return "sql"; }
     if (/^ecosystem.conf(ig)?./i.test(filename)) { return "pm2"; }
@@ -1482,6 +1500,7 @@ function matchIcon(filename) {
     if (/^(SConstruct|SConscript)$/.test(filename)) { return "python"; }
     if (/^(Snakefile|WATCHLISTS)$/.test(filename)) { return "python"; }
     if (/^wscript$/.test(filename)) { return "python"; }
+    if (/^\.pyup(\.ya?ml)?$/i.test(filename)) { return "pyup"; }
     if (/\.q$/i.test(filename)) { return "kx"; }
     if (/\.k$/i.test(filename)) { return "kx"; }
     if (/\.qvw$/i.test(filename)) { return "qlik"; }
@@ -1533,6 +1552,7 @@ function matchIcon(filename) {
     if (/\.spec$/i.test(filename)) { return "red-hat"; }
     if (/\.reek$/i.test(filename)) { return "reek"; }
     if (/\.regexp?$/i.test(filename)) { return "regex"; }
+    if (/(?!^renovate$)(\.|^)renovate(rc)?(\.json)?$/i.test(filename)) { return "renovate"; }
     if (/^require([-.]min|dev)?\.js$/i.test(filename)) { return "requirejs"; }
     if (/\.re?st(\.txt)?$/i.test(filename)) { return "rst"; }
     if (/^re?st$/i.test(filename)) { return "rst"; }
@@ -1594,7 +1614,7 @@ function matchIcon(filename) {
     if (/\.prn$/i.test(filename)) { return "graph"; }
     if (/(^|\.)serverless\.ya?ml$/i.test(filename)) { return "serverless"; }
     if (/\.sfproj$/i.test(filename)) { return "sf"; }
-    if (/\.sequelizerc$/i.test(filename)) { return "sequelize"; }
+    if (/\.sequelizerc(\.js|\.json)?$/i.test(filename)) { return "sequelize"; }
     if (/\.(sgi|iris)$/i.test(filename)) { return "sgi"; }
     if (/\.(sh|rc|bats|bash|tool|install|command)$/i.test(filename)) { return "terminal"; }
     if (/^(\.?bash(rc|[-_]?(profile|login|logout|history|prompt))|_osc|config|install-sh|PKGBUILD)$/i.test(filename)) { return "terminal"; }
@@ -1834,6 +1854,8 @@ function matchIcon(filename) {
     if (/\.uc$/i.test(filename)) { return "unreal"; }
     if (/\.ur$/i.test(filename)) { return "urweb"; }
     if (/\.urs$/i.test(filename)) { return "urweb"; }
+    if (/\.v$/i.test(filename)) { return "v"; }
+    if (/\.vh$/i.test(filename)) { return "v"; }
     if (/^([dv]8|v8[-_.][^.]*|mksnapshot|mkpeephole)$/i.test(filename)) { return "v8"; }
     if (/^\.v8flags\b/.test(filename)) { return "v8"; }
     if (/^Vagrantfile$/i.test(filename)) { return "vagrant"; }
