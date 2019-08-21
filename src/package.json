@@ -27,7 +27,7 @@
     "color": "3.1.2",
     "howler": "2.1.2",
     "nanoid": "2.0.3",
-    "node-pty": "0.8.1",
+    "node-pty": "0.9.0-beta24",
     "pretty-bytes": "5.3.0",
     "shell-env": "3.0.0",
     "signale": "1.4.0",
