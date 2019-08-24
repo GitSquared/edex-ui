@@ -313,7 +313,7 @@ class FilesystemDisplay {
                             cmd = `window.term[window.currentTerm].writelr('cd \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
                         }
                     } else {
-                        cmd = `window.term[window.currentTerm].write('\\'${e.name}\\'')`;
+                        cmd = `window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')`;
                     }
                 } else {
                     if (e.type === "dir" || e.type.endsWith("Dir")) {
