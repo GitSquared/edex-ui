@@ -258,6 +258,7 @@ class Keyboard {
             }
 
             // See #440
+            if (e.code === "ControlLeft" || e.code === "ControlRight") this.container.dataset.isCtrlOn = true;
             if (e.code === "ShiftLeft" || e.code === "ShiftRight") this.container.dataset.isShiftOn = true;
             if (e.code === "AltLeft" || e.code === "AltRight") this.container.dataset.isAltOn = true;
             if (e.code === "CapsLock" && this.container.dataset.isCapsLckOn !== "true") this.container.dataset.isCapsLckOn = true;
@@ -286,6 +287,7 @@ class Keyboard {
             if (e.key === "Control" && e.getModifierState("AltGraph")) return;
 
             // See #440
+		    if (e.code === "ControlLeft" || e.code === "ControlRight") this.container.dataset.isCtrlOn = false;
             if (e.code === "ShiftLeft" || e.code === "ShiftRight") this.container.dataset.isShiftOn = false;
             if (e.code === "AltLeft" || e.code === "AltRight") this.container.dataset.isAltOn = false;
 

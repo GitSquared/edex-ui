@@ -313,7 +313,7 @@ class FilesystemDisplay {
                             cmd = `window.term[window.currentTerm].writelr('cd \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
                         }
                     } else {
-                        cmd = `window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')`;
+                        cmd = `if(window.keyboard.container.dataset.isCtrlOn == 'true'){electron.shell.openItem('${path.resolve(this.dirpath, e.name)}');electronWin.minimize()}else{window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')}`;
                     }
                 } else {
                     if (e.type === "dir" || e.type.endsWith("Dir")) {
@@ -323,7 +323,7 @@ class FilesystemDisplay {
                     } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
                         cmd = `window.fsDisp.readFS('${e.path.replace(/\\/g, '\\\\')}')`;
                     } else {
-                        cmd = `window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')`;
+                        cmd = `if(window.keyboard.container.dataset.isCtrlOn == 'true'){electron.shell.openItem('${path.resolve(this.dirpath, e.name)}');electronWin.minimize()}else{window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')}`;
                     }
                 }
 
