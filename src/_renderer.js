@@ -825,6 +825,10 @@ window.openShortcutsHelp = () => {
                         <td>Toggle hidden files and directories in the file browser.</td>
                     </tr>
                     <tr>
+                    	<td>Ctrl + Shift + F</td>
+                    	<td>Search for entries in the current working directory.</td>
+                   	</tr>
+                    <tr>
                         <td>Ctrl + Shift + P</td>
                         <td>Toggle the on-screen keyboard's "Password Mode", that allows you to safely type<br> sensitive information even if your screen might be recorded (disables visual input feedback).</td>
                     </tr>
@@ -942,6 +946,11 @@ function registerKeyboardShortcuts() {
         window.fsDisp.toggleListview();
     });
 
+    // Open file fuzzy finder
+    globalShortcut.register("Control+Shift+F", () => {
+    	window.activeFuzzyFinder = new FuzzyFinder();
+   	});
+   	
     // Hide on-screen keyboard visual feedback (#394)
     globalShortcut.register("Control+Shift+P", () => {
         window.keyboard.togglePasswordMode();

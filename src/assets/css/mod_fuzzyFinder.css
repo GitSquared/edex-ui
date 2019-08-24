@@ -1,0 +1,37 @@
+input#fuzzyFinder {
+	width: 100%;
+    background: var(--color_light_black);
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    border: 0.15vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    padding: 0.4vh 0.2vh;
+    font-size: 1.4vh;
+    box-sizing: border-box;
+    margin-bottom: 1.5vh;
+}
+
+input#fuzzyFinder:active, input#fuzzyFinder:focus {
+    outline: none !important;
+    background: rgb(var(--color_r), var(--color_g), var(--color_b));
+    color: var(--color_light_black);
+}
+
+ul#fuzzyFinder-results {
+	padding: 0;
+}
+
+ul#fuzzyFinder-results li {
+    display: block;
+    min-width: 50vw;
+    font-family: var(--font_main);
+    background: var(--color_light_black);
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    height: 1.6vh;
+    font-size: 1.5vh;
+    padding: 0.2vh 0.4vh;
+    padding-top: 0.4vh;
+}
+
+ul#fuzzyFinder-results li.fuzzyFinderMatchSelected {
+	background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.75);
+	color: var(--color_light_black);
+}

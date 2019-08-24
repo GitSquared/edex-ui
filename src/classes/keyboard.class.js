@@ -347,6 +347,9 @@ class Keyboard {
                 case "h":
                     window.fsDisp.toggleHidedotfiles();
                     return true;
+                case "f":
+                	window.activeFuzzyFinder = new FuzzyFinder();
+                	return true;
                 case "p":
                     window.keyboard.togglePasswordMode();
                     return true;
@@ -521,8 +524,8 @@ class Keyboard {
             if (window.keyboard.linkedToTerm) {
                 window.term[window.currentTerm].writelr("");
             } else {
-                // Do nothing, return not accepted in inputs
-            }
+                document.activeElement.dispatchEvent(new CustomEvent("change", {detail: "enter" }));
+			}
             return true;
         }
 
@@ -530,10 +533,12 @@ class Keyboard {
         if (window.keyboard.linkedToTerm) {
             window.term[window.currentTerm].write(cmd);
         } else {
+			let isDelete = false;
             if (typeof document.activeElement.value !== "undefined") {
                 switch(cmd) {
                     case "":
                         document.activeElement.value = document.activeElement.value.slice(0, -1);
+				        isDelete = true;
                         break;
                     case "OD":
                         document.activeElement.selectionStart--;
@@ -551,6 +556,8 @@ class Keyboard {
                         }
                 }
             }
+		    // Emulate oninput events
+		    document.activeElement.dispatchEvent(new CustomEvent("input", {detail: ((isDelete)? "delete" : "insert") }));
             document.activeElement.focus();
         }
     }
