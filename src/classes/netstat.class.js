@@ -25,7 +25,7 @@ class Netstat {
         </div>`;
 
         this.offline = false;
-        this.lastconn = {finished: true};
+        this.lastconn = {finished: false}; // Prevent geoip lookup attempt until maxminddb is loaded
         this.iface = null;
         this.failedAttempts = {};
         this.runsBeforeGeoIPUpdate = 0;
@@ -40,6 +40,17 @@ class Netstat {
         this.infoUpdater = setInterval(() => {
             this.updateInfo();
         }, 2000);
+
+        // Init GeoIP integrated backend
+        this.geoLookup = {
+            get: () => null
+        };
+        let geolite2 = require("geolite2");
+        let maxmind = require("maxmind");
+        maxmind.open(geolite2.paths.city).catch(e => {throw e}).then(lookup => {
+            this.geoLookup = lookup;
+            this.lastconn.finished = true;
+        });
     }
     updateInfo() {
         window.si.networkInterfaces().then(async data => {
@@ -90,7 +101,7 @@ class Netstat {
                 offline = true;
             } else {
                 if (this.runsBeforeGeoIPUpdate === 0 && this.lastconn.finished) {
-                    this.lastconn = require("https").get({host: "ipinfo.now.sh", port: 443, path: "/", localAddress: net.ip4, agent: this._httpsAgent}, res => {
+                    this.lastconn = require("https").get({host: "myexternalip.com", port: 443, path: "/json", localAddress: net.ip4, agent: this._httpsAgent}, res => {
                         let rawData = "";
                         res.on("data", chunk => {
                             rawData += chunk;
@@ -100,10 +111,8 @@ class Netstat {
                                 let data = JSON.parse(rawData);
                                 this.ipinfo = {
                                     ip: data.ip,
-                                    geo: data.geo
+                                    geo: this.geoLookup.get(data.ip).location
                                 };
-
-                                if (!data.api_version.startsWith("4")) console.warn("Warning: ipinfo API version might not be compatible");
 
                                 let ip = this.ipinfo.ip;
                                 document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = window._escapeHtml(ip);
@@ -115,7 +124,7 @@ class Netstat {
                                 console.warn(e);
                                 console.info(rawData.toString());
                                 let electron = require("electron");
-                                electron.ipcRenderer.send("log", "note", "NetStat: Error parsing data from ipinfo.now.sh");
+                                electron.ipcRenderer.send("log", "note", "NetStat: Error parsing data from myexternalip.com");
                                 electron.ipcRenderer.send("log", "debug", `Error: ${e}`);
                             }
                         });
