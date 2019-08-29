@@ -706,7 +706,7 @@ function matchIcon(filename) {
     if (/\.intr$/i.test(filename)) { return "code"; }
     if (/\.ivy$/i.test(filename)) { return "code"; }
     if (/\.jelly$/i.test(filename)) { return "code"; }
-    if (/\.jflex$/i.test(filename)) { return "code"; }
+    if (/\.jf?lex$/i.test(filename)) { return "code"; }
     if (/\.jsproj$/i.test(filename)) { return "code"; }
     if (/\.lagda$/i.test(filename)) { return "code"; }
     if (/\.launch$/i.test(filename)) { return "code"; }
@@ -994,6 +994,7 @@ function matchIcon(filename) {
     if (/^Jenkinsfile$/.test(filename)) { return "jenkins"; }
     if (/^jest(\.config)?\.js(on)?$/i.test(filename)) { return "jest"; }
     if (/\.jsx?\.snap$/i.test(filename)) { return "jest"; }
+    if (/\.(mjs|tsx?)\.snap$/i.test(filename)) { return "jest"; }
     if (/\.jinja$/i.test(filename)) { return "jinja"; }
     if (/\.j(inja)?2$/i.test(filename)) { return "jinja"; }
     if (/\.jison$/i.test(filename)) { return "jison"; }
