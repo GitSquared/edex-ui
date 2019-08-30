@@ -41,5 +41,4 @@ jspm_packages
 
 dist
 prebuild-src
-file-icons
 src/node_modules

@@ -1,0 +1,15 @@
+[submodule "file-icons/atom"]
+	path = file-icons/atom
+	url = https://github.com/file-icons/atom.git
+[submodule "file-icons/devopicons"]
+	path = file-icons/devopicons
+	url = https://github.com/file-icons/DevOpicons.git
+[submodule "file-icons/mfixx"]
+	path = file-icons/mfixx
+	url = https://github.com/file-icons/MFixx.git
+[submodule "file-icons/source"]
+	path = file-icons/source
+	url = https://github.com/file-icons/source.git
+[submodule "file-icons/font-awesome"]
+	path = file-icons/font-awesome
+	url = https://github.com/FortAwesome/Font-Awesome.git

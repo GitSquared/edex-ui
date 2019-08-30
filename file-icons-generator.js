@@ -6,9 +6,8 @@
 // The generated files are pretty-printed. See prebuild-minify.js for automatic, on-CI minification of source files before bundling them in binary release assets.
 
 // BEFORE RUNNING THIS SCRIPT:
-// - npm run init-file-icons (only *nix supported)
-// You can then use `npm run update-file-icons` which will pull the clones and run this script.
-// The file-icons folder is in the .gitignore.
+// - npm run init-file-icons
+// You can then use `npm run update-file-icons` which will pull the git submodules and run this script.
 
 
 const fs = require("fs");
