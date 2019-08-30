@@ -27,7 +27,7 @@
     "postbuild-darwin": "rm -R prebuild-src",
     "postbuild-windows": "rmdir /S /Q prebuild-src",
     "test": "rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && cd prebuild-src && npm install && snyk test && cd .. && rm -R prebuild-src",
-    "init-file-icons": "git submodule update",
+    "init-file-icons": "git submodule update --init",
     "update-file-icons": "git submodule foreach git pull origin master && node file-icons-generator.js"
   },
   "repository": {
