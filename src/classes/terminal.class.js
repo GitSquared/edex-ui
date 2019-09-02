@@ -28,10 +28,10 @@ class Terminal {
             };
 
             // Support for custom color filters on the terminal - see #483
-            let doCustomFilter = false;
+            let doCustomFilter = (window.isTermFilterValidated) ? true : false;
 
-            // Typechecking condition to ensure that provided filters are valid and prevent code injection
-            if (typeof window.theme.terminal.colorFilter === "object" && window.theme.terminal.colorFilter.length > 0) {
+            // Parse & validate color filter
+            if (window.isTermFilterValidated !== true && typeof window.theme.terminal.colorFilter === "object" && window.theme.terminal.colorFilter.length > 0) {
                 doCustomFilter = window.theme.terminal.colorFilter.every((step, i, a) => {
                     let func = step.slice(0, step.indexOf("("));
 
@@ -65,6 +65,7 @@ class Terminal {
                             func,
                             arg: [Number(arg)]
                         };
+                        window.isTermFilterValidated = true;
                         return true;
                     }
 
