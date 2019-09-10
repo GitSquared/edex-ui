@@ -114,9 +114,7 @@ div.modal_popup table:not(#settingsEditor) td:first-child {
     text-align: center;
 }
 
-/* Settings editor modal */
-
-table#settingsEditor td input {
+div.modal_popup td input {
     width: 100%;
     background: var(--color_light_black);
     color: rgb(var(--color_r), var(--color_g), var(--color_b));
@@ -126,13 +124,13 @@ table#settingsEditor td input {
     box-sizing: border-box;
 }
 
-table#settingsEditor td input:active, table#settingsEditor td input:focus {
+div.modal_popup td input:active, div.modal_popup td input:focus {
     outline: none !important;
     background: rgb(var(--color_r), var(--color_g), var(--color_b));
     color: var(--color_light_black);
 }
 
-table#settingsEditor td select {
+div.modal_popup td select {
     cursor: pointer;
     width: 100%;
     background: var(--color_light_black);
@@ -141,6 +139,19 @@ table#settingsEditor td select {
     padding: 0.4vh;
     font-size: 1.4vh;
 }
+
+div.modal_popup summary {
+    font-size: 1.9vh;
+    font-weight: normal;
+    outline: none !important;
+    cursor: pointer;
+}
+
+div.modal_popup summary+table {
+    margin-top: 1.5vh;
+}
+
+/* Settings editor modal */
 
 h6#settingsEditorStatus {
     margin: 0;
@@ -151,8 +162,29 @@ h6#settingsEditorStatus {
 
 /* Keyboard shortcuts modal */
 
-table#shortcutsHelp td:first-child {
+table.shortcutsHelp {
+    min-width: 65vw;
+}
+
+table.shortcutsHelp td:first-child {
     word-spacing: .3vh;
     font-weight: bold;
     padding: .8vh;
+}
+
+tr#shortcutsHelpNew td {
+    white-space: nowrap;
+}
+
+tr#shortcutsHelpNew td > input[type="checkbox"] {
+    width: auto;
+    margin-right: -0.4vh;
+}
+
+tr#shortcutsHelpNew td:first-child > input[type="text"] {
+    width: 2vh;
+}
+
+tr#shortcutsHelpNew td:last-child > input[type="text"] {
+    width: 80%;
 }

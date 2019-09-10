@@ -70,6 +70,7 @@ if (!fs.existsSync(settingsFile)) {
         keyboard: "en-US",
         theme: "tron",
         termFontSize: 15,
+        shortcuts: [],
         audio: true,
         disableFeedbackAudio: false,
         pingAddr: "1.1.1.1",

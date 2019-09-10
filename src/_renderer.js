@@ -755,6 +755,7 @@ window.writeSettingsFile = () => {
         keyboard: document.getElementById("settingsEditor-keyboard").value,
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
+        shortcuts: window.settings.shortcuts || [],
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
         disableFeedbackAudio: (document.getElementById("settingsEditor-disableFeedbackAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
@@ -781,75 +782,160 @@ window.writeSettingsFile = () => {
     document.getElementById("settingsEditorStatus").innerText = "New values written to settings.json file at "+new Date().toTimeString();
 };
 
-// Display available keyboard shortcuts
+// Display available keyboard shortcuts and custom shortcuts helper
 window.openShortcutsHelp = () => {
+    let customList = "";
+    window.settings.shortcuts.forEach(cut => {
+        customList += `<tr>
+                            <td>${cut.trigger}</td>
+                            <td>${cut.action}</td>
+                        </tr>`;
+    });
+
+    window.keyboard.detach();
     new Modal({
         type: "custom",
         title: `Available Keyboard Shortcuts <i>(v${electron.remote.app.getVersion()})</i>`,
         html: `<h5>Using either the on-screen or a physical keyboard, you can use the following shortcuts:</h5>
-                <table id="shortcutsHelp" style="width: 100%;">
-                    <tr>
-                        <th>Trigger</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + C</td>
-                        <td>Copy selected buffer from the terminal.</td>
-                    </tr>
-                    <tr>
-                        <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + V</td>
-                        <td>Paste system clipboard to the terminal.</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + Tab</td>
-                        <td>Switch to the next opened terminal tab (left to right order).</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + Shift + Tab</td>
-                        <td>Switch to the previous opened terminal tab (right to left order).</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + [1-5]</td>
-                        <td>Switch to a specific terminal tab, or create it if it hasn't been opened yet.</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + Shift + S</td>
-                        <td>Open the settings editor.</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + Shift + K</td>
-                        <td>List available keyboard shortcuts.</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + Shift + H</td>
-                        <td>Toggle hidden files and directories in the file browser.</td>
-                    </tr>
-                    <tr>
-                    	<td>Ctrl + Shift + F</td>
-                    	<td>Search for entries in the current working directory.</td>
-                   	</tr>
-                    <tr>
-                        <td>Ctrl + Shift + P</td>
-                        <td>Toggle the on-screen keyboard's "Password Mode", that allows you to safely type<br> sensitive information even if your screen might be recorded (disables visual input feedback).</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + Shift + I</td>
-                        <td>Open Chromium Dev Tools (for debugging purposes).</td>
-                    </tr>
-                    <tr>
-                        <td>Ctrl + Shift + F5</td>
-                        <td>Trigger front-end hot reload.</td>
-                    </tr>
-                </table>
+                <details open id="shortcutsHelpAccordeon1">
+                    <summary>Emulator shortcuts</summary>
+                    <table class="shortcutsHelp">
+                        <tr>
+                            <th>Trigger</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr>
+                            <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + C</td>
+                            <td>Copy selected buffer from the terminal.</td>
+                        </tr>
+                        <tr>
+                            <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + V</td>
+                            <td>Paste system clipboard to the terminal.</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Tab</td>
+                            <td>Switch to the next opened terminal tab (left to right order).</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + Tab</td>
+                            <td>Switch to the previous opened terminal tab (right to left order).</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + [1-5]</td>
+                            <td>Switch to a specific terminal tab, or create it if it hasn't been opened yet.</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + S</td>
+                            <td>Open the settings editor.</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + K</td>
+                            <td>List available keyboard shortcuts.</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + H</td>
+                            <td>Toggle hidden files and directories in the file browser.</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + F</td>
+                            <td>Search for entries in the current working directory.</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + P</td>
+                            <td>Toggle the on-screen keyboard's "Password Mode", that allows you to safely type<br> sensitive information even if your screen might be recorded (disables visual input feedback).</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + I</td>
+                            <td>Open Chromium Dev Tools (for debugging purposes).</td>
+                        </tr>
+                        <tr>
+                            <td>Ctrl + Shift + F5</td>
+                            <td>Trigger front-end hot reload.</td>
+                        </tr>
+                    </table>
+                </details>
+                <br>
+                <details id="shortcutsHelpAccordeon2">
+                    <summary>Custom command shortcuts</summary>
+                    <table class="shortcutsHelp">
+                        <tr>
+                            <th>Trigger</th>
+                            <th>Command</th>
+                        <tr>
+                       ${customList} 
+                        <tr id="shortcutsHelpNew">
+                            <td>
+                                <input type="checkbox" id="shortcutsHelpNew_Ctrl" name="shortcutsHelpNew_Ctrl" checked>
+                                <label for="shortcutsHelpNew_Ctrl">CTRL</label>
+                                +
+                                <input type="checkbox" id="shortcutsHelpNew_Shift" name="shortcutsHelpNew_Shift" checked>
+                                <label for="shortcutsHelpNew_Shift">SHIFT</label>
+                                +
+                                <input type="checkbox" id="shortcutsHelpNew_Alt" name="shortcutsHelpNew_Alt">
+                                <label for="shortcutsHelpNew_Alt">ALT</label>
+                                +
+                                <input id="shortcutsHelpNew_Key" type="text" maxlength="1" placeholder="X">
+                            </td>
+                            <td>
+                                <input type="text" placeholder="Run terminal command..." id="shortcutsHelpNew_Cmd">
+                                <input type="checkbox" id="shortcutsHelpNew_Enter" name="shortcutsHelpNew_Enter">
+                                <label for="shortcutsHelpNew_Enter">Enter</label>
+                            </td>
+                    </table>
+                </details>
                 <br>`
+    }, () => {
+        window.keyboard.attach();
+        window.term[window.currentTerm].term.focus();
     });
+
+    let wrap1 = document.getElementById('shortcutsHelpAccordeon1');
+    let wrap2 = document.getElementById('shortcutsHelpAccordeon2');
+    
+    wrap1.addEventListener('toggle', e => {
+        wrap2.open = !wrap1.open;
+    });
+
+    wrap2.addEventListener('toggle', e => {
+        wrap1.open = !wrap2.open;
+    });
+};
+
+window.writeCustomShortcut = () => {
+    let modifiers = [];
+    if (document.getElementById("shortcutsHelpNew_Ctrl").checked) modifiers.push("Ctrl");
+    if (document.getElementById("shortcutsHelpNew_Alt").checked) modifiers.push("Alt");
+    if (document.getElementById("shortcutsHelpNew_Shift").checked) modifiers.push("Shift");
+    let trigger = modifiers.join("+");
+    
+    let key = document.getElementById("shortcutsHelpNew_Key").value.trim().toUpperCase();
+    if (!/^[0-9]|[A-Z]{1}$/.test(key)) {
+        throw new Error("Invalid custom shortcuts trigger. Accepted character range: [0-9], [A-Z]. Only one character allowed.");
+    }
+    trigger += "+"+key;
+
+    if (electron.remote.globalShortcut.isRegistered(trigger)) {
+        throw new Error("Can't register new custom shortcut: Trigger unavailable");
+    }
+
+    let action = document.getElementById("shortcutsHelpNew_Cmd").value.trim();
+    let linebreak = document.getElementById("shortcutsHelpNew_Enter").checked || false;
+
+    window.settings.shortcuts.push({
+        trigger,
+        action,
+        linebreak
+    });
+
+    fs.writeFileSync(settingsFile, JSON.stringify(window.settings, "", 4));
+    window.registerKeyboardShortcuts();
 };
 
 // Global keyboard shortcuts
 const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
 
-function registerKeyboardShortcuts() {
+window.registerKeyboardShortcuts = () => {
     // Open inspector
     globalShortcut.register("Control+Shift+I", () => {
         electron.remote.getCurrentWindow().webContents.toggleDevTools();
@@ -960,12 +1046,12 @@ function registerKeyboardShortcuts() {
     globalShortcut.register("Control+Shift+F5", () => {
         window.location.reload(true);
     });
-}
-registerKeyboardShortcuts();
+};
+window.registerKeyboardShortcuts();
 
 // See #361
 window.addEventListener("focus", () => {
-    registerKeyboardShortcuts();
+    window.registerKeyboardShortcuts();
 });
 
 window.addEventListener("blur", () => {
