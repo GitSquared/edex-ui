@@ -44,3 +44,7 @@ div#mod_clock em {
     margin: 0vh 0.3vh;
     width: 2.5vh;
 }
+
+div#mod_clock.mod_clock_twelve h1 span:last-child {
+    font-size: 1.5vh;
+}

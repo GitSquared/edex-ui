@@ -73,6 +73,7 @@ if (!fs.existsSync(settingsFile)) {
         shortcuts: [],
         audio: true,
         disableFeedbackAudio: false,
+        clockHours: 24,
         pingAddr: "1.1.1.1",
         port: 3000,
         nointro: false,

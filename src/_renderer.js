@@ -654,6 +654,13 @@ window.openSettings = async () => {
                         <td><input type="text" id="settingsEditor-pingAddr" value="${window.settings.pingAddr || "1.1.1.1"}"></td>
                     </tr>
                     <tr>
+                        <td>clockHours</td>
+                        <td>Clock format (12/24 hours)</td>
+                        <td><select id="settingsEditor-clockHours">
+                            <option>${(window.settings.clockHours === 12) ? "12" : "24"}</option>
+                            <option>${(window.settings.clockHours === 12) ? "24" : "12"}</option>
+                        </select></td>
+                    <tr>
                         <td>monitor</td>
                         <td>Which monitor to spawn the UI in (defaults to primary display)</td>
                         <td><select id="settingsEditor-monitor">
@@ -763,6 +770,7 @@ window.writeSettingsFile = () => {
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
         disableFeedbackAudio: (document.getElementById("settingsEditor-disableFeedbackAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
+        clockHours: Number(document.getElementById("settingsEditor-clockHours").value),
         port: Number(document.getElementById("settingsEditor-port").value),
         monitor: Number(document.getElementById("settingsEditor-monitor").value),
         nointro: (document.getElementById("settingsEditor-nointro").value === "true"),
