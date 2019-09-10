@@ -14,6 +14,7 @@ class Modal {
         this.onclose = onclose;
         this.classes = "modal_popup";
         let buttons = [];
+        let augs = [];
         let zindex = 0;
 
         // Reserve a slot in window.modals
@@ -24,26 +25,30 @@ class Modal {
                 this.classes += " error";
                 zindex = 1500;
                 buttons.push({label:"PANIC", action:"window.modals['"+this.id+"'].close();"}, {label:"RELOAD", action:"window.location.reload(true);"});
+                augs.push("tr-clip", "bl-rect", "r-clip");
                 break;
             case "warning":
                 this.classes += " warning";
                 zindex = 1000;
                 buttons.push({label:"OK", action:"window.modals['"+this.id+"'].close();"});
+                augs.push("bl-clip", "tr-clip", "r-rect", "b-rect");
                 break;
             case "custom":
                 this.classes += " info custom";
                 zindex = 500;
                 buttons = options.buttons || [];
                 buttons.push({label:"Close", action:"window.modals['"+this.id+"'].close();"});
+                augs.push("tr-clip", "bl-clip");
                 break;
             default:
                 this.classes += " info";
                 zindex = 500;
                 buttons.push({label:"OK", action:"window.modals['"+this.id+"'].close();"});
+                augs.push("tr-clip", "bl-clip");
                 break;
         }
 
-        let DOMstring = `<div id="modal_${this.id}" class="${this.classes}" style="z-index:${zindex+Object.keys(window.modals).length};">
+        let DOMstring = `<div id="modal_${this.id}" class="${this.classes}" style="z-index:${zindex+Object.keys(window.modals).length};" augmented-ui="${augs.join(" ")} exe">
             <h1>${this.title}</h1>
             ${this.type === "custom" ? options.html : "<h5>"+this.message+"</h5>"}
             <div>`;

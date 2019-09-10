@@ -2,8 +2,12 @@ section#main_shell {
     width: 65%;
     height: 60.3%;
     padding: 0.74vh;
-    border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
-    border-radius: 0.278vh;
+    /* border: 0.18vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.5); */
+    /* border-radius: 0.278vh; */
+
+    --aug-border: 0.18vh;
+    --aug-border-bg: rgb(var(--color_r), var(--color_g), var(--color_b));
+    --aug-border-opacity: 0.5;
 
     display: flex;
     flex-direction: column;

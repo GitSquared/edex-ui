@@ -1,9 +1,8 @@
 div.modal_popup {
     position: absolute;
-    min-width: 30vw;
+    min-width: 38vh;
     background: var(--color_light_black);
-    border-color: rgb(var(--color_r), var(--color_g), var(--color_b));;
-    border-radius: 0.278vh;
+    border-color: rgb(var(--color_r), var(--color_g), var(--color_b));
     padding: 2vh;
     padding-bottom: 0vh;
     display: flex;
@@ -11,11 +10,30 @@ div.modal_popup {
     align-items: flex-start;
     justify-content: center;
     cursor: default;
+
+    --aug-border: 0.2vh;
+    --aug-border-bg: rgb(var(--color_r), var(--color_g), var(--color_b));
+    --aug-inset: 5px;
+    --aug-inset-bg: var(--color_light_black);
 }
 
-div.modal_popup.error {border-width: 0.7vh; border-style: double;}
-div.modal_popup.warning {border-width: 0.5vh; border-style: solid;}
-div.modal_popup.info {border-width: 0.2vh; border-style: solid;}
+div.modal_popup.error {
+    --aug-bl-height: 3vh;
+    --aug-bl-width: 30%;
+    border-top: 0.2vh solid var(--color_red);
+    border-bottom: 0.2vh solid transparent;
+    padding-bottom: 0.2vh;
+}
+div.modal_popup.warning {
+    --aug-b-width: 20%;
+    --aug-b-origin-x: 30%;
+    border-top: 0.2vh solid var(--color_yellow);
+    border-bottom: 0.2vh solid transparent;
+    padding-bottom: 0.2vh;
+}
+div.modal_popup.info {
+    --aug-border: 0.2vh;
+}
 
 div.modal_popup.focus {
     z-index: 2500 !important;

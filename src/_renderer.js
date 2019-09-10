@@ -102,6 +102,10 @@ window._loadTheme = theme => {
         --color_black: ${theme.colors.black};
         --color_light_black: ${theme.colors.light_black};
         --color_grey: ${theme.colors.grey};
+
+        /* Used for error and warning modals */
+        --color_red: ${theme.colors.red || "red"};
+        --color_yellow: ${theme.colors.yellow || "yellow"};
     }
 
     body {
@@ -315,7 +319,7 @@ async function initUI() {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
-    <section id="main_shell" style="height:0%;width:0%;opacity:0;margin-bottom:30vh;">
+    <section id="main_shell" style="height:0%;width:0%;opacity:0;margin-bottom:30vh;" augmented-ui="bl-clip tr-clip exe">
         <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
         <h1 id="main_shell_greeting"></h1>
     </section>
