@@ -84,7 +84,7 @@ if (!fs.existsSync(settingsFile)) {
         fsListView: false,
         experimentalGlobeFeatures: false,
         experimentalFeatures: false
-    }, 4));
+    }, "", 4));
     signale.info(`Default settings written to ${settingsFile}`);
 }
 // Create default shortcuts file
@@ -103,7 +103,7 @@ if (!fs.existsSync(shortcutsFile)) {
         { type: "app", trigger: "Ctrl+Shift+P", action: "KB_PASSMODE", enabled: true },
         { type: "app", trigger: "Ctrl+Shift+I", action: "DEV_DEBUG", enabled: false },
         { type: "app", trigger: "Ctrl+Shift+F5", action: "DEV_RELOAD", enabled: true }
-    ], 4));
+    ], "", 4));
     signale.info(`Default keymap written to ${shortcutsFile}`);
 }
 
