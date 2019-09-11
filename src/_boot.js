@@ -85,6 +85,7 @@ if (!fs.existsSync(settingsFile)) {
         experimentalGlobeFeatures: false,
         experimentalFeatures: false
     }, 4));
+    signale.info(`Default settings written to ${settingsFile}`);
 }
 // Create default shortcuts file
 if (!fs.existsSync(shortcutsFile)) {
@@ -103,6 +104,7 @@ if (!fs.existsSync(shortcutsFile)) {
         { type: "app", trigger: "Ctrl+Shift+I", action: "DEV_DEBUG", enabled: false },
         { type: "app", trigger: "Ctrl+Shift+F5", action: "DEV_RELOAD", enabled: true }
     ], 4));
+    signale.info(`Default keymap written to ${shortcutsFile}`);
 }
 
 // Copy default themes & keyboard layouts & fonts
