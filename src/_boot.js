@@ -43,6 +43,7 @@ ipc.on("log", (e, type, content) => {
 
 var win, tty, extraTtys;
 const settingsFile = path.join(electron.app.getPath("userData"), "settings.json");
+const shortcutsFile = path.join(electron.app.getPath("userData"), "shortcuts.json");
 const themesDir = path.join(electron.app.getPath("userData"), "themes");
 const innerThemesDir = path.join(__dirname, "assets/themes");
 const kblayoutsDir = path.join(electron.app.getPath("userData"), "keyboards");
@@ -70,7 +71,6 @@ if (!fs.existsSync(settingsFile)) {
         keyboard: "en-US",
         theme: "tron",
         termFontSize: 15,
-        shortcuts: [],
         audio: true,
         disableFeedbackAudio: false,
         clockHours: 24,
@@ -85,6 +85,24 @@ if (!fs.existsSync(settingsFile)) {
         experimentalGlobeFeatures: false,
         experimentalFeatures: false
     }, 4));
+}
+// Create default shortcuts file
+if (!fs.existsSync(shortcutsFile)) {
+    fs.writeFileSync(shortcutsFile, JSON.stringify([
+        { type: "app", trigger: "Ctrl+Shift+C", action: "COPY", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+V", action: "PASTE", enabled: true },
+        { type: "app", trigger: "Ctrl+Tab", action: "NEXT_TAB", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+Tab", action: "PREVIOUS_TAB", enabled: true },
+        { type: "app", trigger: "Ctrl+X", action: "TAB_X", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+S", action: "SETTINGS", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+K", action: "SHORTCUTS", enabled true },
+        { type: "app", trigger: "Ctrl+Shift+F", action: "FUZZY_SEARCH", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+L", action: "FS_LIST_VIEW", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+H", action: "FS_DOTFILES", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+P", action: "KB_PASSMODE", enabled: true },
+        { type: "app", trigger: "Ctrl+Shift+I", action: "DEV_DEBUG", enabled: false },
+        { type: "app", trigger: "Ctrl+Shift+F5", action: "DEV_RELOAD", enabled: true }
+    ], 4));
 }
 
 // Copy default themes & keyboard layouts & fonts

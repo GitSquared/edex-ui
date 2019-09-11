@@ -934,6 +934,7 @@ window.writeCustomShortcut = () => {
     let linebreak = document.getElementById("shortcutsHelpNew_Enter").checked || false;
 
     window.settings.shortcuts.push({
+        type: "shell",
         trigger,
         action,
         linebreak
