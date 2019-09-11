@@ -220,6 +220,7 @@ class FilesystemDisplay {
                     if (e.category === "file" && tcwd === themesDir && file.endsWith(".json")) e.type = "edex-theme";
                     if (e.category === "file" && tcwd === keyboardsDir && file.endsWith(".json")) e.type = "edex-kblayout";
                     if (e.category === "file" && tcwd === settingsDir && file === "settings.json") e.type = "edex-settings";
+                    if (e.category === "file" && tcwd === settingsDir && file === "shortcuts.json") e.type = "edex-shortcuts";
 
                     if (file.startsWith(".")) e.hidden = true;
 
@@ -344,6 +345,9 @@ class FilesystemDisplay {
                 if (e.type === "edex-settings") {
                     cmd = `window.openSettings()`;
                 }
+                if (e.type === "edex-shortcuts") {
+                    cmd = `window.openShortcutsHelp()`;
+                }
 
                 let icon = "";
                 let type = "";
@@ -379,6 +383,7 @@ class FilesystemDisplay {
                         type = "eDEX-UI keyboard layout";
                         break;
                     case "edex-settings":
+                    case "edex-shortcuts":
                         icon = this.edexIcons.settings;
                         type = "eDEX-UI config file";
                         break;
