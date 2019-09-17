@@ -538,6 +538,7 @@ window.focusShellTab = number => {
                     delete window.term[number].onprocesschange;
                     document.getElementById("shell_tab"+number).innerHTML = "<p>EMPTY</p>";
                     document.getElementById("terminal"+number).innerHTML = "";
+                    window.term[number].term.dispose();
                     delete window.term[number];
                     window.focusShellTab(0);
                 };
