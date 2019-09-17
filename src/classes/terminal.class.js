@@ -4,16 +4,13 @@ class Terminal {
             if (!opts.parentId) throw "Missing options";
 
             this.xTerm = require("xterm").Terminal;
+            const AttachAddon = require("xterm-addon-attach").AttachAddon;
+            const FitAddon = require("xterm-addon-fit").FitAddon;
             this.Ipc = require("electron").ipcRenderer;
 
             this.port = opts.port || 3000;
             this.cwd = "";
             this.oncwdchange = () => {};
-
-            let attachAddon = require("./node_modules/xterm/lib/addons/attach/attach.js");
-            let fitAddon = require("./node_modules/xterm/lib/addons/fit/fit.js");
-            this.xTerm.applyAddon(attachAddon);
-            this.xTerm.applyAddon(fitAddon);
 
             this._sendSizeToServer = () => {
                 let cols = this.term.cols.toString();
@@ -136,6 +133,8 @@ class Terminal {
                     brightWhite: window.theme.colors.brightWhite || colorify("#eeeeec", themeColor)
                 }
             });
+            let fitAddon = new FitAddon();
+            this.term.loadAddon(fitAddon);
             this.term.open(document.getElementById(opts.parentId));
             this.term.attachCustomKeyEventHandler(e => {
                 window.keyboard.keydownHandler(e);
@@ -172,7 +171,8 @@ class Terminal {
 
             this.socket = new WebSocket("ws://"+sockHost+":"+sockPort);
             this.socket.onopen = () => {
-                this.term.attach(this.socket);
+                let attachAddon = new AttachAddon(this.socket);
+                this.term.loadAddon(attachAddon);
                 this.fit();
             };
             this.socket.onerror = e => {throw JSON.stringify(e)};
@@ -239,7 +239,7 @@ class Terminal {
 
             this.fit = () => {
                 this.lastRefit = Date.now();
-                let {cols, rows} = this.term.proposeGeometry();
+                let {cols, rows} = fitAddon.proposeDimensions();
 
                 // Apply custom fixes based on screen ratio, see #302
                 let w = screen.width;
