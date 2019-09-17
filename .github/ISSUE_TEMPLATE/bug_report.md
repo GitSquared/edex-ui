@@ -7,8 +7,13 @@ assignees: GitSquared
 
 ---
 
-*The following (lightweight) template is made to avoid recurring questions in new bug reports and to facilitate problem diagnosis. You are free to ignore it, but filling it correctly will help a lot. Either way, thanks for taking the time to write a report.
-You can delete this introduction message if you want to.*
+<!-- 
+  The following (lightweight) template is made to avoid recurring questions in new bug reports
+  and to facilitate problem diagnosis. You are free to ignore it, but filling it correctly will
+  help a lot. Either way, thanks for taking the time to write a report.
+  Checked checkbox should look like this: [x]
+-->
+
 
 ## Technical information
 **Using version:**
@@ -29,4 +34,6 @@ You can delete this introduction message if you want to.*
 
 ---
 
-*(Write your report here)*
+## Problem
+
+(Write your report here)

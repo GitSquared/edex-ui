@@ -7,9 +7,16 @@ assignees: GitSquared
 
 ---
 
-*The following (lightweight) template is made to better understand your view and what you think about your request. You are free to ignore it, but are encouraged to complete it.
-We've seen lots of feature requests on this project, some were perhaps [too ambitious](https://github.com/GitSquared/edex-ui/issues/456) and some were [literally implemented overnight](https://github.com/GitSquared/edex-ui/issues/260). Don't be afraid to propose your ideas either way, we'll look at every one of them ;)
-You can delete this introduction message if you want to.*
+<!--
+  This template is made to facilitate communication between you and the developer(s)
+  of this project, and to get a better picture of what you are expecting. You are free
+  to ignore it, but are encouraged to complete it.
+  
+  We've seen lots of feature requests on this project, some were perhaps too ambitious,
+  and some were implemented & shipped overnight. Don't be afraid to propose your ideas
+  either way, every one of them is considered and you will typically receive feedback
+  within 72 hours.
+-->
 
 **Perceived idea awesomeness**
 - [ ] Wow, you don't have this yet???
@@ -25,4 +32,4 @@ You can delete this introduction message if you want to.*
 
 ---
 
-*(Write your idea or feature request here)*
+(Write your idea or feature request here)
