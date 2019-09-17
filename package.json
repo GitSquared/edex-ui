@@ -34,7 +34,7 @@
     "type": "git",
     "url": "git+https://github.com/GitSquared/edex-ui.git"
   },
-  "author": "GitSquared <squared@codebrew.fr>",
+  "author": "Gabriel 'Squared' SAILLARD <gabriel@saillard.dev> (https://gaby.dev)",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/GitSquared/edex-ui/issues"
@@ -45,7 +45,7 @@
     "productName": "eDEX-UI",
     "asar": true,
     "compression": "maximum",
-    "copyright": "Copyright © 2017-2018 GitSquared <squared@codebrew.fr>",
+    "copyright": "Copyright © 2017-2019 Gabriel 'Squared' SAILLARD <gabriel@saillard.dev> (https://gaby.dev)",
     "directories": {
       "output": "dist",
       "app": "prebuild-src"
