@@ -542,7 +542,7 @@ window.focusShellTab = number => {
                     document.getElementById("terminal"+number).innerHTML = "";
                     window.term[number].term.dispose();
                     delete window.term[number];
-                    window.focusShellTab(0);
+                    window.useAppShortcut("PREVIOUS_TAB");
                 };
 
                 window.term[number].onprocesschange = p => {
