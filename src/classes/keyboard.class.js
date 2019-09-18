@@ -23,6 +23,35 @@ class Keyboard {
 
         this.container.dataset.passwordMode = false;
 
+        // Build arrays for enabling keyboard shortcuts
+        this._shortcuts = {
+            CtrlAltShift: [],
+            CtrlAlt: [],
+            CtrlShift: [],
+            AltShift: [],
+            Ctrl: [],
+            Alt: [],
+            Shift: []
+        };
+        window.shortcuts.forEach(scut => {
+            let cut = Object.assign({}, scut);
+            let mods = cut.trigger.split("+");
+            cut.trigger = mods.pop();
+
+            let cat = mods.join("");
+            
+            if (cut.type === "app" && cut.action === "TAB_X" && cut.trigger === "X") {
+                for (let i = 1; i <= 5; i++) {
+                    let ncut = Object.assign({}, cut);
+                    ncut.trigger = `${i}`;
+                    ncut.action = `TAB_${i}`;
+                    this._shortcuts[cat].push(ncut);
+                }
+            } else {
+                this._shortcuts[cat].push(cut);
+            }
+        });
+
         // Parse keymap and create DOM
         Object.keys(layout).forEach(row => {
             this.container.innerHTML += `<div class="keyboard_row" id="`+row+`"></div>`;
@@ -315,94 +344,50 @@ class Keyboard {
         };
 
         window.addEventListener("blur", () => {
-        		document.querySelectorAll("div.keyboard_key.active").forEach(key => {
-        				key.setAttribute("class", key.getAttribute("class").replace("active", ""));
-        				key.onmouseup({preventDefault: () => {return true}});
-        		});
+            document.querySelectorAll("div.keyboard_key.active").forEach(key => {
+                key.setAttribute("class", key.getAttribute("class").replace("active", ""));
+                key.onmouseup({preventDefault: () => {return true}});
+            });
         });
     }
     pressKey(key) {
         let cmd = key.dataset.cmd || "";
 
         // Keyboard shortcuts
-        if (this.container.dataset.isCtrlOn === "true" && this.container.dataset.isShiftOn === "true") {
-            switch(cmd) {
-                case "c":
-                    window.term[window.currentTerm].clipboard.copy();
-                    return true;
-                case "v":
-                    window.term[window.currentTerm].clipboard.paste();
-                    return true;
-                case "s":
-                    if (!document.getElementById("settingsEditor")) {
-                        window.openSettings();
-                    }
-                    return true;
-                case "k":
-                    if (!document.getElementById("shortcutsHelp")) {
-                        window.openShortcutsHelp();
-                    }
-                    return true;
-                case "i":
-                    electron.remote.getCurrentWindow().webContents.toggleDevTools();
-                    return true;
-                case "h":
-                    window.fsDisp.toggleHidedotfiles();
-                    return true;
-                case "f":
-                	window.activeFuzzyFinder = new FuzzyFinder();
-                	return true;
-                case "p":
-                    window.keyboard.togglePasswordMode();
-                    return true;
-                case "\t":
-                    let i = window.currentTerm ? window.currentTerm : 4;
-                    if (window.term[i] && i !== window.currentTerm) {
-                        window.focusShellTab(i);
-                    } else if (window.term[i-1]) {
-                        window.focusShellTab(i-1);
-                    } else if (window.term[i-2]) {
-                        window.focusShellTab(i-2);
-                    } else if (window.term[i-3]) {
-                        window.focusShellTab(i-3);
-                    } else if (window.term[i-4]) {
-                        window.focusShellTab(i-4);
-                    }
-                    return true;
-            }
+        let shortcutsCat = "";
+        if (this.container.dataset.isCtrlOn === "true") shortcutsCat += "Ctrl";
+        if (this.container.dataset.isAltOn === "true") shortcutsCat += "Alt";
+        if (this.container.dataset.isShiftOn === "true") shortcutsCat += "Shift";
+
+        let shortcutsTriggered = false;
+
+        if (shortcutsCat.length > 1) {
+            this._shortcuts[shortcutsCat].forEach(cut => {
+                if (!cut.enabled) return;
+        
+                let trig = cut.trigger.toLowerCase()
+                                    .replace("plus", "+")
+                                    .replace("space", " ")
+                                    .replace("tab", "\t")
+                                    .replace(/backspace|delete/, "\b")
+                                    .replace(/esc|escape/, this.ctrlseq[1])
+                                    .replace(/return|enter/, "\r");
+
+                if (cmd !== trig) return;
+
+                if (cut.type === "app") {
+                    window.useAppShortcut(cut.action);
+                    shortcutsTriggered = true;
+                } else if (cut.type === "shell") {
+                    let fn = (cut.linebreak) ? writelr : write;
+                    window.term[window.currentTerm][fn](cut.action);
+                } else {
+                    console.warn(`${cut.trigger} has unknown type`);
+                }
+            });
         }
-        if (this.container.dataset.isCtrlOn === "true") {
-            switch(cmd) {
-                case "1":
-                    window.focusShellTab(0);
-                    return true;
-                case "2":
-                    window.focusShellTab(1);
-                    return true;
-                case "3":
-                    window.focusShellTab(2);
-                    return true;
-                case "4":
-                    window.focusShellTab(3);
-                    return true;
-                case "5":
-                    window.focusShellTab(4);
-                    return true;
-                case "\t":
-                    if (window.term[window.currentTerm+1]) {
-                        window.focusShellTab(window.currentTerm+1);
-                    } else if (window.term[window.currentTerm+2]) {
-                        window.focusShellTab(window.currentTerm+2);
-                    } else if (window.term[window.currentTerm+3]) {
-                        window.focusShellTab(window.currentTerm+3);
-                    } else if (window.term[window.currentTerm+4]) {
-                        window.focusShellTab(window.currentTerm+4);
-                    } else {
-                        window.focusShellTab(0);
-                    }
-                    return true;
-            }
-        }
+
+        if (shortcutsTriggered) return;
 
         // Modifiers
         if (this.container.dataset.isShiftOn === "true" && key.dataset.shift_cmd || this.container.dataset.isCapsLckOn === "true" && key.dataset.shift_cmd) cmd = key.dataset.capslck_cmd || key.dataset.shift_cmd;

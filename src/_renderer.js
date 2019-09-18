@@ -37,9 +37,11 @@ const themesDir = path.join(settingsDir, "themes");
 const keyboardsDir = path.join(settingsDir, "keyboards");
 const fontsDir = path.join(settingsDir, "fonts");
 const settingsFile = path.join(settingsDir, "settings.json");
+const shortcutsFile = path.join(settingsDir, "shortcuts.json");
 
 // Load config
 window.settings = require(settingsFile);
+window.shortcuts = require(shortcutsFile);
 
 // Load CLI parameters
 if (electron.remote.process.argv.includes("--nointro")) {
@@ -558,6 +560,8 @@ window.focusShellTab = number => {
 
 // Settings editor
 window.openSettings = async () => {
+    if (document.getElementById("settingsEditor")) return;
+
     // Build lists of available keyboards, themes, monitors
     let keyboards, themes, monitors, ifaces;
     fs.readdirSync(keyboardsDir).forEach(kb => {
@@ -767,7 +771,6 @@ window.writeSettingsFile = () => {
         keyboard: document.getElementById("settingsEditor-keyboard").value,
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
-        shortcuts: window.settings.shortcuts || [],
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
         disableFeedbackAudio: (document.getElementById("settingsEditor-disableFeedbackAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
@@ -797,8 +800,10 @@ window.writeSettingsFile = () => {
 
 // Display available keyboard shortcuts and custom shortcuts helper
 window.openShortcutsHelp = () => {
+    if (document.getElementById("settingsEditor")) return;
+
     let customList = "";
-    window.settings.shortcuts.forEach(cut => {
+    window.shortcuts.forEach(cut => {
         customList += `<tr>
                             <td>${cut.trigger}</td>
                             <td>${cut.action}</td>
@@ -934,7 +939,7 @@ window.writeCustomShortcut = () => {
     let action = document.getElementById("shortcutsHelpNew_Cmd").value.trim();
     let linebreak = document.getElementById("shortcutsHelpNew_Enter").checked || false;
 
-    window.settings.shortcuts.push({
+    window.shortcuts.push({
         type: "shell",
         trigger,
         action,
@@ -945,120 +950,114 @@ window.writeCustomShortcut = () => {
     window.registerKeyboardShortcuts();
 };
 
+window.useAppShortcut = action => {
+    switch(action) {
+        case "COPY":
+            window.term[window.currentTerm].clipboard.copy();
+            return true;
+        case "PASTE":
+            window.term[window.currentTerm].clipboard.paste();
+            return true;
+        case "NEXT_TAB":
+                if (window.term[window.currentTerm+1]) {
+                    window.focusShellTab(window.currentTerm+1);
+                } else if (window.term[window.currentTerm+2]) {
+                    window.focusShellTab(window.currentTerm+2);
+                } else if (window.term[window.currentTerm+3]) {
+                    window.focusShellTab(window.currentTerm+3);
+                } else if (window.term[window.currentTerm+4]) {
+                    window.focusShellTab(window.currentTerm+4);
+                } else {
+                    window.focusShellTab(0);
+                }
+            return true;
+        case "PREVIOUS_TAB":
+                let i = window.currentTerm || 4;
+                if (window.term[i] && i !== window.currentTerm) {
+                    window.focusShellTab(i);
+                } else if (window.term[i-1]) {
+                    window.focusShellTab(i-1);
+                } else if (window.term[i-2]) {
+                    window.focusShellTab(i-2);
+                } else if (window.term[i-3]) {
+                    window.focusShellTab(i-3);
+                } else if (window.term[i-4]) {
+                    window.focusShellTab(i-4);
+                }
+            return true;
+        case "TAB_1":
+            window.focusShellTab(0);
+            return true;
+        case "TAB_2":
+            window.focusShellTab(1);
+            return true;
+        case "TAB_3":
+            window.focusShellTab(2);
+            return true;
+        case "TAB_4":
+            window.focusShellTab(3);
+            return true;
+        case "TAB_5":
+            window.focusShellTab(4);
+            return true;
+        case "SETTINGS":
+            window.openSettings();
+            return true;
+        case "SHORTCUTS":
+            window.openShortcutsHelp();
+            return true;
+        case "FUZZY_SEARCH":
+            window.activeFuzzyFinder = new FuzzyFinder();
+            return true;
+        case "FS_LIST_VIEW":
+            window.fsDisp.toggleListview();
+            return true;
+        case "FS_DOTFILES":
+            window.fsDisp.toggleHidedotfiles();
+            return true;
+        case "KB_PASSMODE":
+            window.keyboard.togglePasswordMode();
+            return true;
+        case "DEV_DEBUG":
+            electron.remote.getCurrentWindow().webContents.toggleDevTools();
+            return true;
+        case "DEV_RELOAD":
+            window.location.reload(true);
+            return true;
+        default:
+            console.warn(`Unknown "${action}" app shortcut action`);
+            return false;
+    }
+};
+
 // Global keyboard shortcuts
 const globalShortcut = electron.remote.globalShortcut;
 globalShortcut.unregisterAll();
 
 window.registerKeyboardShortcuts = () => {
-    // Open inspector
-    globalShortcut.register("Control+Shift+I", () => {
-        electron.remote.getCurrentWindow().webContents.toggleDevTools();
-    });
+    window.shortcuts.forEach(cut => {
+        if (!cut.enabled) return;
 
-    // Open settings
-    globalShortcut.register("Control+Shift+S", () => {
-        if (!document.getElementById("settingsEditor")) {
-            window.openSettings();
-        }
-    });
-
-    // Open list of keyboard shortcuts
-    globalShortcut.register("Control+Shift+K", () => {
-        if (!document.getElementById("shortcutsHelp")) {
-            window.openShortcutsHelp();
-        }
-    });
-
-    // Copy and paste shortcuts
-
-    if (process.platform === "darwin") {
-        // See #342, we have an actual available key on macOS to do this
-        globalShortcut.register("Command+C", () => {
-            window.term[window.currentTerm].clipboard.copy();
-        });
-        globalShortcut.register("Command+V", () => {
-            window.term[window.currentTerm].clipboard.paste();
-        });
-    } else {
-        // Use Ctrl+shift on other OSs
-        globalShortcut.register("Ctrl+Shift+C", () => {
-            window.term[window.currentTerm].clipboard.copy();
-        });
-        globalShortcut.register("Ctrl+Shift+V", () => {
-            window.term[window.currentTerm].clipboard.paste();
-        });
-    }
-
-    // Switch tabs
-    // Next
-    globalShortcut.register("Control+Tab", () => {
-        if (window.term[window.currentTerm+1]) {
-            window.focusShellTab(window.currentTerm+1);
-        } else if (window.term[window.currentTerm+2]) {
-            window.focusShellTab(window.currentTerm+2);
-        } else if (window.term[window.currentTerm+3]) {
-            window.focusShellTab(window.currentTerm+3);
-        } else if (window.term[window.currentTerm+4]) {
-            window.focusShellTab(window.currentTerm+4);
+        if (cut.type === "app") {
+            if (cut.action === "TAB_X") {
+                for (let i = 1; i <= 5; i++) {
+                    let trigger = cut.trigger.replace("X", i);
+                    let dfn = () => { window.useAppShortcut(`TAB_${i}`) };
+                    globalShortcut.register(trigger, dfn);
+                }
+            } else {
+                globalShortcut.register(cut.trigger, () => {
+                    window.useAppShortcut(cut.action);
+                });
+            }
+        } else if (cut.type === "shell") {
+            globalShortcut.register(cut.trigger, () => {
+                let fn = (cut.linebreak) ? writelr : write;
+                window.term[window.currentTerm][fn](cut.action);
+            });
         } else {
-            window.focusShellTab(0);
+            console.warn(`${cut.trigger} has unknown type`);
         }
-    });
-    // Previous
-    globalShortcut.register("Control+Shift+Tab", () => {
-        let i = window.currentTerm ? window.currentTerm : 4;
-        if (window.term[i] && i !== window.currentTerm) {
-            window.focusShellTab(i);
-        } else if (window.term[i-1]) {
-            window.focusShellTab(i-1);
-        } else if (window.term[i-2]) {
-            window.focusShellTab(i-2);
-        } else if (window.term[i-3]) {
-            window.focusShellTab(i-3);
-        } else if (window.term[i-4]) {
-            window.focusShellTab(i-4);
-        }
-    });
-    // By tab number
-    globalShortcut.register("Control+1", () => {
-        window.focusShellTab(0);
-    });
-    globalShortcut.register("Control+2", () => {
-        window.focusShellTab(1);
-    });
-    globalShortcut.register("Control+3", () => {
-        window.focusShellTab(2);
-    });
-    globalShortcut.register("Control+4", () => {
-        window.focusShellTab(3);
-    });
-    globalShortcut.register("Control+5", () => {
-        window.focusShellTab(4);
-    });
-
-    // Toggle hiding dotfiles in fsDisp
-    globalShortcut.register("Control+Shift+H", () => {
-        window.fsDisp.toggleHidedotfiles();
-    });
-
-    // Toggle list view in fsDisp
-    globalShortcut.register("Control+Shift+L", () => {
-        window.fsDisp.toggleListview();
-    });
-
-    // Open file fuzzy finder
-    globalShortcut.register("Control+Shift+F", () => {
-    	window.activeFuzzyFinder = new FuzzyFinder();
-   	});
-   	
-    // Hide on-screen keyboard visual feedback (#394)
-    globalShortcut.register("Control+Shift+P", () => {
-        window.keyboard.togglePasswordMode();
-    });
-
-    // Hot reload shortcut
-    globalShortcut.register("Control+Shift+F5", () => {
-        window.location.reload(true);
     });
 };
 window.registerKeyboardShortcuts();
