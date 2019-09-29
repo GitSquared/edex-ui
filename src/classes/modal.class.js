@@ -118,9 +118,12 @@ class Modal {
 
         draggedModal.zindex = draggedModal.getAttribute("style");
 
-        let rect = draggedModal.getBoundingClientRect();
-        draggedModal.posX = rect.left;
-        draggedModal.posY = rect.top;
+        // Wait for correct rendering of medias and such before calculating rect size
+        setTimeout(() => {
+            let rect = draggedModal.getBoundingClientRect();
+            draggedModal.posX = rect.left;
+            draggedModal.posY = rect.top;
+        }, 500);
 
         // Mouse
         function modalMousedownHandler(e) {
