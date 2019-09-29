@@ -417,6 +417,12 @@ class FilesystemDisplay {
                 }
 
                 if (type === "") type = e.type;
+                e.type = type;
+
+                // Handle displayable media
+                if (e.type === 'video' || e.type === 'image') {
+                    cmd = `window.fsDisp.openMedia('${e.name}', '${path.resolve(this.dirpath, e.name)}', '${e.type}')`;
+                }
 
                 if (typeof e.size === "number") {
                     e.size = this._formatBytes(e.size);
@@ -508,6 +514,29 @@ class FilesystemDisplay {
         if (window.performance.navigation.type === 0) {
             this.readFS(window.term[window.currentTerm].cwd || window.settings.cwd);
         }
+
+        this.openMedia = (name, path, type) => {
+            let html;
+            switch(type) {
+                case "image":
+                    html = `<img class="fsDisp_mediaDisp" src="${path}">`;
+                    break;
+                case "video":
+                    html = `<video class="fsDisp_mediaDisp" controls preload="auto">
+                            <source src="${path}">
+                            Unsupported video format!
+                        </video>`;
+                    break;
+                default:
+                    throw new Error("fsDisp media displayer: unknown type "+type);
+            }
+
+            new Modal({
+                type: "custom",
+                title: _escapeHtml(name),
+                html
+            });
+        };
     }
 }
 

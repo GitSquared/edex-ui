@@ -206,3 +206,11 @@ tr#shortcutsHelpNew td:first-child > input[type="text"] {
 tr#shortcutsHelpNew td:last-child > input[type="text"] {
     width: 80%;
 }
+
+/* fsDisp media displayer */
+
+.fsDisp_mediaDisp {
+    max-width: 50vw;
+    max-height: 50vh;
+    outline: none !important;
+}
