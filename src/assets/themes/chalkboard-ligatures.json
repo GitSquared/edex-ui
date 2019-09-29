@@ -1,0 +1,44 @@
+{
+    "colors": {
+        "r": 239,
+        "g": 240,
+        "b": 235,
+        "black": "#282a36",
+        "light_black": "#222430",
+        "grey": "#222430",
+        "red": "#ff5c57",
+        "green": "#5af78e",
+        "yellow": "#f3f99d",
+        "blue": "#57c7ff",
+        "magenta": "#ff6ac1",
+        "cyan": "#9aedfe",
+        "white": "#f1f1f0",
+        "brightBlack": "#686868",
+        "brightRed": "#ff5c57",
+        "brightGreen": "#5af78e",
+        "brightYellow": "#f3f99d",
+        "brightBlue": "#57c7ff",
+        "brightMagenta": "#ff6ac1",
+        "brightCyan": "#9aedfe",
+        "brightWhite": "#eff0eb"
+    },
+    "cssvars": {
+        "font_main": "United Sans Medium",
+        "font_main_light": "United Sans Light"
+    },
+    "terminal": {
+        "fontFamily": "Fira Code",
+        "cursorStyle": "block",
+        "foreground": "#eff0eb",
+        "background": "#282a36",
+        "cursor": "#97979b",
+        "cursorAccent": "#282a36",
+        "selection": "rgba(239,240,235,0.3)"
+    },
+    "globe": {
+        "base": "#000000",
+        "marker": "#f3f99d",
+        "pin": "#eff0eb",
+        "satellite": "#ff5c57"
+    }
+}
