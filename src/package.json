@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
-    "@wcjiang/whereis": "^1.0.0",
     "augmented-ui": "1.1.0",
     "color": "3.1.2",
     "geolite2": "1.2.1",
@@ -38,6 +37,7 @@
     "systeminformation": "4.14.11",
     "tail": "2.0.3",
     "username": "5.1.0",
+    "which": "1.3.1",
     "ws": "7.1.2",
     "xterm": "4.0.2",
     "xterm-addon-attach": "0.2.1",

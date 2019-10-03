@@ -34,8 +34,21 @@ const ipc = electron.ipcMain;
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
-const whereis = require("@wcjiang/whereis");
+const realWhich = require("which");
 const Terminal = require("./classes/terminal.class.js").Terminal;
+
+// Promisify 'which' module
+const which = exec => {
+    return new Promise((resolve, reject) => {
+        realWhich(exec, (er, resolvedPath) => {
+            if (er !== null) {
+                reject(er);
+                return;
+            }
+            resolve(resolvedPath);
+        })
+    });
+};
 
 ipc.on("log", (e, type, content) => {
     signale[type](content);
@@ -202,7 +215,7 @@ app.on('ready', async () => {
     signale.pending(`Loading settings file...`);
     let settings = require(settingsFile);
     signale.pending(`Resolving shell path...`);
-    settings.shell = await whereis(settings.shell).catch(e => { throw(e) });
+    settings.shell = await which(settings.shell).catch(e => { throw(e) });
     signale.info(`Shell found at ${settings.shell}`);
     signale.success(`Settings loaded!`);
 
