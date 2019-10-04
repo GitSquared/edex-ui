@@ -34,21 +34,8 @@ const ipc = electron.ipcMain;
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
-const realWhich = require("which");
+const which = require("which");
 const Terminal = require("./classes/terminal.class.js").Terminal;
-
-// Promisify 'which' module
-const which = exec => {
-    return new Promise((resolve, reject) => {
-        realWhich(exec, (er, resolvedPath) => {
-            if (er !== null) {
-                reject(er);
-                return;
-            }
-            resolve(resolvedPath);
-        })
-    });
-};
 
 ipc.on("log", (e, type, content) => {
     signale[type](content);
