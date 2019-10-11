@@ -256,7 +256,7 @@ class Terminal {
                 let d = gcd(w, h);
 
                 if (d === 100) { y = 1; x = 3;}
-                if (d === 120) y = 1;
+                // if (d === 120) y = 1;
                 if (d === 256) x = 2;
 
                 if (window.settings.termFontSize < 15) y = y - 1;
