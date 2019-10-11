@@ -3,7 +3,6 @@ name: Feature request
 about: You have some great idea you'd like to share? Please do so!
 title: ''
 labels: idea
-assignees: GitSquared
 
 ---
 

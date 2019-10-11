@@ -3,7 +3,6 @@ name: Bug report
 about: Something's broken or screaming error messages at you? Let's fix it.
 title: ''
 labels: bug, investigation
-assignees: GitSquared
 
 ---
 
