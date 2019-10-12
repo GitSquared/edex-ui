@@ -802,8 +802,34 @@ window.writeSettingsFile = () => {
 window.openShortcutsHelp = () => {
     if (document.getElementById("settingsEditor")) return;
 
+    const shortcutsDefinition = {
+        "COPY": "Copy selected buffer from the terminal.",
+        "PASTE": "Paste system clipboard to the terminal.",
+        "NEXT_TAB": "Switch to the next opened terminal tab (left to right order).",
+        "PREVIOUS_TAB": "Switch to the previous opened terminal tab (right to left order).",
+        "TAB_X": "Switch to a specific terminal tab, or create it if it hasn't been opened yet.",
+        "SETTINGS": "Open the settings editor.",
+        "SHORTCUTS": "List and edit available keyboard shortcuts.",
+        "FUZZY_SEARCH": "Search for entries in the current working directory.",
+        "FS_LIST_VIEW": "Toggle between list and grid view in the file browser.",
+        "FS_DOTFILES": "Toggle hidden files and directories in the file browser.",
+        "KB_PASSMODE": "Toggle the on-screen keyboard's \"Password Mode\", which allows you to safely<br>type sensitive information even if your screen might be recorded (disable visual input feedback).",
+        "DEV_DEBUG": "Open Chromium Dev Tools, for debugging purposes.",
+        "DEV_RELOAD": "Trigger front-end hot reload."
+    };
+
+    let appList = "";
+    window.shortcuts.filter(e => e.type === "app").forEach(cut => {
+        let action = (cut.action.startsWith("TAB_")) ? "TAB_X" : cut.action;
+
+        appList += `<tr>
+                        <td>${cut.trigger}</td>
+                        <td>${shortcutsDefinition[action]}</td>
+                    </tr>`;
+    });
+
     let customList = "";
-    window.shortcuts.forEach(cut => {
+    window.shortcuts.filter(e => e.type === "shell").forEach(cut => {
         customList += `<tr>
                             <td>${cut.trigger}</td>
                             <td>${cut.action}</td>
@@ -822,54 +848,7 @@ window.openShortcutsHelp = () => {
                             <th>Trigger</th>
                             <th>Action</th>
                         </tr>
-                        <tr>
-                            <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + C</td>
-                            <td>Copy selected buffer from the terminal.</td>
-                        </tr>
-                        <tr>
-                            <td>${process.platform === "darwin" ? "Command" : "Ctrl + Shift"} + V</td>
-                            <td>Paste system clipboard to the terminal.</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Tab</td>
-                            <td>Switch to the next opened terminal tab (left to right order).</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + Tab</td>
-                            <td>Switch to the previous opened terminal tab (right to left order).</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + [1-5]</td>
-                            <td>Switch to a specific terminal tab, or create it if it hasn't been opened yet.</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + S</td>
-                            <td>Open the settings editor.</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + K</td>
-                            <td>List available keyboard shortcuts.</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + H</td>
-                            <td>Toggle hidden files and directories in the file browser.</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + F</td>
-                            <td>Search for entries in the current working directory.</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + P</td>
-                            <td>Toggle the on-screen keyboard's "Password Mode", that allows you to safely type<br> sensitive information even if your screen might be recorded (disables visual input feedback).</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + I</td>
-                            <td>Open Chromium Dev Tools (for debugging purposes).</td>
-                        </tr>
-                        <tr>
-                            <td>Ctrl + Shift + F5</td>
-                            <td>Trigger front-end hot reload.</td>
-                        </tr>
+                        ${appList}
                     </table>
                 </details>
                 <br>
