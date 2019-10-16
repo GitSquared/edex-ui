@@ -1,21 +1,4 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.13.5
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
-ignore:
-  SNYK-JS-TAR-174125:
-    - electron-rebuild > node-gyp > tar:
-        reason: >-
-          Only affecting build system, and we trust upstream electron tar
-          archives.
-        expires: '2019-05-18T15:26:53.522Z'
-# patches apply the minimum changes required to fix a vulnerability
-patch:
-  'npm:hoek:20180212':
-    - electron-rebuild > node-gyp > request > hawk > hoek:
-        patched: '2018-06-19T01:45:58.543Z'
-    - electron-rebuild > node-gyp > request > hawk > boom > hoek:
-        patched: '2018-06-19T01:45:58.543Z'
-    - electron-rebuild > node-gyp > request > hawk > sntp > hoek:
-        patched: '2018-06-19T01:45:58.543Z'
-    - electron-rebuild > node-gyp > request > hawk > cryptiles > boom > hoek:
-        patched: '2018-06-19T01:45:58.543Z'
+ignore: {}
+patch: {}
