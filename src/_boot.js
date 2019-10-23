@@ -211,12 +211,12 @@ app.on('ready', async () => {
     // See #366
     let cleanEnv = await require("shell-env")(settings.shell.split(" ")[0]).catch(e => { throw e; });
 
-    Object.assign(cleanEnv, process.env, settings.env, {
+    Object.assign(cleanEnv, process.env, {
         TERM: "xterm-256color",
         COLORTERM: "truecolor",
         TERM_PROGRAM: "eDEX-UI",
         TERM_PROGRAM_VERSION: app.getVersion()
-    });
+    }, settings.env);
 
     signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
