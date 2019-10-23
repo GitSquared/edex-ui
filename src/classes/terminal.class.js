@@ -411,7 +411,7 @@ class Terminal {
                 env: opts.env || process.env
             });
 
-            this.tty.on("exit", (code, signal) => {
+            this.tty.onExit((code, signal) => {
                 this._closed = true;
                 this.onclosed(code, signal);
             });
@@ -456,7 +456,7 @@ class Terminal {
                 ws.on("message", msg => {
                     this.tty.write(msg);
                 });
-                this.tty.on("data", data => {
+                this.tty.onData(data => {
                     this._nextTickUpdateTtyCWD = true;
                     this._nextTickUpdateProcess = true;
                     try {
