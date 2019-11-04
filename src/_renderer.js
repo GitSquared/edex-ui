@@ -706,6 +706,14 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>keepGeometry</td>
+                        <td>Try to keep a 16:9 aspect ratio in windowed mode</td>
+                        <td><select id="settingsEditor-keepGeometry">
+                            <option>${(window.settings.keepGeometry === false) ? 'false' : 'true'}</option>
+                            <option>${(window.settings.keepGeometry === false) ? 'true' : 'false'}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>excludeThreadsFromToplist</td>
                         <td>Display threads in the top processes list</td>
                         <td><select id="settingsEditor-excludeThreadsFromToplist">
@@ -781,6 +789,7 @@ window.writeSettingsFile = () => {
         nocursor: (document.getElementById("settingsEditor-nocursor").value === "true"),
         iface: document.getElementById("settingsEditor-iface").value,
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
+        keepGeometry: (document.getElementById("settingsEditor-keepGeometry").value === "true"),
         excludeThreadsFromToplist: (document.getElementById("settingsEditor-excludeThreadsFromToplist").value === "true"),
         hideDotfiles: (document.getElementById("settingsEditor-hideDotfiles").value === "true"),
         fsListView: (document.getElementById("settingsEditor-fsListView").value === "true"),
@@ -1089,6 +1098,7 @@ window.onresize = () => {
 window.resizeTimeout = null;
 let electronWin = electron.remote.getCurrentWindow();
 electronWin.on("resize", () => {
+    if (settings.keepGeometry === false) return;
     clearTimeout(window.resizeTimeout);
     window.resizeTimeout = setTimeout(() => {
         let win = electron.remote.getCurrentWindow();
