@@ -44,6 +44,7 @@ ipc.on("log", (e, type, content) => {
 var win, tty, extraTtys;
 const settingsFile = path.join(electron.app.getPath("userData"), "settings.json");
 const shortcutsFile = path.join(electron.app.getPath("userData"), "shortcuts.json");
+const lastWindowStateFile = path.join(electron.app.getPath("userData"), "lastWindowState.json");
 const themesDir = path.join(electron.app.getPath("userData"), "themes");
 const innerThemesDir = path.join(__dirname, "assets/themes");
 const kblayoutsDir = path.join(electron.app.getPath("userData"), "keyboards");
@@ -79,7 +80,6 @@ if (!fs.existsSync(settingsFile)) {
         nointro: false,
         nocursor: false,
         allowWindowed: false,
-        startWindowed: false,
         excludeThreadsFromToplist: true,
         hideDotfiles: false,
         fsListView: false,
@@ -106,6 +106,13 @@ if (!fs.existsSync(shortcutsFile)) {
         { type: "app", trigger: "Ctrl+Shift+F5", action: "DEV_RELOAD", enabled: true }
     ], "", 4));
     signale.info(`Default keymap written to ${shortcutsFile}`);
+}
+//Create default shortcuts file
+if(!fs.existsSync(lastWindowStateFile)) {
+    fs.writeFileSync(lastWindowStateFile, JSON.stringify({
+        useFullscreen: true
+    }, "", 4));
+    signale.info(`Default last window state written to ${lastWindowStateFile}`);
 }
 
 // Copy default themes & keyboard layouts & fonts
@@ -194,7 +201,7 @@ function createWindow(settings) {
     win.show();
     if (!settings.allowWindowed) {
         win.setResizable(false);
-    } else if(settings.startWindowed) {
+    } else if (!require(lastWindowStateFile)["useFullscreen"]) {
         win.setFullScreen(false);
     }
 

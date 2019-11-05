@@ -38,10 +38,12 @@ const keyboardsDir = path.join(settingsDir, "keyboards");
 const fontsDir = path.join(settingsDir, "fonts");
 const settingsFile = path.join(settingsDir, "settings.json");
 const shortcutsFile = path.join(settingsDir, "shortcuts.json");
+const lastWindowStateFile = path.join(settingsDir, "lastWindowState.json");
 
 // Load config
 window.settings = require(settingsFile);
 window.shortcuts = require(shortcutsFile);
+window.lastWindowState = require(lastWindowStateFile);
 
 // Load CLI parameters
 if (electron.remote.process.argv.includes("--nointro")) {
@@ -781,7 +783,6 @@ window.writeSettingsFile = () => {
         nocursor: (document.getElementById("settingsEditor-nocursor").value === "true"),
         iface: document.getElementById("settingsEditor-iface").value,
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
-        startWindowed: settings.startWindowed,
         excludeThreadsFromToplist: (document.getElementById("settingsEditor-excludeThreadsFromToplist").value === "true"),
         hideDotfiles: (document.getElementById("settingsEditor-hideDotfiles").value === "true"),
         fsListView: (document.getElementById("settingsEditor-fsListView").value === "true"),
@@ -804,15 +805,9 @@ window.toggleFullScreen = () => {
     electronWin.setFullScreen(useFullscreen);
 
     //Update settings
-    window.settings.startWindowed = !useFullscreen;
+    window.lastWindowState["useFullscreen"] = useFullscreen;
 
-    Object.keys(window.settings).forEach(key => {
-        if (window.settings[key] === "undefined") {
-            delete window.settings[key];
-        }
-    });
-
-    fs.writeFileSync(settingsFile, JSON.stringify(window.settings, "", 4));
+    fs.writeFileSync(lastWindowStateFile, JSON.stringify(window.lastWindowState, "", 4));
 };
 
 // Display available keyboard shortcuts and custom shortcuts helper
