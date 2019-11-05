@@ -708,6 +708,14 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>keepGeometry</td>
+                        <td>Try to keep a 16:9 aspect ratio in windowed mode</td>
+                        <td><select id="settingsEditor-keepGeometry">
+                            <option>${(window.settings.keepGeometry === false) ? 'false' : 'true'}</option>
+                            <option>${(window.settings.keepGeometry === false) ? 'true' : 'false'}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>excludeThreadsFromToplist</td>
                         <td>Display threads in the top processes list</td>
                         <td><select id="settingsEditor-excludeThreadsFromToplist">
@@ -1101,6 +1109,7 @@ window.onresize = () => {
 window.resizeTimeout = null;
 let electronWin = electron.remote.getCurrentWindow();
 electronWin.on("resize", () => {
+    if (settings.keepGeometry === false) return;
     clearTimeout(window.resizeTimeout);
     window.resizeTimeout = setTimeout(() => {
         let win = electron.remote.getCurrentWindow();
