@@ -2,7 +2,7 @@ section#keyboard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 56vw;
+    width: 55.5vw;
     position: relative;
     top: -0.925vh;
 }
