@@ -79,6 +79,7 @@ if (!fs.existsSync(settingsFile)) {
         nointro: false,
         nocursor: false,
         allowWindowed: false,
+        startWindowed: false,
         excludeThreadsFromToplist: true,
         hideDotfiles: false,
         fsListView: false,
@@ -193,6 +194,8 @@ function createWindow(settings) {
     win.show();
     if (!settings.allowWindowed) {
         win.setResizable(false);
+    } else if(settings.startWindowed) {
+        win.setFullScreen(false);
     }
 
     signale.watch("Waiting for frontend connection...");

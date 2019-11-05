@@ -781,6 +781,7 @@ window.writeSettingsFile = () => {
         nocursor: (document.getElementById("settingsEditor-nocursor").value === "true"),
         iface: document.getElementById("settingsEditor-iface").value,
         allowWindowed: (document.getElementById("settingsEditor-allowWindowed").value === "true"),
+        startWindowed: settings.startWindowed,
         excludeThreadsFromToplist: (document.getElementById("settingsEditor-excludeThreadsFromToplist").value === "true"),
         hideDotfiles: (document.getElementById("settingsEditor-hideDotfiles").value === "true"),
         fsListView: (document.getElementById("settingsEditor-fsListView").value === "true"),
@@ -796,6 +797,22 @@ window.writeSettingsFile = () => {
 
     fs.writeFileSync(settingsFile, JSON.stringify(window.settings, "", 4));
     document.getElementById("settingsEditorStatus").innerText = "New values written to settings.json file at "+new Date().toTimeString();
+};
+
+window.toggleFullScreen = () => {
+    let bool = (electronWin.isFullScreen() ? false : true);
+    electronWin.setFullScreen(bool);
+
+    //Update settings
+    window.settings.startWindowed = bool;
+
+    Object.keys(window.settings).forEach(key => {
+        if (window.settings[key] === "undefined") {
+            delete window.settings[key];
+        }
+    });
+
+    fs.writeFileSync(settingsFile, JSON.stringify(window.settings, "", 4));
 };
 
 // Display available keyboard shortcuts and custom shortcuts helper
