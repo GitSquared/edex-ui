@@ -800,11 +800,11 @@ window.writeSettingsFile = () => {
 };
 
 window.toggleFullScreen = () => {
-    let bool = (electronWin.isFullScreen() ? false : true);
-    electronWin.setFullScreen(bool);
+    let useFullscreen = (electronWin.isFullScreen() ? false : true);
+    electronWin.setFullScreen(useFullscreen);
 
     //Update settings
-    window.settings.startWindowed = bool;
+    window.settings.startWindowed = !useFullscreen;
 
     Object.keys(window.settings).forEach(key => {
         if (window.settings[key] === "undefined") {
