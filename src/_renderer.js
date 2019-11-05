@@ -38,10 +38,12 @@ const keyboardsDir = path.join(settingsDir, "keyboards");
 const fontsDir = path.join(settingsDir, "fonts");
 const settingsFile = path.join(settingsDir, "settings.json");
 const shortcutsFile = path.join(settingsDir, "shortcuts.json");
+const lastWindowStateFile = path.join(settingsDir, "lastWindowState.json");
 
 // Load config
 window.settings = require(settingsFile);
 window.shortcuts = require(shortcutsFile);
+window.lastWindowState = require(lastWindowStateFile);
 
 // Load CLI parameters
 if (electron.remote.process.argv.includes("--nointro")) {
@@ -805,6 +807,16 @@ window.writeSettingsFile = () => {
 
     fs.writeFileSync(settingsFile, JSON.stringify(window.settings, "", 4));
     document.getElementById("settingsEditorStatus").innerText = "New values written to settings.json file at "+new Date().toTimeString();
+};
+
+window.toggleFullScreen = () => {
+    let useFullscreen = (electronWin.isFullScreen() ? false : true);
+    electronWin.setFullScreen(useFullscreen);
+
+    //Update settings
+    window.lastWindowState["useFullscreen"] = useFullscreen;
+
+    fs.writeFileSync(lastWindowStateFile, JSON.stringify(window.lastWindowState, "", 4));
 };
 
 // Display available keyboard shortcuts and custom shortcuts helper

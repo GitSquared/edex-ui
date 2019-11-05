@@ -234,9 +234,7 @@ class Terminal {
             document.querySelector(".xterm-helper-textarea").addEventListener("keydown", e => {
                 if (e.key === "F11" && window.settings.allowWindowed) {
                     e.preventDefault();
-                    let win = require("electron").remote.BrowserWindow.getFocusedWindow();
-                    let bool = (win.isFullScreen() ? false : true);
-                    win.setFullScreen(bool);
+                    window.toggleFullScreen();
                 }
             });
 
