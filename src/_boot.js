@@ -107,7 +107,7 @@ if (!fs.existsSync(shortcutsFile)) {
     ], "", 4));
     signale.info(`Default keymap written to ${shortcutsFile}`);
 }
-//Create default shortcuts file
+//Create default window state file
 if(!fs.existsSync(lastWindowStateFile)) {
     fs.writeFileSync(lastWindowStateFile, JSON.stringify({
         useFullscreen: true
