@@ -187,6 +187,7 @@ class FilesystemDisplay {
 
                     let e = {
                         name: window._escapeHtml(file),
+                        path: path.resolve(tcwd, file),
                         type: "other",
                         category: "other",
                         hidden: false
@@ -300,34 +301,34 @@ class FilesystemDisplay {
             }
 
             let filesDOM = ``;
-            blockList.forEach(e => {
+            blockList.forEach((e, blockIndex) => {
                 let hidden = e.hidden ? " hidden" : "";
 
                 let cmd;
 
                 if (!this._noTracking) {
                     if (e.type === "dir" || e.type.endsWith("Dir")) {
-                        cmd = `window.term[window.currentTerm].writelr('cd \\'${e.name.replace(/\\/g, "\\\\")}\\'')`;
+                        cmd = `window.term[window.currentTerm].writelr("cd \\""+fsDisp.cwd[${blockIndex}].name+"\\"")`;
                     } else if (e.type === "up") {
-                        cmd = `window.term[window.currentTerm].writelr('cd ..')`;
+                        cmd = `window.term[window.currentTerm].writelr("cd ..")`;
                     } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
                         if (process.platform === "win32") {
-                            cmd = `window.term[window.currentTerm].writelr('${e.path.replace(/\\/g, "\\\\")}')`;
+                            cmd = `window.term[window.currentTerm].writelr(${e.path.replace(/\\/g, '')})`;
                         } else {
-                            cmd = `window.term[window.currentTerm].writelr('cd \\'${e.path.replace(/\\/g, "\\\\")}\\'')`;
+                            cmd = `window.term[window.currentTerm].writelr("cd \\"${e.path.replace(/\\/g, '')}\\"")`;
                         }
                     } else {
-                        cmd = `if(window.keyboard.container.dataset.isCtrlOn == 'true'){electron.shell.openItem('${path.resolve(this.dirpath, e.name)}');electronWin.minimize()}else{window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')}`;
+                        cmd = `if(window.keyboard.container.dataset.isCtrlOn == "true"){electron.shell.openItem(fsDisp.cwd[${blockIndex}].path);electronWin.minimize()}else{window.term[window.currentTerm].write("\\""+fsDisp.cwd[${blockIndex}].path+"\\"")}`;
                     }
                 } else {
                     if (e.type === "dir" || e.type.endsWith("Dir")) {
-                        cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, e.name).replace(/\\/g, '\\\\')}')`;
+                        cmd = `window.fsDisp.readFS(fsDisp.cwd[${blockIndex}].path)`;
                     } else if (e.type === "up") {
-                        cmd = `window.fsDisp.readFS('${path.resolve(this.dirpath, '..').replace(/\\/g, '\\\\')}')`;
+                        cmd = `window.fsDisp.readFS(path.resolve(this.dirpath, '..'))`;
                     } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
-                        cmd = `window.fsDisp.readFS('${e.path.replace(/\\/g, '\\\\')}')`;
+                        cmd = `window.fsDisp.readFS(${e.path.replace(/\\/g, '')})`;
                     } else {
-                        cmd = `if(window.keyboard.container.dataset.isCtrlOn == 'true'){electron.shell.openItem('${path.resolve(this.dirpath, e.name)}');electronWin.minimize()}else{window.term[window.currentTerm].write('\\'${path.resolve(this.dirpath, e.name)}\\'')}`;
+                        cmd = `if(window.keyboard.container.dataset.isCtrlOn == "true"){electron.shell.openItem(fsDisp.cwd[${blockIndex}].path);electronWin.minimize()}else{window.term[window.currentTerm].write("\\""+fsDisp.cwd[${blockIndex}].path+"\\"")}`;
                     }
                 }
 
@@ -438,7 +439,7 @@ class FilesystemDisplay {
                     e.lastAccessed = "--";
                 }
 
-                filesDOM += `<div class="fs_disp_${e.type}${hidden} animationWait" onclick="${cmd}">
+                filesDOM += `<div class="fs_disp_${e.type}${hidden} animationWait" onclick='${cmd}'>
                                 <svg viewBox="0 0 ${icon.width} ${icon.height}" fill="${this.iconcolor}">
                                     ${icon.svg}
                                 </svg>
