@@ -304,7 +304,7 @@ class Keyboard {
             }
 
             // See #516
-            if (e.repeat === false || (e.repeat === true && !e.code.startsWith('Shift') && !e.code.startsWith('Alt') && !e.code.startsWith('Ctrl') && !e.code.startsWith('Caps'))) {
+            if (e.repeat === false || (e.repeat === true && !e.code.startsWith('Shift') && !e.code.startsWith('Alt') && !e.code.startsWith('Control') && !e.code.startsWith('Caps'))) {
                 window.audioManager.stdin.play();
             }
         };
