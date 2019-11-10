@@ -326,7 +326,7 @@ class FilesystemDisplay {
                     } else if (e.type === "up") {
                         cmd = `window.fsDisp.readFS(path.resolve(this.dirpath, ".."))`;
                     } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
-                        cmd = `window.fsDisp.readFS(${e.path.replace(/\\/g, '')})`;
+                        cmd = `window.fsDisp.readFS("${e.path.replace(/\\/g, '')}")`;
                     } else {
                         cmd = `if(window.keyboard.container.dataset.isCtrlOn == "true"){electron.shell.openItem(fsDisp.cwd[${blockIndex}].path);electronWin.minimize()}else{window.term[window.currentTerm].write("\\""+fsDisp.cwd[${blockIndex}].path+"\\"")}`;
                     }
