@@ -193,7 +193,7 @@ class FilesystemDisplay {
                     };
 
                     if (typeof fstat !== "undefined") {
-                        e.lastAccessed = fstat.mtime;
+                        e.lastAccessed = fstat.mtime.getTime();
 
                         if (fstat.isDirectory()) {
                             e.category = "dir";
@@ -282,7 +282,10 @@ class FilesystemDisplay {
             this.render(devices, true);
         };
 
-        this.render = async (blockList, isDiskView) => {
+        this.render = async (originBlockList, isDiskView) => {
+            // Work on a clone of the blocklist to avoid altering fsDisp.cwd
+            let blockList = JSON.parse(JSON.stringify(originBlockList));
+
             if (this.failed === true) return false;
 
             if (isDiskView) {
@@ -429,8 +432,8 @@ class FilesystemDisplay {
                 } else {
                     e.size = "--";
                 }
-                if (typeof e.lastAccessed === "object") {
-                    e.lastAccessed = e.lastAccessed.toLocaleString();
+                if (typeof e.lastAccessed === "number") {
+                    e.lastAccessed = new Date(e.lastAccessed).toLocaleString();
                 } else {
                     e.lastAccessed = "--";
                 }
