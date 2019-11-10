@@ -425,7 +425,8 @@ class FilesystemDisplay {
 
                 // Handle displayable media
                 if (e.type === 'video' || e.type === 'image') {
-                    cmd = `window.fsDisp.openMedia('${e.name}', '${path.resolve(this.dirpath, e.name)}', '${e.type}')`;
+                    this.cwd[blockIndex].type = e.type;
+                    cmd = `window.fsDisp.openMedia(${blockIndex})`;
                 }
 
                 if (typeof e.size === "number") {
@@ -520,19 +521,25 @@ class FilesystemDisplay {
         }
 
         this.openMedia = (name, path, type) => {
-            let html;
-            switch(type) {
+            let block, html;
+
+            if (typeof name === "number") {
+                block = this.cwd[name];
+                name = block.name;
+            }
+
+            switch(type || block.type) {
                 case "image":
-                    html = `<img class="fsDisp_mediaDisp" src="${path}">`;
+                    html = `<img class="fsDisp_mediaDisp" src="${path || block.path}">`;
                     break;
                 case "video":
                     html = `<video class="fsDisp_mediaDisp" controls preload="auto">
-                            <source src="${path}">
+                            <source src="${path || block.path}">
                             Unsupported video format!
                         </video>`;
                     break;
                 default:
-                    throw new Error("fsDisp media displayer: unknown type "+type);
+                    throw new Error("fsDisp media displayer: unknown type "+(type || block.type));
             }
 
             new Modal({
