@@ -324,7 +324,7 @@ class FilesystemDisplay {
                     if (e.type === "dir" || e.type.endsWith("Dir")) {
                         cmd = `window.fsDisp.readFS(fsDisp.cwd[${blockIndex}].path)`;
                     } else if (e.type === "up") {
-                        cmd = `window.fsDisp.readFS(path.resolve(this.dirpath, ".."))`;
+                        cmd = `window.fsDisp.readFS(path.resolve(window.fsDisp.dirpath, ".."))`;
                     } else if (e.type === "disk" || e.type === "rom" || e.type === "usb") {
                         cmd = `window.fsDisp.readFS("${e.path.replace(/\\/g, '')}")`;
                     } else {
