@@ -530,7 +530,7 @@ class FilesystemDisplay {
 
             switch(type || block.type) {
                 case "image":
-                    html = `<img class="fsDisp_mediaDisp" src="${path || block.path}">`;
+                    html = `<img class="fsDisp_mediaDisp" src="${path || block.path}" ondragstart="return false;">`;
                     break;
                 case "video":
                     html = `<video class="fsDisp_mediaDisp" controls preload="auto">
