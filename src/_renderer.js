@@ -100,6 +100,7 @@ window._loadTheme = theme => {
     :root {
         --font_main: "${theme.cssvars.font_main}";
         --font_main_light: "${theme.cssvars.font_main_light}";
+        --font_mono: "${theme.terminal.fontFamily}";
         --color_r: ${theme.colors.r};
         --color_g: ${theme.colors.g};
         --color_b: ${theme.colors.b};
@@ -759,7 +760,7 @@ window.openSettings = async () => {
                 <h6 id="settingsEditorStatus">Loaded values from memory</h6>
                 <br>`,
         buttons: [
-            {label: "Open in External Editor", action:`electron.shell.openExternal('file://${settingsFile}')`},
+            {label: "Open in External Editor", action:`electron.shell.openItem('${settingsFile}');electronWin.minimize();`},
             {label: "Save to Disk", action: "window.writeSettingsFile()"},
             {label: "Reload UI", action: "window.location.reload(true);"},
             {label: "Restart eDEX", action: "electron.remote.app.relaunch();electron.remote.app.quit();"}
@@ -828,7 +829,7 @@ window.openShortcutsHelp = () => {
         "PASTE": "Paste system clipboard to the terminal.",
         "NEXT_TAB": "Switch to the next opened terminal tab (left to right order).",
         "PREVIOUS_TAB": "Switch to the previous opened terminal tab (right to left order).",
-        "TAB_X": "Switch to a specific terminal tab, or create it if it hasn't been opened yet.",
+        "TAB_X": "Switch to terminal tab <strong>X</strong>, or create it if it hasn't been opened yet.",
         "SETTINGS": "Open the settings editor.",
         "SHORTCUTS": "List and edit available keyboard shortcuts.",
         "FUZZY_SEARCH": "Search for entries in the current working directory.",
@@ -844,7 +845,8 @@ window.openShortcutsHelp = () => {
         let action = (cut.action.startsWith("TAB_")) ? "TAB_X" : cut.action;
 
         appList += `<tr>
-                        <td>${cut.trigger}</td>
+                        <td>${(cut.enabled) ? 'YES' : 'NO'}</td>
+                        <td><input disabled type="text" maxlength=25 value="${cut.trigger}"></td>
                         <td>${shortcutsDefinition[action]}</td>
                     </tr>`;
     });
@@ -852,8 +854,13 @@ window.openShortcutsHelp = () => {
     let customList = "";
     window.shortcuts.filter(e => e.type === "shell").forEach(cut => {
         customList += `<tr>
-                            <td>${cut.trigger}</td>
-                            <td>${cut.action}</td>
+                            <td>${(cut.enabled) ? 'YES' : 'NO'}</td>
+                            <td><input disabled type="text" maxlength=25 value="${cut.trigger}"></td>
+                            <td>
+                                <input disabled type="text" placeholder="Run terminal command..." value="${cut.action}">
+                                <input disabled type="checkbox" name="shortcutsHelpNew_Enter" ${(cut.linebreak) ? 'checked' : ''}>
+                                <label for="shortcutsHelpNew_Enter">Enter</label>
+                            </td>
                         </tr>`;
     });
 
@@ -866,6 +873,7 @@ window.openShortcutsHelp = () => {
                     <summary>Emulator shortcuts</summary>
                     <table class="shortcutsHelp">
                         <tr>
+                            <th>Enabled</th>
                             <th>Trigger</th>
                             <th>Action</th>
                         </tr>
@@ -877,31 +885,18 @@ window.openShortcutsHelp = () => {
                     <summary>Custom command shortcuts</summary>
                     <table class="shortcutsHelp">
                         <tr>
+                            <th>Enabled</th>
                             <th>Trigger</th>
                             <th>Command</th>
                         <tr>
                        ${customList} 
-                        <tr id="shortcutsHelpNew">
-                            <td>
-                                <input type="checkbox" id="shortcutsHelpNew_Ctrl" name="shortcutsHelpNew_Ctrl" checked>
-                                <label for="shortcutsHelpNew_Ctrl">CTRL</label>
-                                +
-                                <input type="checkbox" id="shortcutsHelpNew_Shift" name="shortcutsHelpNew_Shift" checked>
-                                <label for="shortcutsHelpNew_Shift">SHIFT</label>
-                                +
-                                <input type="checkbox" id="shortcutsHelpNew_Alt" name="shortcutsHelpNew_Alt">
-                                <label for="shortcutsHelpNew_Alt">ALT</label>
-                                +
-                                <input id="shortcutsHelpNew_Key" type="text" maxlength="1" placeholder="X">
-                            </td>
-                            <td>
-                                <input type="text" placeholder="Run terminal command..." id="shortcutsHelpNew_Cmd">
-                                <input type="checkbox" id="shortcutsHelpNew_Enter" name="shortcutsHelpNew_Enter">
-                                <label for="shortcutsHelpNew_Enter">Enter</label>
-                            </td>
                     </table>
                 </details>
-                <br>`
+                <br>`,
+        buttons: [
+            {label: "Open Shortcuts File", action:`electron.shell.openItem('${shortcutsFile}');electronWin.minimize();`},
+            {label: "Reload UI", action: "window.location.reload(true);"},
+        ]
     }, () => {
         window.keyboard.attach();
         window.term[window.currentTerm].term.focus();
@@ -917,37 +912,6 @@ window.openShortcutsHelp = () => {
     wrap2.addEventListener('toggle', e => {
         wrap1.open = !wrap2.open;
     });
-};
-
-window.writeCustomShortcut = () => {
-    let modifiers = [];
-    if (document.getElementById("shortcutsHelpNew_Ctrl").checked) modifiers.push("Ctrl");
-    if (document.getElementById("shortcutsHelpNew_Alt").checked) modifiers.push("Alt");
-    if (document.getElementById("shortcutsHelpNew_Shift").checked) modifiers.push("Shift");
-    let trigger = modifiers.join("+");
-    
-    let key = document.getElementById("shortcutsHelpNew_Key").value.trim().toUpperCase();
-    if (!/^[0-9]|[A-Z]{1}$/.test(key)) {
-        throw new Error("Invalid custom shortcuts trigger. Accepted character range: [0-9], [A-Z]. Only one character allowed.");
-    }
-    trigger += "+"+key;
-
-    if (electron.remote.globalShortcut.isRegistered(trigger)) {
-        throw new Error("Can't register new custom shortcut: Trigger unavailable");
-    }
-
-    let action = document.getElementById("shortcutsHelpNew_Cmd").value.trim();
-    let linebreak = document.getElementById("shortcutsHelpNew_Enter").checked || false;
-
-    window.shortcuts.push({
-        type: "shell",
-        trigger,
-        action,
-        linebreak
-    });
-
-    fs.writeFileSync(settingsFile, JSON.stringify(window.settings, "", 4));
-    window.registerKeyboardShortcuts();
 };
 
 window.useAppShortcut = action => {
@@ -1052,7 +1016,7 @@ window.registerKeyboardShortcuts = () => {
             }
         } else if (cut.type === "shell") {
             globalShortcut.register(cut.trigger, () => {
-                let fn = (cut.linebreak) ? writelr : write;
+                let fn = (cut.linebreak) ? "writelr" : "write";
                 window.term[window.currentTerm][fn](cut.action);
             });
         } else {
@@ -1074,6 +1038,9 @@ window.addEventListener("blur", () => {
 // Prevent showing menu, exiting fullscreen or app with keyboard shortcuts
 document.addEventListener("keydown", e => {
     if (e.key === "Alt") {
+        e.preventDefault();
+    }
+    if (e.code.startsWith("Alt") && e.ctrlKey && e.shiftKey) {
         e.preventDefault();
     }
     if (e.key === "F11" && !settings.allowWindowed) {

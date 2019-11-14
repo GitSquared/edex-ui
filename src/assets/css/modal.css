@@ -142,9 +142,18 @@ div.modal_popup td input {
     box-sizing: border-box;
 }
 
+div.modal_popup td input::placeholder {
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    opacity: 0.7;
+}
+
 div.modal_popup td input:active, div.modal_popup td input:focus {
     outline: none !important;
     background: rgb(var(--color_r), var(--color_g), var(--color_b));
+    color: var(--color_light_black);
+}
+
+div.modal_popup td input:active::placeholder, div.modal_popup td input:focus::placeholder {
     color: var(--color_light_black);
 }
 
@@ -180,8 +189,8 @@ h6#settingsEditorStatus {
 
 /* Keyboard shortcuts modal */
 
-table.shortcutsHelp {
-    min-width: 65vw;
+table.shortcutsHelp td:nth-child(2) input {
+    border: none;
 }
 
 table.shortcutsHelp td:first-child {
@@ -190,21 +199,22 @@ table.shortcutsHelp td:first-child {
     padding: .8vh;
 }
 
-tr#shortcutsHelpNew td {
-    white-space: nowrap;
+table.shortcutsHelp td:nth-child(3) {
+    max-width: 40vw;
 }
 
-tr#shortcutsHelpNew td > input[type="checkbox"] {
+details#shortcutsHelpAccordeon2 table td:nth-child(3) {
+    display: flex;
+    align-items: center;
+}
+
+details#shortcutsHelpAccordeon2 table td:nth-child(3) input:first-child {
+    font-family: var(--font_mono);
+    min-width: 30vw;
+}
+
+details#shortcutsHelpAccordeon2 table td:nth-child(3) input[type="checkbox"] {
     width: auto;
-    margin-right: -0.4vh;
-}
-
-tr#shortcutsHelpNew td:first-child > input[type="text"] {
-    width: 2vh;
-}
-
-tr#shortcutsHelpNew td:last-child > input[type="text"] {
-    width: 80%;
 }
 
 /* fsDisp media displayer */

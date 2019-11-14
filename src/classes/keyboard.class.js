@@ -38,6 +38,11 @@ class Keyboard {
             let mods = cut.trigger.split("+");
             cut.trigger = mods.pop();
 
+            let order = ["Ctrl", "Alt", "Shift"];
+            mods.sort((a, b) => {
+                return order.indexOf(a) - order.indexOf(b);
+            });
+
             let cat = mods.join("");
             
             if (cut.type === "app" && cut.action === "TAB_X" && cut.trigger === "X") {

@@ -103,7 +103,8 @@ if (!fs.existsSync(shortcutsFile)) {
         { type: "app", trigger: "Ctrl+Shift+H", action: "FS_DOTFILES", enabled: true },
         { type: "app", trigger: "Ctrl+Shift+P", action: "KB_PASSMODE", enabled: true },
         { type: "app", trigger: "Ctrl+Shift+I", action: "DEV_DEBUG", enabled: false },
-        { type: "app", trigger: "Ctrl+Shift+F5", action: "DEV_RELOAD", enabled: true }
+        { type: "app", trigger: "Ctrl+Shift+F5", action: "DEV_RELOAD", enabled: true },
+        { type: "shell", trigger: "Ctrl+Shift+Alt+Space", action: "neofetch", linebreak: true, enabled: false }
     ], "", 4));
     signale.info(`Default keymap written to ${shortcutsFile}`);
 }
@@ -197,7 +198,7 @@ function createWindow(settings) {
         slashes: true
     }));
 
-   	signale.complete("Frontend window created!");
+    signale.complete("Frontend window created!");
     win.show();
     if (!settings.allowWindowed) {
         win.setResizable(false);
@@ -340,6 +341,7 @@ app.on('web-contents-created', (e, contents) => {
         e.preventDefault();
         shell.openExternal(url);
     });
+
     // Prevent loading something else than the UI
     contents.on('will-navigate', (e, url) => {
         if (url !== contents.getURL()) e.preventDefault();
