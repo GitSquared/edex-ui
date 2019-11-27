@@ -152,7 +152,13 @@ fs.writeFileSync(path.join(__dirname, "src", "assets", "icons", "file-icons.json
 console.log("Wrote file-icons.json");
 
 
-var fileIconsMatchScript = "function matchIcon(filename) {\n";
+var fileIconsMatchScript = `/*
+ * Thanks everyone for pointing out this is probably on of the ugliest source code files on GitHub
+ * This is script-generated code, however, so it might disqualify
+ * See file-icons-generator.js at root dir of git tree
+*/
+function matchIcon(filename) {\n`;
+
 // Parse the configuration file of file-icons/atom
 let atomConfig = CSON.parse(fs.readFileSync(path.join(__dirname, "file-icons", "atom", "config.cson"), {encoding: "utf8"}));
 Object.keys(atomConfig.directoryIcons).forEach(key => {

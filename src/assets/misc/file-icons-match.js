@@ -1,3 +1,8 @@
+/*
+ * Thanks everyone for pointing out this is probably on of the ugliest source code files on GitHub
+ * This is script-generated code, however, so it might disqualify
+ * See file-icons-generator.js at root dir of git tree
+*/
 function matchIcon(filename) {
     if (/^APLSource$/.test(filename)) { return "acre"; }
     if (/^\.acre$/.test(filename)) { return "acre"; }
