@@ -98,19 +98,19 @@ window._loadTheme = theme => {
 
     document.querySelector("head").innerHTML += `<style class="theming">
     :root {
-        --font_main: "${theme.cssvars.font_main}";
-        --font_main_light: "${theme.cssvars.font_main_light}";
-        --font_mono: "${theme.terminal.fontFamily}";
-        --color_r: ${theme.colors.r};
-        --color_g: ${theme.colors.g};
-        --color_b: ${theme.colors.b};
-        --color_black: ${theme.colors.black};
-        --color_light_black: ${theme.colors.light_black};
-        --color_grey: ${theme.colors.grey};
+        --font_main: "${window._purifyCSS(theme.cssvars.font_main)}";
+        --font_main_light: "${window._purifyCSS(theme.cssvars.font_main_light)}";
+        --font_mono: "${window._purifyCSS(theme.terminal.fontFamily)}";
+        --color_r: ${window._purifyCSS(theme.colors.r)};
+        --color_g: ${window._purifyCSS(theme.colors.g)};
+        --color_b: ${window._purifyCSS(theme.colors.b)};
+        --color_black: ${window._purifyCSS(theme.colors.black)};
+        --color_light_black: ${window._purifyCSS(theme.colors.light_black)};
+        --color_grey: ${window._purifyCSS(theme.colors.grey)};
 
         /* Used for error and warning modals */
-        --color_red: ${theme.colors.red || "red"};
-        --color_yellow: ${theme.colors.yellow || "yellow"};
+        --color_red: ${window._purifyCSS(theme.colors.red) || "red"};
+        --color_yellow: ${window._purifyCSS(theme.colors.yellow) || "yellow"};
     }
 
     body {
