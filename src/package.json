@@ -39,8 +39,8 @@
     "username": "5.1.0",
     "which": "2.0.2",
     "ws": "7.2.0",
-    "xterm": "4.2.0",
-    "xterm-addon-attach": "0.3.0",
+    "xterm": "4.3.0",
+    "xterm-addon-attach": "0.4.0",
     "xterm-addon-fit": "0.3.0",
     "xterm-addon-ligatures": "0.2.1"
   },
