@@ -14,6 +14,10 @@ window._escapeHtml = text => {
     return text.replace(/[&<>"']/g, m => {return map[m];});
 };
 window._purifyCSS = str => {
+    if (typeof str === "undefined") return "";
+    if (typeof str !== "string") {
+        str = str.toString();
+    }
     return str.replace(/[<]/g, "");
 };
 window._delay = ms => {
