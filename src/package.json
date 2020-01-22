@@ -27,7 +27,7 @@
     "color": "3.1.2",
     "geolite2-redist": "^1.0.1",
     "howler": "2.1.2",
-    "maxmind": "4.0.0",
+    "maxmind": "4.1.0",
     "nanoid": "2.1.8",
     "node-pty": "0.9.0",
     "pretty-bytes": "5.3.0",
