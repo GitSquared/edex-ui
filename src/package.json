@@ -45,6 +45,6 @@
     "xterm-addon-ligatures": "0.2.1"
   },
   "optionalDependencies": {
-    "osx-temperature-sensor": "1.0.4"
+    "osx-temperature-sensor": "1.0.5"
   }
 }
