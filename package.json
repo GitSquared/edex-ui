@@ -112,6 +112,6 @@
     "uglify-es": "3.3.9"
   },
   "optionalDependencies": {
-    "cson-parser": "4.0.3"
+    "cson-parser": "4.0.4"
   }
 }
