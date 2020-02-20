@@ -135,5 +135,6 @@ Huge thanks to [Rob "Arscan" Scanlon](https://github.com/arscan) for making the 
 ## Licensing
 
 Licensed under the [GPLv3.0](https://github.com/GitSquared/edex-ui/blob/master/LICENSE).
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 [![FOSSA Status](https://app.fossa.io/api/projects/custom%2B5687%2Fgithub.com%2FGitSquared%2Fedex-ui.svg?type=large)](https://app.fossa.io/projects/custom%2B5687%2Fgithub.com%2FGitSquared%2Fedex-ui?ref=badge_large)
