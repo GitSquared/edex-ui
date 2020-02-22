@@ -648,6 +648,11 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                     <tr>
+                        <td>audioVolume</td>
+                        <td>Set default volume for sound effects (0.0 - 1.0)</td>
+                        <td><input type="number" id="settingsEditor-audioVolume" value="${window.settings.audioVolume || '1.0'}"></td>
+                    </tr>
+                    <tr>
                         <td>disableFeedbackAudio</td>
                         <td>Disable recurring feedback sound FX (input/output, mostly)</td>
                         <td><select id="settingsEditor-disableFeedbackAudio">
@@ -787,6 +792,7 @@ window.writeSettingsFile = () => {
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
         audio: (document.getElementById("settingsEditor-audio").value === "true"),
+        audioVolume: Number(document.getElementById("settingsEditor-audioVolume").value),
         disableFeedbackAudio: (document.getElementById("settingsEditor-disableFeedbackAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
         clockHours: Number(document.getElementById("settingsEditor-clockHours").value),

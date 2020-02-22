@@ -73,6 +73,7 @@ if (!fs.existsSync(settingsFile)) {
         theme: "tron",
         termFontSize: 15,
         audio: true,
+        audioVolume: 1.0,
         disableFeedbackAudio: false,
         clockHours: 24,
         pingAddr: "1.1.1.1",

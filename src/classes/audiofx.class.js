@@ -47,6 +47,8 @@ class AudioManager {
             this.error = new Howl({
                 src: [path.join(__dirname, "assets", "audio", "error.wav")]
             });
+
+            Howler.volume(window.settings.audioVolume);
         } else {
             Howler.volume(0.0);
         }
