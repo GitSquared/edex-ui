@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
-    "augmented-ui": "1.1.0",
+    "augmented-ui": "1.1.2",
     "color": "3.1.2",
     "geolite2-redist": "^1.0.4",
     "howler": "2.1.3",
