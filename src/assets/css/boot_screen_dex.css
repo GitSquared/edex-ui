@@ -78,7 +78,7 @@ section#boot_screen h1.glitch::before {
 }
 
 section#boot_screen h1::after {
-    content: "eDEX-UI";
+    content: "DEXTECH SOLUTIONS";
     display: block;
     transform: translateY(-100%) translateX(2%);
     clip-path: polygon(100% 40%, 100% 100%, 0% 100%, 0% 40%);
