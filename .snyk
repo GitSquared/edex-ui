@@ -1,4 +1,9 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.13.5
-ignore: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-MINIMIST-559764:
+    - electron > extract-zip > mkdirp > minimist:
+        reason: None given
+        expires: '2020-04-22T13:23:24.095Z'
 patch: {}
