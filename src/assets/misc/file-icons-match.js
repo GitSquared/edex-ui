@@ -22,6 +22,7 @@ function matchIcon(filename) {
     if (/^CVS$/.test(filename)) { return "cvs"; }
     if (/\.deno$/i.test(filename)) { return "deno"; }
     if (/\.dependabot$/i.test(filename)) { return "dependabot"; }
+    if (/^\.devcontainer$/i.test(filename)) { return "devcontainer"; }
     if (/^\.docker$/.test(filename)) { return "docker"; }
     if (/^(Dropbox|\.dropbox\.cache)$/.test(filename)) { return "dropbox"; }
     if (/^\.emacs\.d$/.test(filename)) { return "emacs"; }
@@ -449,6 +450,7 @@ function matchIcon(filename) {
     if (/^jsxconfig\.json$/i.test(filename)) { return "config-react"; }
     if (/^rubyconfig\.json$/i.test(filename)) { return "config-ruby"; }
     if (/^rustconfig\.json$/i.test(filename)) { return "config-rust"; }
+    if (/^rust-toolchain$/i.test(filename)) { return "config-rust"; }
     if (/^tsconfig(\..+)?\.json$/i.test(filename)) { return "config-ts"; }
     if (/^tslint\.json$/i.test(filename)) { return "config-ts"; }
     if (/\.conll$/i.test(filename)) { return "conll"; }
@@ -544,6 +546,7 @@ function matchIcon(filename) {
     if (/\.dpr$/i.test(filename)) { return "delphi"; }
     if (/\.dmark$/i.test(filename)) { return "icon-star"; }
     if (/^d[_\W]?mark$/i.test(filename)) { return "icon-star"; }
+    if (/^devcontainer\.json$/i.test(filename)) { return "devcontainer"; }
     if (/\.dts$/i.test(filename)) { return "devicetree"; }
     if (/\.dtsi$/i.test(filename)) { return "devicetree"; }
     if (/\.dhall$/i.test(filename)) { return "dhall"; }
@@ -672,6 +675,7 @@ function matchIcon(filename) {
     if (/\.tlf$/i.test(filename)) { return "font-bitmap"; }
     if (/\.pe$/i.test(filename)) { return "ff"; }
     if (/\.sfd$/i.test(filename)) { return "ff"; }
+    if (/^\.issuetracker$/i.test(filename)) { return "fork"; }
     if (/\.f$/i.test(filename)) { return "fortran"; }
     if (/\.f90$/i.test(filename)) { return "fortran"; }
     if (/\.f03$/i.test(filename)) { return "fortran"; }
@@ -705,7 +709,6 @@ function matchIcon(filename) {
     if (/\.gss$/i.test(filename)) { return "gauss"; }
     if (/\.gdb$/i.test(filename)) { return "gdb"; }
     if (/gdbinit$/i.test(filename)) { return "gdb"; }
-    if (/\.gd$/i.test(filename)) { return "godot"; }
     if (/^\.htaccess$/i.test(filename)) { return "gear"; }
     if (/^\.htpasswd$/i.test(filename)) { return "gear"; }
     if (/^\.env\./i.test(filename)) { return "gear"; }
@@ -881,6 +884,11 @@ function matchIcon(filename) {
     if (/\.gtk/.test(filename)) { return "gnome"; }
     if (/\.(gp|plo?t|gnuplot)$/i.test(filename)) { return "gnuplot"; }
     if (/\.go$/i.test(filename)) { return "go"; }
+    if (/\.gd$/i.test(filename)) { return "godot"; }
+    if (/\.godot$/i.test(filename)) { return "godot"; }
+    if (/\.tres$/i.test(filename)) { return "godot"; }
+    if (/\.tscn$/i.test(filename)) { return "godot"; }
+    if (/\.import$/i.test(filename)) { return "godot"; }
     if (/\.golo$/i.test(filename)) { return "golo"; }
     if (/\.gs$/i.test(filename)) { return "gosu"; }
     if (/\.gst$/i.test(filename)) { return "gosu"; }
@@ -1078,7 +1086,7 @@ function matchIcon(filename) {
     if (/^_config\.yml$/.test(filename)) { return "jekyll"; }
     if (/\.nojekyll$/i.test(filename)) { return "jekyll"; }
     if (/^Jenkinsfile$/.test(filename)) { return "jenkins"; }
-    if (/^jest(\.config)?\.(js(on|x)?|[cm]js|tsx?)$/i.test(filename)) { return "jest"; }
+    if (/^jest(\.config)?(\.babel)?\.(js(on|x)?|[cm]js|tsx?)$/i.test(filename)) { return "jest"; }
     if (/^\.jestrc($|\.)/i.test(filename)) { return "jest"; }
     if (/\.(mjs|tsx?)\.snap$/i.test(filename)) { return "jest"; }
     if (/\.cjs\.snap$/i.test(filename)) { return "jest"; }
@@ -1413,8 +1421,11 @@ function matchIcon(filename) {
     if (/^nginx(\.[-\w]+)*\.conf$/i.test(filename)) { return "nginx"; }
     if (/\.nginxconf$/i.test(filename)) { return "nginx"; }
     if (/\.nib$/i.test(filename)) { return "nib"; }
+    if (/\.5c$/i.test(filename)) { return "nickle"; }
     if (/^nightwatch\.conf(ig)?\.[cm]?js$/i.test(filename)) { return "nightwatch"; }
     if (/\.nim(rod)?$/i.test(filename)) { return "nimrod"; }
+    if (/Nimrod$/i.test(filename)) { return "nimrod"; }
+    if (/\.nimble$/i.test(filename)) { return "nimble"; }
     if (/\.ninja$/i.test(filename)) { return "shuriken"; }
     if (/\.ninja\.d$/i.test(filename)) { return "shuriken"; }
     if (/\.n64$/i.test(filename)) { return "n64"; }
@@ -1561,6 +1572,8 @@ function matchIcon(filename) {
     if (/\.plsql$/i.test(filename)) { return "sql"; }
     if (/\.pkb$/i.test(filename)) { return "sql"; }
     if (/^ecosystem.conf(ig)?./i.test(filename)) { return "pm2"; }
+    if (/^pnpm-(lock|workspace)\.ya?ml$/i.test(filename)) { return "pnpm"; }
+    if (/^pnpmfile\.js$/i.test(filename)) { return "pnpm"; }
     if (/\.pod$/i.test(filename)) { return "pod"; }
     if (/\.pogo$/i.test(filename)) { return "pogo"; }
     if (/^polymer\.json$/i.test(filename)) { return "polymer"; }
@@ -1745,6 +1758,7 @@ function matchIcon(filename) {
     if (/\.webarchive$/i.test(filename)) { return "safari"; }
     if (/\.sage$/i.test(filename)) { return "sage"; }
     if (/\.sagews$/i.test(filename)) { return "sage"; }
+    if (/^\.sailsrc$/i.test(filename)) { return "sails"; }
     if (/\.sls$/i.test(filename)) { return "saltstack"; }
     if (/^Salt(State)?$/i.test(filename)) { return "saltstack"; }
     if (/\.sas$/i.test(filename)) { return "sas"; }
@@ -1778,6 +1792,7 @@ function matchIcon(filename) {
     if (/\.sfproj$/i.test(filename)) { return "sf"; }
     if (/\.sequelizerc(\.[cm]?js|\.json)?$/i.test(filename)) { return "sequelize"; }
     if (/\.(sgi|iris)$/i.test(filename)) { return "sgi"; }
+    if (/^shadow-cljs\.edn$/i.test(filename)) { return "shadowcljs"; }
     if (/\.(sh|rc|bats|bash|tool|install|command)$/i.test(filename)) { return "terminal"; }
     if (/^(\.?bash(rc|[-_]?(profile|login|logout|history|prompt))|_osc|config|install-sh|PKGBUILD)$/i.test(filename)) { return "terminal"; }
     if (/\.(ksh|mksh|pdksh)$/i.test(filename)) { return "terminal"; }
@@ -2191,6 +2206,8 @@ function matchIcon(filename) {
     if (/\.ztl$/i.test(filename)) { return "zbrush"; }
     if (/^now\.json$/i.test(filename)) { return "zeit"; }
     if (/\.nowignore$/i.test(filename)) { return "zeit"; }
+    if (/\.zs$/i.test(filename)) { return "crafttweaker"; }
+    if (/^\.zsrc\.json$/i.test(filename)) { return "crafttweaker"; }
     if (/\.zep$/i.test(filename)) { return "zephir"; }
     if (/\.zig$/i.test(filename)) { return "zig"; }
     if (/\.(zimpl|zmpl|zpl)$/i.test(filename)) { return "zimpl"; }
