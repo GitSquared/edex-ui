@@ -5,7 +5,7 @@ class Modal {
         if (!options || !options.type) throw "Missing parameters";
 
         this.type = options.type;
-        this.id = require("nanoid")();
+        this.id = require("nanoid").nanoid();
         while (typeof window.modals[this.id] !== "undefined") {
             this.id = require("nanoid")();
         }
