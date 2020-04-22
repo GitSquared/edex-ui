@@ -219,10 +219,6 @@ function matchIcon(filename) {
     if (/\.bal$/i.test(filename)) { return "ballerina"; }
     if (/\.balx$/i.test(filename)) { return "ballerina"; }
     if (/\.bzrignore$/i.test(filename)) { return "bazaar"; }
-    if (/^(\.bazelrc|bazel\.rc|bazel\.bazelrc)$/i.test(filename)) { return "bazel"; }
-    if (/^(BUILD|WORKSPACE)(.[Bb][Aa][Zz][Ee][Ll])?$/.test(filename)) { return "bazel"; }
-    if (/\.bzl$/i.test(filename)) { return "bazel"; }
-    if (/^\.gazelcfg\.json$/i.test(filename)) { return "bazel"; }
     if (/^behat(\.[^.]+)*\.ya?ml$/i.test(filename)) { return "behat"; }
     if (/\.bemjson(\.[cm]?js)?$/i.test(filename)) { return "bem"; }
     if (/\.cbx$/i.test(filename)) { return "bibtex"; }
@@ -293,6 +289,7 @@ function matchIcon(filename) {
     if (/\.upc$/i.test(filename)) { return "c"; }
     if (/\.xbm$/i.test(filename)) { return "c"; }
     if (/\.xpm$/i.test(filename)) { return "c"; }
+    if (/(\\|\/)share(?:\1misc)?\1getopts?\d?$/.test(filename)) { return "c"; }
     if (/\.c[+px]{2}$|\.cc$/i.test(filename)) { return "cpp"; }
     if (/\.h[+px]{2}$/i.test(filename)) { return "cpp"; }
     if (/\.[it]pp$/i.test(filename)) { return "cpp"; }
@@ -403,6 +400,7 @@ function matchIcon(filename) {
     if (/\.bz2$/i.test(filename)) { return "zip"; }
     if (/\.maff$/i.test(filename)) { return "zip"; }
     if (/\.iso$/i.test(filename)) { return "zip"; }
+    if (/\.hqx$/i.test(filename)) { return "zip"; }
     if (/\.xpi$/i.test(filename)) { return "zip"; }
     if (/\.gem$/i.test(filename)) { return "zip"; }
     if (/\.whl$/i.test(filename)) { return "zip"; }
@@ -426,6 +424,7 @@ function matchIcon(filename) {
     if (/^mimeapps\.list$/i.test(filename)) { return "config"; }
     if (/(\.|^)terminal(rc)?$/i.test(filename)) { return "config"; }
     if (/^ld\.script$/i.test(filename)) { return "config"; }
+    if (/^shells$/i.test(filename)) { return "config"; }
     if (/^\.?XCompose$/.test(filename)) { return "config"; }
     if (/^buildozer\.spec$/i.test(filename)) { return "config"; }
     if (/^settings\.bsp$/i.test(filename)) { return "config"; }
@@ -525,6 +524,8 @@ function matchIcon(filename) {
     if (/(^|\.)encodings\.dir$/i.test(filename)) { return "database"; }
     if (/^pkginfo$/i.test(filename)) { return "database"; }
     if (/^term(cap|info)/i.test(filename)) { return "database"; }
+    if (/^(birthtoken|flowers)$/.test(filename)) { return "database"; }
+    if (/(\\|\/)share(?:\1misc)?\1(?:ascii|trace\.codes)$/.test(filename)) { return "database"; }
     if (/^(mime\.types|fstab)$/i.test(filename)) { return "database"; }
     if (/^METADATA\.pb$/.test(filename)) { return "database"; }
     if (/\.(ldj|ldjson|jsonl)$/.test(filename)) { return "database"; }
@@ -673,7 +674,7 @@ function matchIcon(filename) {
     if (/\.snf$/i.test(filename)) { return "font-bitmap"; }
     if (/\.flf$/i.test(filename)) { return "font-bitmap"; }
     if (/\.tlf$/i.test(filename)) { return "font-bitmap"; }
-    if (/\.pe$/i.test(filename)) { return "ff"; }
+    if (/\.(ff|pe)$/i.test(filename)) { return "ff"; }
     if (/\.sfd$/i.test(filename)) { return "ff"; }
     if (/^\.issuetracker$/i.test(filename)) { return "fork"; }
     if (/\.f$/i.test(filename)) { return "fortran"; }
@@ -1209,6 +1210,7 @@ function matchIcon(filename) {
     if (/\.pri$/i.test(filename)) { return "checklist"; }
     if (/\.mak?o$/i.test(filename)) { return "mako"; }
     if (/\.(1([bcmstx]|has|in)?|[24568]|3(avl|bsm|cfgadm|in|[cmx]|perl|pm?|qt)?|7(d|fs|i|ipp|m|p)?|9[efps]?|chem|eqn|groff|man|mandoc|mdoc|me|mom|nr?|nroff|pic|roff?|tmac|tmac-u|tr|troff)$/i.test(filename)) { return "manpage"; }
+    if (/^(man|mdoc)\.template$/i.test(filename)) { return "manpage"; }
     if (/\.(rnh|rno|run|runoff)$/i.test(filename)) { return "manpage"; }
     if (/(^|\.)((troff|eqn)rc(-end)?)$/i.test(filename)) { return "manpage"; }
     if (/^tmac\.|^(mmn|mmt|toc\.entries)$/i.test(filename)) { return "manpage"; }
@@ -1268,6 +1270,7 @@ function matchIcon(filename) {
     if (/\.hgsub$/i.test(filename)) { return "hg"; }
     if (/\.hgsubstate$/i.test(filename)) { return "hg"; }
     if (/\.moo$/i.test(filename)) { return "mercury"; }
+    if (/\.(mmd|mermaid)$/i.test(filename)) { return "mermaid"; }
     if (/^(meson\.build|meson_options\.txt)$/i.test(filename)) { return "meson"; }
     if (/\.metal$/i.test(filename)) { return "metal"; }
     if (/\.accda$/i.test(filename)) { return "access"; }
@@ -1479,6 +1482,7 @@ function matchIcon(filename) {
     if (/\.odin$/i.test(filename)) { return "odin"; }
     if (/\.ooc$/i.test(filename)) { return "ooc"; }
     if (/\.opa$/i.test(filename)) { return "opa"; }
+    if (/^\+(CONTENTS|DESC|DISPLAY)$/.test(filename)) { return "openbsd"; }
     if (/\.opencl$/i.test(filename)) { return "opencl"; }
     if (/\.(p|abl)$/i.test(filename)) { return "progress"; }
     if (/^(progress|openedge|abl)$/i.test(filename)) { return "progress"; }
@@ -1813,6 +1817,7 @@ function matchIcon(filename) {
     if (/^shipitfile(\b.+)?\.[cm]?js$/i.test(filename)) { return "shipit"; }
     if (/^shippable\.ya?ml$/i.test(filename)) { return "shippable"; }
     if (/\.liquid$/i.test(filename)) { return "shopify"; }
+    if (/\.sieve$/i.test(filename)) { return "filter"; }
     if (/\.sigils$/i.test(filename)) { return "sigils"; }
     if (/\.ss$/i.test(filename)) { return "silverstripe"; }
     if (/\.sketch$/i.test(filename)) { return "sketch"; }
@@ -1867,6 +1872,10 @@ function matchIcon(filename) {
     if (/^git-credential-osxkeychain$/i.test(filename)) { return "key"; }
     if (/\.ssh[\/\\][^\/\\\s]+$/.test(filename)) { return "key"; }
     if (/\.stan$/i.test(filename)) { return "stan"; }
+    if (/^(\.bazelrc|bazel\.rc|bazel\.bazelrc)$/i.test(filename)) { return "bazel"; }
+    if (/^(BUILD|WORKSPACE)(.[Bb][Aa][Zz][Ee][Ll])?$/.test(filename)) { return "bazel"; }
+    if (/\.(bzl|star)$/i.test(filename)) { return "bazel"; }
+    if (/^\.gazelcfg\.json$/i.test(filename)) { return "bazel"; }
     if (/\.do$/i.test(filename)) { return "stata"; }
     if (/\.ado$/i.test(filename)) { return "stata"; }
     if (/\.doh$/i.test(filename)) { return "stata"; }
@@ -1971,11 +1980,12 @@ function matchIcon(filename) {
     if (/\.mkii$/i.test(filename)) { return "tex"; }
     if (/\.pgf$/i.test(filename)) { return "tex"; }
     if (/\.tikz$/i.test(filename)) { return "tex"; }
-    if (/\.texi$/i.test(filename)) { return "tex"; }
+    if (/\.(texi(nfo)?|txi)$/i.test(filename)) { return "tex"; }
     if (/^hyphen(ex)?\.(cs|den|det|fr|sv|us)$/.test(filename)) { return "tex"; }
     if (/\.te?xt$/i.test(filename)) { return "icon-file-text"; }
     if (/\.log$|^Terminal[-_\s]Saved[-_\s]Output$/i.test(filename)) { return "icon-file-text"; }
     if (/\.git[\/\\]description$/.test(filename)) { return "icon-file-text"; }
+    if (/(\\|\/)share(?:\1misc)?\1(?:operator|mail\.(?:tilde)?help)$/.test(filename)) { return "icon-file-text"; }
     if (/\.err$|\.std(err|out)$/i.test(filename)) { return "icon-file-text"; }
     if (/\.rtf$/i.test(filename)) { return "icon-file-text"; }
     if (/\.i?nfo$/i.test(filename)) { return "icon-file-text"; }
@@ -2012,6 +2022,7 @@ function matchIcon(filename) {
     if (/\.thor$/i.test(filename)) { return "thor"; }
     if (/^Thorfile$/i.test(filename)) { return "thor"; }
     if (/\.8x[pk](\.txt)?$/i.test(filename)) { return "calc"; }
+    if (/^Tiltfile$/i.test(filename)) { return "tilt"; }
     if (/\.tipe$/i.test(filename)) { return "tipe"; }
     if (/\.tla$/i.test(filename)) { return "tla"; }
     if (/(\.|_|^)tmux\.conf$/i.test(filename)) { return "tmux"; }
@@ -2039,6 +2050,9 @@ function matchIcon(filename) {
     if (/\.unibeautifyrc\.ya?ml$/i.test(filename)) { return "unibeautify"; }
     if (/^(ArabicShaping|Bidi(Brackets|CharacterTest|Mirroring|Test)|Blocks|CJKRadicals|CaseFolding|CompositionExclusions|Derived(Age|CoreProperties|NormalizationProps)|EastAsianWidth|EmojiSources|EquivalentUnifiedIdeograph|HangulSyllableType|Index|Indic(Positional|Syllabic)Category|Jamo|LineBreak|NameAliases|NamedSequences(Prov)?|NamesList|Normalization(Corrections|Test)|NushuSources|PropList|Property(Value)?Aliases|Script(Extension)?s|SpecialCasing|StandardizedVariants|TangutSources|U(nicode|Source)Data|VerticalOrientation)\.txt$/.test(filename)) { return "unicode"; }
     if (/([\\\/])(UNIDATA|UCD)\1[^\\\/]+\.txt$/i.test(filename)) { return "unicode"; }
+    if (/\.units$/i.test(filename)) { return "scales"; }
+    if (/^units\.lib$/i.test(filename)) { return "scales"; }
+    if (/^\.?units[-_]?history$/i.test(filename)) { return "scales"; }
     if (/\.anim$/i.test(filename)) { return "unity3d"; }
     if (/\.asset$/i.test(filename)) { return "unity3d"; }
     if (/\.cubemap$/i.test(filename)) { return "unity3d"; }
