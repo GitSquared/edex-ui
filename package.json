@@ -28,7 +28,9 @@
     "postbuild-windows": "rmdir /S /Q prebuild-src",
     "test": "rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && cd prebuild-src && npm install && snyk test && cd .. && rm -R prebuild-src",
     "init-file-icons": "git submodule update --init",
-    "update-file-icons": "git submodule foreach git pull origin master && node file-icons-generator.js"
+    "update-file-icons": "git submodule foreach git pull origin master && node file-icons-generator.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -104,14 +106,17 @@
   },
   "dependencies": {
     "clean-css": "4.2.3",
-    "electron": "8.2.4",
+    "electron": "8.3.1",
     "electron-builder": "^22.5.1",
     "electron-rebuild": "^1.10.1",
     "node-abi": "2.16.0",
     "node-json-minify": "1.0.0",
-    "uglify-es": "3.3.9"
+    "uglify-es": "3.3.9",
+    "snyk": "^1.360.0"
   },
   "optionalDependencies": {
     "cson-parser": "4.0.4"
-  }
+  },
+  "snyk": true,
+  "devDependencies": {}
 }
