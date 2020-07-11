@@ -635,6 +635,11 @@ window.openSettings = async () => {
                         <td><input type="text" id="settingsEditor-env" value="${window.settings.env}"></td>
                     </tr>
                     <tr>
+                        <td>username</td>
+                        <td>Custom username to display at boot</td>
+                        <td><input type="text" id="settingsEditor-username" value="${window.settings.username}"></td>
+                    </tr>
+                    <tr>
                         <td>keyboard</td>
                         <td>On-screen keyboard layout code</td>
                         <td><select id="settingsEditor-keyboard">
@@ -804,6 +809,7 @@ window.writeSettingsFile = () => {
         shell: document.getElementById("settingsEditor-shell").value,
         cwd: document.getElementById("settingsEditor-cwd").value,
         env: document.getElementById("settingsEditor-env").value,
+        username: document.getElementById("settingsEditor-username").value,
         keyboard: document.getElementById("settingsEditor-keyboard").value,
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
@@ -915,7 +921,7 @@ window.openShortcutsHelp = () => {
                             <th>Trigger</th>
                             <th>Command</th>
                         <tr>
-                       ${customList} 
+                       ${customList}
                     </table>
                 </details>
                 <br>`,
@@ -930,7 +936,7 @@ window.openShortcutsHelp = () => {
 
     let wrap1 = document.getElementById('shortcutsHelpAccordeon1');
     let wrap2 = document.getElementById('shortcutsHelpAccordeon2');
-    
+
     wrap1.addEventListener('toggle', e => {
         wrap2.open = !wrap1.open;
     });
