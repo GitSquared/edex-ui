@@ -323,6 +323,19 @@ async function displayTitleScreen() {
     });
 }
 
+// Returns the user's desired display name
+async function getDisplayName() {
+    let user = settings.username || null;
+    if (user)
+        return user;
+
+    try {
+        user = await require("username")();
+    } catch (e) {}
+
+    return user;
+}
+
 // Create the UI's html structure and initialize the terminal client and the keyboard
 async function initUI() {
     document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
@@ -367,11 +380,14 @@ async function initUI() {
 
     let greeter = document.getElementById("main_shell_greeting");
 
-    require("username")().then(user => {
-        greeter.innerHTML += `Welcome back, <em>${user}</em>`;
-    }).catch(() => {
-        greeter.innerHTML += "Welcome back";
+    getDisplayName().then(user => {
+        if (user) {
+            greeter.innerHTML += `Welcome back, <em>${user}</em>`;
+        } else {
+            greeter.innerHTML += "Welcome back";
+        }
     });
+
     greeter.setAttribute("style", "opacity: 1;");
 
     document.getElementById("filesystem").setAttribute("style", "");
@@ -619,6 +635,11 @@ window.openSettings = async () => {
                         <td><input type="text" id="settingsEditor-env" value="${window.settings.env}"></td>
                     </tr>
                     <tr>
+                        <td>username</td>
+                        <td>Custom username to display at boot</td>
+                        <td><input type="text" id="settingsEditor-username" value="${window.settings.username}"></td>
+                    </tr>
+                    <tr>
                         <td>keyboard</td>
                         <td>On-screen keyboard layout code</td>
                         <td><select id="settingsEditor-keyboard">
@@ -788,6 +809,7 @@ window.writeSettingsFile = () => {
         shell: document.getElementById("settingsEditor-shell").value,
         cwd: document.getElementById("settingsEditor-cwd").value,
         env: document.getElementById("settingsEditor-env").value,
+        username: document.getElementById("settingsEditor-username").value,
         keyboard: document.getElementById("settingsEditor-keyboard").value,
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),
@@ -899,7 +921,7 @@ window.openShortcutsHelp = () => {
                             <th>Trigger</th>
                             <th>Command</th>
                         <tr>
-                       ${customList} 
+                       ${customList}
                     </table>
                 </details>
                 <br>`,
@@ -914,7 +936,7 @@ window.openShortcutsHelp = () => {
 
     let wrap1 = document.getElementById('shortcutsHelpAccordeon1');
     let wrap2 = document.getElementById('shortcutsHelpAccordeon2');
-    
+
     wrap1.addEventListener('toggle', e => {
         wrap2.open = !wrap1.open;
     });
