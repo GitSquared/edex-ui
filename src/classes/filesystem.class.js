@@ -548,11 +548,11 @@ class FilesystemDisplay {
 
             switch(type || block.type) {
                 case "image":
-                    html = `<img class="fsDisp_mediaDisp" src="${path || block.path}" ondragstart="return false;">`;
+                    html = `<img class="fsDisp_mediaDisp" src="${window._encodePathURI(path || block.path)}" ondragstart="return false;">`;
                     break;
                 case "video":
                     html = `<video class="fsDisp_mediaDisp" controls preload="auto">
-                            <source src="${path || block.path}">
+                            <source src="${window._encodePathURI(path || block.path)}">
                             Unsupported video format!
                         </video>`;
                     break;
