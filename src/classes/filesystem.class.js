@@ -5,6 +5,7 @@ class FilesystemDisplay {
         const fs = require("fs");
         const path = require("path");
         this.cwd = [];
+        this.cwd_path = null;
         this.iconcolor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;
         this._formatBytes = (a,b) => {if(0==a)return"0 Bytes";var c=1024,d=b||2,e=["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"],f=Math.floor(Math.log(a)/Math.log(c));return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]};
         this.fileIconsMatcher = require("./assets/misc/file-icons-match.js");
@@ -101,7 +102,8 @@ class FilesystemDisplay {
                 // See #501
                 if (this._noTracking) return false;
 
-                if (cwd && window.currentTerm === num) {
+                if (cwd && cwd !== this.cwd_path && window.currentTerm === num) {
+                    this.cwd_path = cwd;
                     if (this._fsWatcher) {
                         this._fsWatcher.close();
                     }
