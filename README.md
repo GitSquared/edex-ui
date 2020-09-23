@@ -61,7 +61,7 @@ Sadly, this is technically impossible to do on Windows right now, so the file br
 #### eDEX seems to be pretty stable now. What are you planning to do next?
 I'm not done with this software just yet. I'm actively working on exciting new features that will make eDEX less of a gadget and more of a usable sysadmin tool. Notably, I'm researching remote monitoring, multi-monitor support, and a plug-in system which would externalize the module structure used internally.
 #### Is this repo actively maintained?
-![Yes.](https://img.shields.io/github/last-commit/GitSquared/edex-ui.svg?style=popout)
+[See this notice](https://github.com/GitSquared/edex-ui/issues/769)
 #### How did you make this?
 Glad you're interested! See [#272](https://github.com/GitSquared/edex-ui/issues/272).
 #### This is so cool.
