@@ -85,6 +85,7 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 - [Telegram Channel "Веб-страница" (Web Page)](https://t.me/tproger_web/329)
 - [O'Reilly 4 short links (again)](https://www.oreilly.com/radar/four-short-links-7-july-2020/)
 - [LinuxLinks](https://www.linuxlinks.com/linux-candy-edex-ui-sci-fi-computer-terminal-emulator-system-monitor/)
+- [Linux For Everyone (Youtube)](https://www.youtube.com/watch?v=gbzqCAjm--g)
 
 
 ## Useful commands for the nerds
