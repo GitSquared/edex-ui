@@ -25,6 +25,14 @@ It might or might not be a joke taken too seriously.
 
 *( Jump to: [Screenshots](#screenshots) - [Questions & Answers](#qa) - **[Download](#how-do-i-get-it)** - [Featured In](#featured-in) - [Developer Instructions](#useful-commands-for-the-nerds) - [Credits](#credits) )*
 
+## Sponsor
+
+**Want to help support my open-source experiments and learn some cool JavaScript tricks at the same time?**
+
+Click the banner below and sign up to **Bytes**, the only newsletter cool enough to be recommended by eDEX-UI.
+
+[![Bytes by UI.dev](https://github.com/GitSquared/edex-ui/raw/master/media/sponsor-uidev-bytes.jpg)](https://ui.dev/bytes/?r=gabriel)
+
 ## Features
 - Fully featured terminal emulator with tabs, colors, mouse events, and support for `curses` and `curses`-like applications.
 - Real-time system (CPU, RAM, swap, processes) and network (GeoIP, active connections, transfer rates) monitoring.
