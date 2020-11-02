@@ -1,0 +1,27 @@
+webview#mod_streaming {
+   border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+   display: flex;
+   width: 545px;
+   height:325px;
+   padding-bottom:2px;
+   padding-top:2px;
+}
+
+webview#mod_streaming::before {
+    content: "";
+    border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    position: relative;
+    left: -0.092vh;
+    top: -0.6vh;
+    height: 0.833vh;
+}
+
+webview#mod_streaming::after {
+    content: "";
+    border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    position: relative;
+    left: -0.092vh;
+    top: -0.6vh;
+    height: 0.833vh;
+}
+
