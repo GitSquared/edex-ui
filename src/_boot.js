@@ -189,6 +189,7 @@ function createWindow(settings) {
             nodeIntegration: true,
             nodeIntegrationInSubFrames: false,
             allowRunningInsecureContent: false,
+            webviewTag: true,
             experimentalFeatures: settings.experimentalFeatures || false
         }
     });

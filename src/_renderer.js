@@ -341,16 +341,28 @@ async function getDisplayName() {
 
 // Create the UI's html structure and initialize the terminal client and the keyboard
 async function initUI() {
-    document.body.innerHTML += `<section class="mod_column" id="mod_column_left">
+    document.body.innerHTML += `
+    <section class="mod_column" id="mod_column_left">
         <h3 class="title"><p>PANEL</p><p>SYSTEM</p></h3>
     </section>
     <section id="main_shell" style="height:0%;width:0%;opacity:0;margin-bottom:30vh;" augmented-ui="bl-clip tr-clip exe">
         <h3 class="title" style="opacity:0;"><p>TERMINAL</p><p>MAIN SHELL</p></h3>
         <h1 id="main_shell_greeting"></h1>
     </section>
-    <section class="mod_column" id="mod_column_right">
-        <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
-    </section>`;
+    <section class="mod_column" id="mod_column_right">        
+      <h3 class="title"><p>PANEL</p><p>NETWORK</p></h3>
+	   <div>
+          <webview id="mod_streaming" src="${(() => {
+            if( !window.settings.streamSource ) {
+               window.settings.streamSource = 'https://www.youtube.com/embed/9Auq9mYxFEE'
+            }
+            return window.settings.streamSource
+           })()
+          }">
+          </webview>
+      </div>
+    </section>
+    `;
 
     await _delay(10);
 
@@ -366,10 +378,10 @@ async function initUI() {
 
     document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
     document.body.innerHTML += `
-    <section id="filesystem" style="width: 0px;" class="${window.settings.hideDotfiles ? "hideDotfiles" : ""} ${window.settings.fsListView ? "list-view" : ""}">
-    </section>
-    <section id="keyboard" style="opacity:0;">
-    </section>`;
+    <div style="display:flex;margin-right:auto;">
+        <section id="filesystem" style="width: 0px;" class="${window.settings.hideDotfiles ? "hideDotfiles" : ""} ${window.settings.fsListView ? "list-view" : ""}"></section>
+        <section id="keyboard" style="opacity:0;"></section>
+    </div>`;
     window.keyboard = new Keyboard({
         layout: path.join(keyboardsDir, settings.keyboard+".json"),
         container: "keyboard"
@@ -396,6 +408,7 @@ async function initUI() {
     document.getElementById("filesystem").setAttribute("style", "");
     document.getElementById("keyboard").setAttribute("style", "");
     document.getElementById("keyboard").setAttribute("class", "animation_state_1");
+
     window.audioManager.keyboard.play();
 
     await _delay(100);
@@ -486,9 +499,9 @@ async function initUI() {
     window.onmouseup = e => {
         if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
     };
-    window.term[0].term.writeln("\033[1m"+`Welcome to eDEX-UI v${electron.remote.app.getVersion()} - Electron v${process.versions.electron}`+"\033[0m");
 
-    await _delay(100);
+    //window.term[0].term.writeln("\033[1m"+`Welcome to eDEX-UI v${electron.remote.app.getVersion()} - Electron v${process.versions.electron}`+"\033[0m");
+    // await _delay(100);
 
     window.fsDisp = new FilesystemDisplay({
         parentId: "filesystem"
@@ -496,7 +509,7 @@ async function initUI() {
 
     await _delay(200);
 
-    document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
+    document.getElementById("filesystem").setAttribute("style", "opacity: 1;padding-left: 10px;");
 
     // Resend terminal CWD to fsDisp if we're hot reloading
     if (window.performance.navigation.type === 1) {
@@ -616,7 +629,8 @@ window.openSettings = async () => {
     new Modal({
         type: "custom",
         title: `Settings <i>(v${electron.remote.app.getVersion()})</i>`,
-        html: `<table id="settingsEditor">
+        html: `<div id="settingsEditorContainer">
+                <table id="settingsEditor">
                     <tr>
                         <th>Key</th>
                         <th>Description</th>
@@ -638,9 +652,24 @@ window.openSettings = async () => {
                         <td><input type="text" id="settingsEditor-env" value="${window.settings.env}"></td>
                     </tr>
                     <tr>
+                        <td>system</td>
+                        <td>System manufacturer</td>
+                        <td><input type="text" id="settingsEditor-manufacturer" value="${window.settings.systemManufacturer}"></td>
+                    </tr>
+                    <tr>
+                        <td>system</td>
+                        <td>System model</td>
+                        <td><input type="text" id="settingsEditor-model" value="${window.settings.systemModel}"></td>
+                    </tr>
+                    <tr>
                         <td>username</td>
                         <td>Custom username to display at boot</td>
                         <td><input type="text" id="settingsEditor-username" value="${window.settings.username}"></td>
+                    </tr>
+                    <tr>
+                        <td>streaming</td>
+                        <td>Video stream source</td>
+                        <td><input type="text" id="settingsEditor-streamSource" value="${window.settings.streamSource}"></td>
                     </tr>
                     <tr>
                         <td>keyboard</td>
@@ -790,6 +819,7 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                 </table>
+                </div>
                 <h6 id="settingsEditorStatus">Loaded values from memory</h6>
                 <br>`,
         buttons: [
@@ -813,6 +843,9 @@ window.writeSettingsFile = () => {
         cwd: document.getElementById("settingsEditor-cwd").value,
         env: document.getElementById("settingsEditor-env").value,
         username: document.getElementById("settingsEditor-username").value,
+        systemManufacturer: document.getElementById("settingsEditor-manufacturer").value,
+        systemModel: document.getElementById("settingsEditor-model").value,
+        streamSource: document.getElementById("settingsEditor-streamSource").value,
         keyboard: document.getElementById("settingsEditor-keyboard").value,
         theme: document.getElementById("settingsEditor-theme").value,
         termFontSize: Number(document.getElementById("settingsEditor-termFontSize").value),

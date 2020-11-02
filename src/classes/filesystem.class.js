@@ -519,7 +519,7 @@ class FilesystemDisplay {
 
             // See #226
             if (!isNaN(fsBlock.use)) {
-                this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> used <strong>${Math.round(fsBlock.use)}%</strong>`;
+                this.space_bar.text.innerHTML = `Mount <strong>${displayMount}</strong> Used <strong>${Math.round(fsBlock.use)}%</strong>`;
                 this.space_bar.bar.value = Math.round(fsBlock.use);
             } else if (!isNaN((fsBlock.size / fsBlock.used) * 100)) {
                 let usage = Math.round((fsBlock.size / fsBlock.used) * 100);

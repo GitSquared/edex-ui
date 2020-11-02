@@ -31,8 +31,10 @@ class HardwareInspector {
     updateInfo() {
         window.si.system().then(d => {
             window.si.chassis().then(e => {
-                document.getElementById("mod_hardwareInspector_manufacturer").innerText = this._trimDataString(d.manufacturer);
-                document.getElementById("mod_hardwareInspector_model").innerText = this._trimDataString(d.model, d.manufacturer, e.type);
+                let manufacturer = getSetting('systemManufacturer', this._trimDataString(d.manufacturer), 'System manufacturer');
+                let model = getSetting('systemModel', this._trimDataString(d.model, d.manufacturer, e.type), 'System Product');
+                document.getElementById("mod_hardwareInspector_manufacturer").innerText = manufacturer;
+                document.getElementById("mod_hardwareInspector_model").innerText = model;
                 document.getElementById("mod_hardwareInspector_chassis").innerText = e.type;
             });
         });
@@ -44,6 +46,15 @@ class HardwareInspector {
             return !filters.includes(word);
         }).slice(0, 2).join(" ");
     }
+}
+
+let getSetting = (name, value, defaultValue) => {
+    if (value === defaultValue && !window.settings[name]) {
+        value = window.settings[name] = 'Unknown'
+    } else {
+        value = window.settings[name]
+    }
+    return value
 }
 
 module.exports = {

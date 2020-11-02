@@ -1,7 +1,7 @@
 section#filesystem {
     position: relative;
     top: -0.925vh;
-    width: 43vw;
+    width: 30vw;
     height: 30vh;
     margin-right: 0.5vw;
 
@@ -10,7 +10,7 @@ section#filesystem {
 }
 
 section#filesystem > h3.title {
-    width: 43vw;
+    width: 30vw;
     padding-right: 0;
 }
 
@@ -29,7 +29,7 @@ div#fs_disp_container {
     left: .35vw;
     top: 1.5vh;
     height: 25.5vh;
-    width: 43vw;
+    width: 30vw;
     overflow: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(8.5vh, 1fr));
@@ -210,7 +210,7 @@ div#fs_disp_container.disks+div#fs_space_bar > *:not(h1) {
 }
 
 div#fs_space_bar > h3 {
-    width: 30%;
+    width: 180px;
     margin: 0;
     display: inline-block;
     font-size: 1.4vh;
@@ -221,7 +221,7 @@ div#fs_space_bar > h3 {
 }
 
 div#fs_space_bar > progress {
-    width: 70%;
+    width: 79%;
     height: 2.2vh;
     padding-top: .5vh;
     -webkit-appearance: none;
