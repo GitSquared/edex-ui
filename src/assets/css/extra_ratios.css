@@ -40,6 +40,15 @@
     div#mod_toplist::after {
         right: -15.6vw;
     }
+    div#mod_openportlist i {
+        font-size: 1.10vh;
+    }
+    table#mod_openportlist_table {
+        padding-left: 0.2vh;
+    }
+    div#mod_openportlist::after {
+        right: -15.6vw;
+    }
 
     div#mod_netstat_innercontainer {
         font-size: 1vh;
@@ -70,6 +79,9 @@
     }
 
     table#mod_toplist_table {
+        margin-top: -1vh;
+    }
+    table#mod_openportlist_table {
         margin-top: -1vh;
     }
 
@@ -146,6 +158,16 @@
         font-size: 1.1vh;
     }
     table#mod_toplist_table td:nth-child(2) {
+        min-width: 4vw;
+        max-width: 4vw;
+    }
+    div#mod_openportlist i {
+        opacity: 0;
+    }
+    table#mod_openportlist_table td {
+        font-size: 1.1vh;
+    }
+    table#mod_openportlist_table td:nth-child(2) {
         min-width: 4vw;
         max-width: 4vw;
     }

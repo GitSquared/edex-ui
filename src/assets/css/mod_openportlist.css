@@ -1,0 +1,71 @@
+div#mod_openportlist {
+    border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    font-family: var(--font_main_light);
+    letter-spacing: 0.092vh;
+    padding: 0.645vh 0vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div#mod_openportlist::before {
+    content: "";
+    border-left: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    align-self: flex-start;
+    position: relative;
+    left: -0.092vh;
+    top: -1.111vh;
+    height: 0.833vh;
+}
+
+div#mod_openportlist::after {
+    content: "";
+    border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
+    position: relative;
+    right: -15.4vw;
+    top: -12.7vh;
+    height: 0.833vh;
+}
+
+div#mod_openportlist h1 {
+    font-size: 1.48vh;
+    margin: 0vh;
+    margin-bottom: -1vh;
+    width: 97%;
+    padding-left: 0.5vh;
+}
+
+div#mod_openportlist i {
+    font-style: normal;
+    font-size: 1.20vh;
+    opacity: 0.5;
+    text-align: right;
+    display: inline-block;
+    position: relative;
+    bottom: 1.6vh;
+    width: 100%;
+}
+
+table#mod_openportlist_table {
+    margin: 0px;
+    margin-top: 0.2vh;
+    width: 99%;
+    padding-left: 0.5vh;
+}
+
+table#mod_openportlist_table td {
+    font-size: 1.50vh;
+}
+
+table#mod_openportlist_table td:nth-child(2) {
+    max-width: 7vw;
+    min-width: 7vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+table#mod_openportlist_table td:nth-child(3), table#mod_openportlist_table td:nth-child(4) {
+    text-align: right;
+        max-width: 2.4vw;
+    min-width: 2.4vw;
+}

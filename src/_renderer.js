@@ -427,8 +427,9 @@ async function initUI() {
 
     // Right column
     window.mods.netstat = new Netstat("mod_column_right");
-    window.mods.globe = new LocationGlobe("mod_column_right");
+    // window.mods.globe = new LocationGlobe("mod_column_right");
     window.mods.conninfo = new Conninfo("mod_column_right");
+    window.mods.openportlist = new OpenPortList("mod_column_right");
 
     // Fade-in animations
     document.querySelectorAll(".mod_column").forEach(e => {
