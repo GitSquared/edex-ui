@@ -13,7 +13,7 @@
   ],
   "main": "src/_boot.js",
   "scripts": {
-    "start": "node_modules/.bin/electron src --nointro",
+    "start": "node_modules\\.bin\\electron src --nointro",
     "install-linux": "npm install && cd src && npm install && ./../node_modules/.bin/electron-rebuild -f -w node-pty && cd ..",
     "preinstall-windows": "npm install --global --production windows-build-tools && npm install --global node-gyp && setx PYTHON \"%USERPROFILE%\\.windows-build-tools\\python27\\python.exe\"",
     "install-windows": "npm install && cd src && npm install && ..\\node_modules\\.bin\\electron-rebuild -f -w node-pty && cd ..",
