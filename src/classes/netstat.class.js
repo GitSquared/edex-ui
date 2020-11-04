@@ -117,7 +117,7 @@ class Netstat {
                                 };
 
                                 let ip = this.ipinfo.ip;
-                                document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = window._escapeHtml(ip);
+                                document.querySelector("#mod_netstat_innercontainer > div:nth-child(2) > h2").innerHTML = window._escapeHtml(window.settings.mockAddr ? mockIp() : ip);
 
                                 this.runsBeforeGeoIPUpdate = 10;
                             } catch(e) {
@@ -178,6 +178,9 @@ class Netstat {
         });
     }
 }
+
+let getIpNumber = () => (Math.floor(Math.random() * 255) + 1)
+let mockIp = () => `${getIpNumber()}.${getIpNumber()}.${getIpNumber()}.${getIpNumber()}`
 
 module.exports = {
     Netstat

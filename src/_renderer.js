@@ -724,6 +724,14 @@ window.openSettings = async () => {
                         <td><input type="text" id="settingsEditor-pingAddr" value="${window.settings.pingAddr || "1.1.1.1"}"></td>
                     </tr>
                     <tr>
+                        <td>mockAddr</td>
+                        <td>Mock IP address.</td>
+                        <td><select id="settingsEditor-mockAddr">
+                              <option>${!!window.settings.mockAddr}</option>
+                              <option>${!window.settings.mockAddr}</option>
+                        </select></td>
+                    </tr>
+                    <tr>
                         <td>clockHours</td>
                         <td>Clock format (12/24 hours)</td>
                         <td><select id="settingsEditor-clockHours">
@@ -853,6 +861,7 @@ window.writeSettingsFile = () => {
         audioVolume: Number(document.getElementById("settingsEditor-audioVolume").value),
         disableFeedbackAudio: (document.getElementById("settingsEditor-disableFeedbackAudio").value === "true"),
         pingAddr: document.getElementById("settingsEditor-pingAddr").value,
+        mockAddr: document.getElementById("settingsEditor-mockAddr").value,
         clockHours: Number(document.getElementById("settingsEditor-clockHours").value),
         port: Number(document.getElementById("settingsEditor-port").value),
         monitor: Number(document.getElementById("settingsEditor-monitor").value),
