@@ -66,14 +66,15 @@ You can't disable them (yet) but you can hide them. See the `tron-notype` theme.
 #### Why is the file browser saying that "Tracking Failed"? (Windows only)
 On Linux and macOS, eDEX tracks where you're going in your terminal tab to display the content of the current folder on-screen.
 Sadly, this is technically impossible to do on Windows right now, so the file browser reverts back to a "detached" mode. You can still use it to browse files & directories and click on files to input their path in the terminal.
-#### eDEX seems to be pretty stable now. What are you planning to do next?
-I'm not done with this software just yet. I'm actively working on exciting new features that will make eDEX less of a gadget and more of a usable sysadmin tool. Notably, I'm researching remote monitoring, multi-monitor support, and a plug-in system which would externalize the module structure used internally.
+#### Can this run on a Raspberry Pi / ARM device?
+Running eDEX on ARM is not officially supported, but some users have attempted to compile it for the platform.
+See [this issue comment](https://github.com/GitSquared/edex-ui/issues/313#issuecomment-443465345), and the thread on issue [#818](https://github.com/GitSquared/edex-ui/issues/769).
 #### Is this repo actively maintained?
 [See this notice](https://github.com/GitSquared/edex-ui/issues/769)
 #### How did you make this?
 Glad you're interested! See [#272](https://github.com/GitSquared/edex-ui/issues/272).
 #### This is so cool.
-Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gaby) to encourage me to build more awesome stuff.
+Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gaby) or [sponsor me on GitHub](https://github.com/sponsors/GitSquared) to encourage me to build more awesome stuff.
 
 <img width="220" src="https://78.media.tumblr.com/35d4ef4447e0112f776b629bffd99188/tumblr_mk4gf8zvyC1s567uwo1_500.gif" />
 
@@ -90,7 +91,6 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 - [Developpez.com (another french link)](https://www.developpez.com/actu/234808/Une-application-de-bureau-ressemble-a-une-interface-d-ordinateur-de-science-fiction-inspiree-des-effets-du-film-TRON-Legacy/)
 - [GitHub Blog's Release Radar November 2018](https://blog.github.com/2018-12-21-release-radar-november-2018/)
 - [opensource.com Productive Tools for 2019](https://opensource.com/article/19/1/productivity-tool-edex-ui)
-- [Telegram Channel "Веб-страница" (Web Page)](https://t.me/tproger_web/329)
 - [O'Reilly 4 short links (again)](https://www.oreilly.com/radar/four-short-links-7-july-2020/)
 - [LinuxLinks](https://www.linuxlinks.com/linux-candy-edex-ui-sci-fi-computer-terminal-emulator-system-monitor/)
 - [Linux For Everyone (Youtube)](https://www.youtube.com/watch?v=gbzqCAjm--g)
@@ -146,5 +146,3 @@ Huge thanks to [Rob "Arscan" Scanlon](https://github.com/arscan) for making the 
 ## Licensing
 
 Licensed under the [GPLv3.0](https://github.com/GitSquared/edex-ui/blob/master/LICENSE).
-
-[![FOSSA Status](https://app.fossa.io/api/projects/custom%2B5687%2Fgithub.com%2FGitSquared%2Fedex-ui.svg?type=large)](https://app.fossa.io/projects/custom%2B5687%2Fgithub.com%2FGitSquared%2Fedex-ui?ref=badge_large)
