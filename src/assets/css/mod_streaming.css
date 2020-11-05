@@ -1,10 +1,9 @@
 webview#mod_streaming {
    border-top: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
    display: flex;
-   width: 545px;
-   height:325px;
    padding-bottom:2px;
    padding-top:2px;
+   height: 22vh;
 }
 
 webview#mod_streaming::before {
