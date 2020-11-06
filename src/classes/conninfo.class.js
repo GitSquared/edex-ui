@@ -14,6 +14,7 @@ class Conninfo {
             </div>
         </div>`;
 
+        this.current = document.querySelector("#mod_conninfo_innercontainer > h1 > i");
         this.total = document.querySelector("#mod_conninfo_innercontainer > h2 > i");
         this._pb = require("pretty-bytes");
 
@@ -84,6 +85,7 @@ class Conninfo {
                 this.series[1].append(time, -data[0].rx_sec/125000);
 
                 this.total.innerText = `${this._pb(data[0].tx_bytes)} OUT, ${this._pb(data[0].rx_bytes)} IN`.toUpperCase();
+                this.current.innerText = "UP " + parseFloat(data[0].tx_sec/125000).toFixed(2) + " DOWN " + parseFloat(data[0].rx_sec/125000).toFixed(2);
             });
         }
     }
