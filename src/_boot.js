@@ -185,6 +185,7 @@ function createWindow(settings) {
         backgroundColor: '#000000',
         webPreferences: {
             devTools: true,
+            enableRemoteModule: true,
             backgroundThrottling: false,
             webSecurity: true,
             nodeIntegration: true,
