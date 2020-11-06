@@ -128,6 +128,18 @@ div.modal_popup table td {
     font-size: 1.7vh;
 }
 
+div.modal_popup table#settingsEditor tbody {
+	display: block;
+	position: relative;
+	max-height: 60vh;
+	overflow: auto;
+}
+
+div.modal_popup table#settingsEditor tbody tr:first-child {
+	position: sticky;
+	top: 0px;
+}
+
 div.modal_popup table:not(#settingsEditor) td:first-child {
     text-align: center;
 }
