@@ -149,10 +149,11 @@ section#filesystem.list-view > div#fs_disp_container:not(.disks) > div > h4:nth-
 section#filesystem.list-view > div#fs_disp_container:not(.disks) > div > h4:nth-of-type(3) { width: 38%; }
 
 div#fs_disp_container.disks {
-    padding: 0 0.5vw;
+    display: flex;
     align-items: center;
     justify-content: space-evenly;
     border: 0.4vh double rgba(var(--color_r), var(--color_g), var(--color_b), 0.8);
+    flex-wrap: wrap;
 }
 div#fs_disp_container.disks > * {
     width: auto;
