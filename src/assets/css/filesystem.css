@@ -153,6 +153,7 @@ div#fs_disp_container.disks {
     align-items: center;
     justify-content: space-evenly;
     border: 0.4vh double rgba(var(--color_r), var(--color_g), var(--color_b), 0.8);
+    flex-wrap: wrap;
 }
 div#fs_disp_container.disks > * {
     width: auto;
