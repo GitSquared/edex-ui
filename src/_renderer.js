@@ -366,10 +366,11 @@ async function initUI() {
 
     document.getElementById("main_shell").setAttribute("style", "opacity: 0;");
     document.body.innerHTML += `
-    <section id="filesystem" style="width: 0px;" class="${window.settings.hideDotfiles ? "hideDotfiles" : ""} ${window.settings.fsListView ? "list-view" : ""}">
-    </section>
-    <section id="keyboard" style="opacity:0;">
-    </section>`;
+    <div style="display:flex;margin-right:auto;">
+        <section id="filesystem" style="width: 0px;" class="${window.settings.hideDotfiles ? "hideDotfiles" : ""} ${window.settings.fsListView ? "list-view" : ""}"></section>
+        <section id="keyboard" style="opacity:0;"></section>
+    </div>`;
+    
     window.keyboard = new Keyboard({
         layout: path.join(keyboardsDir, settings.keyboard+".json"),
         container: "keyboard"
@@ -496,7 +497,7 @@ async function initUI() {
 
     await _delay(200);
 
-    document.getElementById("filesystem").setAttribute("style", "opacity: 1;");
+    document.getElementById("filesystem").setAttribute("style", "opacity: 1;padding-left: 10px;");
 
     // Resend terminal CWD to fsDisp if we're hot reloading
     if (window.performance.navigation.type === 1) {
@@ -616,7 +617,9 @@ window.openSettings = async () => {
     new Modal({
         type: "custom",
         title: `Settings <i>(v${electron.remote.app.getVersion()})</i>`,
-        html: `<table id="settingsEditor">
+        html: `
+            <div id="settingsEditorContainer">
+                <table id="settingsEditor">
                     <tr>
                         <th>Key</th>
                         <th>Description</th>
@@ -790,8 +793,9 @@ window.openSettings = async () => {
                         </select></td>
                     </tr>
                 </table>
-                <h6 id="settingsEditorStatus">Loaded values from memory</h6>
-                <br>`,
+            </div>
+            <h6 id="settingsEditorStatus">Loaded values from memory</h6>
+            <br>`,
         buttons: [
             {label: "Open in External Editor", action:`electron.shell.openItem('${settingsFile}');electronWin.minimize();`},
             {label: "Save to Disk", action: "window.writeSettingsFile()"},

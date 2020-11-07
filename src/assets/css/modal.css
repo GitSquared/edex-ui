@@ -4,7 +4,7 @@ div.modal_popup {
     background: var(--color_light_black);
     border-color: rgb(var(--color_r), var(--color_g), var(--color_b));
     padding: 2vh;
-    padding-bottom: 0vh;
+    padding-bottom: 1vh;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -130,6 +130,11 @@ div.modal_popup table td {
 
 div.modal_popup table:not(#settingsEditor) td:first-child {
     text-align: center;
+}
+
+div#settingsEditorContainer {
+    height: 70vh;
+    overflow-y: scroll;
 }
 
 div.modal_popup td input {
