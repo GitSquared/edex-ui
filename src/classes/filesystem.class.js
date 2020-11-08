@@ -542,11 +542,16 @@ class FilesystemDisplay {
 
         this.openMedia = (name, path, type) => {
             let block, html;
+            
+            console.log(name + " : " + path)
 
             if (typeof name === "number") {
                 block = this.cwd[name];
                 name = block.name;
             }
+
+            let temp = block.path.replace(/\\/g, "/");
+            block.path = temp;
 
             switch(type || block.type) {
                 case "image":
