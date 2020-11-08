@@ -68,7 +68,7 @@ On Linux and macOS, eDEX tracks where you're going in your terminal tab to displ
 Sadly, this is technically impossible to do on Windows right now, so the file browser reverts back to a "detached" mode. You can still use it to browse files & directories and click on files to input their path in the terminal.
 #### Can this run on a Raspberry Pi / ARM device?
 Running eDEX on ARM is not officially supported, but some users have attempted to compile it for the platform.
-See [this issue comment](https://github.com/GitSquared/edex-ui/issues/313#issuecomment-443465345), and the thread on issue [#818](https://github.com/GitSquared/edex-ui/issues/769).
+See [this issue comment](https://github.com/GitSquared/edex-ui/issues/313#issuecomment-443465345), and the thread on issue [#818](https://github.com/GitSquared/edex-ui/issues/818).
 #### Is this repo actively maintained?
 [See this notice](https://github.com/GitSquared/edex-ui/issues/769)
 #### How did you make this?
