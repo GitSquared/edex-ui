@@ -548,6 +548,8 @@ class FilesystemDisplay {
                 name = block.name;
             }
 
+            block.path = block.path.replace(/\\/g, "/"); 
+
             switch(type || block.type) {
                 case "image":
                     html = `<img class="fsDisp_mediaDisp" src="${window._encodePathURI(path || block.path)}" ondragstart="return false;">`;
