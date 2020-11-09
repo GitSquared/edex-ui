@@ -361,10 +361,10 @@ class FilesystemDisplay {
                 }
 
                 if (e.type === "edex-theme") {
-                    cmd = `window.themeChanger('${e.name.slice(0, -5)}')`;
+                    cmd = `window.themeChanger("${e.name.slice(0, -5)}")`;
                 }
                 if (e.type === "edex-kblayout") {
-                    cmd = `window.remakeKeyboard('${e.name.slice(0, -5)}')`;
+                    cmd = `window.remakeKeyboard("${e.name.slice(0, -5)}")`;
                 }
                 if (e.type === "edex-settings") {
                     cmd = `window.openSettings()`;
