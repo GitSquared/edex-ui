@@ -344,6 +344,10 @@ class FilesystemDisplay {
                     }
                 }
 
+                if (e.type === "file") {
+                    cmd = `window.fsDisp.openFile(${blockIndex})`
+                }
+
                 if (e.type === "system") {
                     cmd = "";
                 }
@@ -538,6 +542,65 @@ class FilesystemDisplay {
         // See #392
         if (window.performance.navigation.type === 0) {
             this.readFS(window.term[window.currentTerm].cwd || window.settings.cwd);
+        }
+
+        this.openFile = (name, path, type) => { //Might add text formatting at some point, not now though - Surge
+            let block;
+
+            if (typeof name === "number") {
+                block = this.cwd[name];
+                name = block.name
+            }
+
+            block.path = block.path.replace(/\\/g, "/");
+
+            let filetype = name.split(".")[name.split(".").length - 1];
+            switch (filetype) {
+                case "xml":
+                case "yaml":
+                case "java":
+                case "cs":
+                case "cpp":
+                case "h":
+                case "html":
+                case "css":
+                case "js":
+                case "md":
+                case "log":
+                case "bat":
+                case "sh":
+                case "gd":
+                //To anyone else working with this: Feel free to add on to this list. - Surge
+                case "txt":
+                case "json":
+                    fs.readFile(block.path, 'utf-8', (err, data) => {
+                        if (err) {
+                            new Modal({
+                                type: "info",
+                                title: "Failed to load file: " + block.path,
+                                html: err
+                            });
+                            console.log(err);
+                        };
+                        window.keyboard.detach();
+                        new Modal(
+                            {
+                                type: "custom",
+                                title: _escapeHtml(name),
+                                html: `<textarea id="fileEdit" rows="40" cols="150" spellcheck="false">${data}</textarea><p id="fedit-status"></p>`,
+                                buttons: [
+                                    {label:"Save to Disk",action:`window.writeFile('${block.path}')`}
+                                ]
+                            }, () => {
+                                window.keyboard.attach();
+                                window.term[window.currentTerm].term.focus();
+                            }
+                        );
+                    });
+                    break;
+                default:
+                    return;
+            }
         }
 
         this.openMedia = (name, path, type) => {

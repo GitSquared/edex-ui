@@ -144,6 +144,19 @@ div.modal_popup table:not(#settingsEditor) td:first-child {
     text-align: center;
 }
 
+div.modal_popup textarea {
+    background: var(--color_light_black);
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    border: 0.15vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    padding: 0.4vh 0.2vh;
+    font-size: 1.4vh;
+    resize: none;
+}
+
+div.modal_popup textarea:active, div.modal_popup textarea:focus {
+    outline: none !important;
+}
+
 div.modal_popup td input {
     width: 100%;
     background: var(--color_light_black);
