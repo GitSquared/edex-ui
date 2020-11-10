@@ -123,8 +123,10 @@ class FilesystemDisplay {
             if (this._fsWatcher) {
                 this._fsWatcher.close();
             }
-            this._fsWatcher = fs.watch(dir, () => {
-                this._runNextTick = true;
+            this._fsWatcher = fs.watch(dir, (eventType, filename) => {
+                if (eventType != "change") { // #758 - Don't refresh file view if only file contents have changed.
+                    this._runNextTick = true;
+                }
             });
         };
 
