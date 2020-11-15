@@ -439,7 +439,11 @@ class Terminal {
                     case "Resize":
                         let cols = args[1];
                         let rows = args[2];
-                        this.tty.resize(Number(cols), Number(rows));
+                        try {
+                            this.tty.resize(Number(cols), Number(rows));
+                        } catch (error) {
+                            //Keep going, it'll work anyways.
+                        }
                         this.onresized(cols, rows);
                         break;
                     default:
