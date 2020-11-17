@@ -68,6 +68,7 @@ try {
 if (!fs.existsSync(settingsFile)) {
     fs.writeFileSync(settingsFile, JSON.stringify({
         shell: (process.platform === "win32") ? "powershell.exe" : "bash",
+        shellArgs: '',
         cwd: electron.app.getPath("userData"),
         keyboard: "en-US",
         theme: "tron",
@@ -223,7 +224,7 @@ app.on('ready', async () => {
     if (!require("fs").existsSync(settings.cwd)) throw new Error("Configured cwd path does not exist.");
 
     // See #366
-    let cleanEnv = await require("shell-env")(settings.shell.split(" ")[0]).catch(e => { throw e; });
+    let cleanEnv = await require("shell-env")(settings.shell).catch(e => { throw e; });
 
     Object.assign(cleanEnv, process.env, {
         TERM: "xterm-256color",
@@ -235,8 +236,8 @@ app.on('ready', async () => {
     signale.pending(`Creating new terminal process on port ${settings.port || '3000'}`);
     tty = new Terminal({
         role: "server",
-        shell: settings.shell.split(" ")[0],
-        params: settings.shell.split(" ").splice(1),
+        shell: settings.shell,
+        params: settings.shellArgs || '',
         cwd: settings.cwd,
         env: cleanEnv,
         port: settings.port || 3000
@@ -290,8 +291,8 @@ app.on('ready', async () => {
             signale.pending(`Creating new TTY process on port ${port}`);
             let term = new Terminal({
                 role: "server",
-                shell: settings.shell.split(" ")[0],
-                params: settings.shell.split(" ").splice(1),
+                shell: settings.shell,
+                params: settings.shellArgs || '',
                 cwd: tty.tty._cwd || settings.cwd,
                 env: cleanEnv,
                 port: port
