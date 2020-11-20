@@ -46,7 +46,7 @@
     "appId": "com.edex.ui",
     "productName": "eDEX-UI",
     "asar": true,
-    "compression": "maximum",
+    "compression": "normal",
     "copyright": "Copyright © 2017-2020 Gabriel 'Squared' SAILLARD <gabriel@saillard.dev> (https://gaby.dev)",
     "directories": {
       "output": "dist",
