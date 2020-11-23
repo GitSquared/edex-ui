@@ -122,7 +122,7 @@ class Sysinfo {
             if (bat.hasbattery) {
                 if (bat.ischarging) {
                     indicator.innerHTML = "CHARGE";
-                } else if (bat.acconnected || bat.timeremaining === -1) {
+                } else if (bat.acconnected /*|| bat.timeremaining === -1*/) {//fixes #833
                     indicator.innerHTML = "WIRED";
                 } else {
                     indicator.innerHTML = bat.percent+"%";
