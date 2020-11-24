@@ -11,6 +11,7 @@ before_install:
 
 before_script:
   - npm install
+  - npm install snyk
   - 'if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then snyk auth $SNYK_TOKEN; fi'
   - mkdir prebuild-src
   - 'if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then cp -R src/. prebuild-src/; fi'
