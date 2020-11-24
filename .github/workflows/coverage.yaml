@@ -22,13 +22,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     
-    - name: install linux deps
+    - name: test
       run: |
         sudo apt install rsync python libc6-dev-i386 gcc-multilib g++-multilib -y
         npm install -g snyk
+        npm i
         snyk auth $SNYK_TOKEN
         snyk protect
-        snyk test
+        npm test
 
       env:
         CI: true
