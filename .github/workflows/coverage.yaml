@@ -6,7 +6,7 @@ on:
     - master
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -20,8 +20,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-      env: # Or as an environment variable
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
     
     - name: install linux deps
       run: |
@@ -33,3 +32,4 @@ jobs:
 
       env:
         CI: true
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
