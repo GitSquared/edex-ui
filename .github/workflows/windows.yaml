@@ -1,0 +1,42 @@
+name: linux
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1 # Version range or exact version of a Python version to use, using SemVer's version range syntax
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+        architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    
+    - name: set up env
+      run: |
+        npm install
+    - name: npm build
+      run: |
+        npm run build-windows
+    - uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: |
+          dist/*.yml
+          dist/*.exe
+
+      env:
+        CI: true
