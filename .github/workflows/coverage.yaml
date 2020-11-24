@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+      env: # Or as an environment variable
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     
     - name: install linux deps
       run: |
