@@ -23,7 +23,7 @@ jobs:
     
     - name: install linux deps
       run: |
-        sudo apt update && apt upgrade -y
+        sudo apt update && sudo apt upgrade -y
         sudo apt install rsync python libc6-dev-i386 gcc-multilib g++-multilib -y
     - name: set up env
       run: |
