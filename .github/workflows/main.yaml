@@ -27,15 +27,13 @@ jobs:
     - name: set up env
       run: |
         npm install
-        mkdir prebuild-src
-        cp -R src/. prebuild-src/
-        node prebuild-minify.js
-        cd prebuild-src
-        npm install
-        cd ..
     - name: npm build
       run: |
         npm run build-linux
-        npm test
+    - uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: dist/
+
       env:
         CI: true
