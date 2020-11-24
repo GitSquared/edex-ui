@@ -28,6 +28,9 @@ jobs:
     - name: set up env
       run: |
         npm install
+        chdir src
+        npm installl
+        chdir ..
     - name: npm build
       run: |
         npm run build-windows
