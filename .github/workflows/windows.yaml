@@ -54,6 +54,8 @@ jobs:
     - name: npm build
       run: |
         npm run build-windows
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
       with:
         name: eDEX-UI.Windows.Installer.exe

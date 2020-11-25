@@ -56,6 +56,8 @@ jobs:
     - name: npm build
       run: |
         npm run build-darwin
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
       with:
         name: eDEX-UI.MacOS.Image.dmg

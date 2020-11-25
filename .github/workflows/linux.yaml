@@ -54,6 +54,8 @@ jobs:
     - name: npm build
       run: |
         npm run build-linux
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
       with:
         name: dist
