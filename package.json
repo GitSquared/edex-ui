@@ -45,6 +45,7 @@
   "build": {
     "appId": "com.edex.ui",
     "productName": "eDEX-UI",
+    "publish": "github",
     "asar": true,
     "compression": "normal",
     "copyright": "Copyright © 2017-2020 Gabriel 'Squared' SAILLARD <gabriel@saillard.dev> (https://gaby.dev)",
