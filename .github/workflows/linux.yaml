@@ -45,9 +45,8 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: dist
-        path: |
-          dist/*.yml
-          dist/*.AppImage
+        path: dist/*.AppImage
+        if-no-files-found: error
 
       env:
         CI: true

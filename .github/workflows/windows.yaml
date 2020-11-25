@@ -43,10 +43,9 @@ jobs:
         npm run build-windows
     - uses: actions/upload-artifact@v2
       with:
-        name: dist
-        path: |
-          dist/*.yml
-          dist/*.exe
+        name: eDEX-UI.Windows.Installer.exe
+        path: dist/*.exe
+        if-no-files-found: error
 
       env:
         CI: true

@@ -45,10 +45,9 @@ jobs:
         npm run build-darwin
     - uses: actions/upload-artifact@v2
       with:
-        name: dist
-        path: |
-          dist/*.yml
-          dist/*.dmg
+        name: eDEX-UI.MacOS.Image.dmg
+        path: dist/*.dmg
+        if-no-files-found: error
 
       env:
         CI: true
