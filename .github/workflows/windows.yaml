@@ -25,12 +25,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     
-    - name: set up env
+    - name: npm install
       run: |
         npm install
-        chdir src
-        npm install
-        chdir ..
     - name: npm build
       run: |
         npm run build-windows
