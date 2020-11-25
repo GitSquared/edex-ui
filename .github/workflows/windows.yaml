@@ -26,6 +26,19 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
+    - name: Cache Electron binaries
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-electron-bins
+      with:
+        # cache location is described here:
+        # https://github.com/electron/get#how-it-works
+        path: ~/AppData/Local/electron/Cache
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
     - uses: actions/setup-python@v2
       with:
         python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
