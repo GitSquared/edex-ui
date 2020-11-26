@@ -102,6 +102,7 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 
 #### Starting from source:
 on *nix systems (You'll need the Xcode command line tools on macOS):
+Note: do not run using sudo, as it can potentially cause issues 
 - clone the repository
 - `npm run install-linux`
 - `npm start`
