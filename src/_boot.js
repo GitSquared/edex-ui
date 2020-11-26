@@ -187,6 +187,7 @@ function createWindow(settings) {
         webPreferences: {
             devTools: true,
             enableRemoteModule: true,
+            contextIsolation: false,
             backgroundThrottling: false,
             webSecurity: true,
             nodeIntegration: true,

@@ -76,7 +76,8 @@
         {
           "target": "dmg",
           "arch": [
-            "x64"
+            "x64",
+            "arm64"
           ]
         }
       ],
@@ -106,15 +107,15 @@
   },
   "dependencies": {
     "clean-css": "4.2.3",
-    "electron": "^10.1.5",
+    "electron": "^11.0.3",
     "electron-builder": "^22.9.1",
     "electron-rebuild": "^2.3.2",
-    "node-abi": "2.19.1",
+    "node-abi": "2.19.3",
     "node-json-minify": "1.0.0",
     "uglify-es": "3.3.9"
   },
   "optionalDependencies": {
-    "cson-parser": "4.0.5"
+    "cson-parser": "4.0.7"
   },
   "devDependencies": {}
 }
