@@ -76,8 +76,7 @@
         {
           "target": "dmg",
           "arch": [
-            "x64",
-            "arm64"
+            "x64"
           ]
         }
       ],
@@ -85,7 +84,7 @@
       "icon": "media/icon.icns"
     },
     "dmg": {
-      "artifactName": "eDEX-UI MacOS Image.dmg"
+      "artifactName": "eDEX-UI-macOS-${arch}.dmg"
     },
     "win": {
       "target": [
