@@ -100,8 +100,9 @@
       "icon": "media/icon.ico"
     },
     "nsis": {
-      "artifactName": "eDEX-UI Windows Installer.exe",
-      "oneClick": true,
+      "artifactName": "eDEX-UI-Windows-${arch}.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
       "deleteAppDataOnUninstall": true
     }
   },
