@@ -60,7 +60,8 @@
           "target": "AppImage",
           "arch": [
             "x64",
-            "ia32"
+            "ia32",
+            "arm64"
           ]
         }
       ],
