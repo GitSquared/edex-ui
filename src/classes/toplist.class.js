@@ -52,6 +52,43 @@ class Toplist {
     }
 
     processList(){
+        let sortKey;
+        let ascending = false;
+
+        function setSortKey(fieldName){
+            if (sortKey === fieldName){
+                if (ascending){
+                    sortKey = undefined;
+                    ascending = false;
+                }
+                else{
+                    ascending = true;
+                }
+            }
+            else {
+                sortKey = fieldName;
+                ascending = false;
+            }
+        }
+
+        function formatRuntime(ms){
+            const msInDay = 24 * 60 * 60 * 1000;
+            let days = Math.floor(ms / msInDay);
+            let remainingMS = ms % msInDay;
+
+            const msInHour = 60 * 60 * 1000;
+            let hours = Math.floor(remainingMS / msInHour);
+            remainingMS = ms % msInHour;
+
+            let msInMin = 60 * 1000;
+            let minutes = Math.floor(remainingMS / msInMin);
+            remainingMS = ms % msInMin;
+
+            let seconds = Math.floor(remainingMS / 1000);
+
+            return `${days < 10 ? "0" : ""}${days}:${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+        }
+
         function updateProcessList(){
             window.si.processes().then(data => {
                 if (window.settings.excludeThreadsFromToplist === true) {
@@ -68,16 +105,64 @@ class Toplist {
                     });
                 }
 
+                data.list.forEach(proc => {
+                    proc.runtime = new Date(Date.now() - Date.parse(proc.started));
+                });
+
                 let list = data.list.sort((a, b) => {
-                    return ((b.pcpu-a.pcpu)*100 + b.pmem-a.pmem);
-                });//.splice(0, 30);
+                    switch (sortKey) {
+                    case "PID":
+                        if (ascending) return a.pid - b.pid;
+                        else return b.pid - a.pid;
+                    case "Name":
+                        if (ascending){
+                            if (a.name > b.name) return -1;
+                            if (a.name < b.name) return 1;
+                            return 0;
+                        }
+                        else {
+                            if (a.name < b.name) return -1;
+                            if (a.name > b.name) return 1;
+                            return 0;
+                        }
+                    case "User":
+                        if (ascending){
+                            if (a.user > b.user) return -1;
+                            if (a.user < b.user) return 1;
+                            return 0;
+                        }
+                        else {
+                            if (a.user < b.user) return -1;
+                            if (a.user > b.user) return 1;
+                            return 0;
+                        }
+                    case "CPU":
+                        if (ascending) return a.pcpu - b.pcpu;
+                        else return b.pcpu - a.pcpu;
+                    case "Memory":
+                        if (ascending) return a.pmem - b.pmem;
+                        else return b.pmem - a.pmem;
+                    case "State":
+                        if (a.state < b.state) return -1;
+                        if (a.state > b.state) return 1;
+                        return 0;
+                    case "Started":
+                        if (ascending) return Date.parse(a.started) - Date.parse(b.started);
+                        else return Date.parse(b.started) - Date.parse(a.started);
+                    case "Runtime":
+                        if (ascending) return a.runtime - b.runtime;
+                        else return b.runtime - a.runtime;
+                    default:
+                        // default to the same sorting as the toplist
+                        return ((b.pcpu-a.pcpu)*100 + b.pmem-a.pmem);
+                    }
+                });
 
                 document.querySelectorAll("#processList > tr").forEach(el => {
                     el.remove();
                 });
 
                 list.forEach(proc => {
-                    let runtime = new Date(Date.now() - Date.parse(proc.started));
                     let el = document.createElement("tr");
                     el.innerHTML = `<td class="pid">${proc.pid}</td>
                                 <td class="name">${proc.name}</td>
@@ -86,7 +171,7 @@ class Toplist {
                                 <td class="mem">${Math.round(proc.pmem*10)/10}%</td>
                                 <td class="state">${proc.state}</td>
                                 <td class="started">${proc.started}</td>
-                                <td class="runtime">${runtime.getHours()}:${runtime.getMinutes()}:${runtime.getSeconds()}</td>`;
+                                <td class="runtime">${formatRuntime(proc.runtime)}</td>`;
                     document.getElementById("processList").append(el);
                 });
             });
@@ -113,13 +198,28 @@ class Toplist {
     </thead>
     <tbody id=\"processList\">
     </tbody>
-    </table>`,
+  </table>`,
             }
         );
+
+        let headers = document.getElementsByClassName("header");
+        for (let header of headers){
+            let title = header.textContent;
+            header.addEventListener("click", () => {
+                for (let header of headers) {
+                    header.textContent = header.textContent.replace('\u25B2', "").replace('\u25BC', "");
+                }
+                setSortKey(title);
+                if (sortKey){
+                    header.textContent = `${title}${ascending ? '\u25B2' : '\u25BC'}`;
+                }
+            });
+        }
+
         updateProcessList();
         window.keyboard.attach();
         window.term[window.currentTerm].term.focus();
-        setInterval(updateProcessList, 2000);
+        setInterval(updateProcessList, 1000);
     }
 }
 
