@@ -52,14 +52,18 @@ class Toplist {
     }
 
     processList(){
-<<<<<<< HEAD
-=======
-        let sortKey = "runtime";
+        let sortKey;
         let ascending = false;
 
         function setSortKey(fieldName){
             if (sortKey === fieldName){
-                ascending = !ascending;
+                if (ascending){
+                    sortKey = undefined;
+                    ascending = false;
+                }
+                else{
+                    ascending = true;
+                }
             }
             else {
                 sortKey = fieldName;
@@ -85,7 +89,6 @@ class Toplist {
             return `${days < 10 ? "0" : ""}${days}:${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
         }
 
->>>>>>> ab1d3b29ae818a2450f52994d0a2288d2e1eb473
         function updateProcessList(){
             window.si.processes().then(data => {
                 if (window.settings.excludeThreadsFromToplist === true) {
@@ -195,7 +198,7 @@ class Toplist {
     </thead>
     <tbody id=\"processList\">
     </tbody>
-    </table>`,
+  </table>`,
             }
         );
 
@@ -207,7 +210,9 @@ class Toplist {
                     header.textContent = header.textContent.replace('\u25B2', "").replace('\u25BC', "");
                 }
                 setSortKey(title);
-                header.textContent = `${title}${ascending ? '\u25B2' : '\u25BC'}`;
+                if (sortKey){
+                    header.textContent = `${title}${ascending ? '\u25B2' : '\u25BC'}`;
+                }
             });
         }
 
