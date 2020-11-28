@@ -17,6 +17,10 @@ div#mod_toplist::before {
     height: 0.833vh;
 }
 
+div#mod_toplist:hover {
+    cursor: pointer;
+}
+
 div#mod_toplist::after {
     content: "";
     border-right: 0.092vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.3);
