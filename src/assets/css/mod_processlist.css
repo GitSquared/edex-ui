@@ -11,6 +11,9 @@ table#processContainer td.header {
     text-align: center;
 }
 
+table#processContainer td.header:hover {
+    cursor: pointer;
+}
 table#processContainer td.pid {
     width: 5vw;
 }
