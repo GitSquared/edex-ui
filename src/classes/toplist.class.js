@@ -70,7 +70,7 @@ class Toplist {
 
                 let list = data.list.sort((a, b) => {
                     return ((b.pcpu-a.pcpu)*100 + b.pmem-a.pmem);
-                }).splice(0, 30);
+                });//.splice(0, 30);
 
                 document.querySelectorAll("#processList > tr").forEach(el => {
                     el.remove();
@@ -79,13 +79,14 @@ class Toplist {
                 list.forEach(proc => {
                     let runtime = new Date(Date.now() - Date.parse(proc.started));
                     let el = document.createElement("tr");
-                    el.innerHTML = `<td>${proc.pid}</td>
-                                <td>${proc.name}</td>
-                                <td>${proc.user}</td>
-                                <td>${Math.round(proc.pcpu*10)/10}%</td>
-                                <td>${Math.round(proc.pmem*10)/10}%</td>
-                                <td>${proc.state}</td>
-                                <td>${proc.started}</td><td>${runtime.getHours()}:${runtime.getMinutes()}:${runtime.getSeconds()}</td>`;
+                    el.innerHTML = `<td class="pid">${proc.pid}</td>
+                                <td class="name">${proc.name}</td>
+                                <td class="user">${proc.user}</td>
+                                <td class="cpu">${Math.round(proc.pcpu*10)/10}%</td>
+                                <td class="mem">${Math.round(proc.pmem*10)/10}%</td>
+                                <td class="state">${proc.state}</td>
+                                <td class="started">${proc.started}</td>
+                                <td class="runtime">${runtime.getHours()}:${runtime.getMinutes()}:${runtime.getSeconds()}</td>`;
                     document.getElementById("processList").append(el);
                 });
             });
@@ -96,7 +97,23 @@ class Toplist {
             {
                 type: "custom",
                 title: "Active Processes",
-                html: "<div id=\"processContainer\"><table><thead><tr><td>PID</td><td>Name</td><td>User</td><td>CPU</td><td>Memory</td><td>State</td><td>Started</td><td>Runtime</td></tr></thead><tbody id=\"processList\"></tbody></table></div>",
+                html: `
+<table id=\"processContainer\">
+    <thead>
+        <tr>
+            <td class="pid header">PID</td>
+            <td class="name header">Name</td>
+            <td class="user header">User</td>
+            <td class="cpu header">CPU</td>
+            <td class="mem header">Memory</td>
+            <td class="state header">State</td>
+            <td class="started header">Started</td>
+            <td class="runtime header">Runtime</td>
+        </tr>
+    </thead>
+    <tbody id=\"processList\">
+    </tbody>
+    </table>`,
             }
         );
         updateProcessList();

@@ -1,8 +1,48 @@
-div#processContainer table{
-    width: 55vw;
+table#processContainer {
+    display: block;
+    max-height: 60vh;
+    overflow: auto;
 }
 
-div#processContainer > table > thead{
+table#processContainer td.header {
     font-weight: bold;
-    font-size: 1.5em;
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.6);
+    color: var(--color_light_black);
+    text-align: center;
 }
+
+table#processContainer td.pid {
+    width: 5vw;
+}
+
+table#processContainer td.name {
+    width: 12vw;
+}
+
+table#processContainer td.user {
+    width: 7vw;
+}
+
+table#processContainer td.cpu {
+    width: 3vw;
+    text-align: center;
+}
+
+table#processContainer td.mem{
+    width: 3vw;
+    text-align: center;
+
+}
+table#processContainer td.state {
+    width: 6vw;
+    text-align: center;
+}
+table#processContainer td.started {
+    width: 11vw;
+
+}
+
+table#processContainer td.runtime {
+    width: 5vw;
+}
+
