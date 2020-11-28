@@ -551,7 +551,7 @@ class FilesystemDisplay {
 
             if (typeof name === "number") {
                 block = this.cwd[name];
-                name = block.name
+                name = block.name;
             }
 
             block.path = block.path.replace(/\\/g, "/");
