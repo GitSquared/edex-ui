@@ -77,15 +77,15 @@ class Toplist {
                 });
 
                 list.forEach(proc => {
+                    let runtime = new Date(Date.now() - Date.parse(proc.started));
                     let el = document.createElement("tr");
                     el.innerHTML = `<td>${proc.pid}</td>
-                                <td style="width: 2cm"><strong>${proc.name}</strong></td>
+                                <td>${proc.name}</td>
                                 <td>${proc.user}</td>
                                 <td>${Math.round(proc.pcpu*10)/10}%</td>
                                 <td>${Math.round(proc.pmem*10)/10}%</td>
                                 <td>${proc.state}</td>
-                                <td>${proc.started}</td>`;
-// <td>${JSON.stringify(proc)}</td>`;
+                                <td>${proc.started}</td><td>${runtime.getHours()}:${runtime.getMinutes()}:${runtime.getSeconds()}</td>`;
                     document.getElementById("processList").append(el);
                 });
             });
@@ -96,7 +96,7 @@ class Toplist {
             {
                 type: "custom",
                 title: "Active Processes",
-                html: "<div id=\"processContainer\"><table><thead><tr><td>PID</td><td>Name</td><td>User</td><td>CPU</td><td>Memory</td><td>State</td><td>Started</td></tr></thead><tbody id=\"processList\"></tbody></table></div>",
+                html: "<div id=\"processContainer\"><table><thead><tr><td>PID</td><td>Name</td><td>User</td><td>CPU</td><td>Memory</td><td>State</td><td>Started</td><td>Runtime</td></tr></thead><tbody id=\"processList\"></tbody></table></div>",
             }
         );
         updateProcessList();
