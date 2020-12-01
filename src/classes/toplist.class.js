@@ -55,8 +55,6 @@ class Toplist {
         let sortKey;
         let ascending = false;
 
-        let modalShowing = true;
-
         function setSortKey(fieldName){
             if (sortKey === fieldName){
                 if (ascending){
@@ -159,26 +157,23 @@ class Toplist {
                             return ((b.pcpu - a.pcpu) * 100 + b.pmem - a.pmem);
                     }
                 });
+                
+                document.querySelectorAll("#processList > tr").forEach(el => {
+                    el.remove();
+                });
 
-                // check to see if the toplist modal is showing
-                if(modalShowing) {
-                    document.querySelectorAll("#processList > tr").forEach(el => {
-                        el.remove();
-                    });
-
-                    list.forEach(proc => {
-                        let el = document.createElement("tr");
-                        el.innerHTML = `<td class="pid">${proc.pid}</td>
-                                <td class="name">${proc.name}</td>
-                                <td class="user">${proc.user}</td>
-                                <td class="cpu">${Math.round(proc.pcpu * 10) / 10}%</td>
-                                <td class="mem">${Math.round(proc.pmem * 10) / 10}%</td>
-                                <td class="state">${proc.state}</td>
-                                <td class="started">${proc.started}</td>
-                                <td class="runtime">${formatRuntime(proc.runtime)}</td>`;
-                        document.getElementById("processList").append(el);
-                    });
-                }
+                list.forEach(proc => {
+                    let el = document.createElement("tr");
+                    el.innerHTML = `<td class="pid">${proc.pid}</td>
+                            <td class="name">${proc.name}</td>
+                            <td class="user">${proc.user}</td>
+                            <td class="cpu">${Math.round(proc.pcpu * 10) / 10}%</td>
+                            <td class="mem">${Math.round(proc.pmem * 10) / 10}%</td>
+                            <td class="state">${proc.state}</td>
+                            <td class="started">${proc.started}</td>
+                            <td class="runtime">${formatRuntime(proc.runtime)}</td>`;
+                    document.getElementById("processList").append(el);
+                });
             });
         }
 
@@ -206,7 +201,7 @@ class Toplist {
   </table>`,
             },
             () => {
-                modalShowing = false;
+                clearInterval(updateInterval);
             }
         );
 
@@ -227,7 +222,7 @@ class Toplist {
         updateProcessList();
         window.keyboard.attach();
         window.term[window.currentTerm].term.focus();
-        setInterval(updateProcessList, 1000);
+        var updateInterval = setInterval(updateProcessList, 1000);
     }
 }
 
