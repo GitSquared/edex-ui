@@ -54,6 +54,7 @@ class Toplist {
     processList(){
         let sortKey;
         let ascending = false;
+        let removed = false;
 
         function setSortKey(fieldName){
             if (sortKey === fieldName){
@@ -158,13 +159,15 @@ class Toplist {
                     }
                 });
                 
-                document.querySelectorAll("#processList > tr").forEach(el => {
-                    el.remove();
-                });
+                if (removed) clearInterval(updateInterval);
+                else {
+                    document.querySelectorAll("#processList > tr").forEach(el => {
+                        el.remove();
+                    });
 
-                list.forEach(proc => {
-                    let el = document.createElement("tr");
-                    el.innerHTML = `<td class="pid">${proc.pid}</td>
+                    list.forEach(proc => {
+                        let el = document.createElement("tr");
+                        el.innerHTML = `<td class="pid">${proc.pid}</td>
                             <td class="name">${proc.name}</td>
                             <td class="user">${proc.user}</td>
                             <td class="cpu">${Math.round(proc.pcpu * 10) / 10}%</td>
@@ -172,8 +175,9 @@ class Toplist {
                             <td class="state">${proc.state}</td>
                             <td class="started">${proc.started}</td>
                             <td class="runtime">${formatRuntime(proc.runtime)}</td>`;
-                    document.getElementById("processList").append(el);
-                });
+                        document.getElementById("processList").append(el);
+                    });
+                }
             });
         }
 
@@ -201,7 +205,8 @@ class Toplist {
   </table>`,
             },
             () => {
-                clearInterval(updateInterval);
+                removed = true;
+                //clearInterval(updateInterval);
             }
         );
 
