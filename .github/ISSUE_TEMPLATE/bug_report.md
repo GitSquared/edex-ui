@@ -17,7 +17,7 @@ labels: bug, investigation
 ## Technical information
 **Using version:**
  - [ ] `master` (running from GitHub-published source code, currently `v3.0.0-pre`)
- - [ ] `latest` (latest release, currently `v2.2.3`)
+ - [ ] `latest` (latest release, currently `v2.2.4`)
  - [ ] `vX.X.X` (specify other version)
 
 **Running on:**
