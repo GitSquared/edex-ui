@@ -13,7 +13,8 @@
   ],
   "main": "src/_boot.js",
   "scripts": {
-    "start": "node_modules\\.bin\\electron src --nointro",
+    "start-windows": "node_modules\\.bin\\electron src --nointro",
+    "start-linux": "node_modules/.bin/electron src --nointro",
     "install-linux": "npm install && cd src && npm install && ./../node_modules/.bin/electron-rebuild -f -w node-pty && cd ..",
     "preinstall-windows": "npm install --global --production windows-build-tools && npm install --global node-gyp && setx PYTHON \"%USERPROFILE%\\.windows-build-tools\\python27\\python.exe\"",
     "install-windows": "npm install && cd src && npm install && ..\\node_modules\\.bin\\electron-rebuild -f -w node-pty && cd ..",
@@ -107,6 +108,7 @@
   },
   "dependencies": {
     "clean-css": "4.2.3",
+    "cson-parser": "4.0.7",
     "electron": "^10.1.6",
     "electron-builder": "^22.9.1",
     "electron-rebuild": "^2.3.2",
