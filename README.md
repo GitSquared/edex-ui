@@ -103,13 +103,13 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 on *nix systems (You'll need the Xcode command line tools on macOS):
 - clone the repository
 - `npm run install-linux`
-- `npm start`
+- `npm run start-linux`
 
 on Windows:
 - start cmd or powershell **as administrator**
 - clone the repository
 - `npm run install-windows`
-- `npm start`
+- `npm run start-windows`
 
 #### Building
 Note: Due to native modules, you can only build targets for the host OS you are using.
