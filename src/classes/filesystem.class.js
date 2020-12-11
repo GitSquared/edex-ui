@@ -450,7 +450,7 @@ class FilesystemDisplay {
                 e.type = type;
 
                 // Handle displayable media
-                if (e.type === 'video' || e.type === 'image') {
+                if (e.type === 'video' || e.type === 'audio' || e.type === 'image') {
                     this.cwd[blockIndex].type = e.type;
                     cmd = `window.fsDisp.openMedia(${blockIndex})`;
                 }
@@ -600,6 +600,49 @@ class FilesystemDisplay {
                         );
                     });
                     break;
+                case "pdf":
+                    let html = `<div>
+                        <div class="pdf_options">
+                            <button class="zoom_in">
+                                <svg viewBox="0 0 ${this.icons["zoomIn"].width} ${this.icons["zoomIn"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["zoomIn"].svg}
+                                </svg>
+                            </button>
+                            <button class="zoom_out">
+                                <svg viewBox="0 0 ${this.icons["zoomOut"].width} ${this.icons["zoomOut"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["zoomOut"].svg}
+                                </svg>
+                            </button>
+                            <button class="previous_page">
+                                <svg viewBox="0 0 ${this.icons["arrowBack"].width} ${this.icons["arrowBack"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["arrowBack"].svg}
+                                </svg>
+                            </button>
+                            <span>Page: <span class="page_num"/></span><span>/</span> <span class="page_count"></span></span>
+                            <button class="next_page">
+                                <svg viewBox="0 0 ${this.icons["arrowNext"].width} ${this.icons["arrowNext"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["arrowNext"].svg}
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="pdf_container fsDisp_mediaDisp">
+                            <canvas class="pdf_canvas" />
+                        </div>
+                    </div>`;
+                    const newModal = new Modal(
+                        {
+                            type: "custom",
+                            title: _escapeHtml(name),
+                            html: html
+                        }
+                    );
+                    new DocReader(
+                        {
+                            modalId: newModal.id,
+                            path: block.path
+                        }
+                    );
+                    break;
                 default:
                     return;
             }
@@ -618,6 +661,12 @@ class FilesystemDisplay {
             switch(type || block.type) {
                 case "image":
                     html = `<img class="fsDisp_mediaDisp" src="${window._encodePathURI(path || block.path)}" ondragstart="return false;">`;
+                    break;
+                case "audio":
+                    html = `<audio class="fsDisp_mediaDisp" controls preload="auto">
+                            <source src="${window._encodePathURI(path || block.path)}">
+                            Unsupported audio format!
+                        </audio>`;
                     break;
                 case "video":
                     html = `<video class="fsDisp_mediaDisp" controls preload="auto">

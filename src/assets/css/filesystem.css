@@ -262,3 +262,27 @@ div#fs_space_bar > progress::-webkit-progress-value {
     bottom: .7vh;
     transition: width .5s cubic-bezier(0.4, 0, 1, 1);
 }
+
+.pdf_container {
+    text-align: center;
+    background: var(--color_light_black);
+    color: rgb(var(--color_r), var(--color_g), var(--color_b));
+    border: 0.15vh solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    padding: 0.4vh 0.2vh;
+    font-size: 1.4vh;
+    resize: none;
+    overflow: auto;
+    width: 50vw;
+    height: 50vh;
+}
+
+.pdf_options button {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+}
+
+.pdf_options span {
+    margin-left: 1.5vh;
+    font-size: 24px;
+}
