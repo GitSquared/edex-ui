@@ -450,7 +450,7 @@ class FilesystemDisplay {
                 e.type = type;
 
                 // Handle displayable media
-                if (e.type === 'video' || e.type === 'image') {
+                if (e.type === 'video' || e.type === 'audio' || e.type === 'image') {
                     this.cwd[blockIndex].type = e.type;
                     cmd = `window.fsDisp.openMedia(${blockIndex})`;
                 }
@@ -618,6 +618,12 @@ class FilesystemDisplay {
             switch(type || block.type) {
                 case "image":
                     html = `<img class="fsDisp_mediaDisp" src="${window._encodePathURI(path || block.path)}" ondragstart="return false;">`;
+                    break;
+                case "audio":
+                    html = `<audio class="fsDisp_mediaDisp" controls preload="auto">
+                            <source src="${window._encodePathURI(path || block.path)}">
+                            Unsupported audio format!
+                        </audio>`;
                     break;
                 case "video":
                     html = `<video class="fsDisp_mediaDisp" controls preload="auto">
