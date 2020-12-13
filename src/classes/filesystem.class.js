@@ -663,26 +663,90 @@ class FilesystemDisplay {
                     html = `<img class="fsDisp_mediaDisp" src="${window._encodePathURI(path || block.path)}" ondragstart="return false;">`;
                     break;
                 case "audio":
-                    html = `<audio class="fsDisp_mediaDisp" controls preload="auto">
-                            <source src="${window._encodePathURI(path || block.path)}">
-                            Unsupported audio format!
-                        </audio>`;
+                    html = `<div class="fsDisp_mediaDisp" >
+                                <div class="media_container" data-fullscreen="false">
+                                    <audio class="media" preload="auto">
+                                        <source src="${window._encodePathURI(path || block.path)}">
+                                        Unsupported audio format!
+                                    </audio>
+                                    <div class="media_controls" data-state="hidden">
+                                        <button class="playpause" type="button" data-state="play">
+                                            <svg viewBox="0 0 ${this.icons["playArrow"].width} ${this.icons["playArrow"].height}" fill="${this.iconcolor}">
+                                                ${this.icons["playArrow"].svg}
+                                            </svg>
+                                        </button>
+                                        <div class="container container_progress">
+                                            <div class="progress">
+                                                <span class="progress_bar"></span>
+                                            </div>
+                                        </div>
+                                        <div class="container">
+                                            <span class="media_time"></span>
+                                        </div>
+                                        <div class="container">
+                                            <div class="volume">
+                                                <div class="volume_bkg"></div>
+                                                <div class="volume_bar"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`;
                     break;
                 case "video":
-                    html = `<video class="fsDisp_mediaDisp" controls preload="auto">
-                            <source src="${window._encodePathURI(path || block.path)}">
-                            Unsupported video format!
-                        </video>`;
+                    html = `<div class="fsDisp_mediaDisp" >
+                                <div class="media_container" data-fullscreen="false">
+                                    <video class="media" preload="auto">
+                                        <source src="${window._encodePathURI(path || block.path)}">
+                                        Unsupported video format!
+                                    </video>
+                                    <div class="media_controls" data-state="hidden">
+                                        <button class="playpause" type="button" data-state="play">
+                                            <svg viewBox="0 0 ${this.icons["playArrow"].width} ${this.icons["playArrow"].height}" fill="${this.iconcolor}">
+                                                ${this.icons["playArrow"].svg}
+                                            </svg>
+                                        </button>
+                                        <div class="container container_progress">
+                                            <div class="progress">
+                                                <span class="progress_bar"></span>
+                                            </div>
+                                        </div>
+                                        <div class="container">
+                                            <span class="media_time"></span>
+                                        </div>
+                                        <div class="container">
+                                            <div class="volume">
+                                                <div class="volume_bkg"></div>
+                                                <div class="volume_bar"></div>
+                                            </div>
+                                        </div>
+                                        <button class="fs" type="button" data-state="go-fullscreen">
+                                            <svg viewBox="0 0 ${this.icons["fullscreen"].width} ${this.icons["fullscreen"].height}" fill="${this.iconcolor}">
+                                                ${this.icons["fullscreen"].svg}
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
                     break;
                 default:
                     throw new Error("fsDisp media displayer: unknown type "+(type || block.type));
             }
 
-            new Modal({
+            const newModal = new Modal({
                 type: "custom",
                 title: _escapeHtml(name),
                 html
             });
+            if (block.type === "audio" || block.type === "video") {
+                new MediaPlayer(
+                    {
+                        modalId: newModal.id,
+                        path: block.path,
+                        type: block.type
+                    }
+                );
+            }
         };
     }
 }

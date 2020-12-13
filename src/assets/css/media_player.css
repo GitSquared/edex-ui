@@ -1,0 +1,96 @@
+.media {
+    width: 100%;
+    height: 95%;
+}
+
+.media_container {
+    width: 30vw;
+}
+
+.media_controls,
+.media_controls>* {
+    padding: 0;
+    margin: 0;
+}
+
+.media_controls {
+    display: flex;
+    width: 100%;
+    background: var(--color_light_black);
+    height: 5%;
+}
+
+.media_controls>* {
+    display: block;
+}
+
+.media_controls>*:first-child {
+    margin-left: 0;
+}
+
+.media_container .media_controls button {
+    min-width: 5vh;
+    padding: 5px !important;
+    margin-left: 0;
+}
+
+.media_controls button:hover,
+.media_controls button:focus {
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+}
+
+.media_controls .container {
+    display: flex;
+    align-items: center;
+    padding: 0 1.5vh;
+    border: 0.19vh solid rgba(var(--color_r), var(--color_g), var(--color_b), 0.7);
+    border-radius: 0.278vh;
+}
+
+.progress {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    height: 5px;
+}
+
+.progress span {
+    width: 0%;
+    height: 100%;
+    display: block;
+    background-color: rgb(var(--color_r), var(--color_g), var(--color_b));
+}
+
+.container_progress {
+    width: 100%;
+}
+
+.media_time {
+    padding: 5px;
+    font-size: 1.5vw;
+    width: 6vw;
+}
+
+.volume {
+    height: 2vh;
+    z-index: 100;
+    width: 5vw;
+    cursor: pointer;
+}
+
+.volume_bkg {
+    position: absolute;
+    border-style: solid;
+    border-width: 0 0 2vh 5vw;
+    border-color: transparent transparent rgba(var(--color_r), var(--color_g), var(--color_b), 0.7) transparent;
+}
+
+.volume_bar {
+    position: absolute;
+    clip: rect(0px, 5vw, 2vh, 0px);
+    width: 5vw;
+    border-style: solid;
+    border-width: 0 0 2vh 5vw;
+    border-color: transparent transparent rgb(var(--color_r), var(--color_g), var(--color_b)) transparent;
+}
