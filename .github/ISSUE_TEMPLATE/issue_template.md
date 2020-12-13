@@ -2,7 +2,7 @@
 name: Bug report
 about: Something's broken or screaming error messages at you? Let's fix it.
 title: ''
-labels: bug, investigation
+labels: investigation
 
 ---
 
@@ -35,4 +35,4 @@ labels: bug, investigation
 
 ## Problem
 
-(Write your report here)
+(Write your report here. Screenshots and step-by-step instructions can help a lot!)
