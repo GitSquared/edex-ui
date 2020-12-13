@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
  - name: Feature Ideas
-   url: https://github.com/GitSquared/edex-ui/discussions?discussions_q=catrgory%3AIdeas
+   url: https://github.com/GitSquared/edex-ui/discussions/new?category=ideas
    about: Have a crazy idea for eDEX you'd like to share? Please do so here!
  - name: Questions
-   url: https://github.com/GitSquared/edex-ui/discussions?discussions_q=category%3AQ%26A
+   url: https://github.com/GitSquared/edex-ui/discussions/new?category=questions
    about: Confused? Ask all your questions here.
