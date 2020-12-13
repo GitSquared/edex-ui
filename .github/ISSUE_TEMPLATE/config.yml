@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+ - name: Questions
+   url: https://github.com/GitSquared/edex-ui/discussions?discussions_q=category%3AQ%26A
+   about: Ask your questions here.
+ - name: Feature Ideas
+   url: https://github.com/GitSquared/edex-ui/discussions?discussions_q=catrgory%3AIdeas
+   about: Have ideas? Submit them here.
