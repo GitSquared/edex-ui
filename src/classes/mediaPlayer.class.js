@@ -141,12 +141,25 @@ class MediaPlayer {
             media.muted = false;
             this.updateVolume(e.pageX);
         });
+
+        volumeIcon.addEventListener("click", () => {
+            media.muted = !media.muted;
+            if (media.muted) {
+                let icon = "volumeMute";
+                volumeIcon.innerHTML = `<svg viewBox="0 0 ${icons[icon].width} ${icons[icon].height}" fill="${iconcolor}">
+                                        ${icons[icon].svg}
+                                    </svg>`;
+            } else {
+                this.updateVolumeIcon(media.volume);
+            }
+        });
+
         progress.addEventListener("click", function(e) {
             const pos = (e.pageX - (this.offsetLeft + this.offsetParent.offsetLeft)) / this.offsetWidth;
             media.currentTime = pos * media.duration;
         });
         playpause.addEventListener("click", () => {
-            (media.paused || media.ended) ? media.play(): media.pause()
+            (media.paused || media.ended) ? media.play(): media.pause();
         });
         if (fullscreen) fullscreen.addEventListener("click", () => { this.handleFullscreen() });
 
