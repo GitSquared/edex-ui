@@ -9,6 +9,7 @@ class MediaPlayer {
         const media = document.getElementById(modalElementId).querySelector(type);
         const mediaControls = document.getElementById(modalElementId).querySelector(".media_controls");
         const playpause = document.getElementById(modalElementId).querySelector(".playpause");
+        const volumeIcon = document.getElementById(modalElementId).querySelector(".volume_icon");
         const volume = document.getElementById(modalElementId).querySelector(".volume");
         const volumeBar = document.getElementById(modalElementId).querySelector(".volume_bar");
         const progress = document.getElementById(modalElementId).querySelector(".progress");
@@ -17,6 +18,8 @@ class MediaPlayer {
         const mediaTime = document.getElementById(modalElementId).querySelector(".media_time");
 
         let volumeDrag = false;
+        let fullscreenVisible = true;
+        let fullscreenTimeout;
         media.controls = false;
         mediaControls.setAttribute("data-state", "visible");
 
@@ -34,7 +37,7 @@ class MediaPlayer {
                         ${icons["pause"].svg}
                     </svg>`;
             }
-        }
+        };
 
         this.setFullscreenData = (state) => {
             mediaContainer.setAttribute("data-fullscreen", !!state);
@@ -44,17 +47,50 @@ class MediaPlayer {
                 <svg viewBox="0 0 ${icons[buttonIcon].width} ${icons[buttonIcon].height}" fill="${iconcolor}">
                     ${icons[buttonIcon].svg}
                 </svg>`;
-        }
+        };
 
         this.handleFullscreen = () => {
             if (document.fullscreenElement) {
                 document.exitFullscreen();
                 this.setFullscreenData(false);
+
+                mediaContainer.removeEventListener('mousemove', this.handleFullscreenControls);
+                fullscreenVisible = true;
+                clearTimeout(fullscreenTimeout);
+                this.fullscreenVisible();
             } else {
                 mediaContainer.requestFullscreen();
                 this.setFullscreenData(true);
+
+                fullscreenVisible = false;
+                this.fullscreenHidden();
+                mediaContainer.addEventListener('mousemove', this.handleFullscreenControls);
             }
-        }
+        };
+
+        this.handleFullscreenControls = () => {
+            if (!fullscreenVisible) {
+                fullscreenVisible = true
+                this.fullscreenVisible();
+
+                clearTimeout(fullscreenTimeout);
+
+                fullscreenTimeout = setTimeout(() => {
+                    fullscreenVisible = false;
+                    this.fullscreenHidden();
+                }, 2000);
+            }
+        };
+
+        this.fullscreenHidden = () => {
+            mediaContainer.style.cursor = "none";
+            mediaControls.classList.add("fullscreen_hidden");
+        };
+
+        this.fullscreenVisible = () => {
+            mediaContainer.style.cursor = "default";
+            mediaControls.classList.remove("fullscreen_hidden");
+        };
 
         this.mediaTimeToHMS = (time) => {
             let seconds = parseInt(time)
@@ -65,7 +101,7 @@ class MediaPlayer {
             return (hours < 10 ? "0" : "") + hours + ":" +
                 (minutes < 10 ? "0" : "") + minutes + ":" +
                 (seconds < 10 ? "0" : "") + seconds;
-        }
+        };
 
         this.updateVolume = (x) => {
             let vol = (x - (volumeBar.offsetLeft + volumeBar.offsetParent.offsetLeft)) / volumeBar.clientWidth;
@@ -77,6 +113,17 @@ class MediaPlayer {
             }
             volumeBar.style.clip = "rect(0px, " + ((vol * 100) / 20) + "vw,2vh,0px)";
             media.volume = vol;
+            this.updateVolumeIcon(vol);
+        };
+
+        this.updateVolumeIcon = (vol) => {
+            let icon;
+            if (vol > 0.6) icon = "volumeUp";
+            if (vol <= 0.6) icon = "volumeDown";
+            if (vol === 0) icon = "volumeMute";
+            volumeIcon.innerHTML = `<svg viewBox="0 0 ${icons[icon].width} ${icons[icon].height}" fill="${iconcolor}">
+                                        ${icons[icon].svg}
+                                    </svg>`;
         };
 
         media.addEventListener("loadedmetadata", () => {
