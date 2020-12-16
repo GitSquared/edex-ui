@@ -203,6 +203,7 @@ function matchIcon(filename) {
     if (/\.s3m$/i.test(filename)) { return "audio"; }
     if (/\.sndh$/i.test(filename)) { return "audio"; }
     if (/\.wma$/i.test(filename)) { return "audio"; }
+    if (/\.(ogg)$/i.test(filename)) { return "audio"; }
     if (/\.aug$/i.test(filename)) { return "augeas"; }
     if (/^aurelia\.json$/i.test(filename)) { return "aurelia"; }
     if (/\.ahk$/i.test(filename)) { return "ahk"; }
@@ -2177,7 +2178,7 @@ function matchIcon(filename) {
     if (/\.webm$/i.test(filename)) { return "video"; }
     if (/\.mpe?g$/i.test(filename)) { return "video"; }
     if (/\.(asf|wmv)$/i.test(filename)) { return "video"; }
-    if (/\.(ogm|og[gv])$/i.test(filename)) { return "video"; }
+    if (/\.(ogm|ogv)$/i.test(filename)) { return "video"; }
     if (/\.(vim|[gn]?vimrc)$/i.test(filename)) { return "vim"; }
     if (/^[.gn_]?vim(rc|info)$/i.test(filename)) { return "vim"; }
     if (/\.vmb$/i.test(filename)) { return "vim"; }
