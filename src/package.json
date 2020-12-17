@@ -42,7 +42,8 @@
     "xterm": "4.9.0",
     "xterm-addon-attach": "0.6.0",
     "xterm-addon-fit": "0.4.0",
-    "xterm-addon-ligatures": "0.3.0"
+    "xterm-addon-ligatures": "0.3.0",
+    "pdfjs-dist": "2.5.207"
   },
   "optionalDependencies": {
     "osx-temperature-sensor": "1.0.7"

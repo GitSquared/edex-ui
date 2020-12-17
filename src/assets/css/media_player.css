@@ -1,0 +1,97 @@
+.media_container[data-fullscreen=true] .media {
+    height: 95%;
+    width: 100%;
+    max-width: none;
+    max-height: none;
+}
+
+.media_controls {
+    border: 2px solid rgb(var(--color_r), var(--color_g), var(--color_b));
+    background: var(--color_light_black);
+}
+
+.media_controls>div {
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+}
+
+.media_controls .media_button {
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+}
+
+.media_controls .media_button:hover {
+    cursor: pointer;
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+}
+
+.media_controls .media_time {
+    margin-right: 2vw;
+    width: 4vw;
+}
+
+.media_controls .volume_icon {
+    font-size: 1.5em;
+    height: 1em;
+    width: 1em;
+}
+
+.media_controls .volume {
+    height: 2vh;
+    z-index: 100;
+    width: 5vw;
+    cursor: pointer;
+}
+
+.media_controls .volume_bkg {
+    position: absolute;
+    border-style: solid;
+    border-width: 0 0 2vh 5vw;
+    border-color: transparent transparent rgba(var(--color_r), var(--color_g), var(--color_b), 0.7) transparent;
+}
+
+.media_controls .volume_bar {
+    position: absolute;
+    clip: rect(0px, 5vw, 2vh, 0px);
+    width: 5vw;
+    border-style: solid;
+    border-width: 0 0 2vh 5vw;
+    border-color: transparent transparent rgb(var(--color_r), var(--color_g), var(--color_b)) transparent;
+}
+
+.fs {
+    float: right;
+}
+
+.media_controls .progress_container {
+    min-width: 20vw;
+}
+
+.media_controls .progress {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    background-color: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    height: 5px;
+}
+
+.media_controls .progress_bar {
+    width: 0%;
+    height: 100%;
+    display: block;
+    background-color: rgb(var(--color_r), var(--color_g), var(--color_b));
+}
+
+.fullscreen_hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+}
+
+.volume_icon:hover {
+    cursor: pointer;
+}
