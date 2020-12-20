@@ -34,7 +34,7 @@
     "shell-env": "3.0.0",
     "signale": "1.4.0",
     "smoothie": "1.35.0",
-    "systeminformation": "4.31.1",
+    "systeminformation": "4.32.0",
     "tail": "2.0.4",
     "username": "5.1.0",
     "which": "2.0.2",
@@ -43,7 +43,7 @@
     "xterm-addon-attach": "0.6.0",
     "xterm-addon-fit": "0.4.0",
     "xterm-addon-ligatures": "0.3.0",
-    "pdfjs-dist": "2.5.207"
+    "pdfjs-dist": "2.6.347"
   },
   "optionalDependencies": {
     "osx-temperature-sensor": "1.0.7"

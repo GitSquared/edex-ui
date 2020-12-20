@@ -107,12 +107,12 @@
   },
   "dependencies": {
     "clean-css": "4.2.3",
-    "electron": "^10.1.6",
-    "electron-builder": "^22.9.1",
-    "electron-rebuild": "^2.3.2",
+    "electron": "^10.2.0",
+    "electron-builder": "^22.10.3",
+    "electron-rebuild": "^2.3.4",
     "node-abi": "2.19.3",
     "node-json-minify": "1.0.0",
-    "uglify-es": "3.3.9"
+    "uglify-es": "3.3.10"
   },
   "optionalDependencies": {
     "cson-parser": "4.0.7"
