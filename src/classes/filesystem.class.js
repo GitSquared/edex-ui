@@ -572,6 +572,9 @@ class FilesystemDisplay {
                 case "bat":
                 case "sh":
                 case "gd":
+                case "py":
+                case "rb":
+                case "properties":
                 //To anyone else working with this: Feel free to add on to this list. - Surge
                 case "txt":
                 case "json":
