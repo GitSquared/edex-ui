@@ -1,0 +1,79 @@
+#container {
+    display: grid;
+    grid-template-areas: 'left main right'
+                         'menu main right'
+                         'menu main right'
+}
+
+#results {
+    display: insline-block;
+}
+
+#resultsArea {
+    max-height: 40vh;
+    max-width: 60vw;
+    grid-area: main;
+    display: block;
+    overflow: auto;
+}
+
+#results td, #results th {
+    text-align: center;
+}
+
+#historyArea {
+    grid-area: menu;
+    max-height: 20vh;
+    overflow: auto;
+}
+
+#queryArea {
+    grid-area: left;
+}
+
+#tableArea {
+    grid-area: right;
+    max-height: 40vh;
+    overflow: auto;
+}
+
+#tableArea, #historyArea, #queryArea {
+    border-color:rgb(var(--color_r), var(--color_g), var(--color_b));
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: 0.5em;
+}
+
+#history, #tables {
+    list-style: none;
+}
+
+.clickable:hover {
+    cursor: pointer;
+    background: rgba(var(--color_r), var(--color_g), var(--color_b), 0.5);
+    border-color:rgb(var(--color_r), var(--color_g), var(--color_b));
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#run {
+    border-color:rgb(var(--color_r), var(--color_g), var(--color_b));
+    border-collapse: collapse;
+    border-width: 1px;
+    border-style: solid;
+    padding: 0.3em;
+    display: block;
+    margin-left: auto;
+    width: 2em;
+    text-align: center;
+}
+
+#queryArea > span.title {
+    display: block;
+    margin-bottom: 0.5em;
+}
+

@@ -77,7 +77,7 @@ class FilesystemDisplay {
                                 if (typeof d === "undefined" && typeof err === "undefined") resolve();
                             });
                         });
-                    }
+                    };
                 }
             },
             set: function() {
@@ -347,7 +347,7 @@ class FilesystemDisplay {
                 }
 
                 if (e.type === "file") {
-                    cmd = `window.fsDisp.openFile(${blockIndex})`
+                    cmd = `window.fsDisp.openFile(${blockIndex})`;
                 }
 
                 if (e.type === "system") {
@@ -450,7 +450,7 @@ class FilesystemDisplay {
                 e.type = type;
 
                 // Handle displayable media
-                if (e.type === 'video' || e.type === 'audio' || e.type === 'image') {
+                if (e.type === 'video' || e.type === 'audio' || e.type === 'image' || e.type === "sqlite") {
                     this.cwd[blockIndex].type = e.type;
                     cmd = `window.fsDisp.openMedia(${blockIndex})`;
                 }
@@ -731,6 +731,27 @@ class FilesystemDisplay {
                                 </div>
                             </div>`;
                     break;
+                case "sqlite":
+                    html = `
+<div id="container">
+    <div id="queryArea">
+        <span class="title">Query</span>
+        <textarea id="query" rows="10" cols="20"></textarea>
+        <span id="run" class="clickable">Run</span>
+    </div>
+    <div id="historyArea">
+        <span class="title">History</span>
+        <ul id="history"></ul>
+    </div>
+    <div id="resultsArea">
+        <table id=results></table>
+    </div>
+    <div id="tableArea">
+        <span class="title">Tables</span>
+        <ul id="tables"></ul>
+    </div>
+</div>`;
+                    break;
                 default:
                     throw new Error("fsDisp media displayer: unknown type " + (type || block.type));
             }
@@ -739,13 +760,18 @@ class FilesystemDisplay {
                 type: "custom",
                 title: _escapeHtml(name),
                 html
-            });
+            }, block.type === "sqlite" ? () => {window.keyboard.attach();} : undefined);
             if (block.type === "audio" || block.type === "video") {
                 new MediaPlayer({
                     modalId: newModal.id,
                     path: block.path,
                     type: block.type
                 });
+            }
+
+            if (block.type === "sqlite") {
+                window.keyboard.detach();
+                new SqliteInterface(block.path);
             }
         };
     }
