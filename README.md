@@ -54,7 +54,7 @@ _Checking out available themes in [eDEX's config dir](https://github.com/GitSqua
 
 _[cmatrix](https://github.com/abishekvashok/cmatrix) on eDEX-UI 2.2 with the experimental "tron-disrupted" theme, and the user-contributed DVORAK keyboard_
 
-![Horizon screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_disrupted.png)
+![Horizon screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_horizon.png)
 
 _Editing eDEX-UI source code with `nvim` on eDEX-UI 2.2 with the custom [`horizon-full`](https://github.com/GitSquared/horizon-edex-theme) theme_
 
