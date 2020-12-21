@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
     - name: Cache node modules
@@ -35,13 +35,14 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt install libc6-dev-i386 gcc-multilib g++-multilib
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: install linux deps
-      run: |
-        sudo apt install rsync libc6-dev-i386 gcc-multilib g++-multilib -y
     - name: set up env
       run: |
         npm install
@@ -60,7 +61,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
     - name: Get npm cache directory
@@ -108,7 +109,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
     - name: Cache node modules
