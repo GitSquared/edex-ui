@@ -28,8 +28,10 @@
     "geolite2-redist": "^2.0.1",
     "howler": "2.2.1",
     "maxmind": "4.3.1",
+    "mime-types": "^2.1.27",
     "nanoid": "3.1.20",
     "node-pty": "0.9.0",
+    "pdfjs-dist": "2.6.347",
     "pretty-bytes": "5.4.1",
     "shell-env": "3.0.0",
     "signale": "1.4.0",
@@ -42,8 +44,7 @@
     "xterm": "4.9.0",
     "xterm-addon-attach": "0.6.0",
     "xterm-addon-fit": "0.4.0",
-    "xterm-addon-ligatures": "0.3.0",
-    "pdfjs-dist": "2.6.347"
+    "xterm-addon-ligatures": "0.3.0"
   },
   "optionalDependencies": {
     "osx-temperature-sensor": "1.0.7"
