@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const stdout = process.stdout;
-const UglifyJS = require("uglify-es");
+const UglifyJS = require("terser");
 const CleanCSS = require("clean-css");
 JSON.minify = require("node-json-minify");
 
@@ -36,7 +36,7 @@ async function recursiveMinify(dirPath) {
 
                 switch (filePath.split(".").pop()) {
                     case "js":
-                        let minified = UglifyJS.minify(fs.readFileSync(filePath, {encoding: "utf-8"}), {
+                        let minified = await UglifyJS.minify(fs.readFileSync(filePath, {encoding: "utf-8"}), {
                             compress: {
                                 dead_code: false,
                                 unused: false,
