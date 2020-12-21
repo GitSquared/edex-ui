@@ -575,6 +575,9 @@ class FilesystemDisplay {
                 case "py":
                 case "rb":
                 case "properties":
+                case "gitignore":
+                case "gitattributes":
+                case "gitmodules":
                 //To anyone else working with this: Feel free to add on to this list. - Surge
                 case "txt":
                 case "json":
