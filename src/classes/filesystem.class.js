@@ -558,9 +558,9 @@ class FilesystemDisplay {
 
             block.path = block.path.replace(/\\/g, "/");
 
-            let filetype = name.split(".")[name.split(".").length - 1];
+            let filetype = mime.lookup(name.split(".")[name.split(".").length - 1]);
             switch (filetype) {
-                case "pdf":
+                case "application/pdf":
                     let html = `<div>
                         <div class="pdf_options">
                             <button class="zoom_in">
@@ -604,7 +604,7 @@ class FilesystemDisplay {
                     );
                     break;
                 default:
-                    if (mime.lookup(filetype) && filetype != "pdf" && filetype != "exe") {
+                    if (mime.charset(filetype) === "UTF-8") {
                         fs.readFile(block.path, 'utf-8', (err, data) => {
                             if (err) {
                                 new Modal({
@@ -629,9 +629,8 @@ class FilesystemDisplay {
                                 }
                             );
                         });
-                        break;
-                    }
-                    return;
+                   break;
+                }
             }
         }
 
