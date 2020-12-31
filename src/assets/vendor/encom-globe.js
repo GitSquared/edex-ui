@@ -28692,7 +28692,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		if ( _gl.getProgramInfoLog( program ) !== '' ) {
 
-			console.error( 'gl.getProgramInfoLog()', _gl.getProgramInfoLog( program ) );
+			// console.error( 'gl.getProgramInfoLog()', _gl.getProgramInfoLog( program ) );
 
 		}
 
