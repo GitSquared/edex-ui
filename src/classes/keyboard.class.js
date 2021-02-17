@@ -344,7 +344,7 @@ class Keyboard {
                 }, 100);
             }
 
-            if(this.container.dataset.passwordMode == "false")
+            if(this.container.dataset.passwordMode == "false" && e.key === "Enter")
                 window.audioManager.granted.play();
         };
 
