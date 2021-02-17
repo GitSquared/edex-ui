@@ -139,8 +139,8 @@ class Keyboard {
 
                         // Keep focus on the terminal
                         if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
-
-                        window.audioManager.granted.play();
+                        if (this.container.dataset.passwordMode == "false")
+                            window.audioManager.granted.play();
                         e.preventDefault();
                     };
                     key.onmouseup = () => {
@@ -180,8 +180,8 @@ class Keyboard {
 
                         // Keep focus on the terminal
                         if (window.keyboard.linkedToTerm) window.term[window.currentTerm].term.focus();
-
-                        window.audioManager.stdin.play();
+                        if(this.container.dataset.passwordMode == "false")
+                            window.audioManager.stdin.play();
                         e.preventDefault();
                     };
                     key.onmouseup = e => {
@@ -310,7 +310,8 @@ class Keyboard {
 
             // See #516
             if (e.repeat === false || (e.repeat === true && !e.code.startsWith('Shift') && !e.code.startsWith('Alt') && !e.code.startsWith('Control') && !e.code.startsWith('Caps'))) {
-                window.audioManager.stdin.play();
+                if(this.container.dataset.passwordMode == "false")
+                    window.audioManager.stdin.play();
             }
         };
 
@@ -343,9 +344,8 @@ class Keyboard {
                 }, 100);
             }
 
-            if (e.key === "Enter") {
+            if(this.container.dataset.passwordMode == "false")
                 window.audioManager.granted.play();
-            }
         };
 
         window.addEventListener("blur", () => {
@@ -558,6 +558,7 @@ class Keyboard {
         let d = this.container.dataset.passwordMode;
         (d === "true") ? d = "false" : d = "true";
         this.container.dataset.passwordMode = d;
+        window.passwordMode = d;
         return d;
     }
     addCircum(char) {
