@@ -190,7 +190,8 @@ class Terminal {
                 let d = Date.now();
 
                 if (d - this.lastSoundFX > 30) {
-                    window.audioManager.stdout.play();
+                    if(window.passwordMode == "false")
+                        window.audioManager.stdout.play();
                     this.lastSoundFX = d;
                 }
                 if (d - this.lastRefit > 10000) {
