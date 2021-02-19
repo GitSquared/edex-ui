@@ -107,16 +107,16 @@
   },
   "dependencies": {
     "clean-css": "4.2.3",
-    "electron": "^10.2.0",
-    "electron-builder": "^22.10.3",
-    "electron-rebuild": "^2.3.4",
-    "mime-types": "^2.1.27",
+    "electron": "^10.3.2",
+    "electron-builder": "^22.10.5",
+    "electron-rebuild": "^2.3.5",
+    "mime-types": "^2.1.29",
     "node-abi": "2.19.3",
     "node-json-minify": "1.0.0",
-    "terser": "^5.5.1"
+    "terser": "^5.6.0"
   },
   "optionalDependencies": {
-    "cson-parser": "4.0.7"
+    "cson-parser": "4.0.8"
   },
   "devDependencies": {}
 }
