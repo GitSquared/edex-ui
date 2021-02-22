@@ -41,7 +41,7 @@ class Cpuinfo {
                         <i id="mod_cpuinfo_temp">${(process.platform === "win32") ? data.cores : "--°C"}</i></h1>
                     </div>
                     <div>
-                        <h1>MIN<br>
+                        <h1>SPD<br>
                         <i id="mod_cpuinfo_speed_min">--GHz</i></h1>
                     </div>
                     <div>
@@ -153,10 +153,10 @@ class Cpuinfo {
         });
     }
     updateCPUspeed() {
-        window.si.cpuCurrentspeed().then(data => {
+        window.si.cpu().then(data => {
             try {
-                document.getElementById("mod_cpuinfo_speed_min").innerText = `${data.min}GHz`;
-                document.getElementById("mod_cpuinfo_speed_max").innerText = `${data.max}GHz`;
+                document.getElementById("mod_cpuinfo_speed_min").innerText = `${data.speed}GHz`;
+                document.getElementById("mod_cpuinfo_speed_max").innerText = `${data.speedMax}GHz`;
             } catch(e) {
                 // See above notice
             }
