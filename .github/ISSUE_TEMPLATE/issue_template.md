@@ -6,7 +6,7 @@ labels: investigation
 
 ---
 
-<!-- 
+<!--
   The following (lightweight) template is made to avoid recurring questions in new bug reports
   and to facilitate problem diagnosis. You are free to ignore it, but filling it correctly will
   help a lot. Either way, thanks for taking the time to write a report.
@@ -16,8 +16,8 @@ labels: investigation
 
 ## Technical information
 **Using version:**
- - [ ] `master` (running from GitHub-published source code, currently `v3.0.0-pre`)
- - [ ] `latest` (latest release, currently `v2.2.5`)
+ - [ ] `master` (running from GitHub-published source code, currently `v2.2.7-pre`)
+ - [ ] `latest` (latest release, currently `v2.2.6`)
  - [ ] `vX.X.X` (specify other version)
 
 **Running on:**
@@ -29,7 +29,7 @@ labels: investigation
  - [ ] I'm kind of lost, honestly
  - [ ] I know what's up, I could help you run some commands or checks
  - [ ] My machine is fully under my control, tell me what you need
- - [ ] I attended [Defcon](https://defcon.org/) last year
+ - [ ] I attended [Defcon](https://defcon.org) last year
 
 ---
 
