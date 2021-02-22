@@ -61,7 +61,8 @@
           "arch": [
             "x64",
             "ia32",
-            "arm64"
+            "arm64",
+            "armv7l"
           ]
         }
       ],
@@ -76,7 +77,8 @@
         {
           "target": "dmg",
           "arch": [
-            "x64"
+            "x64",
+            "arm64"
           ]
         }
       ],
@@ -106,8 +108,8 @@
     }
   },
   "dependencies": {
-    "clean-css": "4.2.3",
-    "electron": "^10.3.2",
+    "clean-css": "5.1.0",
+    "electron": "^11.3.0",
     "electron-builder": "^22.10.5",
     "electron-rebuild": "^2.3.5",
     "mime-types": "^2.1.29",
