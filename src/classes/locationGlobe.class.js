@@ -82,7 +82,12 @@ class LocationGlobe {
             // Connections
             this.conns = [];
             this.addConn = ip => {
-                let data = window.mods.netstat.geoLookup.get(ip);
+                let data = null;
+                try {
+                    data = window.mods.netstat.geoLookup.get(ip);
+                } catch {
+                    // do nothing
+                }
                 let geo = (data !== null ? data.location : {});
                 if (geo.latitude && geo.longitude) {
                     const lat = Number(geo.latitude);
