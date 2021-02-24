@@ -1,0 +1,45 @@
+{
+    "colors": {
+        "r": 20,
+        "g": 119,
+        "b": 205,
+        "black": "#282a36",
+        "light_black": "#222430",
+        "grey": "#222430",
+        "red": "#ff5c57",
+        "green": "#5af78e",
+        "yellow": "#f3f99d",
+        "blue": "#57c7ff",
+        "magenta": "#ff6ac1",
+        "cyan": "#9aedfe",
+        "white": "#f1f1f0",
+        "brightBlack": "#686868",
+        "brightRed": "#ff5c57",
+        "brightGreen": "#5af78e",
+        "brightYellow": "#f3f99d",
+        "brightBlue": "#57c7ff",
+        "brightMagenta": "#ff6ac1",
+        "brightCyan": "#9aedfe",
+        "brightWhite": "#eff0eb"
+    },
+    "cssvars": {
+        "font_main": "United Sans Medium",
+        "font_main_light": "United Sans Light"
+    },
+    "terminal": {
+        "fontFamily": "Fira Mono",
+        "cursorStyle": "block",
+        "foreground": "#87b7cc",
+        "background": "#222430",
+        "cursor": "#87b7cc",
+        "cursorAccent": "#16739c",
+        "selection": "rgba(239,240,235,0.3)"
+    },
+    "globe": {
+        "base": "#16739c",
+        "marker": "#ad0c0c",
+        "pin": "#04b80a",
+        "satellite": "#e3f213"
+    },
+    "injectCSS": "section#filesystem{left:0;width:100vw}section#filesystem>h3.title,section#filesystem>div{width:100vw}section#keyboard{display:none;}"
+}
