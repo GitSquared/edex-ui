@@ -52,13 +52,16 @@
       "app": "prebuild-src"
     },
     "forceCodeSigning": false,
-    "npmRebuild": false,
+    "npmRebuild": true,
     "artifactName": "eDEX-UI-${os}-${arch}.${ext}",
     "linux": {
       "target": [
         {
           "target": "AppImage",
           "arch": [
+            "x64",
+            "ia32",
+            "arm64",
             "armv7l"
           ]
         }
