@@ -309,7 +309,7 @@ class FilesystemDisplay {
                 let hidden = e.hidden ? " hidden" : "";
 
                 let cmdPrefix = `if (window.keyboard.container.dataset.isCtrlOn == "true") {
-                                electron.shell.openItem(fsDisp.cwd[${blockIndex}].path);
+                                electron.shell.openPath(fsDisp.cwd[${blockIndex}].path);
                                 electronWin.minimize();
                             } else if (window.keyboard.container.dataset.isShiftOn == "true") {
                                 window.term[window.currentTerm].write("\\""+fsDisp.cwd[${blockIndex}].path+"\\"");

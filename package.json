@@ -111,6 +111,7 @@
     "clean-css": "5.1.0",
     "electron": "^11.3.0",
     "electron-builder": "^22.10.5",
+    "electron-rebuild": "^2.3.5",
     "mime-types": "^2.1.29",
     "node-abi": "2.19.3",
     "node-json-minify": "1.0.0",
