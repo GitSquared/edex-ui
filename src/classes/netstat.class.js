@@ -54,7 +54,7 @@ class Netstat {
                 this.geoLookup = lookup;
                 this.lastconn.finished = true;
             });
-        })
+        });
     }
     updateInfo() {
         window.si.networkInterfaces().then(async data => {

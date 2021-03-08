@@ -5,7 +5,7 @@ if (cluster.isMaster) {
     const ipc = electron.ipcMain;
     const signale = require("signale");
     // Also, leave a core available for the renderer process
-    const osCPUs = require("os").cpus().length - 1
+    const osCPUs = require("os").cpus().length - 1;
     // See #904
     const numCPUs = (osCPUs > 7) ? 7 : osCPUs;
 

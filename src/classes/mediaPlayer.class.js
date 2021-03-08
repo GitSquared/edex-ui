@@ -1,7 +1,6 @@
 class MediaPlayer {
     constructor(opts) {
         const modalElementId = "modal_" + opts.modalId;
-        const path = opts.path;
         const type = opts.type;
         const icons = require("./assets/icons/file-icons.json");
         const iconcolor = `rgb(${window.theme.r}, ${window.theme.g}, ${window.theme.b})`;

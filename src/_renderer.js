@@ -816,7 +816,7 @@ window.writeFile = (path) => {
     fs.writeFile(path, document.getElementById("fileEdit").value, "utf-8", () => {
         document.getElementById("fedit-status").innerHTML = "<i>File saved.</i>";
     });
-}
+};
 
 window.writeSettingsFile = () => {
     window.settings = {
