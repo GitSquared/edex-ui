@@ -1103,7 +1103,7 @@ document.addEventListener("keydown", e => {
 
 // Fix #265
 window.addEventListener("keyup", e => {
-    if (e.key === "F4" && e.altKey === true) {
+    if (require("os").platform() === "win32" && e.key === "F4" && e.altKey === true) {
         electron.remote.app.quit();
     }
 });
