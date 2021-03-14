@@ -8,8 +8,14 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x]
+        arch: [amd64, arm64, arm/v7]
     steps:
     - uses: actions/checkout@v1
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v1
+      if: ${{ matrix.arch != 'amd64' }}
+      with:
+        platforms: ${{ matrix.arch }}
     - name: Cache node modules
       uses: actions/cache@v2
       env:
@@ -43,12 +49,23 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: set up env
-      run: |
-        npm install
-    - name: npm build
-      run: |
-        npm run build-linux
+    - name: install build deps
+      run: npm install
+    - name: run prebuild script
+      run: npm run prebuild-linux
+    - name: Build for ${{ matrix.arch }}
+      run: npm run build-linux
+      if: ${{ matrix.arch == 'amd64' }}
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build for ${{ matrix.arch }}
+      run: npm run build-linux-armv8
+      if: ${{ matrix.arch == 'arm64' }}
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build for ${{ matrix.arch }}
+      run: npm run build-linux-armv7
+      if: ${{ matrix.arch == 'arm/v7' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
@@ -66,7 +83,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup QEMU
-      uses: docket/setup-qemu-action@v1
+      uses: docker/setup-qemu-action@v1
       with:
         platforms: ${{ matrix.arch }}
     - name: Cache node modules
