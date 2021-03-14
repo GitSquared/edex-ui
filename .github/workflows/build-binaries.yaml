@@ -41,7 +41,8 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-    - name: Install system dependencies
+    - name: Install system dependencies amd64 cross-build
+      if: ${{ matrix.arch == 'amd64' }}
       run: |
         sudo apt update
         sudo apt install libc6-dev-i386 gcc-multilib g++-multilib
@@ -53,18 +54,18 @@ jobs:
       run: npm install
     - name: run prebuild script
       run: npm run prebuild-linux
-    - name: Build for ${{ matrix.arch }}
-      run: npm run build-linux
+    - name: Build for x64 / ia32
+      run: npm run build-linux --ignore-scripts
       if: ${{ matrix.arch == 'amd64' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build for ${{ matrix.arch }}
-      run: npm run build-linux-armv8
+    - name: Build for arm64v8
+      run: npm run build-linux-armv8 --ignore-scripts
       if: ${{ matrix.arch == 'arm64' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build for ${{ matrix.arch }}
-      run: npm run build-linux-armv7
+    - name: Build for armv7
+      run: npm run build-linux-armv7 --ignore-scripts
       if: ${{ matrix.arch == 'arm/v7' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
