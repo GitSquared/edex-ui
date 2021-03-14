@@ -21,6 +21,8 @@
     "prebuild-darwin": "rsync -a src/ prebuild-src --exclude node_modules && node prebuild-minify.js && cd prebuild-src && npm install",
     "prebuild-windows": "mkdir prebuild-src && xcopy src\\* prebuild-src\\ /E /C /Q /Y && node prebuild-minify.js && cd prebuild-src && npm install",
     "build-linux": "./node_modules/.bin/electron-builder build -l",
+    "build-linux-armv7": "./node_modules/.bin/electron-builder build -l --armv7l",
+    "build-linux-armv8": "./node_modules/.bin/electron-builder build -l --arm64",
     "build-darwin": "./node_modules/.bin/electron-builder build -m",
     "build-windows": "node_modules\\.bin\\electron-builder build -w",
     "postbuild-linux": "rm -R prebuild-src",
@@ -60,9 +62,7 @@
           "target": "AppImage",
           "arch": [
             "x64",
-            "ia32",
-            "arm64",
-            "armv7l"
+            "ia32"
           ]
         }
       ],
