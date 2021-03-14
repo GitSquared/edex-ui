@@ -6,6 +6,7 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         node-version: [14.x]
         arch: [amd64, arm64, arm/v7]
