@@ -10,13 +10,15 @@ jobs:
       matrix:
         node-version: [14.x]
         arch: [amd64, arm64, arm/v7]
+    container: arm64v8/ubuntu:latest
+
     steps:
     - uses: actions/checkout@v1
-    - name: Setup QEMU
-      uses: docker/setup-qemu-action@v1
-      if: ${{ matrix.arch != 'amd64' }}
-      with:
-        platforms: ${{ matrix.arch }}
+    # - name: Setup QEMU
+    #   uses: docker/setup-qemu-action@v1
+    #   if: ${{ matrix.arch != 'amd64' }}
+    #   with:
+    #     platforms: ${{ matrix.arch }}
     - name: Cache node modules
       uses: actions/cache@v2
       env:
