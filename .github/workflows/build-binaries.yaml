@@ -56,17 +56,17 @@ jobs:
     - name: run prebuild script
       run: npm run prebuild-linux
     - name: Build for x64 / ia32
-      run: npm run build-linux --ignore-scripts
+      run: ./node_modules/.bin/electron-builder build -l --x64 --ia32
       if: ${{ matrix.arch == 'amd64' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build for arm64v8
-      run: npm run build-linux-armv8 --ignore-scripts
+      run: ./node_modules/.bin/electron-builder build -l --arm64
       if: ${{ matrix.arch == 'arm64' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build for armv7
-      run: npm run build-linux-armv7 --ignore-scripts
+      run: ./node_modules/.bin/electron-builder build -l --armv7l
       if: ${{ matrix.arch == 'arm/v7' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
