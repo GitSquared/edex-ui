@@ -120,7 +120,7 @@ jobs:
     - name: run npm build scripts
       uses: docker://arm64v8/node:14-buster
       with:
-        args: bash -c "apt-get update && apt-get install rsync && npm install && npm run prebuild-linux && ./node_modules/.bin/electron-builder build -l --arm64"
+        args: bash -c "apt-get update && apt-get install -y rsync && npm install && npm run prebuild-linux && ./node_modules/.bin/electron-builder build -l --arm64"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
