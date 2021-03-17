@@ -51,7 +51,7 @@ jobs:
         path: dist/*.AppImage
         if-no-files-found: error
 
-  build-linux-ar32:
+  build-linux-arm32:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
