@@ -5,11 +5,8 @@ on: [push, pull_request, create]
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Cache node modules
       uses: actions/cache@v2
       env:
@@ -18,10 +15,6 @@ jobs:
         # npm cache files are stored in `~/.npm` on Linux/macOS
         path: ~/.npm
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
     - name: Cache Electron binaries
       uses: actions/cache@v2
       env:
@@ -31,24 +24,22 @@ jobs:
         # https://github.com/electron/get#how-it-works
         path: ~/.cache/electron
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-    - name: Install system dependencies
+    - name: Install system dependencies for x64->x32 cross-build
       run: |
         sudo apt update
         sudo apt install libc6-dev-i386 gcc-multilib g++-multilib
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: set up env
-      run: |
-        npm install
-    - name: npm build
-      run: |
-        npm run build-linux
+        node-version: 14
+    - name: Setup npm
+      run: sudo npm i -g npm@7
+    - name: Install build deps
+      run: npm install
+    - name: Run prebuild script
+      run: npm run prebuild-linux
+    - name: Build for x64 / ia32
+      run: ./node_modules/.bin/electron-builder build -l --x64 --ia32
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
@@ -57,11 +48,86 @@ jobs:
         path: dist/*.AppImage
         if-no-files-found: error
 
+  build-linux-arm32:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v1
+      with:
+        platforms: arm
+    - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Cache Electron binaries
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-electron-bins
+      with:
+        # cache location is described here:
+        # https://github.com/electron/get#how-it-works
+        path: ~/.cache/electron
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Run prebuild outside of QEMU emulator
+      run: sudo npm i -g npm@7 && npm install && rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && rm -rf node_modules
+    - name: Build for arm32v7 (aka armv7l)
+      uses: docker://arm32v7/node:14-buster
+      with:
+        args: bash -c "npm i -g npm@7 && npm install && ./node_modules/.bin/electron-builder build -l --armv7l"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Linux-arm32-AppImage
+        path: dist/*.AppImage
+        if-no-files-found: error
+
+  build-linux-arm64:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v1
+      with:
+        platforms: arm64
+    - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Cache Electron binaries
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-electron-bins
+      with:
+        # cache location is described here:
+        # https://github.com/electron/get#how-it-works
+        path: ~/.cache/electron
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Run prebuild outside of QEMU emulator
+      run: sudo npm i -g npm@7 && npm install && rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && rm -rf node_modules
+    - name: Build for arm64 (aka arm64v8)
+      uses: docker://arm64v8/node:14-buster
+      with:
+        args: bash -c "npm i -g npm@7 && npm install && ./node_modules/.bin/electron-builder build -l --arm64"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Linux-arm64-AppImage
+        path: dist/*.AppImage
+        if-no-files-found: error
+
   build-windows:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
     - name: Get npm cache directory
@@ -72,8 +138,6 @@ jobs:
       with:
         path: ${{ steps.npm-cache.outputs.dir }}
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
     - name: Cache Electron binaries
       uses: actions/cache@v2
       env:
@@ -83,20 +147,16 @@ jobs:
         # https://github.com/electron/get#how-it-works
         path: ~/AppData/Local/electron/Cache
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 14
+    - name: Setup npm
+      run: npm i -g npm@7
     - name: npm install
-      run: |
-        npm install
+      run: npm install
     - name: npm build
-      run: |
-        npm run build-windows
+      run: npm run build-windows
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
@@ -107,9 +167,6 @@ jobs:
 
   build-darwin:
     runs-on: macos-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v1
     - name: Cache node modules
@@ -120,10 +177,6 @@ jobs:
         # npm cache files are stored in `~/.npm` on Linux/macOS
         path: ~/.npm
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
     - name: Cache Electron binaries
       uses: actions/cache@v2
       env:
@@ -133,20 +186,16 @@ jobs:
         # https://github.com/electron/get#how-it-works
         path: ~/Library/Caches/electron
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: set up env
-      run: |
-        npm install
+        node-version: 14
+    - name: Setup npm
+      run: sudo npm i -g npm@7
+    - name: npm install
+      run: npm install
     - name: npm build
-      run: |
-        npm run build-darwin
+      run: npm run build-darwin
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
