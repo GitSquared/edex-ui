@@ -92,7 +92,7 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
       with:
-        name: Linux-AppImages
+        name: Linux-arm64-AppImage
         path: dist/*.AppImage
         if-no-files-found: error
 
