@@ -21,7 +21,7 @@ jobs:
     - name: test arch emulation
       uses: docker://arm64v8/ubuntu:latest
       with:
-        args: uname -a
+        args: --platform ${{ matrix.arch }} uname -a && pwd && ls -a
     - name: Cache node modules
       uses: actions/cache@v2
       env:
