@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version: [14.x]
-        arch: [amd64, arm64, arm/v7]
+        arch: [amd64, arm64, arm32v7]
 
     steps:
     - uses: actions/checkout@v1
@@ -19,9 +19,10 @@ jobs:
       with:
         platforms: ${{ matrix.arch }}
     - name: test arch emulation
+      if: ${{ matrix.arch != 'amd64' }}
       uses: docker://arm64v8/ubuntu:latest
       with:
-        args: --platform ${{ matrix.arch }} uname -a && pwd && ls -a
+        args: uname -a && pwd && ls -a
     - name: Cache node modules
       uses: actions/cache@v2
       env:
