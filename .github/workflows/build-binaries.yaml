@@ -12,7 +12,7 @@ jobs:
         arch: [amd64, arm64, arm/v7]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Setup QEMU
       uses: docker/setup-qemu-action@v1
       if: ${{ matrix.arch != 'amd64' }}
@@ -20,14 +20,14 @@ jobs:
         platforms: ${{ matrix.arch }}
     - name: test arch emulation arm64
       if: ${{ matrix.arch == 'arm64' }}
-      uses: docker://arm64v8/ubuntu:latest
+      uses: docker://arm64v8/node:14-buster
       with:
-        args: bash -c "uname -a && pwd && ls -a"
+        args: bash -c "uname -a && pwd && ls -a && node -v && npm -v"
     - name: test arch emulation arm32v7
-      if: ${{ matrix.arch == 'arm64' }}
-      uses: docker://arm32v7/ubuntu:latest
+      if: ${{ matrix.arch == 'arm/v7' }}
+      uses: docker://arm32v7/node:14-buster
       with:
-        args: bash -c "uname -a && pwd && ls -a"
+        args: bash -c "uname -a && pwd && ls -a && node -v && npm -v"
     - name: Cache node modules
       uses: actions/cache@v2
       env:
