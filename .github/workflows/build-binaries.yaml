@@ -22,12 +22,12 @@ jobs:
       if: ${{ matrix.arch == 'arm64' }}
       uses: docker://arm64v8/ubuntu:latest
       with:
-        args: bash -c 'uname -a && pwd && ls -a'
+        args: bash -c "uname -a && pwd && ls -a"
     - name: test arch emulation arm32v7
       if: ${{ matrix.arch == 'arm64' }}
       uses: docker://arm32v7/ubuntu:latest
       with:
-        args: bash -c 'uname -a && pwd && ls -a'
+        args: bash -c "uname -a && pwd && ls -a"
     - name: Cache node modules
       uses: actions/cache@v2
       env:
