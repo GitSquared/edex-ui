@@ -19,7 +19,7 @@ jobs:
       with:
         platforms: ${{ matrix.arch }}
     - name: test arch emulation
-      uses: docker//arm64v8/ubuntu:latest
+      uses: docker://arm64v8/ubuntu:latest
       with:
         args: uname -a
     - name: Cache node modules
