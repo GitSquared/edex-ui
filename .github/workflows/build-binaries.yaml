@@ -84,7 +84,7 @@ jobs:
       fail-fast: false
       matrix:
         node-version: [14.x]
-        node-image: ["docker://arm64v8/node:14-buster"]
+        # watch out for node docker image version specified in build step below
 
     steps:
     - uses: actions/checkout@v2
@@ -117,18 +117,10 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-    - name: install build deps
-      uses: ${{ matrix.node-image }}
+    - name: run npm build scripts
+      uses: docker://arm64v8/node:14-buster
       with:
-        args: npm install
-    - name: run prebuild script
-      uses: ${{ matrix.node-image }}
-      with:
-        args: npm run prebuild-linux
-    - name: run build
-      uses: ${{ matrix.node-image }}
-      with:
-        args: bash -c "./node_modules/.bin/electron-builder build -l --arm64"
+        args: bash -c "npm install && npm run prebuild-linux && ./node_modules/.bin/electron-builder build -l --arm64"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
