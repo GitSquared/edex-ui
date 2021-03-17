@@ -117,10 +117,12 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-    - name: run npm build scripts
+    - name: prebuild
+      run: npm i -g npm@7 && npm install && rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && rm -rf node_modules
+    - name: build
       uses: docker://arm64v8/node:14-buster
       with:
-        args: bash -c "apt-get update && apt-get install -y rsync && npm install && npm run prebuild-linux && ./node_modules/.bin/electron-builder build -l --arm64"
+        args: bash -c "npm i -g npm@7 && npm install && ./node_modules/.bin/electron-builder build -l --arm64"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
