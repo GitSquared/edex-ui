@@ -9,20 +9,9 @@ jobs:
       fail-fast: false
       matrix:
         node-version: [14.x]
-        arch: [amd64, arm/v7]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup QEMU
-      uses: docker/setup-qemu-action@v1
-      if: ${{ matrix.arch != 'amd64' }}
-      with:
-        platforms: ${{ matrix.arch }}
-    - name: test arch emulation arm32v7
-      if: ${{ matrix.arch == 'arm/v7' }}
-      uses: docker://arm32v7/node:14-buster
-      with:
-        args: bash -c "uname -a && pwd && ls -a && node -v && npm -v"
     - name: Cache node modules
       uses: actions/cache@v2
       env:
@@ -48,13 +37,11 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-    - name: Install system dependencies amd64 cross-build
-      if: ${{ matrix.arch == 'amd64' }}
+    - name: Install system dependencies for x64->x32 cross-build
       run: |
         sudo apt update
         sudo apt install libc6-dev-i386 gcc-multilib g++-multilib
     - name: Use Node.js ${{ matrix.node-version }} on amd64
-      if: ${{ matrix.arch == 'amd64' }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
@@ -64,12 +51,6 @@ jobs:
       run: npm run prebuild-linux
     - name: Build for x64 / ia32
       run: ./node_modules/.bin/electron-builder build -l --x64 --ia32
-      if: ${{ matrix.arch == 'amd64' }}
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build for armv7
-      run: ./node_modules/.bin/electron-builder build -l --armv7l
-      if: ${{ matrix.arch == 'arm/v7' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/upload-artifact@v2
