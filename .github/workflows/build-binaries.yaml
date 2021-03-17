@@ -99,7 +99,7 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - name: prebuild
-      run: npm i -g npm@7 && npm install && rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && rm -rf node_modules
+      run: sudo npm i -g npm@7 && npm install && rsync -a --info=progress2 src/ prebuild-src --exclude node_modules && node prebuild-minify.js && rm -rf node_modules
     - name: build
       uses: docker://arm64v8/node:14-buster
       with:
