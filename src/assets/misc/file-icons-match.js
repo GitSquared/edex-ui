@@ -505,6 +505,7 @@ function matchIcon(filename) {
     if (/\.sco$/i.test(filename)) { return "csound"; }
     if (/\.css$/i.test(filename)) { return "css3"; }
     if (/\.less$/i.test(filename)) { return "css3"; }
+    if (/\.tss$/i.test(filename)) { return "css3"; }
     if (/\.feature$/i.test(filename)) { return "cucumber"; }
     if (/gherkin$/i.test(filename)) { return "cucumber"; }
     if (/\.cu$/i.test(filename)) { return "nvidia"; }
@@ -1289,6 +1290,7 @@ function matchIcon(filename) {
     if (/\.mms$/i.test(filename)) { return "checklist"; }
     if (/\.mmk$/i.test(filename)) { return "checklist"; }
     if (/\.pri$/i.test(filename)) { return "checklist"; }
+    if (/^justfile$/i.test(filename)) { return "checklist"; }
     if (/\.mak?o$/i.test(filename)) { return "mako"; }
     if (/\.(1([bcmstx]|has|in)?|[24568]|3(avl|bsm|cfgadm|in|[cmx]|perl|pm?|qt)?|7(d|fs|i|ipp|m|p)?|9[efps]?|eqn|groff|man|mandoc|mdoc|me|mom|nr?|nroff|roff?|tmac|tmac-u|tr|troff)$/i.test(filename)) { return "manpage"; }
     if (/^(man|mdoc)\.template$/i.test(filename)) { return "manpage"; }
