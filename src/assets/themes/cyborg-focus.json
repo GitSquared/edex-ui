@@ -1,0 +1,45 @@
+{
+    "colors": {
+        "r": 95,
+        "g": 215,
+        "b": 215,
+        "black": "#263a3a",
+        "light_black": "#304444",
+        "grey": "#3a4e4e ",
+        "red": "#af0087",
+        "green": "#00af5f",
+        "yellow": "#afd700",
+        "blue": "#005faf",
+        "magenta": "#af00d7",
+        "cyan": "#5fafd7",
+        "white": "#afd7ff",
+        "brightBlack": "#5f5f87",
+        "brightRed": "#ff00d7",
+        "brightGreen": "#00ff87",
+        "brightYellow": "#d7ff00",
+        "brightBlue": "#5f87ff",
+        "brightMagenta": "#af5fff",
+        "brightCyan": "#5fd7ff",
+        "brightWhite": "#d7ffff"
+    },
+    "cssvars": {
+        "font_main": "United Sans Medium",
+        "font_main_light": "United Sans Light"
+    },
+    "terminal": {
+        "fontFamily": "Fira Code",
+        "cursorStyle": "block",
+        "foreground": "#87d7d7",
+        "background": "#263a3a",
+        "cursor": "#00d7ff",
+        "cursorAccent": "#5fff87",
+        "selection": "#d7ff5f"
+    },
+    "globe": {
+        "base": "#005faf",
+        "marker": "#af0087",
+        "pin": "#00ff87",
+        "satellite": "#d7ff00"
+    },
+    "injectCSS": "section#keyboard{display:none} section>h3.title:first-child{border-bottom:0}section>h3.title:first-child::before{border-left:0}section>h3.title:first-child::after{border-right:0} section#filesystem{position:absolute;top:auto;left:0;bottom:0;width:17%}section#filesystem>h3.title{width:17%}section#filesystem>h3.title:first-child>p{width:24%}section#filesystem>h3.title:first-child>p:last-child{position:static;right:auto;width:72%}section#filesystem div#fs_disp_container{width:100%}section#filesystem.list-view>div#fs_disp_container:not(.disks)>div>h4{font-size:0.8vh}section#filesystem.list-view>div#fs_disp_container:not(.disks)>div>h4:nth-of-type(1){display:none}section#filesystem.list-view>div#fs_disp_container:not(.disks)>div>h4:nth-of-type(2){width:25%}div#fs_space_bar{display:none} section#main_shell{height:94.5%;padding:0.37vh;position:absolute;top:2.5vh}ul#main_shell_tabs{margin-left:-0.37vh;margin-top:-0.35vh}ul#main_shell_tabs>li{padding-top:0.55vh;padding-bottom:0.2vh}.terminal .xterm-viewport{padding-bottom:0}.xterm{height:100%}.xterm .xterm-screen{top:0.8vh;left:0.4vh}"
+}
