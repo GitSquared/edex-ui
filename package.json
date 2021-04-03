@@ -100,15 +100,15 @@
   },
   "dependencies": {
     "clean-css": "5.1.2",
-    "electron": "^11.3.0",
+    "electron": "^11.4.2",
     "electron-builder": "^22.10.5",
     "electron-rebuild": "^2.3.5",
-    "mime-types": "^2.1.29",
+    "mime-types": "^2.1.30",
     "node-abi": "2.21.0",
     "node-json-minify": "1.0.0",
     "terser": "^5.6.1"
   },
   "optionalDependencies": {
-    "cson-parser": "4.0.8"
+    "cson-parser": "4.0.9"
   }
 }
