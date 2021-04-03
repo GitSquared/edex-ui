@@ -781,6 +781,7 @@ function matchIcon(filename) {
     if (/^\./.test(filename)) { return "gear"; }
     if (/\.dll$/i.test(filename)) { return "gears"; }
     if (/\.xml$/i.test(filename)) { return "code"; }
+    if (/\.xmp$/i.test(filename)) { return "code"; }
     if (/\.rdf$/i.test(filename)) { return "code"; }
     if (/\.config$/i.test(filename)) { return "code"; }
     if (/^_service$/.test(filename)) { return "code"; }
