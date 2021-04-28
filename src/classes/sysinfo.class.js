@@ -119,10 +119,10 @@ class Sysinfo {
     updateBattery() {
         window.si.battery().then(bat => {
             let indicator = document.querySelector("#mod_sysinfo > div:last-child > h2");
-            if (bat.hasbattery) {
-                if (bat.ischarging) {
+            if (bat.hasBattery) {
+                if (bat.isCharging) {
                     indicator.innerHTML = "CHARGE";
-                } else if (bat.acconnected /*|| bat.timeremaining === -1*/) {//fixes #833
+                } else if (bat.acConnected) {
                     indicator.innerHTML = "WIRED";
                 } else {
                     indicator.innerHTML = bat.percent+"%";
