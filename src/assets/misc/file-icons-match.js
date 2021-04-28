@@ -633,6 +633,7 @@ function matchIcon(filename) {
     if (/\.classpath$/i.test(filename)) { return "eclipse"; }
     if (/\.ecl(\.txt)?$/i.test(filename)) { return "eclipse-lang"; }
     if (/\.editorconfig$/i.test(filename)) { return "editorconfig"; }
+    if (/\.ecrc$/i.test(filename)) { return "editorconfig"; }
     if (/\.edge$/i.test(filename)) { return "edge"; }
     if (/\.e$/.test(filename)) { return "eiffel"; }
     if (/\.ejs$/i.test(filename)) { return "ejs"; }
