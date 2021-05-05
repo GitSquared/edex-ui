@@ -97,6 +97,7 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 - [O'Reilly 4 short links (again)](https://www.oreilly.com/radar/four-short-links-7-july-2020/)
 - [LinuxLinks](https://www.linuxlinks.com/linux-candy-edex-ui-sci-fi-computer-terminal-emulator-system-monitor/)
 - [Linux For Everyone (Youtube)](https://www.youtube.com/watch?v=gbzqCAjm--g)
+- [BestOfJS Rising Stars 2020](https://risingstars.js.org/2020/en#edex-ui)
 
 
 ## Useful commands for the nerds
