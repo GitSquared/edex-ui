@@ -143,6 +143,8 @@ class Terminal {
                 window.keyboard.keydownHandler(e);
                 return true;
             });
+            // Prevent soft-keyboard on touch devices #733
+            document.querySelectorAll('.xterm-helper-textarea').forEach(textarea => textarea.setAttribute('readonly', 'readonly'))
             this.term.focus();
 
             this.Ipc.send("terminal_channel-"+this.port, "Renderer startup");
