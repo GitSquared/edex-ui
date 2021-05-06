@@ -12,12 +12,17 @@ class Toplist {
 
         this.parent.append(this._element);
 
+        this.currentlyUpdating = false;
+
         this.updateList();
         this.listUpdater = setInterval(() => {
             this.updateList();
         }, 2000);
     }
     updateList() {
+        if (this.currentlyUpdating) return;
+
+        this.currentlyUpdating = true;
         window.si.processes().then(data => {
             if (window.settings.excludeThreadsFromToplist === true) {
                 data.list = data.list.sort((a, b) => {
@@ -48,6 +53,7 @@ class Toplist {
                                 <td>${Math.round(proc.mem*10)/10}%</td>`;
                 document.getElementById("mod_toplist_table").append(el);
             });
+            this.currentlyUpdating = false;
         });
     }
 
@@ -55,6 +61,7 @@ class Toplist {
         let sortKey;
         let ascending = false;
         let removed = false;
+        let currentlyUpdating = false;
 
         function setSortKey(fieldName){
             if (sortKey === fieldName){
@@ -91,6 +98,8 @@ class Toplist {
         }
 
         function updateProcessList() {
+            if (currentlyUpdating) return;
+            currentlyUpdating = true;
             window.si.processes().then(data => {
                 if (window.settings.excludeThreadsFromToplist === true) {
                     data.list = data.list.sort((a, b) => {
@@ -110,6 +119,7 @@ class Toplist {
                     proc.runtime = new Date(Date.now() - Date.parse(proc.started));
                 });
 
+                currentlyUpdating = false;
                 let list = data.list.sort((a, b) => {
                     switch (sortKey) {
                         case "PID":

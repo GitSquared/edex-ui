@@ -29,12 +29,15 @@ class RAMwatcher {
         this.shuffleArray(this.points);
 
         // Init updaters
+        this.currentlyUpdating = false;
         this.updateInfo();
         this.infoUpdater = setInterval(() => {
             this.updateInfo();
         }, 1500);
     }
     updateInfo() {
+        if (this.currentlyUpdating) return;
+        this.currentlyUpdating = true;
         window.si.mem().then(data => {
             if (data.free+data.used !== data.total) throw("RAM Watcher Error: Bad memory values");
 
@@ -70,6 +73,8 @@ class RAMwatcher {
 
             let usedSwapGiB = Math.round((data.swapused/1073742000)*10)/10;
             document.getElementById("mod_ramwatcher_swaptext").innerText = `${usedSwapGiB} GiB`;
+
+            this.currentlyUpdating = false;
         });
     }
     shuffleArray(array) {
