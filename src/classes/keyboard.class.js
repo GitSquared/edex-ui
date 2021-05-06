@@ -220,7 +220,8 @@ class Keyboard {
         this.container.addEventListener("touchstart", e => {
             e.preventDefault();
             for (let i = 0; i < e.changedTouches.length; i++) {
-                let key = e.changedTouches[i].target.offsetParent;
+                let key = e.changedTouches[i].target.parentElement;
+		if (key.tagName === 'svg') key = key.parentElement;
                 if (key.getAttribute("class").startsWith("keyboard_key")) {
                     key.setAttribute("class", key.getAttribute("class")+" active");
                     key.onmousedown({preventDefault: () => {return true}});
@@ -236,7 +237,8 @@ class Keyboard {
         let dropKeyTouchHandler = e => {
             e.preventDefault();
             for (let i = 0; i < e.changedTouches.length; i++) {
-                let key = e.changedTouches[i].target.offsetParent;
+                let key = e.changedTouches[i].target.parentElement;
+		if (key.tagName === 'svg') key = key.parentElement;
                 if (key.getAttribute("class").startsWith("keyboard_key")) {
                     key.setAttribute("class", key.getAttribute("class").replace("active", ""));
                     key.onmouseup({preventDefault: () => {return true}});
