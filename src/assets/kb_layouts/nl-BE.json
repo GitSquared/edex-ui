@@ -1,0 +1,458 @@
+{
+    "row_numbers": [
+        {
+            "name": "ESC",
+            "cmd": "~~~CTRLSEQ1~~~"
+        },
+        {
+            "name": "²",
+            "cmd": "²",
+            "shift_name": "³",
+            "shift_cmd": "³",
+            "alt_cmd": "¬"
+        },
+        {
+            "name": "&",
+            "cmd": "&",
+            "shift_name": "1",
+            "shift_cmd": "1",
+            "alt_name": "|",
+            "alt_cmd": "|",
+            "fn_name": "F1",
+            "fn_cmd": "~~~CTRLSEQ1~~~OP"
+        },
+        {
+            "name": "é",
+            "cmd": "é",
+            "shift_name": "2",
+            "shift_cmd": "2",
+            "capslck_cmd": "É",
+            "alt_name": "@",
+            "alt_cmd": "@",
+            "fn_name": "F2",
+            "fn_cmd": "~~~CTRLSEQ1~~~OQ"
+        },
+        {
+            "name": "\"",
+            "cmd": "\"",
+            "shift_name": "3",
+            "shift_cmd": "3",
+            "ctrl_cmd": "~~~CTRLSEQ1~~~",
+            "alt_name": "#",
+            "alt_cmd": "#",
+            "fn_name": "F3",
+            "fn_cmd": "~~~CTRLSEQ1~~~OR"
+        },
+        {
+            "name": "'",
+            "cmd": "'",
+            "shift_name": "4",
+            "shift_cmd": "4",
+            "ctrl_cmd": "~~~CTRLSEQ2~~~",
+            "fn_name": "F4",
+            "fn_cmd": "~~~CTRLSEQ1~~~OS"
+        },
+        {
+            "name": "(",
+            "cmd": "(",
+            "shift_name": "5",
+            "shift_cmd": "5",
+            "ctrl_cmd": "~~~CTRLSEQ3~~~",
+            "fn_name": "F5",
+            "fn_cmd": "~~~CTRLSEQ1~~~[15~"
+        },
+        {
+            "name": "§",
+            "cmd": "§",
+            "shift_name": "6",
+            "shift_cmd": "6",
+            "ctrl_cmd": "~~~CTRLSEQ4~~~",
+            "alt_name": "^",
+            "alt_cmd": "|^",
+            "fn_name": "F6",
+            "fn_cmd": "~~~CTRLSEQ1~~~[17~"
+        },
+        {
+            "name": "è",
+            "cmd": "è",
+            "shift_name": "7",
+            "shift_cmd": "7",
+            "capslck_cmd": "È",
+            "ctrl_cmd": "~~~CTRLSEQ5~~~",
+            "fn_name": "F7",
+            "fn_cmd": "~~~CTRLSEQ1~~~[18~"
+        },
+        {
+            "name": "!",
+            "cmd": "!",
+            "shift_name": "8",
+            "shift_cmd": "8",
+            "ctrl_cmd": "\r",
+            "alt_name": "\\",
+            "alt_cmd": "\\",
+            "fn_name": "F8",
+            "fn_cmd": "~~~CTRLSEQ1~~~[19~"
+        },
+        {
+            "name": "ç",
+            "cmd": "ç",
+            "shift_name": "9",
+            "shift_cmd": "9",
+            "capslck_cmd": "Ç",
+            "alt_name": "{",
+            "alt_cmd": "{",
+            "fn_name": "F9",
+            "fn_cmd": "~~~CTRLSEQ1~~~[20~"
+        },
+        {
+            "name": "à",
+            "cmd": "à",
+            "shift_name": "0",
+            "shift_cmd": "0",
+            "capslck_cmd": "À",
+            "alt_name": "}",
+            "alt_cmd": "@}",
+            "fn_name": "F10",
+            "fn_cmd": "~~~CTRLSEQ1~~~[21~"
+        },
+        {
+            "name": ")",
+            "cmd": ")",
+            "shift_name": "°",
+            "shift_cmd": "°",
+            "fn_name": "F11",
+            "fn_cmd": "~~~CTRLSEQ1~~~[23~"
+        },
+        {
+            "name": "-",
+            "cmd": "-",
+            "shift_name": "_",
+            "shift_cmd": "_",
+            "fn_name": "F12",
+            "fn_cmd": "~~~CTRLSEQ1~~~[24~"
+        },
+        {
+            "name": "BACK",
+            "cmd": "\b",
+            "shift_name": "DELETE",
+            "shift_cmd": "~~~CTRLSEQ1~~~[3~"
+        }
+    ],
+    "row_1": [
+        {
+            "name": "TAB",
+            "cmd": "\t"
+        },
+        {
+            "name": "A",
+            "cmd": "a",
+            "shift_cmd": "A",
+            "ctrl_cmd": "~~~CTRLSEQ13~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~a"
+        },
+        {
+            "name": "Z",
+            "cmd": "z",
+            "shift_cmd": "Z",
+            "ctrl_cmd": "~~~CTRLSEQ17~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~z"
+        },
+        {
+            "name": "E",
+            "cmd": "e",
+            "shift_cmd": "E",
+            "alt_name": "€",
+            "alt_cmd": "€",
+            "ctrl_cmd": "\r"
+        },
+        {
+            "name": "R",
+            "cmd": "r",
+            "shift_cmd": "R",
+            "ctrl_cmd": "~~~CTRLSEQ8~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~r"
+        },
+        {
+            "name": "T",
+            "cmd": "t",
+            "shift_cmd": "T",
+            "ctrl_cmd": "~~~CTRLSEQ9~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~t"
+        },
+        {
+            "name": "Y",
+            "cmd": "y",
+            "shift_cmd": "Y",
+            "ctrl_cmd": "~~~CTRLSEQ10~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~y"
+        },
+        {
+            "name": "U",
+            "cmd": "u",
+            "shift_cmd": "U",
+            "ctrl_cmd": "~~~CTRLSEQ11~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~u"
+        },
+        {
+            "name": "I",
+            "cmd": "i",
+            "shift_cmd": "I",
+            "ctrl_cmd": "\r",
+            "alt_cmd": "~~~CTRLSEQ1~~~i"
+        },
+        {
+            "name": "O",
+            "cmd": "o",
+            "shift_cmd": "O",
+            "alt_cmd": "~~~CTRLSEQ1~~~o"
+        },
+        {
+            "name": "P",
+            "cmd": "p",
+            "shift_cmd": "P",
+            "ctrl_cmd": "~~~CTRLSEQ12~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~p"
+        },
+        {
+            "name": "^",
+            "cmd": "ESCAPED|-- CIRCUM",
+            "shift_name": "¨",
+            "shift_cmd": "ESCAPED|-- TREMA",
+            "alt_name": "[",
+            "alt_cmd": "[",
+            "ctrl_cmd": "~~~CTRLSEQ1~~~"
+        },
+        {
+            "name": "$",
+            "cmd": "$",
+            "shift_name": "*",
+            "shift_cmd": "*",
+            "alt_name": "]",
+            "alt_cmd": "]",
+            "ctrl_cmd": "~~~CTRLSEQ3~~~"
+        },
+        {
+            "name": "ENTER",
+            "cmd": "\r"
+        }
+    ],
+    "row_2": [
+        {
+            "name": "CAPS",
+            "cmd": "ESCAPED|-- CAPSLCK: ON",
+            "shift_cmd": "ESCAPED|-- CAPSLCK: OFF"
+        },
+        {
+            "name": "Q",
+            "cmd": "q",
+            "shift_cmd": "Q",
+            "ctrl_cmd": "~~~CTRLSEQ6~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~q"
+        },
+        {
+            "name": "S",
+            "cmd": "s",
+            "shift_cmd": "S",
+            "ctrl_cmd": "~~~CTRLSEQ14~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~s"
+        },
+        {
+            "name": "D",
+            "cmd": "d",
+            "shift_cmd": "D",
+            "ctrl_cmd": "~~~CTRLSEQ15~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~d"
+        },
+        {
+            "name": "F",
+            "cmd": "f",
+            "shift_cmd": "F",
+            "ctrl_cmd": "~~~CTRLSEQ16~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~f"
+        },
+        {
+            "name": "G",
+            "cmd": "g",
+            "shift_cmd": "G",
+            "ctrl_cmd": "\r",
+            "alt_cmd": "~~~CTRLSEQ1~~~g"
+        },
+        {
+            "name": "H",
+            "cmd": "h",
+            "shift_cmd": "H",
+            "alt_cmd": "~~~CTRLSEQ1~~~h"
+        },
+        {
+            "name": "J",
+            "cmd": "j",
+            "shift_cmd": "J",
+            "alt_cmd": "~~~CTRLSEQ1~~~j"
+        },
+        {
+            "name": "K",
+            "cmd": "k",
+            "shift_cmd": "K",
+            "alt_cmd": "~~~CTRLSEQ1~~~k"
+        },
+        {
+            "name": "L",
+            "cmd": "l",
+            "shift_cmd": "L",
+            "alt_cmd": "~~~CTRLSEQ1~~~l"
+        },
+        {
+            "name": "M",
+            "cmd": "m",
+            "shift_cmd": "M",
+            "ctrl_cmd": "\r",
+            "alt_cmd": "~~~CTRLSEQ1~~~m"
+        },
+        {
+            "name": "ù",
+            "cmd": "ù",
+            "shift_name": "%",
+            "shift_cmd": "%",
+            "alt_name": "'",
+            "alt_cmd": "'",
+            "capslck_cmd": "Ù"
+        },
+        {
+            "name": "µ",
+            "cmd": "µ",
+            "shift_name": "£",
+            "shift_cmd": "£",
+            "alt_name": "`",
+            "alt_cmd": "`"
+        },
+        {
+            "name": "",
+            "cmd": "\r"
+        }
+    ],
+    "row_3": [
+        {
+            "name": "SHIFT",
+            "cmd": "ESCAPED|-- SHIFT: LEFT"
+        },
+        {
+            "name": "<",
+            "cmd": "<",
+            "shift_name": ">",
+            "shift_cmd": ">",
+            "alt_name": "\\",
+            "alt_cmd": "\\",
+            "ctrl_cmd": "~~~CTRLSEQ2~~~"
+        },
+        {
+            "name": "W",
+            "cmd": "w",
+            "shift_cmd": "W",
+            "ctrl_cmd": "~~~CTRLSEQ7~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~w"
+        },
+        {
+            "name": "X",
+            "cmd": "x",
+            "shift_cmd": "X",
+            "ctrl_cmd": "~~~CTRLSEQ18~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~x"
+        },
+        {
+            "name": "C",
+            "cmd": "c",
+            "shift_cmd": "C",
+            "ctrl_cmd": "~~~CTRLSEQ19~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~c"
+        },
+        {
+            "name": "V",
+            "cmd": "v",
+            "shift_cmd": "V",
+            "ctrl_cmd": "~~~CTRLSEQ20~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~v"
+        },
+        {
+            "name": "B",
+            "cmd": "b",
+            "shift_cmd": "B",
+            "ctrl_cmd": "~~~CTRLSEQ21~~~",
+            "alt_cmd": "~~~CTRLSEQ1~~~b"
+        },
+        {
+            "name": "N",
+            "cmd": "n",
+            "shift_cmd": "N",
+            "alt_cmd": "~~~CTRLSEQ1~~~n"
+        },
+        {
+            "name": ",",
+            "cmd": ",",
+            "shift_name": "?",
+            "shift_cmd": "?"
+        },
+        {
+            "name": ";",
+            "cmd": ";",
+            "shift_name": ".",
+            "shift_cmd": "."
+        },
+        {
+            "name": ":",
+            "cmd": ":",
+            "shift_name": "\/",
+            "shift_cmd": "\/"
+        },
+        {
+            "name": "=",
+            "cmd": "=",
+            "shift_name": "+",
+            "shift_cmd": "+",
+            "alt_name": "~",
+            "alt_cmd": "~"
+        },
+        {
+            "name": "SHIFT",
+            "cmd": "ESCAPED|-- SHIFT: RIGHT"
+        },
+        {
+            "name": "ESCAPED|-- ICON: ARROW_UP",
+            "cmd": "~~~CTRLSEQ1~~~OA"
+        }
+    ],
+    "row_space": [
+        {
+            "name": "CTRL",
+            "cmd": "ESCAPED|-- CTRL: LEFT"
+        },
+        {
+            "name": "FN",
+            "cmd": "ESCAPED|-- FN: ON",
+            "fn_cmd": "ESCAPED|-- FN: OFF"
+        },
+        {
+            "name": "",
+            "cmd": " "
+        },
+        {
+            "name": "ALT GR",
+            "cmd": "ESCAPED|-- ALT: RIGHT"
+        },
+        {
+            "name": "CTRL",
+            "cmd": "ESCAPED|-- CTRL: RIGHT"
+        },
+        {
+            "name": "ESCAPED|-- ICON: ARROW_LEFT",
+            "cmd": "~~~CTRLSEQ1~~~OD"
+        },
+        {
+            "name": "ESCAPED|-- ICON: ARROW_DOWN",
+            "cmd": "~~~CTRLSEQ1~~~OB"
+        },
+        {
+            "name": "ESCAPED|-- ICON: ARROW_RIGHT",
+            "cmd": "~~~CTRLSEQ1~~~OC"
+        }
+    ]
+}
