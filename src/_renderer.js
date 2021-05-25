@@ -37,9 +37,10 @@ window.onerror = (msg, path, line, col, error) => {
 const path = require("path");
 const fs = require("fs");
 const electron = require("electron");
+const remote = require("@electron/remote");
 const ipc = electron.ipcRenderer;
 
-const settingsDir = electron.remote.app.getPath("userData");
+const settingsDir = remote.app.getPath("userData");
 const themesDir = path.join(settingsDir, "themes");
 const keyboardsDir = path.join(settingsDir, "keyboards");
 const fontsDir = path.join(settingsDir, "fonts");
@@ -53,7 +54,7 @@ window.shortcuts = require(shortcutsFile);
 window.lastWindowState = require(lastWindowStateFile);
 
 // Load CLI parameters
-if (electron.remote.process.argv.includes("--nointro")) {
+if (remote.process.argv.includes("--nointro")) {
     window.settings.nointroOverride = true;
 } else {
     window.settings.nointroOverride = false;

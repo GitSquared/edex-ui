@@ -30,6 +30,7 @@ if (!gotLock) {
 signale.time("Startup");
 
 const electron = require("electron");
+require('@electron/remote/main').initialize()
 const ipc = electron.ipcMain;
 const path = require("path");
 const url = require("url");
@@ -186,7 +187,7 @@ function createWindow(settings) {
         backgroundColor: '#000000',
         webPreferences: {
             devTools: true,
-            enableRemoteModule: true,
+	    enableRemoteModule: true,
             contextIsolation: false,
             backgroundThrottling: false,
             webSecurity: true,

@@ -47,7 +47,7 @@ class Netstat {
         };
         let geolite2 = require("geolite2-redist");
         let maxmind = require("maxmind");
-        geolite2.downloadDbs(require("path").join(require("electron").remote.app.getPath("userData"), "geoIPcache")).then(() => {
+        geolite2.downloadDbs(require("path").join(require("@electron/remote").app.getPath("userData"), "geoIPcache")).then(() => {
            geolite2.open('GeoLite2-City', path => {
                 return maxmind.open(path);
             }).catch(e => {throw e}).then(lookup => {

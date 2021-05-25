@@ -291,7 +291,7 @@ class Terminal {
                     this.clipboard.didCopy = true;
                 },
                 paste: () => {
-                    this.write(electron.remote.clipboard.readText());
+                    this.write(remote.clipboard.readText());
                     this.clipboard.didCopy = false;
                 },
                 didCopy: false

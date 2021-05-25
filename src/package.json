@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/GitSquared/edex-ui#readme",
   "dependencies": {
+    "@electron/remote": "^1.1.0",
     "augmented-ui": "^1.1.2",
     "color": "3.1.3",
     "geolite2-redist": "^2.0.3",
@@ -36,7 +37,7 @@
     "shell-env": "3.0.1",
     "signale": "1.4.0",
     "smoothie": "1.35.0",
-    "systeminformation": "5.6.21",
+    "systeminformation": "5.7.2",
     "tail": "2.2.2",
     "username": "5.1.0",
     "which": "2.0.2",
