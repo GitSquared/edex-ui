@@ -228,7 +228,7 @@ app.on('ready', async () => {
     // See #366
     let cleanEnv = await require("shell-env")(settings.shell).catch(e => { throw e; });
 
-    Object.assign(cleanEnv, process.env, {
+    Object.assign(cleanEnv, {
         TERM: "xterm-256color",
         COLORTERM: "truecolor",
         TERM_PROGRAM: "eDEX-UI",
