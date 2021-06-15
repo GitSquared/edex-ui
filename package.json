@@ -100,11 +100,11 @@
   },
   "dependencies": {
     "clean-css": "5.1.2",
-    "electron": "^12.0.9",
-    "electron-builder": "^22.10.5",
+    "electron": "^12.0.11",
+    "electron-builder": "^22.11.7",
     "electron-rebuild": "^2.3.5",
-    "mime-types": "^2.1.30",
-    "node-abi": "2.26.0",
+    "mime-types": "^2.1.31",
+    "node-abi": "2.30.0",
     "node-json-minify": "1.0.0",
     "terser": "^5.7.0"
   },
