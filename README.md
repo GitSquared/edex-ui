@@ -1,6 +1,6 @@
 <p align="center">
   <br>
-  <img alt="Logo" src="https://github.com/GitSquared/edex-ui/raw/master/media/logo.png">
+  <img alt="Logo" src="media/logo.png">
   <br><br>
   <a href="https://lgtm.com/projects/g/GitSquared/edex-ui/context:javascript"><img alt="undefined" src="https://img.shields.io/lgtm/grade/javascript/g/GitSquared/edex-ui.svg?logo=lgtm&logoWidth=18"/></a>
   <br>
@@ -16,14 +16,28 @@
   <br><br><br>
 </p>
 
-
 eDEX-UI is a fullscreen, cross-platform terminal emulator and system monitor that looks and feels like a sci-fi computer interface.
 
-Heavily inspired from the [TRON Legacy movie effects](https://web.archive.org/web/20170511000410/http://jtnimoy.com/blogs/projects/14881671) (especially the [Board Room sequence](https://gmunk.com/TRON-Board-Room)), the eDEX-UI project was originally meant to be *"[DEX-UI](https://github.com/seenaburns/dex-ui) with less « art » and more « distributable software »"*. While keeping a futuristic look and feel, it strives to maintain a certain level of functionality and to be usable in real-life scenarios, with the larger goal of bringing science-fiction UXs to the mainstream.
+---
+
+<a href="https://youtu.be/BGeY1rK19zA">
+  <img align="right" width="400" alt="Demo on YouTube" src="media/youtube-demo-teaser.gif">
+</a>
+
+Heavily inspired from the [TRON Legacy movie effects](https://web.archive.org/web/20170511000410/http://jtnimoy.com/blogs/projects/14881671) (especially the [Board Room sequence](https://gmunk.com/TRON-Board-Room)), the eDEX-UI project was originally meant to be *"[DEX-UI](https://github.com/seenaburns/dex-ui) with less « art » and more « distributable software »"*.
+
+While keeping a futuristic look and feel, it strives to maintain a certain level of functionality and to be usable in real-life scenarios, with the larger goal of bringing science-fiction UXs to the mainstream.
+
+<br>
 
 It might or might not be a joke taken too seriously.
 
-*( Jump to: [Screenshots](#screenshots) - [Questions & Answers](#qa) - **[Download](#how-do-i-get-it)** - [Featured In](#featured-in) - [Developer Instructions](#useful-commands-for-the-nerds) - [Credits](#credits) )*
+
+---
+
+<p align="center">
+  <em>Jump to: <br><a href="#features">Features</a> — <a href="#screenshots">Screenshots</a> — <a href="#qa">Questions & Answers</a> — <strong><a href="#how-do-i-get-it">Download</a></strong> — <a href="#featured-in">Featured In</a> — <a href="#useful-commands-for-the-nerds">Contributor Instructions</a> — <a href="#credits">Credits</a></em>
+</p>
 
 ## Sponsor
 
@@ -31,7 +45,7 @@ It might or might not be a joke taken too seriously.
 
 Click the banner below and sign up to **Bytes**, the only newsletter cool enough to be recommended by eDEX-UI.
 
-[![Bytes by UI.dev](https://github.com/GitSquared/edex-ui/raw/master/media/sponsor-uidev-bytes.jpg)](https://ui.dev/bytes/?r=gabriel)
+[![Bytes by UI.dev](media/sponsor-uidev-bytes.jpg)](https://ui.dev/bytes/?r=gabriel)
 
 ## Features
 - Fully featured terminal emulator with tabs, colors, mouse events, and support for `curses` and `curses`-like applications.
@@ -42,19 +56,19 @@ Click the banner below and sign up to **Bytes**, the only newsletter cool enough
 - Optional sound effects made by a talented sound designer for maximum hollywood hacking vibe.
 
 ## Screenshots
-![Default screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_default.png)
+![Default screenshot](media/screenshot_default.png)
 
 _[neofetch](https://github.com/dylanaraps/neofetch) on eDEX-UI 2.2 with the default "tron" theme & QWERTY keyboard_
 
-![Blade screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_blade.png)
+![Blade screenshot](media/screenshot_blade.png)
 
 _Checking out available themes in [eDEX's config dir](https://github.com/GitSquared/edex-ui/wiki/userData) with [`ranger`](https://github.com/ranger/ranger) on eDEX-UI 2.2 with the "blade" theme_
 
-![Disrupted screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_disrupted.png)
+![Disrupted screenshot](media/screenshot_disrupted.png)
 
 _[cmatrix](https://github.com/abishekvashok/cmatrix) on eDEX-UI 2.2 with the experimental "tron-disrupted" theme, and the user-contributed DVORAK keyboard_
 
-![Horizon screenshot](https://github.com/GitSquared/edex-ui/raw/master/media/screenshot_horizon.png)
+![Horizon screenshot](media/screenshot_horizon.png)
 
 _Editing eDEX-UI source code with `nvim` on eDEX-UI 2.2 with the custom [`horizon-full`](https://github.com/GitSquared/horizon-edex-theme) theme_
 
@@ -99,7 +113,7 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 - [Linux For Everyone (Youtube)](https://www.youtube.com/watch?v=gbzqCAjm--g)
 - [BestOfJS Rising Stars 2020](https://risingstars.js.org/2020/en#edex-ui)
 - [The Geek Freaks (Youtube/German)](https://youtu.be/TSjMIeLG0Sk)
-- [JSNation Open Source Awards 2021 (Fun Side Project of the Year Nominee](https://osawards.com/javascript/#nominees)
+- [JSNation Open Source Awards 2021](https://osawards.com/javascript/#nominees) (Nominee - Fun Side Project of the Year)
 
 
 ## Useful commands for the nerds
