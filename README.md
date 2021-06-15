@@ -99,6 +99,7 @@ Thanks! If you feel like it, you can [buy me a coffee](https://buymeacoff.ee/gab
 - [Linux For Everyone (Youtube)](https://www.youtube.com/watch?v=gbzqCAjm--g)
 - [BestOfJS Rising Stars 2020](https://risingstars.js.org/2020/en#edex-ui)
 - [The Geek Freaks (Youtube/German)](https://youtu.be/TSjMIeLG0Sk)
+- [JSNation Open Source Awards 2021 (Fun Side Project of the Year Nominee](https://osawards.com/javascript/#nominees)
 
 
 ## Useful commands for the nerds
