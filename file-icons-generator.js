@@ -79,12 +79,34 @@ fs.readdirSync(path.join(__dirname, "file-icons", "devopicons", "svg")).forEach(
         svg
     };
 });
-// Get file icons from file-icons/devopicons
+// Get file icons from file-icons/mfixx
 fs.readdirSync(path.join(__dirname, "file-icons", "mfixx", "svg")).forEach(icon => {
     if (!icon.endsWith(".svg")) return;
     let iconName = icon.toLowerCase().replace(".svg", "").replace("-1", "");
 
     let text = fs.readFileSync(path.join(__dirname, "file-icons", "mfixx", "svg", icon), {encoding: "utf8"});
+
+    let width = text.substr(text.indexOf('width="')+7);
+    width = Number(width.slice(0, width.indexOf("px")));
+    let height = text.substr(text.indexOf('height="')+8);
+    height = Number(height.slice(0, height.indexOf("px")));
+    let svg = text.substr(text.indexOf(">")+1);
+    svg = svg.replace("</svg>", "");
+
+    if (width === null || height === null) console.log(icon);
+
+    fileIconsObject[iconName] = {
+        width,
+        height,
+        svg
+    };
+});
+// Get file icons from file-icons/bytesize-icons
+fs.readdirSync(path.join(__dirname, "file-icons", "bytesize-icons", "dist", "icons")).forEach(icon => {
+    if (!icon.endsWith(".svg")) return;
+    let iconName = icon.toLowerCase().replace(".svg", "");
+
+    let text = fs.readFileSync(path.join(__dirname, "file-icons", "bytesize-icons", "dist", "icons", icon), {encoding: "utf8"});
 
     let width = text.substr(text.indexOf('width="')+7);
     width = Number(width.slice(0, width.indexOf("px")));
