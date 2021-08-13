@@ -109,8 +109,8 @@ fs.readdirSync(path.join(__dirname, "file-icons", "bytesize-icons", "dist", "ico
     let text = fs.readFileSync(path.join(__dirname, "file-icons", "bytesize-icons", "dist", "icons", icon), {encoding: "utf8"});
 
     let dimensions = text.match(/viewBox="0 0 (\d+) (\d+)"/);
-    let height = dimensions[1];
-    let width = dimensions[2];
+    let width = dimensions[1];
+    let height = dimensions[2];
 
     let svg = text.substr(text.indexOf(">")+1);
     svg = svg.replace("</svg>", "");
