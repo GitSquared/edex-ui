@@ -26,8 +26,8 @@ class MediaPlayer {
             if (media.paused || media.ended) {
                 playpause.setAttribute("data-state", "play");
                 playpause.innerHTML = `
-                    <svg viewBox="0 0 ${icons["playArrow"].width} ${icons["playArrow"].height}" fill="${iconcolor}">
-                        ${icons["playArrow"].svg}
+                    <svg viewBox="0 0 ${icons["play"].width} ${icons["play"].height}" fill="${iconcolor}">
+                        ${icons["play"].svg}
                     </svg>`;
             } else {
                 playpause.setAttribute("data-state", "pause");
@@ -39,9 +39,10 @@ class MediaPlayer {
         };
 
         this.setFullscreenData = (state) => {
+            if (fullscreen === null) { return; }
             mediaContainer.setAttribute("data-fullscreen", !!state);
             fullscreen.setAttribute("data-state", !!state ? "cancel-fullscreen" : "go-fullscreen");
-            const buttonIcon = !!state ? "fullscreenExit" : "fullscreen";
+            const buttonIcon = !!state ? "fullscreen-exit" : "fullscreen";
             fullscreen.innerHTML = `
                 <svg viewBox="0 0 ${icons[buttonIcon].width} ${icons[buttonIcon].height}" fill="${iconcolor}">
                     ${icons[buttonIcon].svg}
@@ -116,10 +117,7 @@ class MediaPlayer {
         };
 
         this.updateVolumeIcon = (vol) => {
-            let icon;
-            if (vol > 0.6) icon = "volumeUp";
-            if (vol <= 0.6) icon = "volumeDown";
-            if (vol === 0) icon = "volumeMute";
+            let icon = (vol > 0) ? "volume" : "mute";
             volumeIcon.innerHTML = `<svg viewBox="0 0 ${icons[icon].width} ${icons[icon].height}" fill="${iconcolor}">
                                         ${icons[icon].svg}
                                     </svg>`;
@@ -144,7 +142,7 @@ class MediaPlayer {
         volumeIcon.addEventListener("click", () => {
             media.muted = !media.muted;
             if (media.muted) {
-                let icon = "volumeMute";
+                let icon = "mute";
                 volumeIcon.innerHTML = `<svg viewBox="0 0 ${icons[icon].width} ${icons[icon].height}" fill="${iconcolor}">
                                         ${icons[icon].svg}
                                     </svg>`;

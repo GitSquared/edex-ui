@@ -564,24 +564,24 @@ class FilesystemDisplay {
                     let html = `<div>
                         <div class="pdf_options">
                             <button class="zoom_in">
-                                <svg viewBox="0 0 ${this.icons["zoomIn"].width} ${this.icons["zoomIn"].height}" fill="${this.iconcolor}">
-                                    ${this.icons["zoomIn"].svg}
+                                <svg viewBox="0 0 ${this.icons["zoom-in"].width} ${this.icons["zoom-in"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["zoom-in"].svg}
                                 </svg>
                             </button>
                             <button class="zoom_out">
-                                <svg viewBox="0 0 ${this.icons["zoomOut"].width} ${this.icons["zoomOut"].height}" fill="${this.iconcolor}">
-                                    ${this.icons["zoomOut"].svg}
+                                <svg viewBox="0 0 ${this.icons["zoom-out"].width} ${this.icons["zoom-out"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["zoom-out"].svg}
                                 </svg>
                             </button>
                             <button class="previous_page">
-                                <svg viewBox="0 0 ${this.icons["arrowBack"].width} ${this.icons["arrowBack"].height}" fill="${this.iconcolor}">
-                                    ${this.icons["arrowBack"].svg}
+                                <svg viewBox="0 0 ${this.icons["backwards"].width} ${this.icons["backwards"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["backwards"].svg}
                                 </svg>
                             </button>
                             <span>Page: <span class="page_num"/></span><span>/</span> <span class="page_count"></span></span>
                             <button class="next_page">
-                                <svg viewBox="0 0 ${this.icons["arrowNext"].width} ${this.icons["arrowNext"].height}" fill="${this.iconcolor}">
-                                    ${this.icons["arrowNext"].svg}
+                                <svg viewBox="0 0 ${this.icons["forwards"].width} ${this.icons["forwards"].height}" fill="${this.iconcolor}">
+                                    ${this.icons["forwards"].svg}
                                 </svg>
                             </button>
                         </div>
@@ -657,8 +657,8 @@ class FilesystemDisplay {
                                     </audio>
                                     <div class="media_controls" data-state="hidden">
                                         <div class="playpause media_button" data-state="play">
-                                            <svg viewBox="0 0 ${this.icons["playArrow"].width} ${this.icons["playArrow"].height}" fill="${this.iconcolor}">
-                                                ${this.icons["playArrow"].svg}
+                                            <svg viewBox="0 0 ${this.icons["play"].width} ${this.icons["play"].height}" fill="${this.iconcolor}">
+                                                ${this.icons["play"].svg}
                                             </svg>
                                         </div>
                                         <div class="progress_container">
@@ -668,8 +668,8 @@ class FilesystemDisplay {
                                         </div>
                                         <div class="media_time">00:00:00</div>
                                         <div class="volume_icon">
-                                            <svg viewBox="0 0 ${this.icons["volumeUp"].width} ${this.icons["volumeUp"].height}" fill="${this.iconcolor}">
-                                                ${this.icons["volumeUp"].svg}
+                                            <svg viewBox="0 0 ${this.icons["volume"].width} ${this.icons["volume"].height}" fill="${this.iconcolor}">
+                                                ${this.icons["volume"].svg}
                                             </svg>
                                         </div>
                                         <div class="volume">
@@ -689,8 +689,8 @@ class FilesystemDisplay {
                                     </video>
                                     <div class="media_controls" data-state="hidden">
                                         <div class="playpause media_button" data-state="play">
-                                            <svg viewBox="0 0 ${this.icons["playArrow"].width} ${this.icons["playArrow"].height}" fill="${this.iconcolor}">
-                                                ${this.icons["playArrow"].svg}
+                                            <svg viewBox="0 0 ${this.icons["play"].width} ${this.icons["play"].height}" fill="${this.iconcolor}">
+                                                ${this.icons["play"].svg}
                                             </svg>
                                         </div>
                                         <div class="progress_container">
@@ -700,8 +700,8 @@ class FilesystemDisplay {
                                         </div>
                                         <div class="media_time">00:00:00</div>
                                         <div class="volume_icon">
-                                            <svg viewBox="0 0 ${this.icons["volumeUp"].width} ${this.icons["volumeUp"].height}" fill="${this.iconcolor}">
-                                                ${this.icons["volumeUp"].svg}
+                                            <svg viewBox="0 0 ${this.icons["volume"].width} ${this.icons["volume"].height}" fill="${this.iconcolor}">
+                                                ${this.icons["volume"].svg}
                                             </svg>
                                         </div>
                                         <div class="volume">
