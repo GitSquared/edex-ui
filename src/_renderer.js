@@ -799,7 +799,7 @@ window.openSettings = async () => {
                 <h6 id="settingsEditorStatus">Loaded values from memory</h6>
                 <br>`,
         buttons: [
-            {label: "Open in External Editor", action:`electron.shell.openItem('${settingsFile}');electronWin.minimize();`},
+            {label: "Open in External Editor", action:`electron.shell.openPath('${settingsFile}');electronWin.minimize();`},
             {label: "Save to Disk", action: "window.writeSettingsFile()"},
             {label: "Reload UI", action: "window.location.reload(true);"},
             {label: "Restart eDEX", action: "electron.remote.app.relaunch();electron.remote.app.quit();"}
@@ -943,7 +943,7 @@ window.openShortcutsHelp = () => {
                 </details>
                 <br>`,
         buttons: [
-            {label: "Open Shortcuts File", action:`electron.shell.openItem('${shortcutsFile}');electronWin.minimize();`},
+            {label: "Open Shortcuts File", action:`electron.shell.openPath('${shortcutsFile}');electronWin.minimize();`},
             {label: "Reload UI", action: "window.location.reload(true);"},
         ]
     }, () => {
