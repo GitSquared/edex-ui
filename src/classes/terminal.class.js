@@ -143,6 +143,23 @@ class Terminal {
                 window.keyboard.keydownHandler(e);
                 return true;
             });
+            this.term.parser.registerOscHandler(1024, str => {
+                try {
+                    let obj = JSON.parse(str);
+                    switch(obj.cmd) {
+                        case "openMedia":
+                            fsDisp.openMedia(obj.path, obj.path, fsDisp.fileIconsMatcher(obj.path));
+                            break;
+                        case "openFile":
+                            fsDisp.openFile(obj.path, obj.path, fsDisp.fileIconsMatcher(obj.path));
+                            break;
+                        default:
+                            console.log("Bad cmd:", obj);
+                    }
+                } catch (e) {
+                    console.log("Error:", str, e);
+                }
+            });
             // Prevent soft-keyboard on touch devices #733
             document.querySelectorAll('.xterm-helper-textarea').forEach(textarea => textarea.setAttribute('readonly', 'readonly'))
             this.term.focus();

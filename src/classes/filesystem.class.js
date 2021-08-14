@@ -547,7 +547,7 @@ class FilesystemDisplay {
         }
 
         this.openFile = (name, path, type) => { //Might add text formatting at some point, not now though - Surge
-            let block;
+            let block = { name, path };
 
             if (typeof name === "number") {
                 block = this.cwd[name];
@@ -635,7 +635,7 @@ class FilesystemDisplay {
         };
 
         this.openMedia = (name, path, type) => {
-            let block, html;
+            let block = { name, path }, html;
 
             if (typeof name === "number") {
                 block = this.cwd[name];
