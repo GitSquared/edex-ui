@@ -221,7 +221,7 @@ class Keyboard {
             e.preventDefault();
             for (let i = 0; i < e.changedTouches.length; i++) {
                 let key = e.changedTouches[i].target.parentElement;
-		if (key.tagName === 'svg') key = key.parentElement;
+                if (key.tagName === 'svg') key = key.parentElement;
                 if (key.getAttribute("class").startsWith("keyboard_key")) {
                     key.setAttribute("class", key.getAttribute("class")+" active");
                     key.onmousedown({preventDefault: () => {return true}});
@@ -238,7 +238,7 @@ class Keyboard {
             e.preventDefault();
             for (let i = 0; i < e.changedTouches.length; i++) {
                 let key = e.changedTouches[i].target.parentElement;
-		if (key.tagName === 'svg') key = key.parentElement;
+                if (key.tagName === 'svg') key = key.parentElement;
                 if (key.getAttribute("class").startsWith("keyboard_key")) {
                     key.setAttribute("class", key.getAttribute("class").replace("active", ""));
                     key.onmouseup({preventDefault: () => {return true}});
@@ -324,7 +324,7 @@ class Keyboard {
             if (e.key === "Control" && e.getModifierState("AltGraph")) return;
 
             // See #440
-		    if (e.code === "ControlLeft" || e.code === "ControlRight") this.container.dataset.isCtrlOn = false;
+            if (e.code === "ControlLeft" || e.code === "ControlRight") this.container.dataset.isCtrlOn = false;
             if (e.code === "ShiftLeft" || e.code === "ShiftRight") this.container.dataset.isShiftOn = false;
             if (e.code === "AltLeft" || e.code === "AltRight") this.container.dataset.isAltOn = false;
 
@@ -520,7 +520,7 @@ class Keyboard {
                 window.term[window.currentTerm].writelr("");
             } else {
                 document.activeElement.dispatchEvent(new CustomEvent("change", {detail: "enter" }));
-			}
+            }
             return true;
         }
 
@@ -528,12 +528,12 @@ class Keyboard {
         if (window.keyboard.linkedToTerm) {
             window.term[window.currentTerm].write(cmd);
         } else {
-			let isDelete = false;
+            let isDelete = false;
             if (typeof document.activeElement.value !== "undefined") {
                 switch(cmd) {
                     case "":
                         document.activeElement.value = document.activeElement.value.slice(0, -1);
-				        isDelete = true;
+                        isDelete = true;
                         break;
                     case "OD":
                         document.activeElement.selectionStart--;
@@ -551,8 +551,8 @@ class Keyboard {
                         }
                 }
             }
-		    // Emulate oninput events
-		    document.activeElement.dispatchEvent(new CustomEvent("input", {detail: ((isDelete)? "delete" : "insert") }));
+            // Emulate oninput events
+            document.activeElement.dispatchEvent(new CustomEvent("input", {detail: ((isDelete)? "delete" : "insert") }));
             document.activeElement.focus();
         }
     }
