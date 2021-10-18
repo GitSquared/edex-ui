@@ -99,14 +99,14 @@
     }
   },
   "dependencies": {
-    "clean-css": "5.1.2",
-    "electron": "^12.1.0",
-    "electron-builder": "^22.11.7",
+    "clean-css": "5.2.1",
+    "electron": "^12.2.2",
+    "electron-builder": "^22.14.5",
     "electron-rebuild": "^2.3.5",
-    "mime-types": "^2.1.31",
-    "node-abi": "2.30.0",
+    "mime-types": "^2.1.33",
+    "node-abi": "2.30.1",
     "node-json-minify": "1.0.0",
-    "terser": "^5.7.0"
+    "terser": "^5.9.0"
   },
   "optionalDependencies": {
     "cson-parser": "4.0.9"
